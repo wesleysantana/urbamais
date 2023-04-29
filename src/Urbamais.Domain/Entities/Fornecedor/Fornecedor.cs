@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using FluentValidation;
+using System.Reflection;
 using Urbamais.Domain.Entities.Core;
+using Urbamais.Domain.Entities.Planejamento;
 using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Domain.Entities.Fornecedor;
@@ -123,4 +125,16 @@ public class Fornecedor : BaseEntity, IAggregateRoot
     public static bool operator !=(Fornecedor left, Fornecedor right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
+
+    private class FornecedorValidator : AbstractValidator<Fornecedor>
+    {
+        public FornecedorValidator()
+        {
+            RuleFor(x => x.InscricaoEstadual)
+                .MaximumLength(50);
+
+            RuleFor(x => x.InscricaoMunicipal)
+                .MaximumLength(50);
+        }
+    }
 }
