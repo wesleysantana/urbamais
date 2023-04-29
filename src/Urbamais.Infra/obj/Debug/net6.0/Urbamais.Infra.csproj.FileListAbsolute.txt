@@ -1,0 +1,12 @@
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\bin\Debug\net6.0\Urbamais.Infra.deps.json
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\bin\Debug\net6.0\Urbamais.Infra.dll
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\bin\Debug\net6.0\Urbamais.Infra.pdb
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.csproj.AssemblyReference.cache
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.AssemblyInfoInputs.cache
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.AssemblyInfo.cs
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.csproj.CoreCompileInputs.cache
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.dll
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\refint\Urbamais.Infra.dll
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\Urbamais.Infra.pdb
+C:\Users\Wesley.Santana\source\repos\Urbamais\src\Urbamais.Infra\obj\Debug\net6.0\ref\Urbamais.Infra.dll

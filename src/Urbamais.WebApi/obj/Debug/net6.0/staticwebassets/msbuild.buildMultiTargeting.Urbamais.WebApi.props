@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Urbamais.WebApi.props" />
+</Project>
