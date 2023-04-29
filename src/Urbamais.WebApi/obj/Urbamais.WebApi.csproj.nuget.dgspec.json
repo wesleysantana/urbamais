@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj": {}
+    "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj": {
+    "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj",
         "projectName": "Urbamais.WebApi",
-        "projectPath": "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj",
+        "projectPath": "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\src\\Urbamais.WebApi\\Urbamais.WebApi.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\src\\Urbamais.WebApi\\obj\\",
+        "outputPath": "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\src\\Urbamais.WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

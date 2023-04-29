@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JkUHP1HcWL9YwzKbmOYGBLRFnxeCdmQUvlO1b2OcljEcqeiXWfJXwENI9es+Xs9CR8D9gwN8bJvSjNIvZi14ng==",
+  "dgSpecHash": "diYnS+9AYuyJJbn3FlVcGJ/W/2gT+NbOWVggDe/B/bXPE/tUnyz/u/9MpLzDZQU69nlETtyHA8NjIE+6CCodXQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Wesley.Santana\\source\\repos\\Urbamais\\tests\\Urbamais.Test\\Urbamais.Test.csproj",
+  "projectFilePath": "C:\\Users\\Wesley.Santana\\source\\repos\\urbamais\\tests\\Urbamais.Test\\Urbamais.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
