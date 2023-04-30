@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Urbamais.Domain.Entities.BaseEntity" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SeedWork\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.ValueObjects.CnpjVO" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>ValueObjects\CnpjVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.ValueObjects.CpfVO" Collapsed="true">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAACAAiA=</HashCode>
+      <FileName>ValueObjects\CpfVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.ValueObjects.NomeVO" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAEAAiA=</HashCode>
+      <FileName>ValueObjects\NomeVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Core.Cidade" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAEAAiA=</HashCode>
+      <FileName>Entities\Core\Cidade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Core.Email" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAEiA=</HashCode>
+      <FileName>Entities\Core\Email.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Core.Endereco" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAACIEgAAAAACAAAAAAIAAAAAAAAABAiA=</HashCode>
+      <FileName>Entities\Core\Endereco.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Core.Telefone" Collapsed="true">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAABAiA=</HashCode>
+      <FileName>Entities\Core\Telefone.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Core.Uf" Collapsed="true">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAgAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Entities\Core\Uf.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Obra.Empresa" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIAAAgCAAAAAEgAEAAAAAEAAAAIAAAAAAAACAEiA=</HashCode>
+      <FileName>Entities\Obra\Empresa.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Obra.Obra" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Obra\Obra.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Planejamento.Insumo" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Planejamento\Insumo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Planejamento.Unidade" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAEgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Entities\Planejamento\Unidade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.SeedWork.BaseValidate" Collapsed="true">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAgAAAAAAAAAAAAAAEAIAAAAAAA=</HashCode>
+      <FileName>SeedWork\BaseValidate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
