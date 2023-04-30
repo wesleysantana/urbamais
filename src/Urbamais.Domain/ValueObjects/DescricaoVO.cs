@@ -7,9 +7,9 @@ public class DescricaoVO : BaseValidate
 {
     public string? Descricao { get; private set; }
 
-    public DescricaoVO(string nome)
+    public DescricaoVO(string descricao)
     {
-        Descricao = nome.Trim();
+        Descricao = descricao.Trim();
         Validate(this, new DescricaoValidator());
 
         if (!IsValid) Descricao = default;
