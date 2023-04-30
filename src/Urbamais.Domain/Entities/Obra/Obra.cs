@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Domain.Entities.Obra;
 
@@ -6,9 +7,9 @@ public class Obra : BaseEntity, IAggregateRoot
 {
     public int EmpresaId { get; private set; }
     public Empresa Empresa { get; private set; }
-    public string Descricao { get; private set; }
+    public DescricaoVO Descricao { get; private set; }
 
-    public Obra(Empresa empresa, string descricao)
+    public Obra(Empresa empresa, DescricaoVO descricao)
     {
         Empresa = empresa;
         Descricao = descricao;
@@ -30,9 +31,9 @@ public class Obra : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(string descricao)
+    public void Update(DescricaoVO descricao)
     {
-        Descricao = descricao.Trim();
+        Descricao = descricao;
         Validar();
     }
 
