@@ -56,5 +56,9 @@ public class Equipamento : BaseEntity, IAggregateRoot
         return HashCode.Combine(Id, Nome, Descricao);
     }
 
+    public static bool operator ==(Equipamento left, Equipamento right) => left.Equals(right);
+
+    public static bool operator !=(Equipamento left, Equipamento right) => !left.Equals(right);
+
     #endregion Sobrescrita Object
 }
