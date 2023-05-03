@@ -1,13 +1,14 @@
 ﻿using Urbamais.Domain.SeedWork;
+using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Test.ValueObjects;
 
-public class DescricaoVO : BaseValidate
+public class DescricaoVOTest : BaseValidate
 {
     [Fact]
     public void DescricaoAdequado()
     {
-        var descricao = new Domain.ValueObjects.DescricaoVO("Descricao correta");
+        var descricao = new DescricaoVO("Descricao correta");
 
         Assert.True(descricao.IsValid);
     }
@@ -23,7 +24,7 @@ public class DescricaoVO : BaseValidate
         sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
         Aldus PageMaker including versions of Lorem Ipsum.";
 
-        var Descricao = new Domain.ValueObjects.DescricaoVO(valor);
+        var Descricao = new DescricaoVO(valor);
         Assert.False(Descricao.IsValid);
 
         var msg = $"The length of '{nameof(Descricao.Descricao)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
@@ -33,8 +34,8 @@ public class DescricaoVO : BaseValidate
     [Fact]
     public void Igualdade()
     {
-        var Descricao1 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao2 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Wesley Santana");
 
         Assert.Equal(Descricao1, Descricao2);
     }
@@ -42,45 +43,45 @@ public class DescricaoVO : BaseValidate
     [Fact]
     public void IgualdadeFalha()
     {
-        var Descricao01 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao02 = new Domain.ValueObjects.DescricaoVO("Rita Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Rita Santana");
 
-        Assert.False(Descricao01.Equals(Descricao02));
+        Assert.False(Descricao1.Equals(Descricao2));
     }
 
     [Fact]
     public void IgualdadeOperator()
     {
-        var Descricao01 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao02 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Wesley Santana");
 
-        Assert.True(Descricao01 == Descricao02);
+        Assert.True(Descricao1 == Descricao2);
     }
 
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var Descricao01 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao02 = new Domain.ValueObjects.DescricaoVO("Rita Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Rita Santana");
 
-        Assert.True(Descricao01 != Descricao02);
+        Assert.True(Descricao1 != Descricao2);
     }
 
     [Fact]
     public void IgualdadeHashcode()
     {
-        var Descricao01 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao02 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Wesley Santana");
 
-        Assert.True(Descricao01.GetHashCode().Equals(Descricao02.GetHashCode()));
+        Assert.True(Descricao1.GetHashCode().Equals(Descricao2.GetHashCode()));
     }
 
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var Descricao01 = new Domain.ValueObjects.DescricaoVO("Wesley Santana");
-        var Descricao02 = new Domain.ValueObjects.DescricaoVO("Rita Santana");
+        var Descricao1 = new DescricaoVO("Wesley Santana");
+        var Descricao2 = new DescricaoVO("Rita Santana");
 
-        Assert.False(Descricao01.GetHashCode().Equals(Descricao02.GetHashCode()));
+        Assert.False(Descricao1.GetHashCode().Equals(Descricao2.GetHashCode()));
     }
 }
