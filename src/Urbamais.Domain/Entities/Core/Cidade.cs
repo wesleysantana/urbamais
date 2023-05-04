@@ -3,7 +3,7 @@ using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Domain.Entities.Core;
 
-public class Cidade : BaseEntity, IAggregateRoot
+public sealed class Cidade : BaseEntity, IAggregateRoot
 {
     public NomeVO Nome { get; private set; }
     public Uf Uf { get; private set; }

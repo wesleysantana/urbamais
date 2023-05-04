@@ -3,7 +3,7 @@ using Urbamais.Domain.SeedWork;
 
 namespace Urbamais.Domain.ValueObjects;
 
-public class CpfVO : BaseValidate
+public sealed class CpfVO : BaseValidate
 {
     public string? Cpf { get; private set; }
 

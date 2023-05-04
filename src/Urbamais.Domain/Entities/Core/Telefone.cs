@@ -2,7 +2,7 @@
 
 namespace Urbamais.Domain.Entities.Core;
 
-public class Telefone : BaseEntity, IEntity
+public sealed class Telefone : BaseEntity, IEntity
 {
     public string? Numero { get; private set; }
 

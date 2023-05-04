@@ -2,7 +2,7 @@
 
 namespace Urbamais.Domain.Entities.Core;
 
-public class Uf : BaseEntity, IAggregateRoot
+public sealed class Uf : BaseEntity, IAggregateRoot
 {
     public string? Sigla { get; private set; }
 

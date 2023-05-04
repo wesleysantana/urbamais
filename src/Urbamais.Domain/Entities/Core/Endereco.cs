@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Urbamais.Domain.Entities.Core;
 
-public class Endereco : BaseEntity, IEntity
+public sealed class Endereco : BaseEntity, IEntity
 {
     public string Logradouro { get; private set; }
     public string Numero { get; private set; }

@@ -3,7 +3,7 @@ using Urbamais.Domain.SeedWork;
 
 namespace Urbamais.Domain.ValueObjects;
 
-public class CnpjVO : BaseValidate
+public sealed class CnpjVO : BaseValidate
 {
     public string? Cnpj { get; private set; }
 

@@ -3,7 +3,7 @@ using Urbamais.Domain.SeedWork;
 
 namespace Urbamais.Domain.ValueObjects;
 
-public class NomeVO : BaseValidate
+public sealed class NomeVO : BaseValidate
 {
     public string? Nome { get; private set; }
 
