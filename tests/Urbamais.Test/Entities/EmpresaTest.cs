@@ -1,6 +1,6 @@
-﻿using Urbamais.Domain.Entities.Core;
+﻿using Core.Domain;
+using Core.ValueObjects;
 using Urbamais.Domain.Entities.Obra;
-using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Test.Entities;
 
@@ -12,7 +12,7 @@ public class EmpresaTest
         var razao = new NomeVO("Empresa Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         List<Telefone> telefones = new()
@@ -42,7 +42,7 @@ public class EmpresaTest
     {
         var empresa = CadastroEmpresa();
         Assert.True(empresa.IsValid);
-        
+
         empresa.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"),
             new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), new Uf("SP"))));
         Assert.True(empresa.IsValid);
@@ -66,7 +66,7 @@ public class EmpresaTest
         var razao = new NomeVO("Empresa Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         List<Telefone> telefones = new()
@@ -92,7 +92,7 @@ public class EmpresaTest
         var razao = new NomeVO("Empresa Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         var numeroLong = "112313213000000000001111111";
@@ -153,7 +153,7 @@ public class EmpresaTest
     public void IgualdadeFalhaOperator()
     {
         var empresa1 = CadastroEmpresa();
-        var empresa2 = CadastroEmpresa();        
+        var empresa2 = CadastroEmpresa();
         empresa2.Update(nomeFantasia: new NomeVO("Novo Nome"));
 
         Assert.True(empresa1 != empresa2);

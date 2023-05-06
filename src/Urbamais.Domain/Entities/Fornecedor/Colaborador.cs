@@ -1,5 +1,7 @@
-﻿using Urbamais.Domain.Entities.Core;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.Domain;
+using Core.Domain.Interfaces;
+using Core.SeedWork;
+using Core.ValueObjects;
 
 namespace Urbamais.Domain.Entities.Fornecedor;
 

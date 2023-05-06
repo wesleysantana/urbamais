@@ -1,5 +1,5 @@
 ﻿namespace Core.Domain.Interfaces;
 
-internal interface IEntity
+public interface IEntity
 {
 }

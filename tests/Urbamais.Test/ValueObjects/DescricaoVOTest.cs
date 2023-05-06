@@ -1,10 +1,9 @@
-﻿using Urbamais.Domain.SeedWork;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.ValueObjects;
 
 namespace Urbamais.Test.ValueObjects;
 
-public class DescricaoVOTest : BaseValidate
-{
+public class DescricaoVOTest
+{ 
     [Fact]
     public void DescricaoAdequado()
     {

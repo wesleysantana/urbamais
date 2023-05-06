@@ -1,5 +1,5 @@
-﻿using Urbamais.Domain.Entities.Obra;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.ValueObjects;
+using Urbamais.Domain.Entities.Obra;
 
 namespace Urbamais.Test.Entities;
 
@@ -37,7 +37,7 @@ public class ObraTest
     {
         var obra1 = new Obra(EmpresaTest.CadastroEmpresa(), new DescricaoVO("Obra Teste"));
         var obra2 = new Obra(EmpresaTest.CadastroEmpresa(), new DescricaoVO("Obra Teste"));
-        
+
         obra2.Update(new DescricaoVO("Obra Alterada"));
 
         Assert.False(obra1.Equals(obra2));

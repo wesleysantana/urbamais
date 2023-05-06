@@ -1,6 +1,8 @@
-﻿using System.Reflection;
-using Urbamais.Domain.Entities.Core;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.Domain;
+using Core.Domain.Interfaces;
+using Core.SeedWork;
+using Core.ValueObjects;
+using System.Reflection;
 
 namespace Urbamais.Domain.Entities.Obra;
 
@@ -71,7 +73,7 @@ public class Empresa : BaseEntity, IAggregateRoot
     public void Update(NomeVO? razaoSocial = null, NomeVO? nomeFantasia = null, CnpjVO? cnpj = null, Endereco? endereco = null,
         List<Telefone>? telefones = null, List<Email>? emails = null)
     {
-        if (razaoSocial is not null) RazaoSocial = razaoSocial; 
+        if (razaoSocial is not null) RazaoSocial = razaoSocial;
         if (nomeFantasia is not null) NomeFantasia = nomeFantasia;
         if (cnpj is not null) Cnpj = cnpj;
         if (endereco is not null) Endereco = endereco;

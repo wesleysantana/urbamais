@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Core.Domain.Interfaces;
+using Core.SeedWork;
+using FluentValidation;
 using System.Reflection;
 using Urbamais.Domain.Entities.Fornecedor;
 

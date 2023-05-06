@@ -1,4 +1,4 @@
-﻿using Urbamais.Domain.ValueObjects;
+﻿using Core.ValueObjects;
 
 namespace Urbamais.Test.ValueObjects;
 

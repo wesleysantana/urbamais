@@ -1,4 +1,7 @@
-﻿namespace Urbamais.Domain.Entities.Planejamento;
+﻿using Core.Domain.Interfaces;
+using Core.SeedWork;
+
+namespace Urbamais.Domain.Entities.Planejamento;
 
 public class Planejamento : BaseEntity, IAggregateRoot
 {

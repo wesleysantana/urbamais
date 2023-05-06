@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using Core.Domain.Interfaces;
+using Core.SeedWork;
+using Core.ValueObjects;
+using FluentValidation;
 using System.Reflection;
-using Urbamais.Domain.ValueObjects;
 
 namespace Urbamais.Domain.Entities.Planejamento;
 

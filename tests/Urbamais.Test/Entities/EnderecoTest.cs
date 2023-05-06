@@ -1,5 +1,5 @@
-﻿using Urbamais.Domain.Entities.Core;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.Domain;
+using Core.ValueObjects;
 
 namespace Urbamais.Test.Entities;
 
@@ -129,10 +129,10 @@ public class EnderecoTest
     [Fact]
     public void Igualdade()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         Assert.True(endereco1.Equals(endereco2));
@@ -141,10 +141,10 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Recife"), new Uf("PE")));
 
         Assert.False(endereco1.Equals(endereco2));
@@ -153,10 +153,10 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         Assert.True(endereco1 == endereco2);
@@ -165,10 +165,10 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Recife"), new Uf("PE")));
 
         Assert.True(endereco1 != endereco2);
@@ -177,10 +177,10 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
         Assert.True(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));
@@ -189,10 +189,10 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
             new Cidade(new NomeVO("Recife"), new Uf("PE")));
 
         Assert.False(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));

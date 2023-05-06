@@ -1,5 +1,5 @@
 ﻿namespace Core.Domain.Interfaces;
 
-internal interface IAggregateRoot : IEntity
+public interface IAggregateRoot : IEntity
 {
 }

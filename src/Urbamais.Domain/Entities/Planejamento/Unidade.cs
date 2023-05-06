@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Core.Domain.Interfaces;
+using Core.SeedWork;
+using FluentValidation;
 
 namespace Urbamais.Domain.Entities.Planejamento;
 

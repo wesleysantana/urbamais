@@ -1,5 +1,5 @@
-﻿using Urbamais.Domain.Entities.Core;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.Domain;
+using Core.ValueObjects;
 
 namespace Urbamais.Test.Entities;
 

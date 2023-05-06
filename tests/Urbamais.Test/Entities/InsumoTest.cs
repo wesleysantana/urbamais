@@ -1,5 +1,5 @@
-﻿using Urbamais.Domain.Entities.Planejamento;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.ValueObjects;
+using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.Test.Entities;
 
@@ -21,7 +21,7 @@ public class InsumoTest
         var tipoInsumo = TipoInsumo.Material - 1;
         var insumo = new Insumo(new NomeVO("Insumo"), "Descrição qualquer", new Unidade("MT"), tipoInsumo);
         Assert.False(insumo.IsValid);
-        
+
         var msg = $"'{nameof(insumo.Tipo)}' has a range of values which does not include '{tipoInsumo}'.";
         Assert.Contains(insumo.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
     }

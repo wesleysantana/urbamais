@@ -1,5 +1,5 @@
-﻿using Urbamais.Domain.Entities.Fornecedor;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.ValueObjects;
+using Urbamais.Domain.Entities.Fornecedor;
 
 namespace Urbamais.Test.Entities;
 

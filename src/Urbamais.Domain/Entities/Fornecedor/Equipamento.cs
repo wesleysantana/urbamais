@@ -1,5 +1,7 @@
-﻿using System.Reflection;
-using Urbamais.Domain.ValueObjects;
+﻿using Core.Domain.Interfaces;
+using Core.SeedWork;
+using Core.ValueObjects;
+using System.Reflection;
 
 namespace Urbamais.Domain.Entities.Fornecedor;
 
