@@ -119,28 +119,28 @@ public class Colaborador : BaseEntity, IAggregateRoot
     public override bool Equals(object? obj)
     {
         return obj is Colaborador colaborador &&
-               EqualityComparer<List<Telefone>?>.Default.Equals(_listTelefones, colaborador._listTelefones) &&
-               EqualityComparer<List<Email>?>.Default.Equals(_listEmails, colaborador._listEmails) &&
-               EqualityComparer<NomeVO>.Default.Equals(Nome, colaborador.Nome) &&
-               EqualityComparer<CpfVO>.Default.Equals(Cpf, colaborador.Cpf) &&
-               EqualityComparer<Endereco>.Default.Equals(Endereco, colaborador.Endereco) &&
-               NumeroCarteiraTrabalho == colaborador.NumeroCarteiraTrabalho &&
-               NumeroCNH == colaborador.NumeroCNH &&
-               TipoCNH == colaborador.TipoCNH &&
-               DataValidadeCNH == colaborador.DataValidadeCNH &&
-               EqualityComparer<FileStream>.Default.Equals(CNH, colaborador.CNH) &&
-               EqualityComparer<FileStream>.Default.Equals(FichaEPI, colaborador.FichaEPI) &&
-               EqualityComparer<FileStream>.Default.Equals(CarteiraTrabalho, colaborador.CarteiraTrabalho) &&
-               NumeroExameAdmissional == colaborador.NumeroExameAdmissional &&
-               ValidadeExameAdmissional == colaborador.ValidadeExameAdmissional &&
-               EqualityComparer<FileStream>.Default.Equals(ExameAdmissional, colaborador.ExameAdmissional) &&
-               EqualityComparer<FileStream>.Default.Equals(FichaRegistro, colaborador.FichaRegistro) &&
-               EqualityComparer<FileStream>.Default.Equals(OrdemServico, colaborador.OrdemServico);
+            EqualityComparer<List<Telefone>?>.Default.Equals(_listTelefones, colaborador._listTelefones) &&
+            EqualityComparer<List<Email>?>.Default.Equals(_listEmails, colaborador._listEmails) &&
+            EqualityComparer<NomeVO>.Default.Equals(Nome, colaborador.Nome) &&
+            EqualityComparer<CpfVO>.Default.Equals(Cpf, colaborador.Cpf) &&
+            EqualityComparer<Endereco>.Default.Equals(Endereco, colaborador.Endereco) &&
+            NumeroCarteiraTrabalho == colaborador.NumeroCarteiraTrabalho &&
+            NumeroCNH == colaborador.NumeroCNH &&
+            TipoCNH == colaborador.TipoCNH &&
+            DataValidadeCNH == colaborador.DataValidadeCNH &&
+            EqualityComparer<FileStream>.Default.Equals(CNH, colaborador.CNH) &&
+            EqualityComparer<FileStream>.Default.Equals(FichaEPI, colaborador.FichaEPI) &&
+            EqualityComparer<FileStream>.Default.Equals(CarteiraTrabalho, colaborador.CarteiraTrabalho) &&
+            NumeroExameAdmissional == colaborador.NumeroExameAdmissional &&
+            ValidadeExameAdmissional == colaborador.ValidadeExameAdmissional &&
+            EqualityComparer<FileStream>.Default.Equals(ExameAdmissional, colaborador.ExameAdmissional) &&
+            EqualityComparer<FileStream>.Default.Equals(FichaRegistro, colaborador.FichaRegistro) &&
+            EqualityComparer<FileStream>.Default.Equals(OrdemServico, colaborador.OrdemServico);
     }
 
     public override int GetHashCode()
     {
-        HashCode hash = new HashCode();
+        HashCode hash = new();
         hash.Add(_listTelefones);
         hash.Add(_listEmails);
         hash.Add(Nome);
