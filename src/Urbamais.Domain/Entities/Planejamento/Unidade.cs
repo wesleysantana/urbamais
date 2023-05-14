@@ -14,7 +14,7 @@ public class Unidade : BaseEntity, IAggregateRoot
 
         Validate(this, new UnidadeValidator());
 
-        if (!IsValid) Descricao = default;
+        if (!IsValid && Id == 0) Descricao = default;
     }
 
     #region Sobrescrita Object

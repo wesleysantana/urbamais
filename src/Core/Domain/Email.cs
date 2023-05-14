@@ -14,7 +14,7 @@ public sealed class Email : BaseEntity, IEntity
 
         Validate(this, new EmailValidator());
 
-        if (!IsValid) Endereco = default;
+        if (!IsValid && Id == default) Endereco = default;
     }
 
     #region Sobrescrita Object

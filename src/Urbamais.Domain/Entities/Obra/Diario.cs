@@ -46,7 +46,7 @@ public class Diario : BaseEntity, IAggregateRoot
 
         Validate(this, new DiarioValidator());
 
-        if (!IsValid)
+        if (!IsValid && Id == 0)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

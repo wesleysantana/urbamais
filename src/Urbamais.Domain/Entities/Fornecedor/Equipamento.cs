@@ -23,7 +23,7 @@ public class Equipamento : BaseEntity, IAggregateRoot
         ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
         ValidationResult.Errors.AddRange(Descricao.ValidationResult.Errors);
 
-        if (!IsValid)
+        if (!IsValid && Id == 0)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

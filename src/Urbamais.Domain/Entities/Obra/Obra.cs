@@ -23,7 +23,7 @@ public class Obra : BaseEntity, IAggregateRoot
     {
         ValidationResult.Errors.AddRange(Empresa.ValidationResult.Errors);
 
-        if (!IsValid)
+        if (!IsValid && Id == 0)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

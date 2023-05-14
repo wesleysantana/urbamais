@@ -13,7 +13,7 @@ public sealed class Telefone : BaseEntity, IEntity
         Numero = numero.Trim();
         Validate(this, new TelefoneValidator());
 
-        if (!IsValid) Numero = default;
+        if (!IsValid && Id == default) Numero = default;
     }
 
     #region Sobrescrita Object

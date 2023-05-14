@@ -15,6 +15,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
         Nome = nome;
         Uf = siglaUf;
 
+        DataCriacao = DateTime.Now;
         Validar();
     }
 
@@ -23,7 +24,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
         ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
         ValidationResult.Errors.AddRange(Uf.ValidationResult.Errors);
 
-        if (!IsValid)
+        if (!IsValid && Id == default)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
@@ -38,6 +39,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
         if (nome is not null) Nome = nome;
         if (siglaUf is not null) Uf = siglaUf;
 
+        DataAlteracao = DateTime.Now;
         Validar();
     }
 

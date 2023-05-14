@@ -25,7 +25,7 @@ public sealed class Endereco : BaseEntity, IEntity
 
         ValidationResult.Errors.AddRange(Cidade.ValidationResult.Errors);
 
-        if (!IsValid)
+        if (!IsValid && Id == default)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

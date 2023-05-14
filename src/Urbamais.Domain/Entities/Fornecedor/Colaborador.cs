@@ -72,7 +72,7 @@ public class Colaborador : BaseEntity, IAggregateRoot
         ValidationResult.Errors.AddRange(Cpf.ValidationResult.Errors);
         ValidationResult.Errors.AddRange(Endereco.ValidationResult.Errors);
 
-        if (!IsValid)
+        if (!IsValid && Id == 0)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

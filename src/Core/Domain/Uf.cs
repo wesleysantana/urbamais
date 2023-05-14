@@ -14,7 +14,7 @@ public sealed class Uf : BaseEntity, IAggregateRoot
 
         Validate(this, new UfValidator());
 
-        if (!IsValid) Sigla = default;
+        if (!IsValid && Id == default) Sigla = default;
     }
 
     #region Sobrescrita Object
