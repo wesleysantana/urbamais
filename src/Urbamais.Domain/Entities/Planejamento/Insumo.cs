@@ -25,7 +25,7 @@ public class Insumo : BaseEntity, IAggregateRoot
 
         Validate(this, new InsumoValidator());
 
-        if (!IsValid && Id == 0)
+        if (!IsValid && Id == default)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)

@@ -50,7 +50,7 @@ public class Empresa : BaseEntity, IAggregateRoot
         ValidationResult.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult.Errors));
         ValidationResult.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult.Errors));
 
-        if (!IsValid && Id == 0)
+        if (!IsValid && Id == default)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
