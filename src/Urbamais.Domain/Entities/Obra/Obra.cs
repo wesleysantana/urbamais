@@ -8,7 +8,7 @@ namespace Urbamais.Domain.Entities.Obra;
 public class Obra : BaseEntity, IAggregateRoot
 {
     public int EmpresaId { get; private set; }
-    public Empresa Empresa { get; private set; }
+    public virtual Empresa Empresa { get; private set; }
     public DescricaoVO Descricao { get; private set; }
 
     public Obra(Empresa empresa, DescricaoVO descricao)

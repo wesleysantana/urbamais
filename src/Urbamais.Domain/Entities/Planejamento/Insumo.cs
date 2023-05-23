@@ -10,7 +10,8 @@ public class Insumo : BaseEntity, IAggregateRoot
 {
     public NomeVO Nome { get; private set; }
     public string Descricao { get; private set; }
-    public Unidade Unidade { get; private set; }
+    public int UnidadeId { get; private set; }
+    public virtual Unidade Unidade { get; private set; }
     public TipoInsumo Tipo { get; private set; }
 
     public Insumo(NomeVO nome, string descricao, Unidade unidade, TipoInsumo tipo)

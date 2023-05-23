@@ -7,7 +7,7 @@ namespace Urbamais.Domain.Entities.Fornecedor;
 
 public class Equipamento : BaseEntity, IAggregateRoot
 {
-    public NomeVO Nome { get; set; }
+    public NomeVO Nome { get; private set; }
     public DescricaoVO Descricao { get; private set; }
 
     public Equipamento(NomeVO nome, DescricaoVO descricao)

@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using Core.Domain.Interfaces;
+﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
 using Core.ValueObjects;
+using System.Reflection;
 
 namespace Core.Domain;
 
@@ -41,7 +41,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
 
         DataAlteracao = DateTime.Now;
         Validar();
-    }
+    }    
 
     #region Sobrescrita Object
 

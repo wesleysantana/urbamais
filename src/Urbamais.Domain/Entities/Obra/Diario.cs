@@ -11,13 +11,13 @@ public class Diario : BaseEntity, IAggregateRoot
     private List<FileStream>? _listFotos = new();
 
     public int ObraId { get; private set; }
-    public Obra Obra { get; private set; }
+    public virtual Obra Obra { get; private set; }
     public DateTime Data { get; private set; }
     public int FornecedorId { get; private set; }
-    public Fornecedor.Fornecedor Fornecedor { get; private set; }
+    public virtual Fornecedor.Fornecedor Fornecedor { get; private set; }
     public string DescricaoAtividades { get; private set; }
     public int ColaboradorId { get; private set; }
-    public Colaborador Colaborador { get; private set; }
+    public virtual Colaborador Colaborador { get; private set; }
 
     public IReadOnlyCollection<FileStream> Fotos
     {

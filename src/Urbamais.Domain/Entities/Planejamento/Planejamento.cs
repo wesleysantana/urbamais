@@ -14,7 +14,7 @@ public class Planejamento : BaseEntity, IAggregateRoot
     }
 
     public int? IdObra { get; private set; }
-    public Obra.Obra Obra { get; private set; }
+    public virtual Obra.Obra Obra { get; private set; }
 
     public Planejamento(IReadOnlyCollection<Insumo> insumos, Obra.Obra obra)
     {
