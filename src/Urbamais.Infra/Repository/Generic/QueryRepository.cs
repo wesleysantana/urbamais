@@ -30,5 +30,5 @@ public abstract class QueryRepository<T> : IQueryRepository<T> where T : class
         return await _context.Set<T>().AsNoTracking().ToListAsync();
     }
 
-    public async Task<IList<T>> List(Expression<Func<T, bool>> where) => await _context.Set<T>().Where(where).ToListAsync();
+    public async Task<IList<T>> List(Expression<Func<T, bool>> where) => await _context.Set<T>().Where(where).AsNoTracking().ToListAsync();
 }

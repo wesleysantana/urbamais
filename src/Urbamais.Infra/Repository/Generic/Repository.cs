@@ -10,32 +10,23 @@ public abstract class Repository<T> : QueryRepository<T>, IUnitOfWork, IReposito
     {
     }
 
-    public async Task<int> Insert(T entity)
-    {        
-        await _context.Set<T>().AddAsync(entity);
-        return await Commit();
-    }
+    public async Task Insert(T entity) => await _context.Set<T>().AddAsync(entity);
 
-    public async Task<int> Update(T entity)
-    {
-        _context.Set<T>().Update(entity);
-        return await Commit();
-    }
+    public void Update(T entity) => _context.Set<T>().Update(entity);
 
-    public async Task<int> Delete(T entity)
+    public void Delete(T entity)
     {
         if (entity.GetType() == typeof(BaseEntity))
         {
             var entidade = entity as BaseEntity;
             entidade?.Delete();
-            return await Commit();
+            return;
         }
 
         _context.Set<T>().Remove(entity);
-        return await Commit();
     }
 
-    public async Task<int> Commit() => await _context.SaveChangesAsync();
+    public Task<int> Commit() => _context.SaveChangesAsync();
 
     public Task Rollback() => Task.CompletedTask;
 }

@@ -4,9 +4,9 @@ namespace Urbamais.Domain.Interfaces.Generric;
 
 public interface IRepository<T> : IQueryRepository<T> where T : class
 {
-    Task<int> Insert(T entity);
+    Task Insert(T entity);
 
-    Task<int> Update(T entity);
+    void Update(T entity);
 
-    Task<int> Delete(T entity);
+    void Delete(T entity);
 }
