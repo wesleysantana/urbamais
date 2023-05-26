@@ -9,6 +9,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
 {
     public NomeVO Nome { get; private set; }
     public Uf Uf { get; private set; }
+    public List<Endereco>? Enderecos { get; private set; }
 
     public Cidade(NomeVO nome, Uf siglaUf)
     {

@@ -11,6 +11,7 @@ public sealed class Endereco : BaseEntity, IEntity
     public string Numero { get; private set; }
     public string Complemento { get; private set; }
     public string Bairro { get; private set; }
+    public int CidadeId { get; private set; }
     public Cidade Cidade { get; private set; }
 
     public Endereco(string logradouro, string numero, string complemento, string bairro, Cidade cidade)

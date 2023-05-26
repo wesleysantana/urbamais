@@ -45,6 +45,9 @@ public sealed class Email : BaseEntity, IEntity
         {
             RuleFor(x => x.Endereco)
                 .EmailAddress();
+
+            RuleFor(x => x.Endereco)
+                .MaximumLength(255);
         }
     }
 }
