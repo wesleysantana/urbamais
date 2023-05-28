@@ -11,13 +11,19 @@ public class Fornecedor : BaseEntity, IAggregateRoot
 {
     private List<Telefone>? _listTelefones = new();
     private List<Email>? _listEmails = new();
+    private List<Endereco> _listEnderecos = new();
 
     public NomeVO NomeFantasia { get; private set; }
     public NomeVO RazaoSocial { get; private set; }
     public CnpjVO Cnpj { get; private set; }
     public string InscricaoEstadual { get; private set; }
     public string? InscricaoMunicipal { get; private set; }
-    public Endereco Endereco { get; private set; }
+    
+    public IReadOnlyCollection<Endereco> Enderecos 
+    { 
+        get => _listEnderecos; 
+        private set => _listEnderecos = value.ToList(); 
+    }
 
     public IReadOnlyCollection<Telefone> Telefones
     {
@@ -32,16 +38,16 @@ public class Fornecedor : BaseEntity, IAggregateRoot
     }
 
     public Fornecedor(NomeVO nomeFantasia, NomeVO razaoSocial, CnpjVO cnpj, string inscricaoEstadual, 
-        string? inscricaoMunicipal, Endereco endereco, List<Telefone>? listTelefones, List<Email>? listEmails)
+        string? inscricaoMunicipal, List<Endereco> listEndereco, List<Telefone>? listTelefone, List<Email>? listEmail)
     {        
         NomeFantasia = nomeFantasia;
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
         InscricaoEstadual = inscricaoEstadual;
         InscricaoMunicipal = inscricaoMunicipal;
-        Endereco = endereco;
-        _listTelefones = listTelefones;
-        _listEmails = listEmails;
+        _listEnderecos = listEndereco;
+        _listTelefones = listTelefone;
+        _listEmails = listEmail;
 
         Validar();
     }
@@ -51,7 +57,7 @@ public class Fornecedor : BaseEntity, IAggregateRoot
         ValidationResult.Errors.AddRange(RazaoSocial.ValidationResult.Errors);
         ValidationResult.Errors.AddRange(NomeFantasia.ValidationResult.Errors);
         ValidationResult.Errors.AddRange(Cnpj.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Endereco.ValidationResult.Errors);
+        ValidationResult.Errors.AddRange(Enderecos.SelectMany(x => ValidationResult.Errors));
         ValidationResult.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult.Errors));
         ValidationResult.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult.Errors));
 
@@ -60,28 +66,36 @@ public class Fornecedor : BaseEntity, IAggregateRoot
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
             {
+                if (item.Name.Equals(nameof(Enderecos)))
+                {
+                    _listTelefones = default;
+                    continue;
+                }
+
                 if (item.Name.Equals(nameof(Telefones)))
                 {
                     _listTelefones = default;
                     continue;
                 }
+
                 if (item.Name.Equals(nameof(Emails)))
                 {
                     _listEmails = default;
                     continue;
                 }
+
                 item.SetValue(this, default);
             }
         }
     }
 
-    public void Update(NomeVO? razaoSocial = null, NomeVO? nomeFantasia = null, CnpjVO? cnpj = null, Endereco? endereco = null,
-        List<Telefone>? telefones = null, List<Email>? emails = null)
+    public void Update(NomeVO? razaoSocial = null, NomeVO? nomeFantasia = null, CnpjVO? cnpj = null, 
+        List<Endereco>? enderecos = null, List<Telefone>? telefones = null, List<Email>? emails = null)
     {
         if (razaoSocial is not null) RazaoSocial = razaoSocial;
         if (nomeFantasia is not null) NomeFantasia = nomeFantasia;
         if (cnpj is not null) Cnpj = cnpj;
-        if (endereco is not null) Endereco = endereco;
+        if (enderecos is not null) Enderecos = enderecos;
         if (telefones is not null) Telefones = telefones;
         if (emails is not null) Emails = emails;
 
@@ -99,13 +113,19 @@ public class Fornecedor : BaseEntity, IAggregateRoot
             EqualityComparer<NomeVO>.Default.Equals(RazaoSocial, fornecedor.RazaoSocial) &&
             EqualityComparer<NomeVO>.Default.Equals(NomeFantasia, fornecedor.NomeFantasia) &&
             EqualityComparer<CnpjVO>.Default.Equals(Cnpj, fornecedor.Cnpj) &&
-            EqualityComparer<Endereco>.Default.Equals(Endereco, fornecedor.Endereco) &&
+            Enumerable.SequenceEqual(_listEnderecos!.OrderBy(e => e.Id), fornecedor._listEnderecos!.OrderBy(e => e.Id)) &&
             Enumerable.SequenceEqual(_listTelefones!.OrderBy(e => e.Id), fornecedor._listTelefones!.OrderBy(e => e.Id)) &&
             Enumerable.SequenceEqual(_listEmails!.OrderBy(e => e.Id), fornecedor._listEmails!.OrderBy(e => e.Id));
     }
 
     public override int GetHashCode()
     {
+        int hashEndereco = 0;
+        foreach (var item in _listEnderecos!)
+        {
+            hashEndereco += item.GetHashCode();
+        }
+
         int hashTel = 0;
         foreach (var item in _listTelefones!)
         {
@@ -113,12 +133,12 @@ public class Fornecedor : BaseEntity, IAggregateRoot
         }
 
         int hashEmail = 0;
-        foreach (var item in _listTelefones!)
+        foreach (var item in _listEmails!)
         {
             hashEmail += item.GetHashCode();
         }
 
-        return HashCode.Combine(Id, RazaoSocial, NomeFantasia, Cnpj, Endereco) + hashTel + hashEmail;
+        return HashCode.Combine(Id, RazaoSocial, NomeFantasia, Cnpj, Enderecos) + hashEndereco + hashTel + hashEmail;
     }
 
     public static bool operator ==(Fornecedor left, Fornecedor right) => left.Equals(right);
@@ -136,6 +156,9 @@ public class Fornecedor : BaseEntity, IAggregateRoot
 
             RuleFor(x => x.InscricaoMunicipal)
                 .MaximumLength(50);
+
+            RuleFor(x => x.Enderecos)
+                .NotEmpty();
         }
     }
 }
