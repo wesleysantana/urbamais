@@ -11,10 +11,17 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
     public Uf Uf { get; private set; }
     public List<Endereco>? Enderecos { get; private set; }
 
-    public Cidade(NomeVO nome, Uf siglaUf)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    protected Cidade()
+    { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    public Cidade(NomeVO nome, Uf uf)
     {
         Nome = nome;
-        Uf = siglaUf;
+        Uf = uf;
 
         DataCriacao = DateTime.Now;
         Validar();
@@ -23,7 +30,6 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
     private void Validar()
     {
         ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Uf.ValidationResult.Errors);
 
         if (!IsValid && Id == default)
         {
@@ -35,14 +41,14 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NomeVO? nome = null, Uf? siglaUf = null)
+    public void Update(NomeVO? nome = null, Uf? uf = null)
     {
         if (nome is not null) Nome = nome;
-        if (siglaUf is not null) Uf = siglaUf;
+        if (uf is not null) Uf = uf.Value;
 
         DataAlteracao = DateTime.Now;
         Validar();
-    }    
+    }
 
     #region Sobrescrita Object
 

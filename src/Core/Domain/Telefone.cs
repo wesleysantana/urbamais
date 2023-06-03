@@ -8,6 +8,9 @@ public sealed class Telefone : BaseEntity, IEntity
 {
     public string? Numero { get; private set; }
 
+    protected Telefone()
+    { }
+
     public Telefone(string numero)
     {
         Numero = numero.Trim();

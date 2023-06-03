@@ -18,11 +18,11 @@ public class Fornecedor : BaseEntity, IAggregateRoot
     public CnpjVO Cnpj { get; private set; }
     public string InscricaoEstadual { get; private set; }
     public string? InscricaoMunicipal { get; private set; }
-    
-    public IReadOnlyCollection<Endereco> Enderecos 
-    { 
-        get => _listEnderecos; 
-        private set => _listEnderecos = value.ToList(); 
+
+    public IReadOnlyCollection<Endereco> Enderecos
+    {
+        get => _listEnderecos;
+        private set => _listEnderecos = value.ToList();
     }
 
     public IReadOnlyCollection<Telefone> Telefones
@@ -37,9 +37,16 @@ public class Fornecedor : BaseEntity, IAggregateRoot
         private set => _listEmails = value.ToList();
     }
 
-    public Fornecedor(NomeVO nomeFantasia, NomeVO razaoSocial, CnpjVO cnpj, string inscricaoEstadual, 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    protected Fornecedor()
+    { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    public Fornecedor(NomeVO nomeFantasia, NomeVO razaoSocial, CnpjVO cnpj, string inscricaoEstadual,
         string? inscricaoMunicipal, List<Endereco> listEndereco, List<Telefone>? listTelefone, List<Email>? listEmail)
-    {        
+    {
         NomeFantasia = nomeFantasia;
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
@@ -89,7 +96,7 @@ public class Fornecedor : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NomeVO? razaoSocial = null, NomeVO? nomeFantasia = null, CnpjVO? cnpj = null, 
+    public void Update(NomeVO? razaoSocial = null, NomeVO? nomeFantasia = null, CnpjVO? cnpj = null,
         List<Endereco>? enderecos = null, List<Telefone>? telefones = null, List<Email>? emails = null)
     {
         if (razaoSocial is not null) RazaoSocial = razaoSocial;

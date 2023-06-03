@@ -12,8 +12,11 @@ public class FornecedorTest
         var razao = new NomeVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+        var endereco = new List<Endereco>()
+        {
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+        };
 
         List<Telefone> telefones = new()
         {
@@ -43,8 +46,13 @@ public class FornecedorTest
         var Fornecedor = CadastroFornecedor();
         Assert.True(Fornecedor.IsValid);
 
-        Fornecedor.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"),
-            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), new Uf("SP"))));
+        var endereco = new List<Endereco>()
+        {
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+        };
+
+        Fornecedor.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
         Assert.True(Fornecedor.IsValid);
     }
 
@@ -54,8 +62,13 @@ public class FornecedorTest
         var Fornecedor = CadastroFornecedor();
         Assert.True(Fornecedor.IsValid);
 
-        Fornecedor.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"),
-            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), new Uf("SP"))));
+        var endereco = new List<Endereco>()
+        {
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+        };
+
+        Fornecedor.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
         Assert.False(Fornecedor.IsValid);
     }
 
@@ -66,8 +79,11 @@ public class FornecedorTest
         var razao = new NomeVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+        var endereco = new List<Endereco>()
+        {
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+        };
 
         List<Telefone> telefones = new()
         {
@@ -92,8 +108,11 @@ public class FornecedorTest
         var razao = new NomeVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+        var endereco = new List<Endereco>()
+        {
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+        };
 
         var numeroLong = "112313213000000000001111111";
         List<Telefone> telefones = new()

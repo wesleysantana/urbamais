@@ -13,7 +13,7 @@ public class EmpresaTest
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
         var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP));
 
         List<Telefone> telefones = new()
         {
@@ -44,7 +44,7 @@ public class EmpresaTest
         Assert.True(empresa.IsValid);
 
         empresa.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"),
-            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), new Uf("SP"))));
+            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), Uf.SP)));
         Assert.True(empresa.IsValid);
     }
 
@@ -55,7 +55,7 @@ public class EmpresaTest
         Assert.True(empresa.IsValid);
 
         empresa.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"),
-            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), new Uf("SP"))));
+            new Endereco("Rua Tal", "100", "", "Bairro Qualquer", new Cidade(new NomeVO("Pirapozinho"), Uf.SP)));
         Assert.False(empresa.IsValid);
     }
 
@@ -67,7 +67,7 @@ public class EmpresaTest
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
         var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP));
 
         List<Telefone> telefones = new()
         {
@@ -93,7 +93,7 @@ public class EmpresaTest
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
         var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), new Uf("SP")));
+            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP));
 
         var numeroLong = "112313213000000000001111111";
         List<Telefone> telefones = new()

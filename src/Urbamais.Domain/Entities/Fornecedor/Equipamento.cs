@@ -10,6 +10,13 @@ public class Equipamento : BaseEntity, IAggregateRoot
     public NomeVO Nome { get; private set; }
     public DescricaoVO Descricao { get; private set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    protected Equipamento()
+    { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
     public Equipamento(NomeVO nome, DescricaoVO descricao)
     {
         Nome = nome;

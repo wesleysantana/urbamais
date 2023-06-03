@@ -28,6 +28,13 @@ public class Empresa : BaseEntity, IAggregateRoot
         private set => _listEmails = value.ToList();
     }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    protected Empresa()
+    { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
     public Empresa(NomeVO razaoSocial, NomeVO nomeFantasia, CnpjVO cnpj, Endereco endereco,
         List<Telefone> telefones, List<Email> emails)
     {

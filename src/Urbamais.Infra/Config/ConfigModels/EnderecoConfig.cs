@@ -34,8 +34,9 @@ internal class EnderecoConfig
             .HasMaxLength(100);
 
         builder.Entity<Endereco>()
-            .HasOne<Cidade>()
+            .HasOne(x => x.Cidade)
             .WithMany(x => x.Enderecos)
+            .HasForeignKey(x => x.CidadeId)
             .IsRequired();
     }
 }

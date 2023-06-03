@@ -5,7 +5,7 @@ namespace Urbamais.Domain.Entities.Planejamento;
 
 public class Planejamento : BaseEntity, IAggregateRoot
 {
-    public List<Insumo> _listInsumos = new();   
+    public List<Insumo> _listInsumos = new();
 
     public IReadOnlyCollection<Insumo> Insumos
     {
@@ -15,6 +15,13 @@ public class Planejamento : BaseEntity, IAggregateRoot
 
     public int? IdObra { get; private set; }
     public virtual Obra.Obra Obra { get; private set; }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    protected Planejamento()
+    { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Planejamento(IReadOnlyCollection<Insumo> insumos, Obra.Obra obra)
     {

@@ -15,7 +15,6 @@ public class ContextEf : DbContext
     public DbSet<Email> Emails { get; set; }
     public DbSet<Endereco> Enderecos { get; set; }
     public DbSet<Telefone> Telefones { get; set; }
-    public DbSet<Uf> Ufs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +22,5 @@ public class ContextEf : DbContext
         EmailConfig.Config(modelBuilder);
         EnderecoConfig.Config(modelBuilder);
         TelefoneConfig.Config(modelBuilder);
-        UfConfig.Config(modelBuilder);
     }
 }

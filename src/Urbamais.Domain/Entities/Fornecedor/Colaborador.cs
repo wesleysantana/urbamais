@@ -46,6 +46,11 @@ public class Colaborador : BaseEntity, IAggregateRoot
         private set => _listEmails = value.ToList();
     }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    protected Colaborador()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    { }
+
     public Colaborador(NomeVO nome, CpfVO cpf,
         List<Endereco> enderecos, string numeroCarteiraTrabalho, string numeroCNH, string tipoCNH,
         DateTime dataValidadeCNH, FileStream cNH, FileStream fichaEPI, FileStream carteiraTrabalho,

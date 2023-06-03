@@ -11,15 +11,10 @@ internal class CidadeConfig
         builder.Entity<Cidade>().HasKey(x => x.Id);
 
         builder.Entity<Cidade>()
+            .OwnsOne(x => x.Nome)
             .Property(x => x.Nome)
             .HasColumnName("nome")
             .IsRequired()
-            .HasMaxLength(255);
-
-        builder.Entity<Cidade>()
-            .Property(x => x.Uf)
-            .HasColumnName("uf")
-            .IsRequired()
-            .HasMaxLength(2);
+            .HasMaxLength(255);              
     }
 }
