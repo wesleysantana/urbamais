@@ -1,21 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Juridico\" />
     <Folder Include="Entities\Financeiro\" />
+    <Folder Include="Entities\Juridico\" />
     <Folder Include="Entities\Suprimento\" />
+    <Folder Include="Interfaces\Financeiro\" />
     <Folder Include="Interfaces\Fornecedor\" />
     <Folder Include="Interfaces\Juridico\" />
-    <Folder Include="Interfaces\Financeiro\" />
     <Folder Include="Interfaces\Obra\" />
-    <Folder Include="Interfaces\Suprimento\" />
     <Folder Include="Interfaces\Planejamento\" />
+    <Folder Include="Interfaces\Suprimento\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
   </ItemGroup>
 
   <ItemGroup>
