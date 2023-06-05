@@ -18,9 +18,9 @@ public class ContextEf : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        CidadeConfig.Config(modelBuilder);
-        EmailConfig.Config(modelBuilder);
-        EnderecoConfig.Config(modelBuilder);
-        TelefoneConfig.Config(modelBuilder);
+        _ = new CidadeConfig(modelBuilder);
+        _ = new EmailConfig(modelBuilder);
+        _ = new EnderecoConfig(modelBuilder);
+        _ = new TelefoneConfig(modelBuilder);
     }
 }

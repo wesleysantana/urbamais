@@ -1,15 +1,18 @@
 ﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
+using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class EnderecoConfig
+internal class EnderecoConfig : ConfigBase<Endereco>
 {
-    public static void Config(ModelBuilder builder)
+    public EnderecoConfig(ModelBuilder builder) : base(builder)
     {
-        builder.Entity<Endereco>().ToTable("endereco");
-        builder.Entity<Endereco>().HasKey(x => x.Id);
+        Config(builder);
+    }
 
+    private static void Config(ModelBuilder builder)
+    {
         builder.Entity<Endereco>()
             .Property(x => x.Logradouro)
             .HasColumnName("logradouro")
@@ -32,6 +35,10 @@ internal class EnderecoConfig
             .HasColumnName("bairro")
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.Entity<Endereco>()
+            .Property(x => x.CidadeId)
+            .HasColumnName("cidade_id");
 
         builder.Entity<Endereco>()
             .HasOne(x => x.Cidade)

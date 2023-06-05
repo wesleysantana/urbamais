@@ -26,26 +26,29 @@ namespace Urbamais.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_alteracao");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_criacao");
 
                     b.Property<DateTime?>("DataExclusao")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
 
                     b.Property<int>("Uf")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("uf");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("cidade_id");
 
                     b.ToTable("cidade", (string)null);
                 });
@@ -54,18 +57,22 @@ namespace Urbamais.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_alteracao");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_criacao");
 
                     b.Property<DateTime?>("DataExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
@@ -73,10 +80,8 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("character varying(255)")
                         .HasColumnName("endereco");
 
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("email_id");
 
                     b.ToTable("email", (string)null);
                 });
@@ -85,7 +90,8 @@ namespace Urbamais.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
 
@@ -96,7 +102,8 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnName("bairro");
 
                     b.Property<int>("CidadeId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cidade_id");
 
                     b.Property<string>("Complemento")
                         .IsRequired()
@@ -105,16 +112,16 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnName("complemento");
 
                     b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_alteracao");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_criacao");
 
                     b.Property<DateTime?>("DataExclusao")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
@@ -128,7 +135,8 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("character varying(10)")
                         .HasColumnName("numero");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("endereco_id");
 
                     b.HasIndex("CidadeId");
 
@@ -139,21 +147,22 @@ namespace Urbamais.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_alteracao");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_criacao");
 
                     b.Property<DateTime?>("DataExclusao")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
 
                     b.Property<string>("Numero")
                         .IsRequired()
@@ -161,7 +170,8 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("character varying(20)")
                         .HasColumnName("numero");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("telefone_id");
 
                     b.ToTable("telefone", (string)null);
                 });
@@ -172,9 +182,6 @@ namespace Urbamais.Infra.Migrations
                         {
                             b1.Property<int>("CidadeId")
                                 .HasColumnType("integer");
-
-                            b1.Property<bool>("IsValid")
-                                .HasColumnType("boolean");
 
                             b1.Property<string>("Nome")
                                 .IsRequired()

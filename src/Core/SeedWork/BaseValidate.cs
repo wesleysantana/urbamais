@@ -8,6 +8,7 @@ public class BaseValidate
 {
     private bool _isValid = true;
 
+    [NotMapped]
     public bool IsValid
     {
         get => !ValidationResult.Errors.Any() && _isValid;

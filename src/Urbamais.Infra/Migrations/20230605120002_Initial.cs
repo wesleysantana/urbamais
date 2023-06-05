@@ -16,86 +16,81 @@ namespace Urbamais.Infra.Migrations
                 name: "cidade",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     nome = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Nome_IsValid = table.Column<bool>(type: "boolean", nullable: false),
-                    Uf = table.Column<int>(type: "integer", nullable: false),
-                    IsValid = table.Column<bool>(type: "boolean", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    DataExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    uf = table.Column<int>(type: "integer", nullable: false),
+                    data_criacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    data_alteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    data_exclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cidade", x => x.Id);
+                    table.PrimaryKey("cidade_id", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "email",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     endereco = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    IsValid = table.Column<bool>(type: "boolean", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    DataExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    data_criacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    data_alteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    data_exclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_email", x => x.Id);
+                    table.PrimaryKey("email_id", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "telefone",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     numero = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    IsValid = table.Column<bool>(type: "boolean", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    DataExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    data_criacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    data_alteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    data_exclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_telefone", x => x.Id);
+                    table.PrimaryKey("telefone_id", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "endereco",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     logradouro = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     numero = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     complemento = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     bairro = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    CidadeId = table.Column<int>(type: "integer", nullable: false),
-                    IsValid = table.Column<bool>(type: "boolean", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    DataExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    cidade_id = table.Column<int>(type: "integer", nullable: false),
+                    data_criacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    data_alteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    data_exclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_endereco", x => x.Id);
+                    table.PrimaryKey("endereco_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_endereco_cidade_CidadeId",
-                        column: x => x.CidadeId,
+                        name: "FK_endereco_cidade_cidade_id",
+                        column: x => x.cidade_id,
                         principalTable: "cidade",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_endereco_CidadeId",
+                name: "IX_endereco_cidade_id",
                 table: "endereco",
-                column: "CidadeId");
+                column: "cidade_id");
         }
 
         /// <inheritdoc />

@@ -1,15 +1,18 @@
 ﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
+using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class TelefoneConfig
+internal class TelefoneConfig : ConfigBase<Telefone>
 {
-    public static void Config(ModelBuilder builder)
+    public TelefoneConfig(ModelBuilder builder) : base(builder)
     {
-        builder.Entity<Telefone>().ToTable("telefone");
-        builder.Entity<Telefone>().HasKey(x => x.Id);
+        Config(builder);
+    }
 
+    private static void Config(ModelBuilder builder)
+    {
         builder.Entity<Telefone>()
             .Property(x => x.Numero)
             .HasColumnName("numero")

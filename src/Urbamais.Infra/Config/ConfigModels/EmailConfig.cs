@@ -1,15 +1,18 @@
 ﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
+using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class EmailConfig
+internal class EmailConfig : ConfigBase<Email>
 {
-    public static void Config(ModelBuilder builder)
+    public EmailConfig(ModelBuilder builder) : base(builder)
     {
-        builder.Entity<Email>().ToTable("email");
-        builder.Entity<Email>().HasKey(x => x.Id);
+        Config(builder);
+    }
 
+    private static void Config(ModelBuilder builder)
+    {
         builder.Entity<Email>()
             .Property(x => x.Endereco)
             .HasColumnName("endereco")
