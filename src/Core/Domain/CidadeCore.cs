@@ -1,35 +1,37 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
 using Core.ValueObjects;
+using FluentValidation;
 using System.Reflection;
 
 namespace Core.Domain;
 
-public sealed class Cidade : BaseEntity, IAggregateRoot
+public abstract class CidadeCore : BaseEntity, IAggregateRoot
 {
     public NomeVO Nome { get; private set; }
-    public Uf Uf { get; private set; }
-    public List<Endereco>? Enderecos { get; private set; }
+    public Uf Uf { get; private set; }    
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    protected Cidade()
+    protected CidadeCore()
     { }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Cidade(NomeVO nome, Uf uf)
+    public CidadeCore(NomeVO nome, Uf uf)
     {
         Nome = nome;
         Uf = uf;
+        DataCriacao = DateTime.Now;        
 
-        DataCriacao = DateTime.Now;
         Validar();
     }
 
     private void Validar()
     {
         ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
+
+        Validate(this, new CidadeValidator());
 
         if (!IsValid && Id == default)
         {
@@ -56,7 +58,7 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
 
     public override bool Equals(object? obj)
     {
-        return obj is Cidade cidade &&
+        return obj is CidadeCore cidade &&
             Id == cidade.Id &&
             EqualityComparer<NomeVO>.Default.Equals(Nome, cidade.Nome) &&
             EqualityComparer<Uf>.Default.Equals(Uf, cidade.Uf);
@@ -67,9 +69,18 @@ public sealed class Cidade : BaseEntity, IAggregateRoot
         return HashCode.Combine(Id, Nome, Uf);
     }
 
-    public static bool operator ==(Cidade left, Cidade right) => left.Equals(right);
+    public static bool operator ==(CidadeCore left, CidadeCore right) => left.Equals(right);
 
-    public static bool operator !=(Cidade left, Cidade right) => !left.Equals(right);
+    public static bool operator !=(CidadeCore left, CidadeCore right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
+
+    private class CidadeValidator : AbstractValidator<CidadeCore>
+    {
+        public CidadeValidator()
+        {
+            RuleFor(x => x.Uf)
+                .IsInEnum();
+        }
+    }
 }

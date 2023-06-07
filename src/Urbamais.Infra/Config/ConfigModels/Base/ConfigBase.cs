@@ -1,5 +1,4 @@
-﻿using Core.Domain;
-using Core.SeedWork;
+﻿using Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace Urbamais.Infra.Config.ConfigModels.Base;
@@ -8,7 +7,7 @@ internal abstract class ConfigBase<T> where T : BaseEntity
 {
     public ConfigBase(ModelBuilder builder)
     {
-        ConfigBase<T>.Config(builder);
+        Config(builder);
     }
 
     private static void Config(ModelBuilder builder)

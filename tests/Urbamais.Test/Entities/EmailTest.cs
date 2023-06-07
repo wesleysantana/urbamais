@@ -1,4 +1,4 @@
-﻿using Core.Domain;
+﻿using Urbamais.Domain.Entities.CoreRelationManyToMany;
 
 namespace Urbamais.Test.Entities;
 

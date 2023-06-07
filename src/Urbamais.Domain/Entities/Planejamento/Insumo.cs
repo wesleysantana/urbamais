@@ -13,6 +13,7 @@ public class Insumo : BaseEntity, IAggregateRoot
     public int UnidadeId { get; private set; }
     public virtual Unidade Unidade { get; private set; }
     public TipoInsumo Tipo { get; private set; }
+    public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 

@@ -1,5 +1,5 @@
-﻿using Core.Domain;
-using Core.ValueObjects;
+﻿using Core.ValueObjects;
+using Urbamais.Domain.Entities.CoreRelationManyToMany;
 using Urbamais.Domain.Entities.Fornecedor;
 
 namespace Urbamais.Test.Entities;
@@ -14,8 +14,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
         };
 
         List<Telefone> telefones = new()
@@ -48,8 +47,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
         };
 
         Fornecedor.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
@@ -64,8 +62,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
         };
 
         Fornecedor.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
@@ -81,8 +78,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
         };
 
         List<Telefone> telefones = new()
@@ -110,8 +106,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha",
-            new Cidade(new NomeVO("Presidente Prudente"), Uf.SP))
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
         };
 
         var numeroLong = "112313213000000000001111111";

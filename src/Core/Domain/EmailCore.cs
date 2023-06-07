@@ -4,14 +4,11 @@ using FluentValidation;
 
 namespace Core.Domain;
 
-public sealed class Email : BaseEntity, IEntity
+public abstract class EmailCore : BaseEntity, IEntity
 {
     public string? Endereco { get; private set; }
 
-    protected Email()
-    { }
-
-    public Email(string endereco)
+    public EmailCore(string endereco)
     {
         Endereco = endereco.Trim();
 
@@ -26,7 +23,7 @@ public sealed class Email : BaseEntity, IEntity
 
     public override bool Equals(object? obj)
     {
-        return obj is Email email &&
+        return obj is EmailCore email &&
             Id == email.Id &&
             Endereco == email.Endereco;
     }
@@ -36,13 +33,13 @@ public sealed class Email : BaseEntity, IEntity
         return HashCode.Combine(Id, Endereco);
     }
 
-    public static bool operator ==(Email left, Email right) => left.Equals(right);
+    public static bool operator ==(EmailCore left, EmailCore right) => left.Equals(right);
 
-    public static bool operator !=(Email left, Email right) => !left.Equals(right);
+    public static bool operator !=(EmailCore left, EmailCore right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
 
-    private class EmailValidator : AbstractValidator<Email>
+    private class EmailValidator : AbstractValidator<EmailCore>
     {
         public EmailValidator()
         {

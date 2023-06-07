@@ -1,5 +1,5 @@
-﻿using Core.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Urbamais.Domain.Entities.CoreRelationManyToMany;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;

@@ -1,5 +1,5 @@
-﻿using Core.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Urbamais.Domain.Entities.CoreRelationManyToMany;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
@@ -38,12 +38,12 @@ internal class EnderecoConfig : ConfigBase<Endereco>
 
         builder.Entity<Endereco>()
             .Property(x => x.CidadeId)
-            .HasColumnName("cidade_id");
+            .HasColumnName("cidade_id")
+            .IsRequired();
 
         builder.Entity<Endereco>()
             .HasOne(x => x.Cidade)
             .WithMany(x => x.Enderecos)
-            .HasForeignKey(x => x.CidadeId)
-            .IsRequired();
+            .HasForeignKey(x => x.CidadeId);
     }
 }

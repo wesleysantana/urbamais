@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Urbamais.Domain.Entities.CoreRelationManyToMany;
 using Urbamais.Domain.Entities.Fornecedor;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
@@ -14,15 +16,80 @@ internal class ColaboradorConfig : ConfigBase<Colaborador>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Colaborador>()
-           .Property(x => x.Nome)
-           .HasColumnName("nome")
-           .IsRequired()
-           .HasMaxLength(255);
+            .OwnsOne(x => x.Nome)
+            .Property(x => x.Nome)
+            .HasColumnName("nome")
+            .IsRequired()
+            .HasMaxLength(255);
 
         builder.Entity<Colaborador>()
+            .OwnsOne(x => x.Cpf)
             .Property(x => x.Cpf)
             .HasColumnName("cpf")
+        .IsRequired()
+        .HasMaxLength(11);
+
+        //NumeroCarteiraTrabalho = table.Column<string>(type: "text", nullable: false),
+        //            NumeroCNH = table.Column<string>(type: "text", nullable: false),
+        //            TipoCNH = table.Column<string>(type: "text", nullable: false),
+        //            DataValidadeCNH = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+        //            NumeroExameAdmissional = table.Column<string>(type: "text", nullable: false),
+        //            ValidadeExameAdmissional = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+
+        builder.Entity<Colaborador>()
+            .Property(x => x.NumeroCarteiraTrabalho)
+            .HasColumnName("numero_carteira_trabalho")
             .IsRequired()
-            .HasMaxLength(11);
+            .HasMaxLength(25);
+
+        builder.Entity<Colaborador>()
+           .Property(x => x.NumeroCNH)
+           .HasColumnName("numero_cnh")
+           .HasMaxLength(9);
+
+        builder.Entity<Colaborador>()
+            .Property(x => x.TipoCNH)
+            .HasColumnName("tipo_cnh")
+            .HasMaxLength(2);
+
+        builder.Entity<Colaborador>()
+            .Property(x => x.DataValidadeCNH)
+            .HasColumnName("data_validade_cnh");
+
+        builder.Entity<Colaborador>()
+            .Property(x => x.NumeroExameAdmissional)
+            .HasColumnName("numero_exame_adminissional")
+            .HasMaxLength(20);
+
+        builder.Entity<Colaborador>()
+            .Property(x => x.DataValidadeExameAdmissional)
+            .HasColumnName("data_validade_exame_admissional");
+
+        builder.Entity<Colaborador>()
+            .HasMany(x => x.Enderecos)
+            .WithMany(x => x.Colaboradores)
+            .UsingEntity<Dictionary<string, object>>(
+                "colaboradores_enderecos",
+                x => x.HasOne<Endereco>().WithMany().HasForeignKey("endereco_id"),
+                x => x.HasOne<Colaborador>().WithMany().HasForeignKey("colaborador_id")
+            );
+
+        builder.Entity<Colaborador>()
+            .HasMany(x => x.Emails)
+            .WithMany(x => x.Colaboradores)
+            .UsingEntity<Dictionary<string, object>>(
+                "colaboradores_emails",
+                x => x.HasOne<Email>().WithMany().HasForeignKey("email_id"),
+                x => x.HasOne<Colaborador>().WithMany().HasForeignKey("colaborador_id")
+            );
+
+        builder.Entity<Colaborador>()
+           .HasMany(x => x.Telefones)
+           .WithMany(x => x.Colaboradores)
+           .UsingEntity<Dictionary<string, object>>(
+               "colaboradors_telefones",
+               x => x.HasOne<Telefone>().WithMany().HasForeignKey("telefone_id"),
+               x => x.HasOne<Colaborador>().WithMany().HasForeignKey("colaborador_id")
+           );
     }
 }

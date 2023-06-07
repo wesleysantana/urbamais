@@ -4,14 +4,11 @@ using FluentValidation;
 
 namespace Core.Domain;
 
-public sealed class Telefone : BaseEntity, IEntity
+public class TelefoneCore : BaseEntity, IEntity
 {
     public string? Numero { get; private set; }
 
-    protected Telefone()
-    { }
-
-    public Telefone(string numero)
+    public TelefoneCore(string numero)
     {
         Numero = numero.Trim();
         Validate(this, new TelefoneValidator());
@@ -25,7 +22,7 @@ public sealed class Telefone : BaseEntity, IEntity
 
     public override bool Equals(object? obj)
     {
-        return obj is Telefone telefone &&
+        return obj is TelefoneCore telefone &&
                Numero == telefone.Numero;
     }
 
@@ -36,11 +33,11 @@ public sealed class Telefone : BaseEntity, IEntity
 
     #endregion Sobrescrita Object
 
-    public static bool operator ==(Telefone left, Telefone right) => left.Equals(right);
+    public static bool operator ==(TelefoneCore left, TelefoneCore right) => left.Equals(right);
 
-    public static bool operator !=(Telefone left, Telefone right) => !left.Equals(right);
+    public static bool operator !=(TelefoneCore left, TelefoneCore right) => !left.Equals(right);
 
-    private class TelefoneValidator : AbstractValidator<Telefone>
+    private class TelefoneValidator : AbstractValidator<TelefoneCore>
     {
         public TelefoneValidator()
         {

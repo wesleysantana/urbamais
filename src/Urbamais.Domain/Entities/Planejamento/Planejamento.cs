@@ -5,16 +5,17 @@ namespace Urbamais.Domain.Entities.Planejamento;
 
 public class Planejamento : BaseEntity, IAggregateRoot
 {
-    public List<Insumo> _listInsumos = new();
+    public List<Insumo> _listInsumos = new();   
+
+    public int ObraId { get; private set; }
+    public virtual Obra.Obra? Obra { get; private set; }
+    public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
 
     public IReadOnlyCollection<Insumo> Insumos
     {
         get => _listInsumos!;
         private set => _listInsumos = value.ToList();
     }
-
-    public int? IdObra { get; private set; }
-    public virtual Obra.Obra Obra { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -23,10 +24,10 @@ public class Planejamento : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Planejamento(IReadOnlyCollection<Insumo> insumos, Obra.Obra obra)
+    public Planejamento(IReadOnlyCollection<Insumo> insumos, int obraId)
     {
         Insumos = insumos;
-        Obra = obra;
+        ObraId = obraId;
     }
 
     public override bool Equals(object? obj)
@@ -34,12 +35,11 @@ public class Planejamento : BaseEntity, IAggregateRoot
         return obj is Planejamento planejamento &&
             Id == planejamento.Id &&
             EqualityComparer<IReadOnlyCollection<Insumo>>.Default.Equals(Insumos, planejamento.Insumos) &&
-            IdObra == planejamento.IdObra &&
-            EqualityComparer<Obra.Obra>.Default.Equals(Obra, planejamento.Obra);
+            ObraId == planejamento.ObraId;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Insumos, IdObra, Obra);
+        return HashCode.Combine(Insumos, ObraId);
     }
 }

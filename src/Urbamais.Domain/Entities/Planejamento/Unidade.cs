@@ -7,6 +7,7 @@ namespace Urbamais.Domain.Entities.Planejamento;
 public class Unidade : BaseEntity, IAggregateRoot
 {
     public string? Descricao { get; private set; }
+    public virtual ICollection<Insumo>? Insumos { get; private set; }
 
     public Unidade(string? descricao)
     {

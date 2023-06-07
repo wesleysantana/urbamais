@@ -10,6 +10,7 @@ public class Obra : BaseEntity, IAggregateRoot
     public int EmpresaId { get; private set; }
     public virtual Empresa Empresa { get; private set; }
     public DescricaoVO Descricao { get; private set; }
+    public virtual ICollection<Planejamento.Planejamento>? Planejamentos { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     protected Obra()

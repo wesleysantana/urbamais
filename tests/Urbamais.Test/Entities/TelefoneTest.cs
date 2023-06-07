@@ -7,7 +7,7 @@ public class TelefoneTest
     [Fact]
     public void TelefoneValido()
     {
-        var tel = new Telefone("(18) 9 9714-4995");
+        var tel = new TelefoneCore("(18) 9 9714-4995");
 
         Assert.True(tel.IsValid);
     }
@@ -15,7 +15,7 @@ public class TelefoneTest
     [Fact]
     public void TelefoneVazio()
     {
-        var tel = new Telefone("");
+        var tel = new TelefoneCore("");
 
         Assert.False(tel.IsValid);
 
@@ -27,7 +27,7 @@ public class TelefoneTest
     public void Ultrapassando20Caracters()
     {
         var valor = "12345678901234567890123";
-        var tel = new Telefone(valor);
+        var tel = new TelefoneCore(valor);
 
         Assert.False(tel.IsValid);
 
@@ -39,8 +39,8 @@ public class TelefoneTest
     [Fact]
     public void Igualdade()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4995");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4995");
 
         Assert.True(telefone1.Equals(telefone2));
     }
@@ -48,8 +48,8 @@ public class TelefoneTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4996");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4996");
 
         Assert.False(telefone1.Equals(telefone2));
     }
@@ -57,8 +57,8 @@ public class TelefoneTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4995");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4995");
 
         Assert.True(telefone1 == telefone2);
     }
@@ -66,8 +66,8 @@ public class TelefoneTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4996");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4996");
 
         Assert.True(telefone1 != telefone2);
     }
@@ -75,8 +75,8 @@ public class TelefoneTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4995");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4995");
 
         Assert.True(telefone1.GetHashCode().Equals(telefone2.GetHashCode()));
     }
@@ -84,8 +84,8 @@ public class TelefoneTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var telefone1 = new Telefone("(18) 9 9714-4995");
-        var telefone2 = new Telefone("(18) 9 9714-4996");
+        var telefone1 = new TelefoneCore("(18) 9 9714-4995");
+        var telefone2 = new TelefoneCore("(18) 9 9714-4996");
 
         Assert.False(telefone1.GetHashCode().Equals(telefone2.GetHashCode()));
     }
