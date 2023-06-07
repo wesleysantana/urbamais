@@ -9,13 +9,7 @@ public class Planejamento : BaseEntity, IAggregateRoot
 
     public int ObraId { get; private set; }
     public virtual Obra.Obra? Obra { get; private set; }
-    public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
-
-    public IReadOnlyCollection<Insumo> Insumos
-    {
-        get => _listInsumos!;
-        private set => _listInsumos = value.ToList();
-    }
+    public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }    
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -24,9 +18,8 @@ public class Planejamento : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Planejamento(IReadOnlyCollection<Insumo> insumos, int obraId)
+    public Planejamento(int obraId)
     {
-        Insumos = insumos;
         ObraId = obraId;
     }
 
@@ -34,12 +27,11 @@ public class Planejamento : BaseEntity, IAggregateRoot
     {
         return obj is Planejamento planejamento &&
             Id == planejamento.Id &&
-            EqualityComparer<IReadOnlyCollection<Insumo>>.Default.Equals(Insumos, planejamento.Insumos) &&
             ObraId == planejamento.ObraId;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Insumos, ObraId);
+        return HashCode.Combine(ObraId);
     }
 }
