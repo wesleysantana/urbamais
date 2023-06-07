@@ -9,6 +9,7 @@ public class Equipamento : BaseEntity, IAggregateRoot
 {
     public NomeVO Nome { get; private set; }
     public DescricaoVO Descricao { get; private set; }
+    public ICollection<Fornecedor>? Fornecedores { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 

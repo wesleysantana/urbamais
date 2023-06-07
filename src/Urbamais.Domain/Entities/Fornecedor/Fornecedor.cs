@@ -5,6 +5,8 @@ namespace Urbamais.Domain.Entities.Fornecedor;
 
 public class Fornecedor : PessoaJuridica
 {
+    public ICollection<Equipamento>? Equipamentos { get; private set; }
+
     protected Fornecedor()
     { }
 

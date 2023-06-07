@@ -19,6 +19,7 @@ public class ContextEf : DbContext
     public DbSet<Email> Emails { get; set; }
     public DbSet<Empresa> Empresas { get; set; }
     public DbSet<Endereco> Enderecos { get; set; }
+    public DbSet<Equipamento> Equipamentos { get; private set; }
     public DbSet<Fornecedor> Fornecedores { get; set; }
     public DbSet<Insumo> Insumos { get; set; }
     public DbSet<Obra> Obras { get; set; }
@@ -34,6 +35,7 @@ public class ContextEf : DbContext
         _ = new EmailConfig(modelBuilder);
         _ = new EmpresaConfig(modelBuilder);
         _ = new EnderecoConfig(modelBuilder);
+        _ = new EquipamentoConfig(modelBuilder);
         _ = new FornecedorConfig(modelBuilder);
         _ = new ObraConfig(modelBuilder);
         _ = new InsumoConfig(modelBuilder);

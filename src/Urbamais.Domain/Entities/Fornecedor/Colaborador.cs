@@ -19,10 +19,12 @@ public class Colaborador : BaseEntity, IAggregateRoot
     public string? NumeroCNH { get; private set; }
     public string? TipoCNH { get; private set; }
     public DateTime? DataValidadeCNH { get; private set; }
+
     //public FileStream CNH { get; private set; }
     //public FileStream FichaEPI { get; private set; }
     //public FileStream CarteiraTrabalho { get; private set; }
     public string? NumeroExameAdmissional { get; private set; }
+
     public DateTime? DataValidadeExameAdmissional { get; private set; }
     //public FileStream ExameAdmissional { get; private set; }
     //public FileStream FichaRegistro { get; private set; }
@@ -49,8 +51,9 @@ public class Colaborador : BaseEntity, IAggregateRoot
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     protected Colaborador()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     { }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Colaborador(NomeVO nome, CpfVO cpf,
         List<Endereco> enderecos, string numeroCarteiraTrabalho, string numeroCNH, string tipoCNH,
@@ -209,7 +212,7 @@ public class Colaborador : BaseEntity, IAggregateRoot
             RuleFor(x => x.TipoCNH)
                 .MaximumLength(2);
 
-            RuleFor(x => x.NumeroExameAdmissional) 
+            RuleFor(x => x.NumeroExameAdmissional)
                 .MaximumLength(20);
         }
     }

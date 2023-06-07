@@ -87,7 +87,7 @@ internal class ColaboradorConfig : ConfigBase<Colaborador>
            .HasMany(x => x.Telefones)
            .WithMany(x => x.Colaboradores)
            .UsingEntity<Dictionary<string, object>>(
-               "colaboradors_telefones",
+               "colaboradores_telefones",
                x => x.HasOne<Telefone>().WithMany().HasForeignKey("telefone_id"),
                x => x.HasOne<Colaborador>().WithMany().HasForeignKey("colaborador_id")
            );
