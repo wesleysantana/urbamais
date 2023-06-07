@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Obra;
 using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.Infra.Config.ConfigModels;
@@ -14,8 +13,11 @@ internal class PlanejamentoInsumoConfig
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<PlanejamentoInsumo>()
+            .ToTable("planejamento_insumo");
+
+        builder.Entity<PlanejamentoInsumo>()
             .Property(x => x.PlanejamentoId)
-            .HasColumnName("planejamneto_id")
+            .HasColumnName("planejamento_id")
             .IsRequired();
 
         builder.Entity<PlanejamentoInsumo>()
@@ -24,7 +26,7 @@ internal class PlanejamentoInsumoConfig
             .IsRequired();
 
         builder.Entity<PlanejamentoInsumo>()
-            .HasKey(x => new { x.PlanejamentoId, x.InsumoId });       
+            .HasKey(x => new { x.PlanejamentoId, x.InsumoId });
 
         builder.Entity<PlanejamentoInsumo>()
             .Property(x => x.Quantidade)

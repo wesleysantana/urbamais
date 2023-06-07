@@ -67,7 +67,7 @@ internal class FornecedorConfig : ConfigBase<Fornecedor>
            .HasMany(x => x.Telefones)
            .WithMany(x => x.Fornecedores)
            .UsingEntity<Dictionary<string, object>>(
-               "fornecedoers_telefones",
+               "fornecedores_telefones",
                x => x.HasOne<Telefone>().WithMany().HasForeignKey("telefone_id"),
                x => x.HasOne<Fornecedor>().WithMany().HasForeignKey("fornecedor_id")
            );

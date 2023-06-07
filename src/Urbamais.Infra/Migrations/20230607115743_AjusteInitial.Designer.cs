@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Urbamais.Infra.Config;
@@ -11,9 +12,11 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    partial class ContextEfModelSnapshot : ModelSnapshot
+    [Migration("20230607115743_AjusteInitial")]
+    partial class AjusteInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -577,6 +580,21 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("empresas_telefones");
                 });
 
+            modelBuilder.Entity("fornecedoers_telefones", b =>
+                {
+                    b.Property<int>("fornecedor_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("telefone_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("fornecedor_id", "telefone_id");
+
+                    b.HasIndex("telefone_id");
+
+                    b.ToTable("fornecedoers_telefones");
+                });
+
             modelBuilder.Entity("fornecedores_emails", b =>
                 {
                     b.Property<int>("email_id")
@@ -605,21 +623,6 @@ namespace Urbamais.Infra.Migrations
                     b.HasIndex("fornecedor_id");
 
                     b.ToTable("fornecedores_enderecos");
-                });
-
-            modelBuilder.Entity("fornecedores_telefones", b =>
-                {
-                    b.Property<int>("fornecedor_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("telefone_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("fornecedor_id", "telefone_id");
-
-                    b.HasIndex("telefone_id");
-
-                    b.ToTable("fornecedores_telefones");
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Cidade", b =>
@@ -1033,6 +1036,21 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("fornecedoers_telefones", b =>
+                {
+                    b.HasOne("Urbamais.Domain.Entities.Fornecedor.Fornecedor", null)
+                        .WithMany()
+                        .HasForeignKey("fornecedor_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", null)
+                        .WithMany()
+                        .HasForeignKey("telefone_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("fornecedores_emails", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Email", null)
@@ -1059,21 +1077,6 @@ namespace Urbamais.Infra.Migrations
                     b.HasOne("Urbamais.Domain.Entities.Fornecedor.Fornecedor", null)
                         .WithMany()
                         .HasForeignKey("fornecedor_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("fornecedores_telefones", b =>
-                {
-                    b.HasOne("Urbamais.Domain.Entities.Fornecedor.Fornecedor", null)
-                        .WithMany()
-                        .HasForeignKey("fornecedor_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", null)
-                        .WithMany()
-                        .HasForeignKey("telefone_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

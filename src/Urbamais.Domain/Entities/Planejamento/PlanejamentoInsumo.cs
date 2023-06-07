@@ -15,6 +15,10 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
     public DateTime DataInicio { get; private set; }
     public DateTime DataFim { get; private set; }
 
+    protected PlanejamentoInsumo()
+    {
+    }
+
     public PlanejamentoInsumo(int planejamentoId, int insumoId, decimal valorUnitario,
         double quantidade, DateTime dataInicio, DateTime dataFim)
     {
@@ -56,7 +60,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
 
             RuleFor(x => x.InsumoId)
                 .NotNull()
-                .NotEqual(0);            
+                .NotEqual(0);
 
             RuleFor(x => x.ValorUnitario)
                 .NotNull()

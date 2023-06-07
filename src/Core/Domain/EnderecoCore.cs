@@ -9,7 +9,7 @@ public abstract class EnderecoCore : BaseEntity, IEntity
 {
     public string Logradouro { get; private set; }
     public string Numero { get; private set; }
-    public string Complemento { get; private set; }
+    public string? Complemento { get; private set; }
     public string Bairro { get; private set; }
     public int CidadeId { get; private set; }
     public virtual CidadeCore? Cidade { get; private set; }

@@ -15,15 +15,15 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     public NomeVO Nome { get; private set; }
     public CpfVO Cpf { get; private set; }
-    public string NumeroCarteiraTrabalho { get; private set; }
-    public string NumeroCNH { get; private set; }
-    public string TipoCNH { get; private set; }
-    public DateTime DataValidadeCNH { get; private set; }
+    public string? NumeroCarteiraTrabalho { get; private set; }
+    public string? NumeroCNH { get; private set; }
+    public string? TipoCNH { get; private set; }
+    public DateTime? DataValidadeCNH { get; private set; }
     //public FileStream CNH { get; private set; }
     //public FileStream FichaEPI { get; private set; }
     //public FileStream CarteiraTrabalho { get; private set; }
-    public string NumeroExameAdmissional { get; private set; }
-    public DateTime DataValidadeExameAdmissional { get; private set; }
+    public string? NumeroExameAdmissional { get; private set; }
+    public DateTime? DataValidadeExameAdmissional { get; private set; }
     //public FileStream ExameAdmissional { get; private set; }
     //public FileStream FichaRegistro { get; private set; }
     //public FileStream OrdemServico { get; private set; }

@@ -58,7 +58,7 @@ internal class ColaboradorConfig : ConfigBase<Colaborador>
 
         builder.Entity<Colaborador>()
             .Property(x => x.NumeroExameAdmissional)
-            .HasColumnName("numero_exame_adminissional")
+            .HasColumnName("numero_exame_admissional")
             .HasMaxLength(20);
 
         builder.Entity<Colaborador>()
