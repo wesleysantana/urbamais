@@ -12,8 +12,8 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    [Migration("20230607203051_Initial")]
-    partial class Initial
+    [Migration("20230609000443_AjusteCompra")]
+    partial class AjusteCompra
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,12 @@ namespace Urbamais.Infra.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("bairro");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)")
+                        .HasColumnName("cep");
 
                     b.Property<int>("CidadeId")
                         .HasColumnType("integer")
@@ -510,6 +516,80 @@ namespace Urbamais.Infra.Migrations
                         .HasName("unidade_id");
 
                     b.ToTable("unidade", (string)null);
+                });
+
+            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Compra", b =>
+                {
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("integer")
+                        .HasColumnName("pedido_id");
+
+                    b.Property<int>("InsumoId")
+                        .HasColumnType("integer")
+                        .HasColumnName("insumo_id");
+
+                    b.Property<DateTime?>("DataEntrega")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_entrega");
+
+                    b.Property<int>("FornecedorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("fornecedor_id");
+
+                    b.Property<int?>("LocaEntregaId")
+                        .HasColumnType("integer")
+                        .HasColumnName("local_entrega_id");
+
+                    b.Property<double>("Quantidade")
+                        .HasColumnType("double precision")
+                        .HasColumnName("quantidade");
+
+                    b.Property<decimal>("ValorUnitario")
+                        .HasColumnType("numeric")
+                        .HasColumnName("valor_unitario");
+
+                    b.HasKey("PedidoId", "InsumoId");
+
+                    b.HasIndex("FornecedorId");
+
+                    b.HasIndex("InsumoId");
+
+                    b.HasIndex("LocaEntregaId");
+
+                    b.ToTable("compra", (string)null);
+                });
+
+            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_alteracao");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_criacao");
+
+                    b.Property<DateTime?>("DataExclusao")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
+
+                    b.Property<int>("PlanejamentoId")
+                        .HasColumnType("integer")
+                        .HasColumnName("planejamento_id");
+
+                    b.HasKey("Id")
+                        .HasName("pedido_id");
+
+                    b.HasIndex("PlanejamentoId");
+
+                    b.ToTable("pedido", (string)null);
                 });
 
             modelBuilder.Entity("colaboradores_emails", b =>
@@ -1026,6 +1106,50 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Planejamento");
                 });
 
+            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Compra", b =>
+                {
+                    b.HasOne("Urbamais.Domain.Entities.Fornecedor.Fornecedor", "Fornecedor")
+                        .WithMany()
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Urbamais.Domain.Entities.Planejamento.Insumo", "Insumo")
+                        .WithMany()
+                        .HasForeignKey("InsumoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", "LocalEntrega")
+                        .WithMany("Compras")
+                        .HasForeignKey("LocaEntregaId");
+
+                    b.HasOne("Urbamais.Domain.Entities.Suprimento.Pedido", "Pedido")
+                        .WithMany()
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fornecedor");
+
+                    b.Navigation("Insumo");
+
+                    b.Navigation("LocalEntrega");
+
+                    b.Navigation("Pedido");
+                });
+
+            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Pedido", b =>
+                {
+                    b.HasOne("Urbamais.Domain.Entities.Planejamento.Planejamento", "Planejamento")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("PlanejamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Planejamento");
+                });
+
             modelBuilder.Entity("colaboradores_emails", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.Fornecedor.Colaborador", null)
@@ -1181,6 +1305,11 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Enderecos");
                 });
 
+            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", b =>
+                {
+                    b.Navigation("Compras");
+                });
+
             modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Empresa", b =>
                 {
                     b.Navigation("Obras");
@@ -1198,6 +1327,8 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Planejamento.Planejamento", b =>
                 {
+                    b.Navigation("Pedidos");
+
                     b.Navigation("PlanejamentosInsumos");
                 });
 

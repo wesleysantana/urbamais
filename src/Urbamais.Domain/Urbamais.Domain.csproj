@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Entities\Financeiro\" />
     <Folder Include="Entities\Juridico\" />
-    <Folder Include="Entities\Suprimento\" />
     <Folder Include="Interfaces\Financeiro\" />
     <Folder Include="Interfaces\Fornecedor\" />
     <Folder Include="Interfaces\Juridico\" />

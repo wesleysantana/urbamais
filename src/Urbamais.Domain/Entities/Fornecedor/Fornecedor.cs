@@ -1,5 +1,6 @@
 ﻿using Core.ValueObjects;
 using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Resources;
 
 namespace Urbamais.Domain.Entities.Fornecedor;
 

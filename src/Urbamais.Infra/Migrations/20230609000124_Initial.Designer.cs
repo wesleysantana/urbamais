@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Urbamais.Infra.Config;
@@ -11,9 +12,11 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    partial class ContextEfModelSnapshot : ModelSnapshot
+    [Migration("20230609000124_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -525,7 +528,7 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("insumo_id");
 
-                    b.Property<DateTime?>("DataEntrega")
+                    b.Property<DateTime>("DataEntrega")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("data_entrega");
 
@@ -533,7 +536,7 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("fornecedor_id");
 
-                    b.Property<int?>("LocaEntregaId")
+                    b.Property<int>("LocaEntregaId")
                         .HasColumnType("integer")
                         .HasColumnName("local_entrega_id");
 
@@ -1119,7 +1122,9 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", "LocalEntrega")
                         .WithMany("Compras")
-                        .HasForeignKey("LocaEntregaId");
+                        .HasForeignKey("LocaEntregaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Urbamais.Domain.Entities.Suprimento.Pedido", "Pedido")
                         .WithMany()

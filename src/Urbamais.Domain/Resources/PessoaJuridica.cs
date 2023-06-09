@@ -5,7 +5,7 @@ using FluentValidation;
 using System.Reflection;
 using Urbamais.Domain.Entities.CoreRelationManyToMany;
 
-namespace Urbamais.Domain;
+namespace Urbamais.Domain.Resources;
 
 public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 {

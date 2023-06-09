@@ -7,7 +7,7 @@ public class EnderecoTest
     [Fact]
     public void EnderecoValido()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco.IsValid);
     }
@@ -15,7 +15,7 @@ public class EnderecoTest
     [Fact]
     public void LogradouroVazio()
     {
-        var endereco = new Endereco("", "70", "", "Vila Verinha", 1);
+        var endereco = new Endereco("", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -32,7 +32,7 @@ public class EnderecoTest
             logradouro += logradouro;
         }
 
-        var endereco = new Endereco(logradouro, "70", "", "Vila Verinha", 1);
+        var endereco = new Endereco(logradouro, "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -44,7 +44,7 @@ public class EnderecoTest
     [Fact]
     public void NumeroVazio()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "", "", "Vila Verinha", 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -57,7 +57,7 @@ public class EnderecoTest
     {
         var numero = "012345678901";
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", numero, "", "Vila Verinha", 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", numero, "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -75,7 +75,7 @@ public class EnderecoTest
             complemento += complemento;
         }
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", complemento, "Vila Verinha", 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", complemento, "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -87,7 +87,7 @@ public class EnderecoTest
     [Fact]
     public void BairroVazio()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "", 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -104,7 +104,7 @@ public class EnderecoTest
             bairro += bairro;
         }
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", bairro, 1);
+        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", bairro, "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
@@ -116,9 +116,9 @@ public class EnderecoTest
     [Fact]
     public void Igualdade()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1.Equals(endereco2));
     }
@@ -126,9 +126,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 2);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.False(endereco1.Equals(endereco2));
     }
@@ -136,9 +136,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1 == endereco2);
     }
@@ -146,9 +146,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 2);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.True(endereco1 != endereco2);
     }
@@ -156,9 +156,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));
     }
@@ -166,9 +166,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1);
+        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 2);
+        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.False(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));
     }

@@ -37,6 +37,12 @@ internal class EnderecoConfig : ConfigBase<Endereco>
             .HasMaxLength(100);
 
         builder.Entity<Endereco>()
+            .Property(x => x.Cep)
+            .HasColumnName("cep")
+            .IsRequired()
+            .HasMaxLength(8);
+
+        builder.Entity<Endereco>()
             .Property(x => x.CidadeId)
             .HasColumnName("cidade_id")
             .IsRequired();

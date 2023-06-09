@@ -14,7 +14,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         List<Telefone> telefones = new()
@@ -47,7 +47,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         Fornecedor.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
@@ -62,7 +62,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         Fornecedor.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
@@ -78,7 +78,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         List<Telefone> telefones = new()
@@ -106,7 +106,7 @@ public class FornecedorTest
 
         var endereco = new List<Endereco>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", 1)
+            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         var numeroLong = "112313213000000000001111111";
