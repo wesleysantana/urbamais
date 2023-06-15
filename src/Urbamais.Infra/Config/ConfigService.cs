@@ -6,7 +6,7 @@ namespace Urbamais.Infra.Config;
 
 public static class ConfigService
 {
-    public static void AddServices(IServiceCollection services, IConfiguration configuration)
+    public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<ContextEf>(
            options => options.UseNpgsql((configuration.GetConnectionString("DefaultConnection")!),

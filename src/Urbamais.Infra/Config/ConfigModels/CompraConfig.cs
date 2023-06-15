@@ -55,50 +55,5 @@ internal class CompraConfig
             .HasOne(x => x.LocalEntrega)
             .WithMany(x => x.Compras)
             .HasForeignKey(x => x.LocaEntregaId);
-
-        //#region Endereço
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.Bairro)
-        //    .HasColumnName("bairro")
-        //    .HasMaxLength(100)
-        //    .IsRequired();
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.Logradouro)
-        //    .HasColumnName("logradouro")
-        //    .HasMaxLength(150)
-        //    .IsRequired();
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.Complemento)
-        //    .HasColumnName("complemento")
-        //    .HasMaxLength(100);
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.Numero)
-        //    .HasColumnName("numero")
-        //    .HasMaxLength(10)
-        //    .IsRequired();
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.Cep)
-        //    .HasColumnName("cep")
-        //    .IsRequired()
-        //    .HasMaxLength(8);
-
-        //builder.Entity<Compra>()
-        //    .OwnsOne(x => x.LocalEntrega)
-        //    .Property(x => x.CidadeId)
-        //    .HasColumnName("cidade_id")
-        //    .IsRequired();
-
-        //#endregion Endereço
-
     }
 }

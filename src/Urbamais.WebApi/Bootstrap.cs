@@ -7,8 +7,9 @@ public static class Bootstrap
 {
     public static void AddService(IServiceCollection services, IConfiguration configuration)
     {
-        Infra.Config.ConfigService.AddServices(services, configuration);
-        Identity.Config.ConfigService.AddServices(services, configuration);
+        Infra.Config.ConfigService.RegisterServices(services, configuration);
+        Identity.Config.ConfigService.RegisterServices(services, configuration);
+        AuthenticationSetup.AddAuthentication(services, configuration);
 
         var mappingConfig = new MapperConfiguration(mc =>
         {

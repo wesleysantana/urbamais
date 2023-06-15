@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urbamais.WebApi", "src\Urba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urbamais.Identity", "src\Urbamais.Identity\Urbamais.Identity.csproj", "{FD763BAB-F3BB-46EC-8A99-91A2EA9E8661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbamais.Test", "tests\Urbamais.Test\Urbamais.Test.csproj", "{68CE69AE-526B-422C-9E93-76F1317583C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urbamais.Test", "tests\Urbamais.Test\Urbamais.Test.csproj", "{68CE69AE-526B-422C-9E93-76F1317583C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
