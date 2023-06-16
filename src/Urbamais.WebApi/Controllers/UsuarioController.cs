@@ -29,7 +29,6 @@ public class UsuarioController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPost("cadastro-usuario")]
-    [Authorize]
     public async Task<IActionResult> Cadastrar(UsuarioCadastroRequest usuarioCadastro)
     {
         if (!ModelState.IsValid)
