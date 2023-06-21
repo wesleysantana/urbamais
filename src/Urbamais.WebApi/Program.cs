@@ -23,15 +23,19 @@ if (builder.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
+//app.UseCors(builder => builder
+//    .SetIsOriginAllowed(orign => true)
+//    .AllowAnyMethod()
+//    .AllowAnyHeader()
+//    .AllowCredentials());
+
+app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(builder => builder
-    .SetIsOriginAllowed(orign => true)
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials());
 
 app.MapControllers();
 

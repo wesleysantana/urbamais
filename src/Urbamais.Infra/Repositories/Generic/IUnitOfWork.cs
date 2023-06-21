@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Infra.Repository.Generic;
+﻿namespace Urbamais.Infra.Repositories.Generic;
 
 internal interface IUnitOfWork
 {

@@ -40,7 +40,6 @@ internal class IdentityUserConfig
         builder.Entity<IdentityUser>()
             .Property(p => p.PasswordHash)
             .HasColumnName("senha")
-            .HasMaxLength(15)
             .IsRequired();
 
         builder.Entity<IdentityUser>()

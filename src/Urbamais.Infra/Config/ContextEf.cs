@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.SeedWork;
+using Microsoft.EntityFrameworkCore;
 using Urbamais.Domain.Entities.CoreRelationManyToMany;
 using Urbamais.Domain.Entities.Fornecedor;
 using Urbamais.Domain.Entities.Obra;
@@ -31,7 +32,6 @@ public class ContextEf : DbContext
     public DbSet<Telefone> Telefones { get; set; }
     public DbSet<Unidade> Unidades { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         _ = new CidadeConfig(modelBuilder);
@@ -49,5 +49,26 @@ public class ContextEf : DbContext
         _ = new PlanejamentoInsumoConfig(modelBuilder);
         _ = new TelefoneConfig(modelBuilder);
         _ = new UnidadeConfig(modelBuilder);
+    }
+
+    public override int SaveChanges()
+    {
+        SetData();
+        return base.SaveChanges();
+    }
+
+    private void SetData()
+    {
+        foreach (var item in ChangeTracker.Entries())
+        {
+            if(item.Entity.GetType() == typeof(BaseEntity))
+            {
+                if (item.State == EntityState.Added)
+                    item.Property(((BaseEntity)item.Entity).DataCriacao.ToString()).CurrentValue = DateTime.Now;
+
+                if (item.State == EntityState.Modified)
+                    item.Property(((BaseEntity)item.Entity).DataAlteracao.ToString()!).CurrentValue = DateTime.Now;
+            }
+        }
     }
 }

@@ -11,6 +11,10 @@ internal class IdentityRoleConfig
         builder.Entity<IdentityRole>().HasKey(x => x.Id);
 
         builder.Entity<IdentityRole>()
+            .Property(x => x.Id)
+            .HasColumnName("id");
+
+        builder.Entity<IdentityRole>()
             .Property(p => p.Name)
             .HasColumnName("nome");
 

@@ -9,5 +9,6 @@ public class UsuarioLoginRequest
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
+    [MaxLength(15, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
     public string Senha { get; set; } = string.Empty;
 }
