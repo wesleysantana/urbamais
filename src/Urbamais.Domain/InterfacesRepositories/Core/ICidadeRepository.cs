@@ -1,7 +1,7 @@
 ﻿using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Repositories.Interfaces.Generic;
+using Urbamais.Domain.InterfacesRepositories.Generic;
 
-namespace Urbamais.Domain.Repositories.Interfaces.Core;
+namespace Urbamais.Domain.InterfacesRepositories.Core;
 
 public interface ICidadeRepository : IRepositoryBase<Cidade>
 {

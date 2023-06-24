@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Urbamais.Domain.Repositories.Interfaces.Generic;
+using Urbamais.Domain.InterfacesRepositories.Generic;
 using Urbamais.Domain.Services.Interfaces.Generic;
 
 namespace Urbamais.Domain.Services.ConcreteClasses.Generic;

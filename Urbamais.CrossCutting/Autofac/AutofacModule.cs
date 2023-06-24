@@ -1,15 +1,16 @@
 ﻿using Autofac;
-using Urbamais.Application.ConcreteClasses.Core;
-using Urbamais.Application.ConcreteClasses.Generic;
-using Urbamais.Application.Interfaces.Services;
-using Urbamais.Domain.Repositories.Interfaces.Core;
-using Urbamais.Domain.Repositories.Interfaces.Generic;
+using Urbamais.Application.Services.Core;
+using Urbamais.Application.Services.Generic;
+using Urbamais.Domain.InterfacesRepositories.Core;
+using Urbamais.Domain.InterfacesRepositories.Generic;
 using Urbamais.Domain.Services.ConcreteClasses.Core;
 using Urbamais.Domain.Services.ConcreteClasses.Generic;
 using Urbamais.Domain.Services.Interfaces.Core;
 using Urbamais.Domain.Services.Interfaces.Generic;
 using Urbamais.Infra.Repositories.Core;
 using Urbamais.Infra.Repositories.Generic;
+using Urbamais.Application.Interfaces.Generic;
+using Urbamais.Application.Interfaces.Core;
 
 namespace Urbamais.CrossCutting.Autofac;
 

@@ -2,13 +2,13 @@
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Urbamais.Application.Interfaces.Services;
+using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Application.ViewModels.Request.Usuario;
 using Urbamais.Application.ViewModels.Response.Usuario;
 
 namespace Urbamais.Identity.Services;
 
-public class IdentityService : IIdentityService
+public class IdentityService : IIdentityAppService
 {
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;

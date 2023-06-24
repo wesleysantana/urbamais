@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Urbamais.Application.Interfaces.Services;
+using Urbamais.Application.Interfaces.Generic;
 using Urbamais.Domain.Services.Interfaces.Generic;
 
-namespace Urbamais.Application.ConcreteClasses.Generic;
+namespace Urbamais.Application.Services.Generic;
 
 public class AppServiceBase<T> : IDisposable, IAppServiceBase<T> where T : class
 {

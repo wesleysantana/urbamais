@@ -1,7 +1,7 @@
 ﻿using Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Urbamais.Domain.Repositories.Interfaces.Generic;
+using Urbamais.Domain.InterfacesRepositories.Generic;
 using Urbamais.Infra.Config;
 
 namespace Urbamais.Infra.Repositories.Generic;

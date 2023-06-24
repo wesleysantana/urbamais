@@ -8,20 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Interfaces\**" />
+    <Compile Remove="Repositories\**" />
     <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Repositories\**" />
     <None Remove="Interfaces\**" />
+    <None Remove="Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Entities\Financeiro\" />
     <Folder Include="Entities\Juridico\" />
-    <Folder Include="Repositories\ConcreteClasses\" />
-    <Folder Include="Repositories\Interfaces\Financeiro\" />
-    <Folder Include="Repositories\Interfaces\Fornecedor\" />
-    <Folder Include="Repositories\Interfaces\Juridico\" />
-    <Folder Include="Repositories\Interfaces\Suprimento\" />
-    <Folder Include="Repositories\Interfaces\Planejamento\" />
-    <Folder Include="Repositories\Interfaces\Obra\" />
   </ItemGroup>
 
   <ItemGroup>

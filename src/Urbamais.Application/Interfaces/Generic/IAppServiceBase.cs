@@ -1,16 +1,14 @@
 ﻿using System.Linq.Expressions;
 
-namespace Urbamais.Domain.Repositories.Interfaces.Generic;
+namespace Urbamais.Application.Interfaces.Generic;
 
-public interface IRepositoryBase<T> where T : class
+public interface IAppServiceBase<T> where T : class
 {
     Task Insert(T entity);
 
     void Update(T entity);
 
     void Delete(T entity);
-
-    void Dispose();
 
     #region Querys
 
@@ -25,4 +23,6 @@ public interface IRepositoryBase<T> where T : class
     Task<IList<T>> List(Expression<Func<T, bool>> @where);
 
     #endregion Querys
+
+    void Dispose();
 }

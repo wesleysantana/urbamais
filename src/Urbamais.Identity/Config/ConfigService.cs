@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Urbamais.Application.Interfaces.Services;
+using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Identity.Services;
 
 namespace Urbamais.Identity.Config;
@@ -20,6 +20,6 @@ public static class ConfigService
             .AddEntityFrameworkStores<ContextIdentity>()
             .AddDefaultTokenProviders();
 
-        services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IIdentityAppService, IdentityService>();
     }
 }

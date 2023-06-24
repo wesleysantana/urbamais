@@ -1,9 +1,9 @@
 ﻿using Urbamais.Application.ViewModels.Request.Usuario;
 using Urbamais.Application.ViewModels.Response.Usuario;
 
-namespace Urbamais.Application.Interfaces.Services;
+namespace Urbamais.Application.Interfaces.Identity;
 
-public interface IIdentityService
+public interface IIdentityAppService
 {
     Task<UsuarioCadastroResponse> CadastrarUsuario(UsuarioCadastroRequest usuarioCadastro);
 
