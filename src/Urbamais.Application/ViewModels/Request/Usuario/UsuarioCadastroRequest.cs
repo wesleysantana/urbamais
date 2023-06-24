@@ -1,14 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request;
+namespace Urbamais.Application.ViewModels.Request.Usuario;
 
-public class UsuarioLoginRequest
+public class UsuarioCadastroRequest
 {
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [EmailAddress(ErrorMessage = "O campo {0} é inválido")]
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
-    [MaxLength(15, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+    [StringLength(50, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 6)]
     public string Senha { get; set; } = string.Empty;
+
+    [Compare(nameof(Senha), ErrorMessage = "As senhas devem ser iguais")]
+    public string SenhaConfirmacao { get; set; } = string.Empty;
 }

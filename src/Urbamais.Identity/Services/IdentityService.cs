@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Services;
-using Urbamais.Application.ViewModels.Request;
-using Urbamais.Application.ViewModels.Response;
+using Urbamais.Application.ViewModels.Request.Usuario;
+using Urbamais.Application.ViewModels.Response.Usuario;
 
 namespace Urbamais.Identity.Services;
 
@@ -69,8 +69,8 @@ public class IdentityService : IIdentityService
     {
         var usuarioLoginResponse = new UsuarioLoginResponse();
         var usuario = await _userManager.FindByIdAsync(usuarioId.ToString());
-        
-        if(usuario is null)
+
+        if (usuario is null)
             usuarioLoginResponse.AdicionarErro("Usuário não localizado na nossa base de dados");
 
         if (await _userManager.IsLockedOutAsync(usuario!))

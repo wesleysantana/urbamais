@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Urbamais.Application.Config;
+using Urbamais.CrossCutting.AutoMapper;
 
 namespace Urbamais.WebApi;
 

@@ -1,42 +1,63 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Urbamais.CrossCutting.Autofac;
 using Urbamais.WebApi;
 
-var builder = WebApplication.CreateBuilder(args);
+CreateHostBuilder(args).Build().Run();
 
-// Add services to the container.
-Bootstrap.AddService(builder.Services, builder.Configuration);
+static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+        .ConfigureContainer<ContainerBuilder>(builder =>
+        {
+            //var configuration = new ConfigurationBuilder()
+            //    .AddJsonFile("appsettings.json")
+            //    .Build();
 
-builder.Services.AddControllers();
+            builder.RegisterModule(new AutofacModule());
+        })
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
 
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
+//var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSwaggerGen();
+//// Add services to the container.
+//Bootstrap.AddService(builder.Services, builder.Configuration);
 
-var app = builder.Build();
+//builder.Services.AddControllers();
 
-// Configure the HTTP request pipeline.
-if (builder.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
-}
+//builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-app.UseHttpsRedirection();
+//builder.Services.AddSwaggerGen();
 
-app.UseRouting();
+//var app = builder.Build();
 
-//app.UseCors(builder => builder
-//    .SetIsOriginAllowed(orign => true)
-//    .AllowAnyMethod()
-//    .AllowAnyHeader()
-//    .AllowCredentials());
+//// Configure the HTTP request pipeline.
+//if (builder.Environment.IsDevelopment())
+//{
+//    app.UseDeveloperExceptionPage();
+//    app.UseSwagger();
+//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
+//}
 
-app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+//app.UseHttpsRedirection();
 
-app.UseAuthentication();
+//app.UseRouting();
 
-app.UseAuthorization();
+////app.UseCors(builder => builder
+////    .SetIsOriginAllowed(orign => true)
+////    .AllowAnyMethod()
+////    .AllowAnyHeader()
+////    .AllowCredentials());
 
-app.MapControllers();
+//app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.Run();
+//app.UseAuthentication();
+
+//app.UseAuthorization();
+
+//app.MapControllers();
+
+//app.Run();

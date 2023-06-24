@@ -1,4 +1,4 @@
-﻿using Urbamais.Domain.Entities.CoreRelationManyToMany;
+﻿using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.Domain.Entities.Suprimento;

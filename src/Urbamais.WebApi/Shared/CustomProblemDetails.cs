@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 
 namespace Urbamais.WebApi.Shared;
 

@@ -1,6 +1,6 @@
 ﻿using Core.Domain;
 using Core.ValueObjects;
-using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 
 namespace Urbamais.Test.Entities;
 

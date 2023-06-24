@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Fornecedor;
 using Urbamais.Infra.Config.ConfigModels.Base;
 

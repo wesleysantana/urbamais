@@ -1,4 +1,4 @@
-﻿using Urbamais.Domain.Entities.CoreRelationManyToMany;
+﻿using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Repositories.Interfaces.Generic;
 
 namespace Urbamais.Domain.Repositories.Interfaces.Core;

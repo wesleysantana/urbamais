@@ -3,7 +3,7 @@ using Core.SeedWork;
 using Core.ValueObjects;
 using FluentValidation;
 using System.Reflection;
-using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 
 namespace Urbamais.Domain.Resources;
 

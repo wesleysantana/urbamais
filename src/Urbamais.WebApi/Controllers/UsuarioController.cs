@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Services;
-using Urbamais.Application.ViewModels.Request;
-using Urbamais.Application.ViewModels.Response;
+using Urbamais.Application.ViewModels.Request.Usuario;
+using Urbamais.Application.ViewModels.Response.Usuario;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers;
+
 public class UsuarioController : ControllerBase
 {
     private IIdentityService _identityService;

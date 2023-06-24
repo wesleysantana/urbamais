@@ -3,7 +3,7 @@ using Urbamais.Domain.Entities.Fornecedor;
 using Urbamais.Domain.Entities.Obra;
 using Urbamais.Domain.Entities.Suprimento;
 
-namespace Urbamais.Domain.Entities.CoreRelationManyToMany;
+namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
 public sealed class Endereco : EnderecoCore
 {

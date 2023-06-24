@@ -1,6 +1,6 @@
 ﻿using Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.CoreRelationManyToMany;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Fornecedor;
 using Urbamais.Domain.Entities.Obra;
 using Urbamais.Domain.Entities.Planejamento;

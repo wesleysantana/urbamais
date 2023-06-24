@@ -25,7 +25,7 @@ namespace Urbamais.Infra.Migrations
 
             NpgsqlModelBuilderExtensions.UseSerialColumns(modelBuilder);
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Cidade", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Cidade", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("cidade", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Email", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Email", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +89,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("email", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +151,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("endereco", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Telefone", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -742,7 +742,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("fornecedores_telefones");
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Cidade", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Cidade", b =>
                 {
                     b.OwnsOne("Core.ValueObjects.NomeVO", "Nome", b1 =>
                         {
@@ -767,9 +767,9 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Cidade", "Cidade")
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Cidade", "Cidade")
                         .WithMany("Enderecos")
                         .HasForeignKey("CidadeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1120,7 +1120,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", "LocalEntrega")
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", "LocalEntrega")
                         .WithMany("Compras")
                         .HasForeignKey("LocaEntregaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1160,7 +1160,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Email", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Email", null)
                         .WithMany()
                         .HasForeignKey("email_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1175,7 +1175,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", null)
                         .WithMany()
                         .HasForeignKey("endereco_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1190,7 +1190,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Telefone", null)
                         .WithMany()
                         .HasForeignKey("telefone_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1199,7 +1199,7 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("empresas_emails", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Email", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Email", null)
                         .WithMany()
                         .HasForeignKey("email_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1220,7 +1220,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", null)
                         .WithMany()
                         .HasForeignKey("endereco_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1235,7 +1235,7 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Telefone", null)
                         .WithMany()
                         .HasForeignKey("telefone_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1244,7 +1244,7 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("fornecedores_emails", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Email", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Email", null)
                         .WithMany()
                         .HasForeignKey("email_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1259,7 +1259,7 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("fornecedores_enderecos", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", null)
                         .WithMany()
                         .HasForeignKey("endereco_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1295,19 +1295,19 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.CoreRelationManyToMany.Telefone", null)
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Telefone", null)
                         .WithMany()
                         .HasForeignKey("telefone_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Cidade", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Cidade", b =>
                 {
                     b.Navigation("Enderecos");
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.CoreRelationManyToMany.Endereco", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.EntitiesOfCore.Endereco", b =>
                 {
                     b.Navigation("Compras");
                 });

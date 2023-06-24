@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Urbamais.CrossCutting\Urbamais.CrossCutting.csproj" />
     <ProjectReference Include="..\Urbamais.Application\Urbamais.Application.csproj" />
     <ProjectReference Include="..\Urbamais.Identity\Urbamais.Identity.csproj" />
-    <ProjectReference Include="..\Urbamais.Infra\Urbamais.Infra.csproj" />
   </ItemGroup>	
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Core.Domain;
 using Core.ValueObjects;
 
-namespace Urbamais.Domain.Entities.CoreRelationManyToMany;
+namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
 public class Cidade : CidadeCore
 {
