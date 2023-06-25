@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Urbamais.Application.Services.Core.CidadeAppService" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Core\CidadeAppService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Application.Services.Generic.AppServiceBase&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEABACAAAABAAAAAAAAAAAEAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\Generic\AppServiceBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Application.Services.Planejamento.UnidadeAppService" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Planejamento\UnidadeAppService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Application.ViewModels.Request.Unidade.UnidadeRequest" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Request\Unidade\UnidadeRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Application.ViewModels.Request.Usuario.UsuarioCadastroRequest" Collapsed="true">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Request\Usuario\UsuarioCadastroRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Application.ViewModels.Request.Usuario.UsuarioLoginRequest" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Request\Usuario\UsuarioLoginRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Application.ViewModels.Response.Usuario.UsuarioCadastroResponse" Collapsed="true">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAACCAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Response\Usuario\UsuarioCadastroResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Application.ViewModels.Response.Usuario.UsuarioLoginResponse" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAQAAAAAAAAABAAAAAEAAACCAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Response\Usuario\UsuarioLoginResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Urbamais.Application.Interfaces.Core.ICidadeAppService" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Core\ICidadeAppService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Application.Interfaces.Generic.IAppServiceBase&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACAAAABAAAAAAAAAAAEAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>Interfaces\Generic\IAppServiceBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Application.Interfaces.Identity.IIdentityAppService" Collapsed="true">
+    <Position X="8.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAQAAAEAAA=</HashCode>
+      <FileName>Interfaces\Identity\IIdentityAppService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Application.Interfaces.Planejamento.IUnidadeAppService" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Planejamento\IUnidadeAppService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

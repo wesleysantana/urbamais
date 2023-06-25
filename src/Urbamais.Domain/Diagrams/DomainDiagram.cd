@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Urbamais.Domain.Entities.Fornecedor.Colaborador" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAIAIAgCAAAAAMggCAAAAAASEAAYAAQAAAAAGAGCA=</HashCode>
+      <FileName>Entities\Fornecedor\Colaborador.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Fornecedor.Equipamento" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAABAAAEgAAAAAAAAAAAAYAAAAAAAAEAAiA=</HashCode>
+      <FileName>Entities\Fornecedor\Equipamento.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Fornecedor.Fornecedor" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Entities\Fornecedor\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Obra.Diario" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgSAAAAAAgAABAAEkAAAQAAAAAAAAZAAAEACCAAAAAA=</HashCode>
+      <FileName>Entities\Obra\Diario.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Obra.Empresa" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Obra\Empresa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Obra.Obra" Collapsed="true">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAABAAAAgAAAAAAAAQAAAYACAAAAAAAAAiA=</HashCode>
+      <FileName>Entities\Obra\Obra.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Planejamento.Insumo" Collapsed="true">
+    <Position X="5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAAAkgQAAAAAAAAAAAIAAAAAAAAEAAiQ=</HashCode>
+      <FileName>Entities\Planejamento\Insumo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Planejamento.Planejamento" Collapsed="true">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAAAAAAgAAAAAAAAAAAAIAACEAAAAAAAAA=</HashCode>
+      <FileName>Entities\Planejamento\Planejamento.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Entities.Planejamento.Unidade" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAEgAAAAAAAAAAAAIAAAAAAAAABAiA=</HashCode>
+      <FileName>Entities\Planejamento\Unidade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.SeedWork.BaseEntity" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Urbamais.Domain.Resources.PessoaJuridica" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAIAAAgCAAAAAMgAEAAAAAEQAIAYAAAAAAAAAAGiA=</HashCode>
+      <FileName>Resources\PessoaJuridica.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Services.ConcreteClasses.Core.CidadeService" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ConcreteClasses\Core\CidadeService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Services.ConcreteClasses.Core.UnidadeService" Collapsed="true">
+    <Position X="1.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ConcreteClasses\Core\UnidadeService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urbamais.Domain.Services.ConcreteClasses.Generic.ServiceBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACBAAABAAAAAAAAAAAEAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\ConcreteClasses\Generic\ServiceBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Urbamais.Domain.Services.Interfaces.Core.ICidadeService" Collapsed="true">
+    <Position X="6.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Interfaces\Core\ICidadeService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Domain.Services.Interfaces.Core.IUnidadeService" Collapsed="true">
+    <Position X="8.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Interfaces\Core\IUnidadeService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Domain.Services.Interfaces.Generic.IServiceBase&lt;T&gt;" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACAAAABAAAAAAAAAAAEAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\Interfaces\Generic\IServiceBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Domain.InterfacesRepositories.Core.ICidadeRepository" Collapsed="true">
+    <Position X="12.75" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InterfacesRepositories\Core\ICidadeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Domain.InterfacesRepositories.Generic.IRepositoryBase&lt;T&gt;" Collapsed="true">
+    <Position X="11.75" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACAAAABAAAAAAAAAAAEAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>InterfacesRepositories\Generic\IRepositoryBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urbamais.Domain.InterfacesRepositories.Planejamento.IUnidadeRepository" Collapsed="true">
+    <Position X="10.75" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InterfacesRepositories\Planejamento\IUnidadeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
