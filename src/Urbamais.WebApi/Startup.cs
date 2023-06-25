@@ -14,11 +14,12 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         Bootstrap.AddService(services, Configuration);
+        
         services.AddCors();
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Urbamis", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Urbamais", Version = "v1" });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = @"Informe o token de autenticação JWT obtido no endpoint 'Login'.",
@@ -55,7 +56,7 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Urbamais v1"));
         }
 
         app.UseHttpsRedirection();

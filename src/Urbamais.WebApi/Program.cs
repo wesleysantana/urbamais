@@ -1,63 +1,42 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Urbamais.CrossCutting.Autofac;
 using Urbamais.WebApi;
 
-CreateHostBuilder(args).Build().Run();
+var builder = WebApplication.CreateBuilder(args);
 
-static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-        .ConfigureContainer<ContainerBuilder>(builder =>
-        {
-            //var configuration = new ConfigurationBuilder()
-            //    .AddJsonFile("appsettings.json")
-            //    .Build();
+// Add services to the container.
+Bootstrap.AddService(builder.Services, builder.Configuration);
 
-            builder.RegisterModule(new AutofacModule());
-        })
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Startup>();
-        });
+builder.Services.AddControllers();
 
-//var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-//// Add services to the container.
-//Bootstrap.AddService(builder.Services, builder.Configuration);
+builder.Services.AddSwaggerGen();
 
-//builder.Services.AddControllers();
+var app = builder.Build();
 
-//builder.Services.AddRouting(options => options.LowercaseUrls = true);
+// Configure the HTTP request pipeline.
+if (builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
+}
 
-//builder.Services.AddSwaggerGen();
+app.UseHttpsRedirection();
 
-//var app = builder.Build();
+app.UseRouting();
 
-//// Configure the HTTP request pipeline.
-//if (builder.Environment.IsDevelopment())
-//{
-//    app.UseDeveloperExceptionPage();
-//    app.UseSwagger();
-//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
-//}
+//app.UseCors(builder => builder
+//    .SetIsOriginAllowed(orign => true)
+//    .AllowAnyMethod()
+//    .AllowAnyHeader()
+//    .AllowCredentials());
 
-//app.UseHttpsRedirection();
+app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-//app.UseRouting();
+app.UseAuthentication();
 
-////app.UseCors(builder => builder
-////    .SetIsOriginAllowed(orign => true)
-////    .AllowAnyMethod()
-////    .AllowAnyHeader()
-////    .AllowCredentials());
+app.UseAuthorization();
 
-//app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.MapControllers();
 
-//app.UseAuthentication();
-
-//app.UseAuthorization();
-
-//app.MapControllers();
-
-//app.Run();
+app.Run();

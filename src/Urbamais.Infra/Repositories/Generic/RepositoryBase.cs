@@ -6,7 +6,7 @@ using Urbamais.Infra.Config;
 
 namespace Urbamais.Infra.Repositories.Generic;
 
-public abstract class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> where T : class
+public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> where T : class
 {
     protected readonly ContextEf _context;
 

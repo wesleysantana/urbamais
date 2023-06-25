@@ -7,32 +7,39 @@ namespace Urbamais.Domain.Entities.Planejamento;
 public class Unidade : BaseEntity, IAggregateRoot
 {
     public string? Descricao { get; private set; }
+    public string? Sigla { get; private set; }
     public virtual ICollection<Insumo>? Insumos { get; private set; }
 
-    public Unidade(string? descricao)
+    public Unidade(string? descricao, string? sigla)
     {
         Descricao = descricao?.Trim();
+        Sigla = sigla?.Trim();
 
         Validate(this, new UnidadeValidator());
 
-        if (!IsValid && Id == 0) Descricao = default;
+        if (!IsValid && Id == 0)
+        {
+            Descricao = default;
+            Sigla = default;
+        }
     }
 
     #region Sobrescrita Object
 
     public override string ToString() =>
-        $"Unidade - Id: {Id}, Descricao: {Descricao}";
+        $"Unidade - Id: {Id}, Descricao: {Descricao}, Sigla: {Sigla}";
 
     public override bool Equals(object? obj)
     {
         return obj is Unidade unidade &&
             Id == unidade.Id &&
-            Descricao == unidade.Descricao;
+            Descricao == unidade.Descricao &&
+            Sigla == unidade.Sigla;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Descricao);
+        return HashCode.Combine(Id, Descricao, Sigla);
     }
 
     public static bool operator ==(Unidade left, Unidade right) => left.Equals(right);
@@ -48,6 +55,10 @@ public class Unidade : BaseEntity, IAggregateRoot
             RuleFor(x => x.Descricao)
                 .NotEmpty()
                 .MaximumLength(50);
+
+            RuleFor(x => x.Sigla)
+                .NotEmpty()
+                .MaximumLength(10);
         }
     }
 }

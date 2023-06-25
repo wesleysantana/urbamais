@@ -18,5 +18,11 @@ internal class UnidadeConfig : ConfigBase<Unidade>
             .HasColumnName("descricao")
             .HasMaxLength(50)
             .IsRequired();
+
+        builder.Entity<Unidade>()
+            .Property(x => x.Sigla)
+            .HasColumnName("sigla")
+            .HasMaxLength(10)
+            .IsRequired();
     }
 }
