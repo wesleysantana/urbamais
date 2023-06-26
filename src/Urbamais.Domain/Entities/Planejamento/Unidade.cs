@@ -15,6 +15,11 @@ public class Unidade : BaseEntity, IAggregateRoot
         Descricao = descricao?.Trim();
         Sigla = sigla?.Trim();
 
+        Validar();
+    }
+
+    private void Validar()
+    {
         Validate(this, new UnidadeValidator());
 
         if (!IsValid && Id == 0)
@@ -22,6 +27,16 @@ public class Unidade : BaseEntity, IAggregateRoot
             Descricao = default;
             Sigla = default;
         }
+    }
+
+    public void Update(string? descricao = null, string? sigla = null)
+    {
+        if (descricao is not null) Descricao = descricao.Trim();
+        if (sigla is not null) Sigla = sigla.Trim();
+
+        Validar();
+
+        if(!IsValid) DataAlteracao = DateTime.Now;
     }
 
     #region Sobrescrita Object

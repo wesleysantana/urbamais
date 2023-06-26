@@ -15,6 +15,8 @@ public class AppServiceBase<T> : IDisposable, IAppServiceBase<T> where T : class
 
     public IQueryable<T> Query => _serviceBase.Query;
 
+    public Task<int> Commit() => _serviceBase.Commit();
+
     public void Delete(T entity) => _serviceBase.Delete(entity);
 
     public void Dispose() => _serviceBase.Dispose();

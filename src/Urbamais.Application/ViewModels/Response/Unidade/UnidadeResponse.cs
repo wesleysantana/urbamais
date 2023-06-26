@@ -5,4 +5,6 @@ public class UnidadeResponse
     public int Id { get; }
     public string? Descricao { get; }
     public string? Sigla { get; }
+    public bool IsValid { get; }
+
 }

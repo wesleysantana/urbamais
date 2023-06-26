@@ -49,7 +49,7 @@ public class ContextEf : DbContext
         _ = new PlanejamentoInsumoConfig(modelBuilder);
         _ = new TelefoneConfig(modelBuilder);
         _ = new UnidadeConfig(modelBuilder);
-    }
+    }  
 
     public override int SaveChanges()
     {

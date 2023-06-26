@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Urbamais.Application.App.ConcreteClasses.Planejamento;
+using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.Interfaces.Core;
 using Urbamais.Application.Interfaces.Generic;
 using Urbamais.Application.Interfaces.Planejamento;
@@ -24,6 +26,12 @@ public static class ModuloIOC
 {
     public static void Configure(IServiceCollection services)
     {
+        #region App
+
+        services.AddTransient<IUnidadeApp, UnidadeApp>();
+
+        #endregion App
+
         #region AppServices
 
         services.AddTransient(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
@@ -46,6 +54,7 @@ public static class ModuloIOC
         services.AddTransient<ICidadeRepository, CidadeRepository>();
         services.AddTransient<IUnidadeRepository, UnidadeRepository>();
 
-        #endregion Repositories       
+        #endregion Repositories
+
     }
 }

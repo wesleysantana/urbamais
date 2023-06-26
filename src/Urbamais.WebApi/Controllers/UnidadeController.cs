@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Urbamais.Application.Interfaces.Planejamento;
+using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request.Unidade;
 using Urbamais.Domain.Entities.Planejamento;
 
@@ -11,12 +11,12 @@ namespace Urbamais.WebApi.Controllers;
 [ApiController]
 public class UnidadeController : ControllerBase
 {
-    private readonly IUnidadeAppService _unidadeApp;
+    private readonly IUnidadeApp _unidadeApp;
     private readonly IMapper _mapper;
 
-    public UnidadeController(IUnidadeAppService unidadeAppService, IMapper mapper)
+    public UnidadeController(IUnidadeApp unidadeApp, IMapper mapper)
     {
-        _unidadeApp = unidadeAppService;
+        _unidadeApp = unidadeApp;
         _mapper = mapper;
     }
 
@@ -32,7 +32,10 @@ public class UnidadeController : ControllerBase
     [Authorize]
     public IActionResult Insert(UnidadeRequest unidadeRequest)
     {
-        _ = _unidadeApp.Insert(_mapper.Map<Unidade>(unidadeRequest));
+        if (ModelState.IsValid)
+        {
+            _unidadeApp.Insert(_mapper.Map<Unidade>(unidadeRequest));
+        }
 
         return Ok();
     }

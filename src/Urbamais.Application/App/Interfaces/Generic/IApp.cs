@@ -1,18 +1,16 @@
 ﻿using System.Linq.Expressions;
 
-namespace Urbamais.Domain.InterfacesRepositories.Generic;
+namespace Urbamais.Application.App.Interfaces.Generic;
 
-public interface IRepositoryBase<T> where T : class
+public interface IApp<T> where T : class
 {
-    Task Insert(T entity);
+    Task<T> Insert(T entity);
 
-    void Update(T entity);
+    Task<T> Update(T entity);
 
-    void Delete(T entity);
+    void Delete(T entity);   
 
     Task<int> Commit();
-
-    void Dispose();
 
     #region Querys
 

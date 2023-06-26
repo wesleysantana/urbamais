@@ -13,6 +13,8 @@ public class ServiceBase<T> : IDisposable, IServiceBase<T> where T : class
         _repository = repository;
     }
 
+    public Task<int> Commit() => _repository.Commit();
+
     public IQueryable<T> Query => _repository.Query;
 
     public void Delete(T entity) => _repository.Delete(entity);

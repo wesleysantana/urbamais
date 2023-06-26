@@ -3,7 +3,7 @@
 public abstract class BaseEntity : BaseValidate
 {
     public int Id { get; protected set; }
-    public DateTime DataCriacao { get; protected set; }
+    public DateTime DataCriacao { get; protected set; } = DateTime.Now;
     public DateTime? DataAlteracao { get; protected set; }
     public DateTime? DataExclusao { get; protected set; }
 

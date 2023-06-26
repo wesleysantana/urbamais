@@ -10,6 +10,8 @@ public interface IServiceBase<T> where T : class
 
     void Delete(T entity);
 
+    Task<int> Commit();
+
     #region Querys
 
     IQueryable<T> Query { get; }
