@@ -11,15 +11,17 @@ public class BaseValidate
     [NotMapped]
     public bool IsValid
     {
-        get => !ValidationResult.Errors.Any() && _isValid;
+        get => ValidationResult is not null && _isValid;
         private set => _isValid = value;       
     }
 
     [NotMapped]
-    public ValidationResult ValidationResult { get; private set; } = new();
+    public ValidationResult? ValidationResult { get; private set; }
 
     public bool Validate<TModel>(TModel model, AbstractValidator<TModel> validator)
     {
+        ValidationResult ??= new();
+
         ValidationResult = validator.Validate(model);
         return IsValid = ValidationResult.IsValid;
     }

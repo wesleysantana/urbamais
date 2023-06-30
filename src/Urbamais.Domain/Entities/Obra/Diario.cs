@@ -44,9 +44,9 @@ public class Diario : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(Obra.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Fornecedor.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Colaborador.ValidationResult.Errors);
+        ValidationResult?.Errors.AddRange(Obra.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Fornecedor.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Colaborador.ValidationResult!.Errors);
 
         Validate(this, new DiarioValidator());
 

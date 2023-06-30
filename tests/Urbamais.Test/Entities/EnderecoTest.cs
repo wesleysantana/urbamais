@@ -20,7 +20,7 @@ public class EnderecoTest
         Assert.False(endereco.IsValid);
 
         var msg = $"'{nameof(endereco.Logradouro)}' must not be empty.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class EnderecoTest
 
         var msg = $"The length of '{nameof(endereco.Logradouro)}' must be 150 characters or fewer. " +
             $"You entered {logradouro.Length} characters.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class EnderecoTest
         Assert.False(endereco.IsValid);
 
         var msg = $"'{nameof(endereco.Numero)}' must not be empty.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -63,7 +63,7 @@ public class EnderecoTest
 
         var msg = $"The length of '{nameof(endereco.Numero)}' must be 10 characters or fewer. " +
             $"You entered {numero.Length} characters.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -81,7 +81,7 @@ public class EnderecoTest
 
         var msg = $"The length of '{nameof(endereco.Complemento)}' must be 100 characters or fewer. " +
             $"You entered {complemento.Length} characters.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -92,7 +92,7 @@ public class EnderecoTest
         Assert.False(endereco.IsValid);
 
         var msg = $"'{nameof(endereco.Bairro)}' must not be empty.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class EnderecoTest
 
         var msg = $"The length of '{nameof(endereco.Bairro)}' must be 100 characters or fewer. " +
             $"You entered {bairro.Length} characters.";
-        Assert.Contains(endereco.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]

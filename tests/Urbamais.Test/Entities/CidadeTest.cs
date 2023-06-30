@@ -42,7 +42,7 @@ public class CidadeTest
         Assert.False(cidade.IsValid);
 
         var msg = $"The length of '{nameof(cidade.Nome)}' must be at least 3 characters. You entered 0 characters.";
-        Assert.Contains(cidade.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(cidade.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }   
 
     [Fact]

@@ -27,14 +27,7 @@ internal class ColaboradorConfig : ConfigBase<Colaborador>
             .Property(x => x.Cpf)
             .HasColumnName("cpf")
         .IsRequired()
-        .HasMaxLength(11);
-
-        //NumeroCarteiraTrabalho = table.Column<string>(type: "text", nullable: false),
-        //            NumeroCNH = table.Column<string>(type: "text", nullable: false),
-        //            TipoCNH = table.Column<string>(type: "text", nullable: false),
-        //            DataValidadeCNH = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-        //            NumeroExameAdmissional = table.Column<string>(type: "text", nullable: false),
-        //            ValidadeExameAdmissional = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+        .HasMaxLength(11);        
 
         builder.Entity<Colaborador>()
             .Property(x => x.NumeroCarteiraTrabalho)

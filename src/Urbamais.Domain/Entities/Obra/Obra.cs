@@ -29,7 +29,7 @@ public class Obra : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(Empresa.ValidationResult.Errors);
+        ValidationResult?.Errors.AddRange(Empresa.ValidationResult!.Errors);
 
         if (!IsValid && Id == default)
         {

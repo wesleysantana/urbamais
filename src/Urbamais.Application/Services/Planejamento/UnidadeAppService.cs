@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Urbamais.Application.Interfaces.Planejamento;
+﻿using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.Services.Generic;
 using Urbamais.Domain.Entities.Planejamento;
 using Urbamais.Domain.Services.Interfaces.Planejamento;

@@ -61,12 +61,12 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(RazaoSocial.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(NomeFantasia.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Cnpj.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Enderecos.SelectMany(x => ValidationResult.Errors));
-        ValidationResult.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult.Errors));
-        ValidationResult.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult.Errors));
+        ValidationResult?.Errors.AddRange(RazaoSocial.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(NomeFantasia.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Cnpj.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
+        ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
+        ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
 
         Validate(this, new PessoaJuridicaValidator());
 

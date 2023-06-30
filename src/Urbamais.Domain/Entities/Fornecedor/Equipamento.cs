@@ -28,8 +28,8 @@ public class Equipamento : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Descricao.ValidationResult.Errors);
+        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Descricao.ValidationResult!.Errors);
 
         if (!IsValid && Id == default)
         {

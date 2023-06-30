@@ -29,7 +29,7 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
+        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
 
         Validate(this, new CidadeValidator());
 

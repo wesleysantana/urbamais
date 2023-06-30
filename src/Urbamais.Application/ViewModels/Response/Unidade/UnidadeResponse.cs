@@ -1,4 +1,7 @@
-﻿namespace Urbamais.Application.ViewModels.Response.Unidade;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace Urbamais.Application.ViewModels.Response.Unidade;
 
 public class UnidadeResponse
 {
@@ -6,5 +9,7 @@ public class UnidadeResponse
     public string? Descricao { get; }
     public string? Sigla { get; }
     public bool IsValid { get; }
-
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ValidationResult? ValidationResult { get; }
 }

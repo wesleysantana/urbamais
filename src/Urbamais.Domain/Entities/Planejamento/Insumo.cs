@@ -29,8 +29,8 @@ public class Insumo : BaseEntity, IAggregateRoot
         Unidade = unidade;
         Tipo = tipo;
 
-        ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Unidade.ValidationResult.Errors);
+        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Unidade.ValidationResult!.Errors);
 
         Validate(this, new InsumoValidator());
 

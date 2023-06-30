@@ -126,7 +126,7 @@ public class FornecedorTest
         var Fornecedor = new Fornecedor(razao, nome, cnpj, "123.456-45", null, endereco, telefones, emails);
 
         var msg = $"'Numero' must not be empty.";
-        Assert.Contains(Fornecedor.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(Fornecedor.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
 
         msg = $"The length of 'Numero' must be 20 characters or fewer. " +
            $"You entered {numeroLong.Length} characters.";

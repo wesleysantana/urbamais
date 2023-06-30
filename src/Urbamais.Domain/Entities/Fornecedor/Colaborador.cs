@@ -15,6 +15,7 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     public NomeVO Nome { get; private set; }
     public CpfVO Cpf { get; private set; }
+    
     public string? NumeroCarteiraTrabalho { get; private set; }
     public string? NumeroCNH { get; private set; }
     public string? TipoCNH { get; private set; }
@@ -84,11 +85,11 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult.Errors.AddRange(Nome.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Cpf.ValidationResult.Errors);
-        ValidationResult.Errors.AddRange(Enderecos.SelectMany(x => ValidationResult.Errors));
-        ValidationResult.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult.Errors));
-        ValidationResult.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult.Errors));
+        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Cpf.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
+        ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
+        ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
 
         if (!IsValid && Id == default)
         {

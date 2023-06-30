@@ -35,13 +35,13 @@ public class UnidadeApp : IUnidadeApp
 
     public async Task<Unidade> Insert(Unidade entity)
     {
-        var unidade = new Unidade(entity.Descricao, entity.Sigla);
-        if (unidade.IsValid)
+        if (entity.IsValid)
         {
-            await _service.Insert(unidade);
+            await _service.Insert(entity);
             _ = Commit();
         }
-        return unidade;
+        
+        return entity;
     }
 
     public async Task<IList<Unidade>> List() => await _service.List();

@@ -20,7 +20,7 @@ public class TelefoneTest
         Assert.False(tel.IsValid);
 
         var msg = $"'{nameof(tel.Numero)}' must not be empty.";
-        Assert.Contains(tel.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(tel.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class TelefoneTest
 
         var msg = $"The length of '{nameof(tel.Numero)}' must be 20 characters or fewer. " +
             $"You entered {valor.Length} characters.";
-        Assert.Contains(tel.ValidationResult.Errors, x => x.ErrorMessage.Equals(msg));
+        Assert.Contains(tel.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
