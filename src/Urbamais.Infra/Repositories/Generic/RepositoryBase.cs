@@ -17,11 +17,15 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
 
     public async Task Insert(T entity) => await _context.Set<T>().AddAsync(entity);
 
-    public void Update(T entity) => _context.Set<T>().Update(entity);
+    public void Update(T entity) => _context.Update(entity);
 
-    public void Delete(T entity)
+    public void Delete(object id)
     {
-        if (entity.GetType() == typeof(BaseEntity))
+        var entity = Get(id).Result;
+        if (entity is null)
+            return;
+
+        if (entity.GetType().BaseType == typeof(BaseEntity))
         {
             var entidade = entity as BaseEntity;
             entidade?.Delete();
@@ -31,28 +35,77 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         _context.Set<T>().Remove(entity);
     }
 
-    public Task<int> Commit() => _context.SaveChangesAsync();
+    public Task<int> Commit()
+    {
+        try
+        {
+            var result = _context.SaveChangesAsync();
+            if (result.Result == 0)
+                throw new Exception();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar gravar os dados: " + ex.Message);
+        }
+    }
 
     public Task Rollback() => Task.CompletedTask;
 
     #region Querys
+
     public IQueryable<T> Query => _context.Set<T>().AsQueryable<T>();
 
-    public async Task<T> Get(object id) => (await _context.Set<T>().FindAsync(id))!;
+    public async Task<T> Get(object id)
+    {
+        try
+        {
+            return (await _context.Set<T>().FindAsync(id))!;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
+    }
 
-    public async Task<T> Get(Expression<Func<T, bool>> where) => (await _context.Set<T>().Where(where).FirstOrDefaultAsync())!;
+    public async Task<T> Get(Expression<Func<T, bool>> where)
+    {
+        try
+        {
+            return (await _context.Set<T>().Where(where).FirstOrDefaultAsync())!;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
+    }
 
     public async Task<IList<T>> List()
     {
-        var entidade = typeof(T);
-        if (entidade?.GetType() == typeof(BaseEntity))
-            return (await _context.Set<BaseEntity>().Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync() as List<T>)!;
-
-        return await _context.Set<T>().AsNoTracking().ToListAsync();
+        try
+        {
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
     }
 
-    public async Task<IList<T>> List(Expression<Func<T, bool>> where) => await _context.Set<T>().Where(where).AsNoTracking().ToListAsync();
-    #endregion
+    public async Task<IList<T>> List(Expression<Func<T, bool>> where)
+    {
+        try
+        {
+            return await _context.Set<T>().Where(where).AsNoTracking().ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
+    }
 
-    public void Dispose() => _context.DisposeAsync();
+    #endregion Querys
+
+    public void Dispose() => _context?.DisposeAsync();
 }

@@ -3,6 +3,9 @@ using Urbamais.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 // Add services to the container.
 Bootstrap.AddService(builder.Services, builder.Configuration);
 
@@ -42,6 +45,10 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
@@ -55,10 +62,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

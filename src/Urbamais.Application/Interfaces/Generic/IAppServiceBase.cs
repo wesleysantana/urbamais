@@ -8,7 +8,7 @@ public interface IAppServiceBase<T> where T : class
 
     void Update(T entity);
 
-    void Delete(T entity);
+    void Delete(object id);
 
     Task<int> Commit();
 

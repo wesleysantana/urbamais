@@ -11,6 +11,7 @@ public class MappingProfile : Profile
     {
         // Unidade
         CreateMap<UnidadeRequest, Unidade>();
+        CreateMap<UnidadeUpdateRequest, Unidade>();
         CreateMap<Unidade, UnidadeResponse>();       
     }
 }

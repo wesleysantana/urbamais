@@ -31,12 +31,12 @@ public class Unidade : BaseEntity, IAggregateRoot
 
     public void Update(string? descricao = null, string? sigla = null)
     {
-        if (descricao is not null) Descricao = descricao.Trim();
-        if (sigla is not null) Sigla = sigla.Trim();
+        if (!string.IsNullOrWhiteSpace(descricao)) Descricao = descricao.Trim();
+        if (!string.IsNullOrWhiteSpace(sigla)) Sigla = sigla.Trim();
 
         Validar();
 
-        if(!IsValid) DataAlteracao = DateTime.Now;
+        if(IsValid) DataAlteracao = DateTime.Now;
     }
 
     #region Sobrescrita Object
