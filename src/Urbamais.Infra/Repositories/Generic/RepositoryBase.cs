@@ -57,7 +57,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
 
     public IQueryable<T> Query => _context.Set<T>().AsQueryable<T>();
 
-    public async Task<T> Get(object id)
+    public virtual async Task<T> Get(object id)
     {
         try
         {
@@ -69,7 +69,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public async Task<T> Get(Expression<Func<T, bool>> where)
+    public virtual async Task<T> Get(Expression<Func<T, bool>> where)
     {
         try
         {
@@ -81,7 +81,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public async Task<IList<T>> List()
+    public virtual async Task<IList<T>> List()
     {
         try
         {
@@ -93,7 +93,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public async Task<IList<T>> List(Expression<Func<T, bool>> where)
+    public virtual async Task<IList<T>> List(Expression<Func<T, bool>> where)
     {
         try
         {

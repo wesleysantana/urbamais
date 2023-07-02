@@ -5,7 +5,7 @@ using Urbamais.Infra.Repositories.Generic;
 
 namespace Urbamais.Infra.Repositories.Planejamento;
 
-public class UnidadeRepository : RepositoryBase<Unidade>, IUnidadeRepository
+public class UnidadeRepository : RepositoryBaseEntity<Unidade>, IUnidadeRepository
 {
     public UnidadeRepository(ContextEf context) : base(context)
     {
