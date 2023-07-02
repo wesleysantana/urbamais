@@ -13,7 +13,9 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
         _context = context;
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     public override async Task<T> Get(object id)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         try
         {
