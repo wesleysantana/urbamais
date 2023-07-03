@@ -17,11 +17,11 @@ public class UnidadeApp : IUnidadeApp
         _service = service;
     }
 
-    public Task<IQueryable<Unidade>> Query(IFiltroRequest unidade) 
+    public Task<IQueryable<Unidade>> Query(IFiltroRequest filtro) 
     {
         var query = _service.Query;
 
-        query = query.Apply(unidade);
+        query = query.Apply(filtro);
         query = query.Where(x => x.DataExclusao == null);
 
         var result = query.ToList();
@@ -45,8 +45,7 @@ public class UnidadeApp : IUnidadeApp
 
         return entity;
     }
-
-    public async Task<IList<Unidade>> List() => await _service.List();
+   
 
     public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where) => _service.List(where);
 

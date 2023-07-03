@@ -22,11 +22,15 @@ public class UnidadeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<UnidadeResponse>>> Get()
+    public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro)
     {
         try
         {
-            return Ok(_mapper.Map<List<UnidadeResponse>>(await _unidadeApp.List()));
+            var response = await _unidadeApp.Query(filtro);
+            if (response is not null)
+                return Ok(_mapper.Map<List<UnidadeResponse>>(response));
+
+            return NotFound(Constantes.NOTFOUND);
         }
         catch (Exception ex)
         {
@@ -113,23 +117,6 @@ public class UnidadeController : ControllerBase
             }
 
             return BadRequest();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
-    }
-
-    [HttpGet("filtro")]
-    public async Task<ActionResult<List<UnidadeResponse>>> Filtro([FromQuery] UnidadeFiltroRequest filtro)
-    {
-        try
-        {
-            var response = await _unidadeApp.Query(filtro);
-            if (response is not null)
-                return Ok(_mapper.Map<List<UnidadeResponse>>(response));
-
-            return NotFound(Constantes.NOTFOUND);
         }
         catch (Exception ex)
         {

@@ -19,9 +19,7 @@ public interface IApp<T> where T : class
 
     Task<T> Get(object id);
 
-    Task<T> Get(Expression<Func<T, bool>> @where);
-
-    Task<IList<T>> List();
+    Task<T> Get(Expression<Func<T, bool>> @where);   
 
     Task<IList<T>> List(Expression<Func<T, bool>> @where);
 
