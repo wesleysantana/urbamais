@@ -15,7 +15,7 @@ public class ServiceBase<T> : IDisposable, IServiceBase<T> where T : class
 
     public Task<int> Commit() => _repository.Commit();
 
-    public IQueryable<T> Query => _repository.Query;
+    public IQueryable<T> Query => _repository.Query();
 
     public void Delete(object id) => _repository.Delete(id);
 

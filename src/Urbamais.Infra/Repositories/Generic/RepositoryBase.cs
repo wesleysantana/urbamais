@@ -55,7 +55,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
 
     #region Querys
 
-    public IQueryable<T> Query => _context.Set<T>().AsQueryable<T>();
+    public IQueryable<T> Query() => _context.Set<T>().AsQueryable();
 
     public virtual async Task<T> Get(object id)
     {

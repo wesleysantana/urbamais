@@ -15,7 +15,7 @@ public interface IApp<T> where T : class
 
     #region Querys
 
-    IQueryable<T> Query { get; }
+    Task<IQueryable<T>> Query(IFiltroRequest query);
 
     Task<T> Get(object id);
 

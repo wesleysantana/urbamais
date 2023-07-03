@@ -16,7 +16,7 @@ public interface IRepositoryBase<T> where T : class
 
     #region Querys
 
-    IQueryable<T> Query { get; }
+    IQueryable<T> Query();
 
     Task<T> Get(object id);
 

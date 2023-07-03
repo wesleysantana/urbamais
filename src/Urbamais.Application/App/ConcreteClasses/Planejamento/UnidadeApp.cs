@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using AspNetCore.IQueryable.Extensions;
+using System.Linq.Expressions;
 using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request;
@@ -16,13 +17,23 @@ public class UnidadeApp : IUnidadeApp
         _service = service;
     }
 
-    public IQueryable<Unidade> Query => _service.Query;
+    public Task<IQueryable<Unidade>> Query(IFiltroRequest unidade) 
+    {
+        var query = _service.Query;
+
+        query = query.Apply(unidade);
+        query = query.Where(x => x.DataExclusao == null);
+
+        var result = query.ToList();
+
+        return Task.FromResult(result.AsQueryable());
+    }
 
     public Task<int> Commit() => _service.Commit();
 
     public Task<Unidade> Get(object id) => _service.Get(id);
 
-    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where) => _service.Get(where);
+    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where) => _service.Get(where);    
 
     public async Task<Unidade> Insert(Unidade entity)
     {

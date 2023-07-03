@@ -119,4 +119,21 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
+    [HttpGet("filtro")]
+    public async Task<ActionResult<List<UnidadeResponse>>> Filtro([FromQuery] UnidadeFiltroRequest filtro)
+    {
+        try
+        {
+            var response = await _unidadeApp.Query(filtro);
+            if (response is not null)
+                return Ok(_mapper.Map<List<UnidadeResponse>>(response));
+
+            return NotFound(Constantes.NOTFOUND);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
 }
