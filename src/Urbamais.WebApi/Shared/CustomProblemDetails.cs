@@ -11,9 +11,10 @@ public class CustomProblemDetails : ProblemDetails
     {
         Title = status switch
         {
-            HttpStatusCode.BadRequest => "One or more validation errors occurred.",
-            HttpStatusCode.InternalServerError => "Internal server error.",
-            _ => "An error has occurred."
+            HttpStatusCode.BadRequest => "Ocorreu um ou mais erros de validação.",
+            HttpStatusCode.InternalServerError => "Erro do Servidor Interno.",
+            HttpStatusCode.NotFound => "O item solicitado não foi encontrado.",
+            _ => "Ocorreu um erro."
         };
 
         Status = (int)status;
@@ -24,7 +25,7 @@ public class CustomProblemDetails : ProblemDetails
             if (errors.Count() == 1)
                 Detail = errors.First();
             else if (errors.Count() > 1)
-                Detail = "Multiple problems have occurred.";
+                Detail = "Vários problemas ocorreram.";
 
             Errors.AddRange(errors);
         }

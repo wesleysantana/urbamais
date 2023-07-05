@@ -17,24 +17,6 @@ public class UnidadeApp : IUnidadeApp
         _service = service;
     }
 
-    public Task<IQueryable<Unidade>> Query(IFiltroRequest filtro) 
-    {
-        var query = _service.Query;
-
-        query = query.Apply(filtro);
-        query = query.Where(x => x.DataExclusao == null);
-
-        var result = query.ToList();
-
-        return Task.FromResult(result.AsQueryable());
-    }
-
-    public Task<int> Commit() => _service.Commit();
-
-    public Task<Unidade> Get(object id) => _service.Get(id);
-
-    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where) => _service.Get(where);    
-
     public async Task<Unidade> Insert(Unidade entity)
     {
         if (entity.IsValid)
@@ -45,9 +27,6 @@ public class UnidadeApp : IUnidadeApp
 
         return entity;
     }
-   
-
-    public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where) => _service.List(where);
 
     public async Task<Tuple<bool, Unidade>> Update(object id, IDomainUpdate entity)
     {
@@ -75,8 +54,34 @@ public class UnidadeApp : IUnidadeApp
             return Tuple.Create(false, false);
 
         _service.Delete(id);
-        await Commit();
 
-        return Tuple.Create(true, true);
+        if (await Commit() > 0)
+            return Tuple.Create(true, true);
+
+        return Tuple.Create(true, false);
     }
+
+    public Task<int> Commit() => _service.Commit();
+
+    #region Querys
+
+    public async Task<IQueryable<Unidade>> Query(IFiltroRequest filtro)
+    {
+        var query = _service.Query;
+
+        query = query.Apply(filtro);
+        query = query.Where(x => x.DataExclusao == null);
+
+        var result = query.ToList();
+
+        return await Task.FromResult(result.AsQueryable());
+    }
+
+    public Task<Unidade> Get(object id) => _service.Get(id);
+
+    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where) => _service.Get(where);
+
+    public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where) => _service.List(where);
+
+    #endregion Querys
 }

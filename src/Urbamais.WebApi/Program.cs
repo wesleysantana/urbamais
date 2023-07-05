@@ -1,3 +1,4 @@
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.OpenApi.Models;
 using Urbamais.WebApi;
 
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+builder.Services.AddApiProblemDetails();
 
 // Add services to the container.
 Bootstrap.AddService(builder.Services, builder.Configuration);
@@ -48,6 +50,8 @@ var app = builder.Build();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseProblemDetails();
 
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())

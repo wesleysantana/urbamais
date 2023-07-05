@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request.Unidade;
 using Urbamais.Application.ViewModels.Response.Unidade;
@@ -27,14 +28,15 @@ public class UnidadeController : ControllerBase
         try
         {
             var response = await _unidadeApp.Query(filtro);
-            if (response is not null)
+            if (response is not null && response.Any())
                 return Ok(_mapper.Map<List<UnidadeResponse>>(response));
 
-            return NotFound(Constantes.NOTFOUND);
+            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);           
         }
     }
 
@@ -47,11 +49,12 @@ public class UnidadeController : ControllerBase
             if (unidade is not null)
                 return Ok(unidade);
 
-            return NotFound(Constantes.NOTFOUND);
+            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
         }
     }
 
@@ -66,11 +69,16 @@ public class UnidadeController : ControllerBase
                 return Ok(_mapper.Map<UnidadeResponse>(unidade));
             }
 
-            return BadRequest(unidade.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            var problemDetail =
+                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
+                errors: unidade.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+
+            return BadRequest(problemDetail);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
         }
     }
 
@@ -91,11 +99,16 @@ public class UnidadeController : ControllerBase
                 return Ok(_mapper.Map<UnidadeResponse>(unidade.Item2));
             }
 
-            return BadRequest(unidade.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            var problemDetail =
+                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
+                errors: unidade.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+
+            return BadRequest(problemDetail);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
         }
     }
 
@@ -120,7 +133,8 @@ public class UnidadeController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
         }
     }
 }
