@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.Usuario;
-using Urbamais.Application.ViewModels.Response.Usuario;
+using Urbamais.Application.ViewModels.Request.v1.Usuario;
+using Urbamais.Application.ViewModels.Response.v1.Usuario;
 
 namespace Urbamais.Identity.Services;
 

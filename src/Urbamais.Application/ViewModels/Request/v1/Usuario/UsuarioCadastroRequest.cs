@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request.Usuario;
+namespace Urbamais.Application.ViewModels.Request.v1.Usuario;
 
 public class UsuarioCadastroRequest
 {

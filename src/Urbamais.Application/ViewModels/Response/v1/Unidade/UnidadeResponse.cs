@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Application.ViewModels.Response.Unidade;
+﻿namespace Urbamais.Application.ViewModels.Response.v1.Unidade;
 
 public class UnidadeResponse
 {

@@ -1,6 +1,12 @@
 using Hellang.Middleware.ProblemDetails;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Urbamais.WebApi;
+using Urbamais.WebApi.Swagger;
+
+var version = 1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +21,24 @@ builder.Services.AddControllers();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+builder.Services.AddApiVersioning(x =>
+{
+    x.ReportApiVersions = true;
+    x.AssumeDefaultVersionWhenUnspecified = true;
+    x.DefaultApiVersion = new ApiVersion(version, 0);
+    x.ApiVersionReader = new HeaderApiVersionReader("version");
+});
+
+builder.Services.AddVersionedApiExplorer(x =>
+{
+    x.GroupNameFormat = "'v'VVV";
+    x.SubstituteApiVersionInUrl = true;
+});
+
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Urbamais", Version = "v1" });
+    //c.SwaggerDoc("v" + version, new OpenApiInfo { Title = "Urbamais", Version = "v" + version });
+    c.OperationFilter<SwaggerDefaultValues>();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"Informe o token de autenticação JWT obtido no endpoint 'Login'.",
@@ -47,6 +68,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+var versionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -58,7 +81,16 @@ if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Metamais v1"));
+    // app.UseSwaggerUI(c => c.SwaggerEndpoint($"/swagger/v{version}/swagger.json", "Urbamais"));
+
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var description in versionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                $"Urbamais - {description.GroupName.ToUpper()}");
+        }
+    });
 }
 
 app.UseHttpsRedirection();

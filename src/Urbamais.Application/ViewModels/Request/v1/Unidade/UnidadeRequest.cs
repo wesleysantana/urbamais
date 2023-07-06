@@ -1,7 +1,7 @@
 ﻿using Core.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request.Unidade;
+namespace Urbamais.Application.ViewModels.Request.v1.Unidade;
 
 public class UnidadeRequest
 {

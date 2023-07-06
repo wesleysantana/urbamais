@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request;
-using Urbamais.Application.ViewModels.Request.Unidade;
+using Urbamais.Application.ViewModels.Request.v1.Unidade;
 using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.Application.App.ConcreteClasses.Planejamento;

@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Urbamais.Application.App.Interfaces.Planejamento;
-using Urbamais.Application.ViewModels.Request.Unidade;
-using Urbamais.Application.ViewModels.Response.Unidade;
+using Urbamais.Application.ViewModels.Request.v1.Unidade;
+using Urbamais.Application.ViewModels.Response.v1.Unidade;
 using Urbamais.Domain.Entities.Planejamento;
 using Urbamais.WebApi.Shared;
 
-namespace Urbamais.WebApi.Controllers;
+namespace Urbamais.WebApi.Controllers.v1;
 
 [Route("api/[controller]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class UnidadeController : ControllerBase
 {
     private readonly IUnidadeApp _unidadeApp;
@@ -36,7 +37,7 @@ public class UnidadeController : ControllerBase
         catch (Exception ex)
         {
             var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);           
+            return StatusCode(500, problemDetail);
         }
     }
 
@@ -66,7 +67,7 @@ public class UnidadeController : ControllerBase
             var unidade = await _unidadeApp.Insert(_mapper.Map<Unidade>(unidadeRequest));
             if (unidade.IsValid)
             {
-                return Ok(_mapper.Map<UnidadeResponse>(unidade));
+                return StatusCode((int)HttpStatusCode.Created, _mapper.Map<UnidadeResponse>(unidade));
             }
 
             var problemDetail =
@@ -91,7 +92,7 @@ public class UnidadeController : ControllerBase
 
             if (!unidade.Item1)
             {
-                return NotFound(Constantes.NOTFOUND);
+                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
             if (unidade.Item2.IsValid)
@@ -121,12 +122,12 @@ public class UnidadeController : ControllerBase
 
             if (!unidade.Item1)
             {
-                return NotFound(Constantes.NOTFOUND);
+                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
             if (unidade.Item2)
             {
-                return Ok();
+                return NoContent();
             }
 
             return BadRequest();

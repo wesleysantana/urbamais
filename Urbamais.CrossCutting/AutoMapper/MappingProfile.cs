@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Urbamais.Application.ViewModels.Request.Unidade;
-using Urbamais.Application.ViewModels.Response.Unidade;
+using Urbamais.Application.ViewModels.Request.v1.Unidade;
+using Urbamais.Application.ViewModels.Response.v1.Unidade;
 using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.CrossCutting.AutoMapper;

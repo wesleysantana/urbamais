@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Urbamais.Application.ViewModels.Response.Usuario;
+namespace Urbamais.Application.ViewModels.Response.v1.Usuario;
 
 public class UsuarioLoginResponse
 {

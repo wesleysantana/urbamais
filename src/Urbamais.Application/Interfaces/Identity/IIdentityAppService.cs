@@ -1,5 +1,5 @@
-﻿using Urbamais.Application.ViewModels.Request.Usuario;
-using Urbamais.Application.ViewModels.Response.Usuario;
+﻿using Urbamais.Application.ViewModels.Request.v1.Usuario;
+using Urbamais.Application.ViewModels.Response.v1.Usuario;
 
 namespace Urbamais.Application.Interfaces.Identity;
 
