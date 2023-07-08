@@ -23,6 +23,23 @@ public class UnidadeController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Lista Unidades
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <param name="filtro">Filtros para consulta</param>
+    /// <returns>Lista de Unidades cadastradas</returns>
+    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
+    /// <response code="400">Retorna erros de validação</response>
+    /// <response code="401">Erro caso usuário não esteja autorizado</response>
+    /// <response code="404">Nenhuma Unidade encontrada</response>
+    /// <response code="500">Retorna erros caso ocorram</response>
+    [ProducesResponseType(typeof(List<UnidadeResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpGet]
     public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro)
     {
@@ -41,6 +58,23 @@ public class UnidadeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Consulta Unidade por ID
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <param name="id">Identificador da Unidade</param>
+    /// <returns>Retorna a unidade do ID informado</returns>
+    /// <response code="200">Unidade retornada com sucesso</response>
+    /// <response code="400">Retorna erros de validação</response>
+    /// <response code="401">Erro caso usuário não esteja autorizado</response>
+    /// <response code="404">Nenhuma Unidade encontrada</response>
+    /// <response code="500">Retorna erros caso ocorram</response>
+    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpGet("{id}")]
     public async Task<ActionResult<UnidadeResponse>> Get(int id)
     {
@@ -59,6 +93,23 @@ public class UnidadeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Insere uma nova Unidade
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <param name="unidadeRequest">Dados da unidade</param>
+    /// <returns>A Unidade cadastrada</returns>
+    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
+    /// <response code="400">Retorna erros de validação</response>
+    /// <response code="401">Erro caso usuário não esteja autorizado</response>
+    /// <response code="404">Nenhuma Unidade encontrada</response>
+    /// <response code="500">Retorna erros caso ocorram</response>
+    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPost]
     public async Task<ActionResult<UnidadeResponse>> Insert(UnidadeRequest unidadeRequest)
     {
@@ -83,6 +134,24 @@ public class UnidadeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Altera dados de uma Unidade
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <param name="id">Identificador da unidade</param>
+    /// <param name="unidadeRequest">Dados a serem alterados</param>
+    /// <returns>A Unidade alterada</returns>
+    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
+    /// <response code="400">Retorna erros de validação</response>
+    /// <response code="401">Erro caso usuário não esteja autorizado</response>
+    /// <response code="404">Nenhuma Unidade encontrada</response>
+    /// <response code="500">Retorna erros caso ocorram</response>
+    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPut("{id}")]
     public async Task<ActionResult<UnidadeResponse>> Update(int id, UnidadeUpdateRequest unidadeRequest)
     {
@@ -113,6 +182,22 @@ public class UnidadeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Deleta uma Unidade
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <param name="id">Identificador da unidade</param>
+    /// <response code="204">Unidade(s) retornada(s) com sucesso</response>
+    /// <response code="400">Retorna erros de validação</response>
+    /// <response code="401">Erro caso usuário não esteja autorizado</response>
+    /// <response code="404">Nenhuma Unidade encontrada</response>
+    /// <response code="500">Retorna erros caso ocorram</response>
+    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

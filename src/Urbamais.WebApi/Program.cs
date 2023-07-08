@@ -37,7 +37,6 @@ builder.Services.AddVersionedApiExplorer(x =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-    //c.SwaggerDoc("v" + version, new OpenApiInfo { Title = "Urbamais", Version = "v" + version });
     c.OperationFilter<SwaggerDefaultValues>();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -81,7 +80,6 @@ if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    // app.UseSwaggerUI(c => c.SwaggerEndpoint($"/swagger/v{version}/swagger.json", "Urbamais"));
 
     app.UseSwaggerUI(options =>
     {
