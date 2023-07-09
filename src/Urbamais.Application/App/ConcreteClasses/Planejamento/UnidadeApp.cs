@@ -30,12 +30,14 @@ public class UnidadeApp : IUnidadeApp
 
     public async Task<Tuple<bool, Unidade>> Update(object id, IDomainUpdate entity)
     {
-        var unidade = await _service.Get(id);
+        var unidade = await _service.Get(id);        
 
         if (unidade is null)
             return Tuple.Create(false, (Unidade)entity);
 
-        unidade.Update(((UnidadeUpdateRequest)entity).Descricao, ((UnidadeUpdateRequest)entity).Sigla);
+        var unidadeUpdate = entity as UnidadeUpdateRequest;
+
+        unidade.Update(unidadeUpdate?.Descricao, unidadeUpdate?.Sigla);
 
         if (unidade.IsValid)
         {
