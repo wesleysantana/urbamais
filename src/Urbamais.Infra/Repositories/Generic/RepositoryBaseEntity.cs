@@ -25,11 +25,11 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
         }
     }
 
-    public override async Task<IList<T>> List()
+    public override async Task<IList<T>> List(CancellationToken cancellationToken)
     {
         try
         {
-            return await _context.Set<T>().Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync();
+            return await _context.Set<T>().Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync(cancellationToken);
         }
         catch (Exception ex)
         {

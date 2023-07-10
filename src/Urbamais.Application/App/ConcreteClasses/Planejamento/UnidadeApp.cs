@@ -30,7 +30,7 @@ public class UnidadeApp : IUnidadeApp
 
     public async Task<Tuple<bool, Unidade>> Update(object id, IDomainUpdate entity)
     {
-        var unidade = await _service.Get(id);        
+        var unidade = await _service.Get(id);
 
         if (unidade is null)
             return Tuple.Create(false, (Unidade)entity);
@@ -81,9 +81,13 @@ public class UnidadeApp : IUnidadeApp
 
     public Task<Unidade> Get(object id) => _service.Get(id);
 
-    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where) => _service.Get(where);
+    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
+        _service.Get(where, cancellationToken);
 
-    public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where) => _service.List(where);
+    public Task<IList<Unidade>> List(CancellationToken cancellationToken) => _service.List(cancellationToken);
+
+    public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
+        _service.List(where, cancellationToken);
 
     #endregion Querys
 }

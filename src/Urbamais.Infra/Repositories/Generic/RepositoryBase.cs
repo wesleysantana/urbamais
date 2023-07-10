@@ -69,11 +69,11 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public virtual async Task<T> Get(Expression<Func<T, bool>> where)
+    public virtual async Task<T> Get(Expression<Func<T, bool>> where, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _context.Set<T>().Where(where).FirstOrDefaultAsync())!;
+            return (await _context.Set<T>().Where(where).FirstOrDefaultAsync(cancellationToken))!;
         }
         catch (Exception ex)
         {
@@ -81,11 +81,11 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public virtual async Task<IList<T>> List()
+    public virtual async Task<IList<T>> List(CancellationToken cancellationToken)
     {
         try
         {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
+            return await _context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
         catch (Exception ex)
         {
@@ -93,11 +93,11 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
-    public virtual async Task<IList<T>> List(Expression<Func<T, bool>> where)
+    public virtual async Task<IList<T>> List(Expression<Func<T, bool>> where, CancellationToken cancellationToken)
     {
         try
         {
-            return await _context.Set<T>().Where(where).AsNoTracking().ToListAsync();
+            return await _context.Set<T>().Where(where).AsNoTracking().ToListAsync(cancellationToken);
         }
         catch (Exception ex)
         {

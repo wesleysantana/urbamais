@@ -19,9 +19,11 @@ public interface IApp<T> where T : class
 
     Task<T> Get(object id);
 
-    Task<T> Get(Expression<Func<T, bool>> @where);   
+    Task<T> Get(Expression<Func<T, bool>> @where, CancellationToken cancellationToken);
 
-    Task<IList<T>> List(Expression<Func<T, bool>> @where);
+    Task<IList<T>> List(CancellationToken cancellationToken);
+
+    Task<IList<T>> List(Expression<Func<T, bool>> @where, CancellationToken cancellationToken);
 
     #endregion Querys
 }

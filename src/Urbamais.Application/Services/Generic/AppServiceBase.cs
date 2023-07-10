@@ -13,23 +13,29 @@ public class AppServiceBase<T> : IDisposable, IAppServiceBase<T> where T : class
         _serviceBase = serviceBase;
     }
 
-    public IQueryable<T> Query => _serviceBase.Query;
+    public Task Insert(T entity) => _serviceBase.Insert(entity);
 
     public Task<int> Commit() => _serviceBase.Commit();
 
     public void Delete(object id) => _serviceBase.Delete(id);
 
-    public void Dispose() => _serviceBase.Dispose();
+    public void Update(T entity) => _serviceBase.Update(entity);
+
+    #region Query
+
+    public IQueryable<T> Query => _serviceBase.Query;
 
     public Task<T> Get(object id) => _serviceBase.Get(id);
 
-    public Task<T> Get(Expression<Func<T, bool>> where) => _serviceBase.Get(where);
+    public Task<T> Get(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        _serviceBase.Get(where, cancellationToken);
 
-    public Task Insert(T entity) => _serviceBase.Insert(entity);
+    public Task<IList<T>> List(CancellationToken cancellationToken) => _serviceBase.List(cancellationToken);
 
-    public Task<IList<T>> List() => _serviceBase.List();
+    public Task<IList<T>> List(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        _serviceBase.List(where, cancellationToken);
 
-    public Task<IList<T>> List(Expression<Func<T, bool>> where) => _serviceBase.List(where);
+    #endregion Query
 
-    public void Update(T entity) => _serviceBase.Update(entity);
+    public void Dispose() => _serviceBase.Dispose();
 }

@@ -15,21 +15,27 @@ public class ServiceBase<T> : IDisposable, IServiceBase<T> where T : class
 
     public Task<int> Commit() => _repository.Commit();
 
-    public IQueryable<T> Query => _repository.Query();
+    public Task Insert(T entity) => _repository.Insert(entity);
+
+    public void Update(T entity) => _repository.Update(entity);
 
     public void Delete(object id) => _repository.Delete(id);
 
+    #region Query
+
+    public IQueryable<T> Query => _repository.Query();
+
     public Task<T> Get(object id) => _repository.Get(id);
 
-    public Task<T> Get(Expression<Func<T, bool>> where) => _repository.Get(where);
+    public Task<T> Get(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        _repository.Get(where, cancellationToken);
 
-    public Task Insert(T entity) => _repository.Insert(entity);
+    public Task<IList<T>> List(CancellationToken cancellationToken) => _repository.List(cancellationToken);
 
-    public Task<IList<T>> List() => _repository.List();
+    public Task<IList<T>> List(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        _repository.List(where, cancellationToken);
 
-    public Task<IList<T>> List(Expression<Func<T, bool>> where) => _repository.List(where);
-
-    public void Update(T entity) => _repository.Update(entity);
+    #endregion Query
 
     public void Dispose() => _repository.Dispose();
 }
