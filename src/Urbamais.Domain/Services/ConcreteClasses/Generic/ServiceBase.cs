@@ -25,15 +25,18 @@ public class ServiceBase<T> : IDisposable, IServiceBase<T> where T : class
 
     public IQueryable<T> Query => _repository.Query();
 
-    public Task<T> Get(object id) => _repository.Get(id);
+    public async Task<T> Get(object id) => await _repository.Get(id);
 
-    public Task<T> Get(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
-        _repository.Get(where, cancellationToken);
+    public async Task<T> Get(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        await _repository.Get(where, cancellationToken);
 
-    public Task<IList<T>> List(CancellationToken cancellationToken) => _repository.List(cancellationToken);
+    public async Task<IList<T>> List(CancellationToken cancellationToken) => await _repository.List(cancellationToken);
 
-    public Task<IList<T>> List(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
-        _repository.List(where, cancellationToken);
+    public async Task<IList<T>> List(Expression<Func<T, bool>> where, CancellationToken cancellationToken) =>
+        await _repository.List(where, cancellationToken);
+
+    public async Task<IList<T>> ResultQuery(IQueryable<T> query, CancellationToken cancellationToken) =>
+        await _repository.ResultQuery(query, cancellationToken);
 
     #endregion Query
 

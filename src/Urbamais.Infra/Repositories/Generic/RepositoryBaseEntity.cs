@@ -36,4 +36,16 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
             throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
         }
     }
+
+    public override async Task<IList<T>> ResultQuery(IQueryable<T> query, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await query.Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
+    }
 }

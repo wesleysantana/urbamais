@@ -41,11 +41,11 @@ public class UnidadeController : ControllerBase
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpGet]
-    public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro)
+    public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro, CancellationToken cancellationToken)
     {
         try
         {
-            var response = await _unidadeApp.Query(filtro);
+            var response = await _unidadeApp.Query(filtro, cancellationToken);
             if (response is not null && response.Any())
                 return Ok(_mapper.Map<List<UnidadeResponse>>(response));
 

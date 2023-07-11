@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Urbamais.Application.ViewModels.Request;
+using Urbamais.Domain.Entities.Planejamento;
 
 namespace Urbamais.Application.App.Interfaces.Generic;
 
@@ -15,7 +16,8 @@ public interface IApp<T> where T : class
 
     #region Querys
 
-    Task<IQueryable<T>> Query(IFiltroRequest query);
+    //Task<IQueryable<T>> Query(IFiltroRequest query);
+    Task<IList<Unidade>> Query(IFiltroRequest filtro, CancellationToken cancellationToken);
 
     Task<T> Get(object id);
 
@@ -24,6 +26,8 @@ public interface IApp<T> where T : class
     Task<IList<T>> List(CancellationToken cancellationToken);
 
     Task<IList<T>> List(Expression<Func<T, bool>> @where, CancellationToken cancellationToken);
+
+    Task<IList<T>> ResultQuery(IQueryable<T> query, CancellationToken cancellationToken);
 
     #endregion Querys
 }

@@ -19,8 +19,7 @@ public sealed class NomeVO : BaseValidate
 
     public override bool Equals(object? obj)
     {
-        return obj is NomeVO vO &&
-               Nome == vO.Nome;
+        return obj is NomeVO vO && Nome == vO.Nome;
     }
 
     public override int GetHashCode()

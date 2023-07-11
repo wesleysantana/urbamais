@@ -105,6 +105,18 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         }
     }
 
+    public virtual async Task<IList<T>> ResultQuery(IQueryable<T> query, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await query.AsNoTracking().ToListAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ocorreu um erro ao tentar consultar a base de dados: " + ex.Message);
+        }
+    }
+
     #endregion Querys
 
     public void Dispose() => _context?.DisposeAsync();

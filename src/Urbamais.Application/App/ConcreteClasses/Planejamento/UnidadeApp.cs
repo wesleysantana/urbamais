@@ -1,5 +1,6 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using System.Linq.Expressions;
+using Urbamais.Application.App.Interfaces.Generic;
 using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request;
@@ -67,27 +68,31 @@ public class UnidadeApp : IUnidadeApp
 
     #region Querys
 
-    public async Task<IQueryable<Unidade>> Query(IFiltroRequest filtro)
+    public async Task<IList<Unidade>> Query(IFiltroRequest filtro, CancellationToken cancellationToken)
     {
         var query = _service.Query;
 
         query = query.Apply(filtro);
-        query = query.Where(x => x.DataExclusao == null);
+        //query = query.Where(x => x.DataExclusao == null);
 
-        var result = query.ToList();
+        //var result = query.ToList();
 
-        return await Task.FromResult(result.AsQueryable());
+        //return await Task.FromResult(result.AsQueryable());
+        return await ResultQuery(query, cancellationToken);
     }
 
-    public Task<Unidade> Get(object id) => _service.Get(id);
+    public async Task<Unidade> Get(object id) => await _service.Get(id);
 
-    public Task<Unidade> Get(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
-        _service.Get(where, cancellationToken);
+    public async Task<Unidade> Get(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
+        await _service.Get(where, cancellationToken);
 
-    public Task<IList<Unidade>> List(CancellationToken cancellationToken) => _service.List(cancellationToken);
+    public async Task<IList<Unidade>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
 
-    public Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
-        _service.List(where, cancellationToken);
+    public async Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
+        await _service.List(where, cancellationToken);
+
+    public async Task<IList<Unidade>> ResultQuery(IQueryable<Unidade> query, CancellationToken cancellationToken) =>
+        await _service.ResultQuery(query, cancellationToken);   
 
     #endregion Querys
 }

@@ -26,5 +26,7 @@ public interface IRepositoryBase<T> where T : class
 
     Task<IList<T>> List(Expression<Func<T, bool>> @where, CancellationToken cancellationToken);
 
+    Task<IList<T>> ResultQuery(IQueryable<T> query, CancellationToken cancellationToken);
+
     #endregion Querys
 }
