@@ -73,11 +73,7 @@ public class UnidadeApp : IUnidadeApp
         var query = _service.Query;
 
         query = query.Apply(filtro);
-        //query = query.Where(x => x.DataExclusao == null);
 
-        //var result = query.ToList();
-
-        //return await Task.FromResult(result.AsQueryable());
         return await ResultQuery(query, cancellationToken);
     }
 
