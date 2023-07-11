@@ -1,6 +1,5 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using System.Linq.Expressions;
-using Urbamais.Application.App.Interfaces.Generic;
 using Urbamais.Application.App.Interfaces.Planejamento;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request;

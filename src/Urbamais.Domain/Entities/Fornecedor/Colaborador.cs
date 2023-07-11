@@ -15,21 +15,21 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     public NomeVO Nome { get; private set; }
     public CpfVO Cpf { get; private set; }
-    
+
     public string? NumeroCarteiraTrabalho { get; private set; }
     public string? NumeroCNH { get; private set; }
     public string? TipoCNH { get; private set; }
     public DateTime? DataValidadeCNH { get; private set; }
 
-    public ArquivoVO CNH { get; private set; }
-    public ArquivoVO FichaEPI { get; private set; }
-    public ArquivoVO CarteiraTrabalho { get; private set; }
+    public string CNH { get; private set; }
+    public string FichaEPI { get; private set; }
+    public string CarteiraTrabalho { get; private set; }
     public string? NumeroExameAdmissional { get; private set; }
 
     public DateTime? DataValidadeExameAdmissional { get; private set; }
-    public ArquivoVO ExameAdmissional { get; private set; }
-    public ArquivoVO FichaRegistro { get; private set; }
-    public ArquivoVO OrdemServico { get; private set; }
+    public string ExameAdmissional { get; private set; }
+    public string FichaRegistro { get; private set; }
+    public string OrdemServico { get; private set; }
 
     public IReadOnlyCollection<Endereco> Enderecos
     {
@@ -58,9 +58,9 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     public Colaborador(NomeVO nome, CpfVO cpf,
         List<Endereco> enderecos, string numeroCarteiraTrabalho, string numeroCNH, string tipoCNH,
-        DateTime dataValidadeCNH, ArquivoVO cNH, ArquivoVO fichaEPI, ArquivoVO carteiraTrabalho,
-        string numeroExameAdmissional, DateTime validadeExameAdmissional, ArquivoVO exameAdmissional,
-        ArquivoVO fichaRegistro, ArquivoVO ordemServico, List<Telefone>? listTelefones, List<Email>? listEmails)
+        DateTime dataValidadeCNH, string cNH, string fichaEPI, string carteiraTrabalho,
+        string numeroExameAdmissional, DateTime validadeExameAdmissional, string exameAdmissional,
+        string fichaRegistro, string ordemServico, List<Telefone>? listTelefones, List<Email>? listEmails)
     {
         Nome = nome;
         Cpf = cpf;
@@ -121,9 +121,9 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     public void Update(NomeVO? nome = null, CpfVO? cpf = null,
        List<Endereco>? enderecos = null, string? numeroCarteiraTrabalho = null, string? numeroCNH = null, string? tipoCNH = null,
-       DateTime? dataValidadeCNH = null, ArquivoVO? cNH = null, ArquivoVO? fichaEPI = null, ArquivoVO? carteiraTrabalho = null,
-       string? numeroExameAdmissional = null, DateTime? validadeExameAdmissional = null, ArquivoVO? exameAdmissional = null,
-       ArquivoVO? fichaRegistro = null, ArquivoVO? ordemServico = null, List<Telefone>? listTelefones = null, List<Email>? listEmails = null)
+       DateTime? dataValidadeCNH = null, string? cNH = null, string? fichaEPI = null, string? carteiraTrabalho = null,
+       string? numeroExameAdmissional = null, DateTime? validadeExameAdmissional = null, string? exameAdmissional = null,
+       string? fichaRegistro = null, string? ordemServico = null, List<Telefone>? listTelefones = null, List<Email>? listEmails = null)
     {
         if (nome is not null) Nome = nome;
         if (cpf is not null) Cpf = cpf;
@@ -162,14 +162,14 @@ public class Colaborador : BaseEntity, IAggregateRoot
             NumeroCNH == colaborador.NumeroCNH &&
             TipoCNH == colaborador.TipoCNH &&
             DataValidadeCNH == colaborador.DataValidadeCNH &&
-            EqualityComparer<ArquivoVO>.Default.Equals(CNH, colaborador.CNH) &&
-            EqualityComparer<ArquivoVO>.Default.Equals(FichaEPI, colaborador.FichaEPI) &&
-            EqualityComparer<ArquivoVO>.Default.Equals(CarteiraTrabalho, colaborador.CarteiraTrabalho) &&
+            EqualityComparer<string>.Default.Equals(CNH, colaborador.CNH) &&
+            EqualityComparer<string>.Default.Equals(FichaEPI, colaborador.FichaEPI) &&
+            EqualityComparer<string>.Default.Equals(CarteiraTrabalho, colaborador.CarteiraTrabalho) &&
             NumeroExameAdmissional == colaborador.NumeroExameAdmissional &&
             DataValidadeExameAdmissional == colaborador.DataValidadeExameAdmissional &&
-            EqualityComparer<ArquivoVO>.Default.Equals(ExameAdmissional, colaborador.ExameAdmissional) &&
-            EqualityComparer<ArquivoVO>.Default.Equals(FichaRegistro, colaborador.FichaRegistro) &&
-            EqualityComparer<ArquivoVO>.Default.Equals(OrdemServico, colaborador.OrdemServico) &&
+            EqualityComparer<string>.Default.Equals(ExameAdmissional, colaborador.ExameAdmissional) &&
+            EqualityComparer<string>.Default.Equals(FichaRegistro, colaborador.FichaRegistro) &&
+            EqualityComparer<string>.Default.Equals(OrdemServico, colaborador.OrdemServico) &&
             Enumerable.SequenceEqual(_listEnderecos!.OrderBy(e => e.Id), colaborador._listEnderecos!.OrderBy(e => e.Id)) &&
             Enumerable.SequenceEqual(_listTelefones!.OrderBy(e => e.Id), colaborador._listTelefones!.OrderBy(e => e.Id)) &&
             Enumerable.SequenceEqual(_listEmails!.OrderBy(e => e.Id), colaborador._listEmails!.OrderBy(e => e.Id));
