@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
-namespace Urbamais.WebApi;
+namespace Urbamais.WebApi.ControllersHelper;
 
 public static class ControllerMapper
 {
@@ -19,8 +18,7 @@ public static class ControllerMapper
             // como registrar o controller em algum container de injeção de dependência
             // ou adicionar rotas personalizadas.
 
-            var teste = controllerType.FullName;
-            Console.WriteLine("Controller mapeado: " + controllerType.FullName);
+            ListControllers.Instance.List.Add(controllerType.Name.Replace("Controller", ""));
         }
     }
 }

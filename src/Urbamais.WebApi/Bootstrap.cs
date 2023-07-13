@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Urbamais.CrossCutting.AutoMapper;
 using Urbamais.CrossCutting.IOC;
+using Urbamais.WebApi.ControllersHelper;
 using Urbamais.WebApi.Swagger;
 
 namespace Urbamais.WebApi;
@@ -14,6 +15,8 @@ public static class Bootstrap
         Infra.Config.ConfigService.RegisterServices(services, configuration);
         Identity.Config.ConfigService.RegisterServices(services, configuration);
         AuthenticationSetup.AddAuthentication(services, configuration);
+
+        ControllerMapper.MapControllers(services.AddMvc().PartManager);
 
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
 

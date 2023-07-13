@@ -70,7 +70,6 @@ public class UnidadeApp : IUnidadeApp
     public async Task<IList<Unidade>> Query(IFiltroRequest filtro, CancellationToken cancellationToken)
     {
         var query = _service.Query;
-
         query = query.Apply(filtro);
 
         return await ResultQuery(query, cancellationToken);

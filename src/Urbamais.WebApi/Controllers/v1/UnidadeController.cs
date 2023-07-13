@@ -22,19 +22,7 @@ public class UnidadeController : ControllerBase
         _unidadeApp = unidadeApp;
         _mapper = mapper;
     }
-
-    /// <summary>
-    /// Lista Unidades
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="filtro">Filtros para consulta</param>
-    /// <returns>Lista de Unidades cadastradas</returns>
-    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
-    /// <response code="400">Retorna erros de validação</response>
-    /// <response code="401">Erro caso usuário não esteja autorizado</response>
-    /// <response code="404">Nenhuma Unidade encontrada</response>
-    /// <response code="500">Retorna erros caso ocorram</response>
+   
     [ProducesResponseType(typeof(List<UnidadeResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -57,19 +45,7 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-
-    /// <summary>
-    /// Consulta Unidade por ID
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="id">Identificador da Unidade</param>
-    /// <returns>Retorna a unidade do ID informado</returns>
-    /// <response code="200">Unidade retornada com sucesso</response>
-    /// <response code="400">Retorna erros de validação</response>
-    /// <response code="401">Erro caso usuário não esteja autorizado</response>
-    /// <response code="404">Nenhuma Unidade encontrada</response>
-    /// <response code="500">Retorna erros caso ocorram</response>
+   
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -92,19 +68,7 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-
-    /// <summary>
-    /// Insere uma nova Unidade
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="unidadeRequest">Dados da unidade</param>
-    /// <returns>A Unidade cadastrada</returns>
-    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
-    /// <response code="400">Retorna erros de validação</response>
-    /// <response code="401">Erro caso usuário não esteja autorizado</response>
-    /// <response code="404">Nenhuma Unidade encontrada</response>
-    /// <response code="500">Retorna erros caso ocorram</response>
+   
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -133,20 +97,7 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-
-    /// <summary>
-    /// Altera dados de uma Unidade
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="id">Identificador da unidade</param>
-    /// <param name="unidadeRequest">Dados a serem alterados</param>
-    /// <returns>A Unidade alterada</returns>
-    /// <response code="200">Unidade(s) retornada(s) com sucesso</response>
-    /// <response code="400">Retorna erros de validação</response>
-    /// <response code="401">Erro caso usuário não esteja autorizado</response>
-    /// <response code="404">Nenhuma Unidade encontrada</response>
-    /// <response code="500">Retorna erros caso ocorram</response>
+    
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -182,17 +133,6 @@ public class UnidadeController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Deleta uma Unidade
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="id">Identificador da unidade</param>
-    /// <response code="204">Unidade(s) retornada(s) com sucesso</response>
-    /// <response code="400">Retorna erros de validação</response>
-    /// <response code="401">Erro caso usuário não esteja autorizado</response>
-    /// <response code="404">Nenhuma Unidade encontrada</response>
-    /// <response code="500">Retorna erros caso ocorram</response>
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
