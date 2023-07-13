@@ -6,31 +6,31 @@ namespace Core.Domain;
 
 public abstract class EmailCore : BaseEntity, IEntity
 {
-    public string? Endereco { get; private set; }
+    public string? Address { get; private set; }
 
-    public EmailCore(string endereco)
+    public EmailCore(string address)
     {
-        Endereco = endereco.Trim();
+        Address = address.Trim();
 
         Validate(this, new EmailValidator());
 
-        if (!IsValid && Id == default) Endereco = default;
+        if (!IsValid && Id == default) Address = default;
     }
 
     #region Sobrescrita Object
 
-    public override string ToString() => $"Email: {Endereco}";
+    public override string ToString() => $"Email: {Address}";
 
     public override bool Equals(object? obj)
     {
         return obj is EmailCore email &&
             Id == email.Id &&
-            Endereco == email.Endereco;
+            Address == email.Address;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Endereco);
+        return HashCode.Combine(Id, Address);
     }
 
     public static bool operator ==(EmailCore left, EmailCore right) => left.Equals(right);
@@ -43,10 +43,10 @@ public abstract class EmailCore : BaseEntity, IEntity
     {
         public EmailValidator()
         {
-            RuleFor(x => x.Endereco)
+            RuleFor(x => x.Address)
                 .EmailAddress();
 
-            RuleFor(x => x.Endereco)
+            RuleFor(x => x.Address)
                 .MaximumLength(255);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Urbamais.Application.ViewModels.Request;
-using Urbamais.Domain.Entities.Planejamento;
+using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Application.App.Interfaces.Generic;
 
@@ -10,14 +10,14 @@ public interface IApp<T> where T : class
 
     Task<Tuple<bool, T>> Update(object id, IDomainUpdate entity);
 
-    Task<Tuple<bool, bool>> Delete(object id);   
+    Task<Tuple<bool, bool>> Delete(object id);
 
     Task<int> Commit();
 
     #region Querys
 
     //Task<IQueryable<T>> Query(IFiltroRequest query);
-    Task<IList<Unidade>> Query(IFiltroRequest filtro, CancellationToken cancellationToken);
+    Task<IList<Unit>> Query(IFilterRequest filter, CancellationToken cancellationToken);
 
     Task<T> Get(object id);
 

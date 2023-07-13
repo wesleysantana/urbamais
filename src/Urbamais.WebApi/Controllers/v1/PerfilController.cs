@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Urbamais.Application.ViewModels.Response.v1.Unidade;
+using Urbamais.Application.ViewModels.Response.v1.Unit;
 
 namespace Urbamais.WebApi.Controllers.v1;
 

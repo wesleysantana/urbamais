@@ -2,9 +2,9 @@
 
 public enum NivelPermissao
 {
-    Negado = 0,
-    Acessar = 1,
-    Criar = 2,
-    Editar = 3,
-    Remover = 4
+    Denied = 0,
+    Access = 1,
+    Create = 2,
+    Edite = 3,
+    Remove = 4
 }

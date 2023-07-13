@@ -353,7 +353,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("fornecedor", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Empresa", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.companie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -386,9 +386,9 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnName("inscricao_municipal");
 
                     b.HasKey("Id")
-                        .HasName("empresa_id");
+                        .HasName("companie_id");
 
-                    b.ToTable("empresa", (string)null);
+                    b.ToTable("companie", (string)null);
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Obra", b =>
@@ -412,14 +412,14 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("data_exclusao");
 
-                    b.Property<int>("EmpresaId")
+                    b.Property<int>("companieId")
                         .HasColumnType("integer")
-                        .HasColumnName("empresa_id");
+                        .HasColumnName("companie_id");
 
                     b.HasKey("Id")
                         .HasName("obra_id");
 
-                    b.HasIndex("EmpresaId");
+                    b.HasIndex("companieId");
 
                     b.ToTable("obra", (string)null);
                 });
@@ -691,49 +691,49 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("colaboradores_telefones");
                 });
 
-            modelBuilder.Entity("empresas_emails", b =>
+            modelBuilder.Entity("companies_emails", b =>
                 {
                     b.Property<int>("email_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("empresa_id")
+                    b.Property<int>("companie_id")
                         .HasColumnType("integer");
 
-                    b.HasKey("email_id", "empresa_id");
+                    b.HasKey("email_id", "companie_id");
 
-                    b.HasIndex("empresa_id");
+                    b.HasIndex("companie_id");
 
-                    b.ToTable("empresas_emails");
+                    b.ToTable("companies_emails");
                 });
 
-            modelBuilder.Entity("empresas_enderecos", b =>
+            modelBuilder.Entity("companies_enderecos", b =>
                 {
-                    b.Property<int>("empresa_id")
+                    b.Property<int>("companie_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("endereco_id")
                         .HasColumnType("integer");
 
-                    b.HasKey("empresa_id", "endereco_id");
+                    b.HasKey("companie_id", "endereco_id");
 
                     b.HasIndex("endereco_id");
 
-                    b.ToTable("empresas_enderecos");
+                    b.ToTable("companies_enderecos");
                 });
 
-            modelBuilder.Entity("empresas_telefones", b =>
+            modelBuilder.Entity("companies_telefones", b =>
                 {
-                    b.Property<int>("empresa_id")
+                    b.Property<int>("companie_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("telefone_id")
                         .HasColumnType("integer");
 
-                    b.HasKey("empresa_id", "telefone_id");
+                    b.HasKey("companie_id", "telefone_id");
 
                     b.HasIndex("telefone_id");
 
-                    b.ToTable("empresas_telefones");
+                    b.ToTable("companies_telefones");
                 });
 
             modelBuilder.Entity("fornecedores_emails", b =>
@@ -1043,11 +1043,11 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Empresa", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.companie", b =>
                 {
                     b.OwnsOne("Core.ValueObjects.CnpjVO", "Cnpj", b1 =>
                         {
-                            b1.Property<int>("EmpresaId")
+                            b1.Property<int>("companieId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("Cnpj")
@@ -1056,17 +1056,17 @@ namespace Urbamais.Infra.Migrations
                                 .HasColumnType("character varying(14)")
                                 .HasColumnName("cnpj");
 
-                            b1.HasKey("EmpresaId");
+                            b1.HasKey("companieId");
 
-                            b1.ToTable("empresa");
+                            b1.ToTable("companie");
 
                             b1.WithOwner()
-                                .HasForeignKey("EmpresaId");
+                                .HasForeignKey("companieId");
                         });
 
                     b.OwnsOne("Core.ValueObjects.NomeVO", "NomeFantasia", b1 =>
                         {
-                            b1.Property<int>("EmpresaId")
+                            b1.Property<int>("companieId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("Nome")
@@ -1075,17 +1075,17 @@ namespace Urbamais.Infra.Migrations
                                 .HasColumnType("character varying(255)")
                                 .HasColumnName("nome_fantasia");
 
-                            b1.HasKey("EmpresaId");
+                            b1.HasKey("companieId");
 
-                            b1.ToTable("empresa");
+                            b1.ToTable("companie");
 
                             b1.WithOwner()
-                                .HasForeignKey("EmpresaId");
+                                .HasForeignKey("companieId");
                         });
 
                     b.OwnsOne("Core.ValueObjects.NomeVO", "RazaoSocial", b1 =>
                         {
-                            b1.Property<int>("EmpresaId")
+                            b1.Property<int>("companieId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("Nome")
@@ -1094,12 +1094,12 @@ namespace Urbamais.Infra.Migrations
                                 .HasColumnType("character varying(255)")
                                 .HasColumnName("razao_social");
 
-                            b1.HasKey("EmpresaId");
+                            b1.HasKey("companieId");
 
-                            b1.ToTable("empresa");
+                            b1.ToTable("companie");
 
                             b1.WithOwner()
-                                .HasForeignKey("EmpresaId");
+                                .HasForeignKey("companieId");
                         });
 
                     b.Navigation("Cnpj")
@@ -1114,9 +1114,9 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Obra", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.Obra.Empresa", "Empresa")
+                    b.HasOne("Urbamais.Domain.Entities.Obra.companie", "companie")
                         .WithMany("Obras")
-                        .HasForeignKey("EmpresaId")
+                        .HasForeignKey("companieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1142,7 +1142,7 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Descricao")
                         .IsRequired();
 
-                    b.Navigation("Empresa");
+                    b.Navigation("companie");
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Planejamento.Insumo", b =>
@@ -1297,7 +1297,7 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("empresas_emails", b =>
+            modelBuilder.Entity("companies_emails", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Email", null)
                         .WithMany()
@@ -1305,18 +1305,18 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Urbamais.Domain.Entities.Obra.Empresa", null)
+                    b.HasOne("Urbamais.Domain.Entities.Obra.companie", null)
                         .WithMany()
-                        .HasForeignKey("empresa_id")
+                        .HasForeignKey("companie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("empresas_enderecos", b =>
+            modelBuilder.Entity("companies_enderecos", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.Obra.Empresa", null)
+                    b.HasOne("Urbamais.Domain.Entities.Obra.companie", null)
                         .WithMany()
-                        .HasForeignKey("empresa_id")
+                        .HasForeignKey("companie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1327,11 +1327,11 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("empresas_telefones", b =>
+            modelBuilder.Entity("companies_telefones", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.Obra.Empresa", null)
+                    b.HasOne("Urbamais.Domain.Entities.Obra.companie", null)
                         .WithMany()
-                        .HasForeignKey("empresa_id")
+                        .HasForeignKey("companie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1412,7 +1412,7 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Compras");
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.Empresa", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Obra.companie", b =>
                 {
                     b.Navigation("Obras");
                 });

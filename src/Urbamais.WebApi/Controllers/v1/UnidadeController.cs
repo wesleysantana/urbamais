@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Urbamais.Application.App.Interfaces.Planejamento;
-using Urbamais.Application.ViewModels.Request.v1.Unidade;
-using Urbamais.Application.ViewModels.Response.v1.Unidade;
-using Urbamais.Domain.Entities.Planejamento;
+using Urbamais.Application.App.Interfaces.Planning;
+using Urbamais.Application.ViewModels.Request.v1.Unit;
+using Urbamais.Application.ViewModels.Response.v1.Unit;
+using Urbamais.Domain.Entities.Planning;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.v1;
@@ -14,28 +14,28 @@ namespace Urbamais.WebApi.Controllers.v1;
 [ApiVersion("1.0")]
 public class UnidadeController : ControllerBase
 {
-    private readonly IUnidadeApp _unidadeApp;
+    private readonly IUnitApp _unidadeApp;
     private readonly IMapper _mapper;
 
-    public UnidadeController(IUnidadeApp unidadeApp, IMapper mapper)
+    public UnidadeController(IUnitApp unidadeApp, IMapper mapper)
     {
         _unidadeApp = unidadeApp;
         _mapper = mapper;
     }
-   
-    [ProducesResponseType(typeof(List<UnidadeResponse>), StatusCodes.Status200OK)]
+
+    [ProducesResponseType(typeof(List<UnitResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpGet]
-    public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro, CancellationToken cancellationToken)
+    public async Task<ActionResult<List<UnitResponse>>> Get([FromQuery] UnitFilterRequest filtro, CancellationToken cancellationToken)
     {
         try
         {
             var response = await _unidadeApp.Query(filtro, cancellationToken);
             if (response is not null && response.Any())
-                return Ok(_mapper.Map<List<UnidadeResponse>>(response));
+                return Ok(_mapper.Map<List<UnitResponse>>(response));
 
             return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
         }
@@ -45,18 +45,18 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-   
-    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
+
+    [ProducesResponseType(typeof(UnitResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpGet("{id}")]
-    public async Task<ActionResult<UnidadeResponse>> Get(int id)
+    public async Task<ActionResult<UnitResponse>> Get(int id)
     {
         try
         {
-            var unidade = _mapper.Map<UnidadeResponse>(await _unidadeApp.Get(id));
+            var unidade = _mapper.Map<UnitResponse>(await _unidadeApp.Get(id));
             if (unidade is not null)
                 return Ok(unidade);
 
@@ -68,21 +68,21 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-   
-    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status201Created)]
+
+    [ProducesResponseType(typeof(UnitResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPost]
-    public async Task<ActionResult<UnidadeResponse>> Insert(UnidadeRequest unidadeRequest)
+    public async Task<ActionResult<UnitResponse>> Insert(UnitRequest unidadeRequest)
     {
         try
         {
-            var unidade = await _unidadeApp.Insert(_mapper.Map<Unidade>(unidadeRequest));
+            var unidade = await _unidadeApp.Insert(_mapper.Map<Unit>(unidadeRequest));
             if (unidade.IsValid)
             {
-                return StatusCode((int)HttpStatusCode.Created, _mapper.Map<UnidadeResponse>(unidade));
+                return StatusCode((int)HttpStatusCode.Created, _mapper.Map<UnitResponse>(unidade));
             }
 
             var problemDetail =
@@ -97,14 +97,14 @@ public class UnidadeController : ControllerBase
             return StatusCode(500, problemDetail);
         }
     }
-    
-    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
+
+    [ProducesResponseType(typeof(UnitResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPut("{id}")]
-    public async Task<ActionResult<UnidadeResponse>> Update(int id, UnidadeUpdateRequest unidadeRequest)
+    public async Task<ActionResult<UnitResponse>> Update(int id, UnitUpdateRequest unidadeRequest)
     {
         try
         {
@@ -117,7 +117,7 @@ public class UnidadeController : ControllerBase
 
             if (unidade.Item2.IsValid)
             {
-                return Ok(_mapper.Map<UnidadeResponse>(unidade.Item2));
+                return Ok(_mapper.Map<UnitResponse>(unidade.Item2));
             }
 
             var problemDetail =
@@ -133,7 +133,7 @@ public class UnidadeController : ControllerBase
         }
     }
 
-    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UnitResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]

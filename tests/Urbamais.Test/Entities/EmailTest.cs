@@ -18,7 +18,7 @@ public class EmailTest
         var email = new Email("wel.santana_hotmail.com");
 
         Assert.False(email.IsValid);
-        var msg = $"'{nameof(email.Endereco)}' is not a valid email address.";
+        var msg = $"'{nameof(email.Address)}' is not a valid email address.";
         Assert.Contains(email.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
@@ -28,7 +28,7 @@ public class EmailTest
         var email = new Email("");
 
         Assert.False(email.IsValid);
-        var msg = $"'{nameof(email.Endereco)}' is not a valid email address.";
+        var msg = $"'{nameof(email.Address)}' is not a valid email address.";
         Assert.Contains(email.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 

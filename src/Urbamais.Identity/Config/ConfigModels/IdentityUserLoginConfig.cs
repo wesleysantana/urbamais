@@ -7,7 +7,7 @@ internal class IdentityUserLoginConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityUserLogin<string>>().ToTable("login");
+        builder.Entity<IdentityUserLogin<string>>().ToTable("identity_user_login");
 
         builder.Entity<IdentityUserLogin<string>>().HasKey(x => new { x.LoginProvider, x.ProviderKey });
 
@@ -25,6 +25,6 @@ internal class IdentityUserLoginConfig
 
         builder.Entity<IdentityUserLogin<string>>()
            .Property(p => p.UserId)
-           .HasColumnName("usuario_id");
+           .HasColumnName("user_id");
     }
 }

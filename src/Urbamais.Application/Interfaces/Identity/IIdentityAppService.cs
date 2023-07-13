@@ -1,13 +1,13 @@
-﻿using Urbamais.Application.ViewModels.Request.v1.Usuario;
-using Urbamais.Application.ViewModels.Response.v1.Usuario;
+﻿using Urbamais.Application.ViewModels.Request.v1.User;
+using Urbamais.Application.ViewModels.Response.v1.User;
 
 namespace Urbamais.Application.Interfaces.Identity;
 
 public interface IIdentityAppService
 {
-    Task<UsuarioCadastroResponse> CadastrarUsuario(UsuarioCadastroRequest usuarioCadastro);
+    Task<UserRegisterResponse> RegisterUser(UserRegisterRequest usuarioCadastro);
 
-    Task<UsuarioLoginResponse> Login(UsuarioLoginRequest usuarioLogin);
+    Task<UsuarioLoginResponse> Login(UserLoginRequest usuarioLogin);
 
     Task<UsuarioLoginResponse> RefreshLogin(string usuarioId);
 }

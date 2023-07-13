@@ -7,7 +7,7 @@ internal class IdentityRoleClaimConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityRoleClaim<string>>().ToTable("perfis_permissoes");
+        builder.Entity<IdentityRoleClaim<string>>().ToTable("identity_role_claim");
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.Id)
@@ -15,14 +15,14 @@ internal class IdentityRoleClaimConfig
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.RoleId)
-            .HasColumnName("perfil_id");
+            .HasColumnName("role_id");
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.ClaimType)
-            .HasColumnName("tipo_permissao");
+            .HasColumnName("claim_type");
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.ClaimValue)
-            .HasColumnName("valor_permissao");
+            .HasColumnName("claim_value");
     }
 }

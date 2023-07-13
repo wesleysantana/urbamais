@@ -1,9 +1,10 @@
 ﻿using Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
+using Urbamais.Domain.Entities.Construction;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Fornecedor;
-using Urbamais.Domain.Entities.Obra;
-using Urbamais.Domain.Entities.Planejamento;
+using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Supplier;
+using Urbamais.Domain.Entities.Supply;
 using Urbamais.Domain.Entities.Suprimento;
 using Urbamais.Infra.Config.ConfigModels;
 
@@ -16,40 +17,40 @@ public class ContextEf : DbContext
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
-    public DbSet<Cidade> Cidades { get; set; }
-    public DbSet<Colaborador> Colaboradores { get; set; }
-    public DbSet<Compra> Compras { get; set; }
+    public DbSet<City> Citys { get; set; }
+    public DbSet<Collaborator> Collaborators { get; set; }
+    public DbSet<Purchase> Purchases { get; set; }
     public DbSet<Email> Emails { get; set; }
-    public DbSet<Empresa> Empresas { get; set; }
-    public DbSet<Endereco> Enderecos { get; set; }
-    public DbSet<Equipamento> Equipamentos { get; private set; }
-    public DbSet<Fornecedor> Fornecedores { get; set; }
-    public DbSet<Insumo> Insumos { get; set; }
-    public DbSet<Obra> Obras { get; set; }
-    public DbSet<Pedido> Pedidos { get; set; }
-    public DbSet<Planejamento> Planejamentos { get; set; }
-    public DbSet<PlanejamentoInsumo> PlanejamentosInsumos { get; set; }
-    public DbSet<Telefone> Telefones { get; set; }
-    public DbSet<Unidade> Unidades { get; set; }
+    public DbSet<Companie> Companies { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Equipment> Equipments { get; private set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Input> Inputs { get; set; }
+    public DbSet<Construction> Constructions { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Planning> Plannings { get; set; }
+    public DbSet<PlannigInput> PlannigInputs { get; set; }
+    public DbSet<Phone> Phones { get; set; }
+    public DbSet<Unit> Units { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _ = new CidadeConfig(modelBuilder);
-        _ = new ColaboradorConfig(modelBuilder);
-        _ = new CompraConfig(modelBuilder);
+        _ = new CityConfig(modelBuilder);
+        _ = new CollaboratorConfig(modelBuilder);
+        _ = new PurchaseConfig(modelBuilder);
         _ = new EmailConfig(modelBuilder);
-        _ = new EmpresaConfig(modelBuilder);
-        _ = new EnderecoConfig(modelBuilder);
-        _ = new EquipamentoConfig(modelBuilder);
-        _ = new FornecedorConfig(modelBuilder);
-        _ = new ObraConfig(modelBuilder);
-        _ = new InsumoConfig(modelBuilder);
-        _ = new PedidosConfig(modelBuilder);
-        _ = new PlanejamentoConfig(modelBuilder);
-        _ = new PlanejamentoInsumoConfig(modelBuilder);
-        _ = new TelefoneConfig(modelBuilder);
-        _ = new UnidadeConfig(modelBuilder);
-    }  
+        _ = new companieConfig(modelBuilder);
+        _ = new AddressConfig(modelBuilder);
+        _ = new EquipmentConfig(modelBuilder);
+        _ = new SupplierConfig(modelBuilder);
+        _ = new ConstructionConfig(modelBuilder);
+        _ = new InputConfig(modelBuilder);
+        _ = new OrderConfig(modelBuilder);
+        _ = new PlanningConfig(modelBuilder);
+        _ = new PlannigInputsConfig(modelBuilder);
+        _ = new PhoneConfig(modelBuilder);
+        _ = new UnitConfig(modelBuilder);
+    }
 
     public override int SaveChanges()
     {
@@ -61,13 +62,13 @@ public class ContextEf : DbContext
     {
         foreach (var item in ChangeTracker.Entries())
         {
-            if(item.Entity.GetType() == typeof(BaseEntity))
+            if (item.Entity.GetType() == typeof(BaseEntity))
             {
                 if (item.State == EntityState.Added)
-                    item.Property(((BaseEntity)item.Entity).DataCriacao.ToString()).CurrentValue = DateTime.Now;
+                    item.Property(((BaseEntity)item.Entity).CreationDate.ToString()).CurrentValue = DateTime.Now;
 
                 if (item.State == EntityState.Modified)
-                    item.Property(((BaseEntity)item.Entity).DataAlteracao.ToString()!).CurrentValue = DateTime.Now;
+                    item.Property(((BaseEntity)item.Entity).ModificationDate.ToString()!).CurrentValue = DateTime.Now;
             }
         }
     }

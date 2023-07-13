@@ -7,17 +7,13 @@ internal class IdentityUserTokenConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityUserToken<string>>().ToTable("token");
+        builder.Entity<IdentityUserToken<string>>().ToTable("identity_user_token");
 
         builder.Entity<IdentityUserToken<string>>().HasKey(x => new { x.UserId, x.LoginProvider, x.Name });
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.UserId)
-            .HasColumnName("usuario_id");
-
-        builder.Entity<IdentityUserToken<string>>()
-            .Property(p => p.UserId)
-            .HasColumnName("usuario_id");
+            .HasColumnName("user_id");        
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.LoginProvider)
@@ -25,10 +21,10 @@ internal class IdentityUserTokenConfig
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.Name)
-            .HasColumnName("nome");
+            .HasColumnName("name");
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.Value)
-            .HasColumnName("valor");
+            .HasColumnName("value");
     }
 }

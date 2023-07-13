@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.v1.Usuario;
-using Urbamais.Application.ViewModels.Response.v1.Usuario;
+using Urbamais.Application.ViewModels.Request.v1.User;
+using Urbamais.Application.ViewModels.Response.v1.User;
 
 namespace Urbamais.Identity.Services;
 
@@ -23,7 +23,7 @@ public class IdentityService : IIdentityAppService
         _jwtOptions = jwtOptions.Value;
     }
 
-    public async Task<UsuarioCadastroResponse> CadastrarUsuario(UsuarioCadastroRequest usuarioCadastro)
+    public async Task<UserRegisterResponse> RegisterUser(UserRegisterRequest usuarioCadastro)
     {
         var identityUser = new IdentityUser
         {
@@ -32,56 +32,56 @@ public class IdentityService : IIdentityAppService
             EmailConfirmed = true
         };
 
-        var result = await _userManager.CreateAsync(identityUser, usuarioCadastro.Senha);
+        var result = await _userManager.CreateAsync(identityUser, usuarioCadastro.Password);
         if (result.Succeeded)
             await _userManager.SetLockoutEnabledAsync(identityUser, false);
 
-        var usuarioCadastroResponse = new UsuarioCadastroResponse(result.Succeeded);
+        var userRegisterResponse = new UserRegisterResponse(result.Succeeded);
         if (!result.Succeeded && result.Errors.Any())
-            usuarioCadastroResponse.AdicionarErros(result.Errors.Select(r => r.Description));
+            userRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
 
-        return usuarioCadastroResponse;
+        return userRegisterResponse;
     }
 
-    public async Task<UsuarioLoginResponse> Login(UsuarioLoginRequest usuarioLogin)
+    public async Task<UsuarioLoginResponse> Login(UserLoginRequest usuarioLogin)
     {
         var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha, false, true);
         if (result.Succeeded)
             return await GerarCredenciais(usuarioLogin.Email);
 
-        var usuarioLoginResponse = new UsuarioLoginResponse();
+        var userLoginResponse = new UsuarioLoginResponse();
         if (!result.Succeeded)
         {
             if (result.IsLockedOut)
-                usuarioLoginResponse.AdicionarErro("Essa conta está bloqueada");
+                userLoginResponse.AddError("Essa conta está bloqueada");
             else if (result.IsNotAllowed)
-                usuarioLoginResponse.AdicionarErro("Essa conta não tem permissão para fazer login");
+                userLoginResponse.AddError("Essa conta não tem permissão para fazer login");
             else if (result.RequiresTwoFactor)
-                usuarioLoginResponse.AdicionarErro("É necessário confirmar o login no seu segundo fator de autenticação");
+                userLoginResponse.AddError("É necessário confirmar o login no seu segundo fator de autenticação");
             else
-                usuarioLoginResponse.AdicionarErro("Usuário ou senha estão incorretos");
+                userLoginResponse.AddError("Usuário ou senha estão incorretos");
         }
 
-        return usuarioLoginResponse;
+        return userLoginResponse;
     }
 
-    public async Task<UsuarioLoginResponse> RefreshLogin(string usuarioId)
+    public async Task<UsuarioLoginResponse> RefreshLogin(string userId)
     {
-        var usuarioLoginResponse = new UsuarioLoginResponse();
-        var usuario = await _userManager.FindByIdAsync(usuarioId.ToString());
+        var userLoginResponse = new UsuarioLoginResponse();
+        var user = await _userManager.FindByIdAsync(userId.ToString());
 
-        if (usuario is null)
-            usuarioLoginResponse.AdicionarErro("Usuário não localizado na nossa base de dados");
+        if (user is null)
+            userLoginResponse.AddError("Usuário não localizado na nossa base de dados");
 
-        if (await _userManager.IsLockedOutAsync(usuario!))
-            usuarioLoginResponse.AdicionarErro("Essa conta está bloqueada");
-        else if (!await _userManager.IsEmailConfirmedAsync(usuario!))
-            usuarioLoginResponse.AdicionarErro("Essa conta precisa confirmar seu e-mail antes de realizar o login");
+        if (await _userManager.IsLockedOutAsync(user!))
+            userLoginResponse.AddError("Essa conta está bloqueada");
+        else if (!await _userManager.IsEmailConfirmedAsync(user!))
+            userLoginResponse.AddError("Essa conta precisa confirmar seu e-mail antes de realizar o login");
 
-        if (usuarioLoginResponse.Sucesso)
-            return await GerarCredenciais(usuario!.Email!);
+        if (userLoginResponse.Success)
+            return await GerarCredenciais(user!.Email!);
 
-        return usuarioLoginResponse;
+        return userLoginResponse;
     }
 
     private async Task<UsuarioLoginResponse> GerarCredenciais(string email)

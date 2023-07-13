@@ -19,16 +19,16 @@ internal abstract class ConfigBase<T> where T : BaseEntity
         builder.Entity<T>().HasKey(x => x.Id).HasName(entity.Name.ToLower() + "_id");
 
         builder.Entity<T>()
-            .Property(x => x.DataCriacao)
-            .HasColumnName("data_criacao")
+            .Property(x => x.CreationDate)
+            .HasColumnName("creation_date")
             .IsRequired();
 
         builder.Entity<T>()
-           .Property(x => x.DataAlteracao)
-           .HasColumnName("data_alteracao");
+           .Property(x => x.ModificationDate)
+           .HasColumnName("modification_date");
 
         builder.Entity<T>()
-           .Property(x => x.DataExclusao)
-           .HasColumnName("data_exclusao");
+           .Property(x => x.DeletionDate)
+           .HasColumnName("deletion_date");
     }
 }

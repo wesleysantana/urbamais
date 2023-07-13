@@ -7,7 +7,7 @@ public class DescricaoVOTest
     [Fact]
     public void DescricaoAdequado()
     {
-        var descricao = new DescricaoVO("Descricao correta");
+        var descricao = new DescriptionVO("Descricao correta");
 
         Assert.True(descricao.IsValid);
     }
@@ -23,18 +23,18 @@ public class DescricaoVOTest
         sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
         Aldus PageMaker including versions of Lorem Ipsum.";
 
-        var Descricao = new DescricaoVO(valor);
+        var Descricao = new DescriptionVO(valor);
         Assert.False(Descricao.IsValid);
 
-        var msg = $"The length of '{nameof(Descricao.Descricao)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
+        var msg = $"The length of '{nameof(Descricao.Description)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
         Assert.Contains(Descricao.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
     public void Igualdade()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Wesley Santana");
 
         Assert.Equal(Descricao1, Descricao2);
     }
@@ -42,8 +42,8 @@ public class DescricaoVOTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Rita Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Rita Santana");
 
         Assert.False(Descricao1.Equals(Descricao2));
     }
@@ -51,8 +51,8 @@ public class DescricaoVOTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Wesley Santana");
 
         Assert.True(Descricao1 == Descricao2);
     }
@@ -60,8 +60,8 @@ public class DescricaoVOTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Rita Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Rita Santana");
 
         Assert.True(Descricao1 != Descricao2);
     }
@@ -69,8 +69,8 @@ public class DescricaoVOTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Wesley Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Wesley Santana");
 
         Assert.True(Descricao1.GetHashCode().Equals(Descricao2.GetHashCode()));
     }
@@ -78,8 +78,8 @@ public class DescricaoVOTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var Descricao1 = new DescricaoVO("Wesley Santana");
-        var Descricao2 = new DescricaoVO("Rita Santana");
+        var Descricao1 = new DescriptionVO("Wesley Santana");
+        var Descricao2 = new DescriptionVO("Rita Santana");
 
         Assert.False(Descricao1.GetHashCode().Equals(Descricao2.GetHashCode()));
     }

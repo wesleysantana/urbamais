@@ -17,7 +17,7 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
     {
         try
         {
-            return Task.FromResult(_context.Set<T>().FirstOrDefault(x => x.DataExclusao == null && x.Id == (int)id)!);
+            return Task.FromResult(_context.Set<T>().FirstOrDefault(x => x.DeletionDate == null && x.Id == (int)id)!);
         }
         catch (Exception ex)
         {
@@ -29,7 +29,7 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
     {
         try
         {
-            return await _context.Set<T>().Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync(cancellationToken);
+            return await _context.Set<T>().Where(x => x.DeletionDate == null).AsNoTracking().ToListAsync(cancellationToken);
         }
         catch (Exception ex)
         {
@@ -41,7 +41,7 @@ public class RepositoryBaseEntity<T> : RepositoryBase<T> where T : BaseEntity
     {
         try
         {
-            return await query.Where(x => x.DataExclusao == null).AsNoTracking().ToListAsync(cancellationToken);
+            return await query.Where(x => x.DeletionDate == null).AsNoTracking().ToListAsync(cancellationToken);
         }
         catch (Exception ex)
         {

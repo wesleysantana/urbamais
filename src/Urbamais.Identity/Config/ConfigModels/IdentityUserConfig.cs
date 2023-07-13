@@ -7,7 +7,7 @@ internal class IdentityUserConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityUser>().ToTable("usuario");
+        builder.Entity<IdentityUser>().ToTable("identity_user");
         builder.Entity<IdentityUser>().HasKey(x => x.Id);
 
         builder.Entity<IdentityUser>()
@@ -16,12 +16,12 @@ internal class IdentityUserConfig
 
         builder.Entity<IdentityUser>()
             .Property(x => x.UserName)
-            .HasColumnName("nome")
+            .HasColumnName("user_name")
             .IsRequired();
 
         builder.Entity<IdentityUser>()
            .Property(x => x.NormalizedUserName)
-           .HasColumnName("nome_normalizado");
+           .HasColumnName("normalized_user_name");
 
         builder.Entity<IdentityUser>()
             .Property(p => p.Email)
@@ -30,16 +30,16 @@ internal class IdentityUserConfig
 
         builder.Entity<IdentityUser>()
            .Property(x => x.NormalizedEmail)
-           .HasColumnName("email_normalizado");
+           .HasColumnName("normalized_email");
 
         builder.Entity<IdentityUser>()
             .Property(p => p.EmailConfirmed)
-            .HasColumnName("email_confirmado")
+            .HasColumnName("email_confirmed")
             .IsRequired();
 
         builder.Entity<IdentityUser>()
             .Property(p => p.PasswordHash)
-            .HasColumnName("senha")
+            .HasColumnName("password_hash")
             .IsRequired();
 
         builder.Entity<IdentityUser>()
@@ -52,17 +52,17 @@ internal class IdentityUserConfig
 
         builder.Entity<IdentityUser>()
             .Property(p => p.PhoneNumber)
-            .HasColumnName("telefone")
+            .HasColumnName("phone_number")
             .HasMaxLength(20);
 
         builder.Entity<IdentityUser>()
             .Property(p => p.PhoneNumberConfirmed)
-            .HasColumnName("telefone_confirmado")
+            .HasColumnName("phone_number_confirmed")
             .IsRequired();
 
         builder.Entity<IdentityUser>()
             .Property(p => p.TwoFactorEnabled)
-            .HasColumnName("two_factor_habilitado")
+            .HasColumnName("two_factor_enabled")
             .IsRequired();
 
         builder.Entity<IdentityUser>()

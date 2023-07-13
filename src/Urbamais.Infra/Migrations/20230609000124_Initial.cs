@@ -69,7 +69,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "empresa",
+                name: "companie",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -85,7 +85,7 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("empresa_id", x => x.id);
+                    table.PrimaryKey("companie_id", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,25 +209,25 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "empresas_emails",
+                name: "companies_emails",
                 columns: table => new
                 {
                     email_id = table.Column<int>(type: "integer", nullable: false),
-                    empresa_id = table.Column<int>(type: "integer", nullable: false)
+                    companie_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_empresas_emails", x => new { x.email_id, x.empresa_id });
+                    table.PrimaryKey("PK_companies_emails", x => new { x.email_id, x.companie_id });
                     table.ForeignKey(
-                        name: "FK_empresas_emails_email_email_id",
+                        name: "FK_companies_emails_email_email_id",
                         column: x => x.email_id,
                         principalTable: "email",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_empresas_emails_empresa_empresa_id",
-                        column: x => x.empresa_id,
-                        principalTable: "empresa",
+                        name: "FK_companies_emails_companie_companie_id",
+                        column: x => x.companie_id,
+                        principalTable: "companie",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -238,7 +238,7 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    empresa_id = table.Column<int>(type: "integer", nullable: false),
+                    companie_id = table.Column<int>(type: "integer", nullable: false),
                     descricao = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     data_criacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     data_alteracao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -248,9 +248,9 @@ namespace Urbamais.Infra.Migrations
                 {
                     table.PrimaryKey("obra_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_obra_empresa_empresa_id",
-                        column: x => x.empresa_id,
-                        principalTable: "empresa",
+                        name: "FK_obra_companie_companie_id",
+                        column: x => x.companie_id,
+                        principalTable: "companie",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -328,23 +328,23 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "empresas_telefones",
+                name: "companies_telefones",
                 columns: table => new
                 {
-                    empresa_id = table.Column<int>(type: "integer", nullable: false),
+                    companie_id = table.Column<int>(type: "integer", nullable: false),
                     telefone_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_empresas_telefones", x => new { x.empresa_id, x.telefone_id });
+                    table.PrimaryKey("PK_companies_telefones", x => new { x.companie_id, x.telefone_id });
                     table.ForeignKey(
-                        name: "FK_empresas_telefones_empresa_empresa_id",
-                        column: x => x.empresa_id,
-                        principalTable: "empresa",
+                        name: "FK_companies_telefones_companie_companie_id",
+                        column: x => x.companie_id,
+                        principalTable: "companie",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_empresas_telefones_telefone_telefone_id",
+                        name: "FK_companies_telefones_telefone_telefone_id",
                         column: x => x.telefone_id,
                         principalTable: "telefone",
                         principalColumn: "id",
@@ -425,23 +425,23 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "empresas_enderecos",
+                name: "companies_enderecos",
                 columns: table => new
                 {
-                    empresa_id = table.Column<int>(type: "integer", nullable: false),
+                    companie_id = table.Column<int>(type: "integer", nullable: false),
                     endereco_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_empresas_enderecos", x => new { x.empresa_id, x.endereco_id });
+                    table.PrimaryKey("PK_companies_enderecos", x => new { x.companie_id, x.endereco_id });
                     table.ForeignKey(
-                        name: "FK_empresas_enderecos_empresa_empresa_id",
-                        column: x => x.empresa_id,
-                        principalTable: "empresa",
+                        name: "FK_companies_enderecos_companie_companie_id",
+                        column: x => x.companie_id,
+                        principalTable: "companie",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_empresas_enderecos_endereco_endereco_id",
+                        name: "FK_companies_enderecos_endereco_endereco_id",
                         column: x => x.endereco_id,
                         principalTable: "endereco",
                         principalColumn: "id",
@@ -616,18 +616,18 @@ namespace Urbamais.Infra.Migrations
                 column: "local_entrega_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_empresas_emails_empresa_id",
-                table: "empresas_emails",
-                column: "empresa_id");
+                name: "IX_companies_emails_companie_id",
+                table: "companies_emails",
+                column: "companie_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_empresas_enderecos_endereco_id",
-                table: "empresas_enderecos",
+                name: "IX_companies_enderecos_endereco_id",
+                table: "companies_enderecos",
                 column: "endereco_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_empresas_telefones_telefone_id",
-                table: "empresas_telefones",
+                name: "IX_companies_telefones_telefone_id",
+                table: "companies_telefones",
                 column: "telefone_id");
 
             migrationBuilder.CreateIndex(
@@ -661,9 +661,9 @@ namespace Urbamais.Infra.Migrations
                 column: "unidade_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_obra_empresa_id",
+                name: "IX_obra_companie_id",
                 table: "obra",
-                column: "empresa_id");
+                column: "companie_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_pedido_planejamento_id",
@@ -697,13 +697,13 @@ namespace Urbamais.Infra.Migrations
                 name: "compra");
 
             migrationBuilder.DropTable(
-                name: "empresas_emails");
+                name: "companies_emails");
 
             migrationBuilder.DropTable(
-                name: "empresas_enderecos");
+                name: "companies_enderecos");
 
             migrationBuilder.DropTable(
-                name: "empresas_telefones");
+                name: "companies_telefones");
 
             migrationBuilder.DropTable(
                 name: "fornecedores_emails");
@@ -757,7 +757,7 @@ namespace Urbamais.Infra.Migrations
                 name: "obra");
 
             migrationBuilder.DropTable(
-                name: "empresa");
+                name: "companie");
         }
     }
 }

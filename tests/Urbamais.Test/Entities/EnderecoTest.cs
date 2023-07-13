@@ -7,7 +7,7 @@ public class EnderecoTest
     [Fact]
     public void EnderecoValido()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco.IsValid);
     }
@@ -15,11 +15,11 @@ public class EnderecoTest
     [Fact]
     public void LogradouroVazio()
     {
-        var endereco = new Endereco("", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco = new Address("", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"'{nameof(endereco.Logradouro)}' must not be empty.";
+        var msg = $"'{nameof(endereco.Thoroughfare)}' must not be empty.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
@@ -32,11 +32,11 @@ public class EnderecoTest
             logradouro += logradouro;
         }
 
-        var endereco = new Endereco(logradouro, "70", "", "Vila Verinha", "19040170", 1);
+        var endereco = new Address(logradouro, "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"The length of '{nameof(endereco.Logradouro)}' must be 150 characters or fewer. " +
+        var msg = $"The length of '{nameof(endereco.Thoroughfare)}' must be 150 characters or fewer. " +
             $"You entered {logradouro.Length} characters.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
@@ -44,11 +44,11 @@ public class EnderecoTest
     [Fact]
     public void NumeroVazio()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "", "", "Vila Verinha", "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", "", "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"'{nameof(endereco.Numero)}' must not be empty.";
+        var msg = $"'{nameof(endereco.Number)}' must not be empty.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
@@ -57,11 +57,11 @@ public class EnderecoTest
     {
         var numero = "012345678901";
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", numero, "", "Vila Verinha", "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", numero, "", "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"The length of '{nameof(endereco.Numero)}' must be 10 characters or fewer. " +
+        var msg = $"The length of '{nameof(endereco.Number)}' must be 10 characters or fewer. " +
             $"You entered {numero.Length} characters.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
@@ -75,11 +75,11 @@ public class EnderecoTest
             complemento += complemento;
         }
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", complemento, "Vila Verinha", "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", "70", complemento, "Vila Verinha", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"The length of '{nameof(endereco.Complemento)}' must be 100 characters or fewer. " +
+        var msg = $"The length of '{nameof(endereco.Complement)}' must be 100 characters or fewer. " +
             $"You entered {complemento.Length} characters.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
@@ -87,11 +87,11 @@ public class EnderecoTest
     [Fact]
     public void BairroVazio()
     {
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", "", "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", "70", "", "", "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"'{nameof(endereco.Bairro)}' must not be empty.";
+        var msg = $"'{nameof(endereco.Neighborhood)}' must not be empty.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
@@ -104,11 +104,11 @@ public class EnderecoTest
             bairro += bairro;
         }
 
-        var endereco = new Endereco("Rua Tito Lívio Brasil", "70", "", bairro, "19040170", 1);
+        var endereco = new Address("Rua Tito Lívio Brasil", "70", "", bairro, "19040170", 1);
 
         Assert.False(endereco.IsValid);
 
-        var msg = $"The length of '{nameof(endereco.Bairro)}' must be 100 characters or fewer. " +
+        var msg = $"The length of '{nameof(endereco.Neighborhood)}' must be 100 characters or fewer. " +
             $"You entered {bairro.Length} characters.";
         Assert.Contains(endereco.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
@@ -116,9 +116,9 @@ public class EnderecoTest
     [Fact]
     public void Igualdade()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1.Equals(endereco2));
     }
@@ -126,9 +126,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.False(endereco1.Equals(endereco2));
     }
@@ -136,9 +136,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1 == endereco2);
     }
@@ -146,9 +146,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.True(endereco1 != endereco2);
     }
@@ -156,9 +156,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
         Assert.True(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));
     }
@@ -166,9 +166,9 @@ public class EnderecoTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var endereco1 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
+        var endereco1 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1);
 
-        var endereco2 = new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
+        var endereco2 = new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 2);
 
         Assert.False(endereco1.GetHashCode().Equals(endereco2.GetHashCode()));
     }

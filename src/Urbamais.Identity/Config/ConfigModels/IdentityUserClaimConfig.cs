@@ -19,10 +19,10 @@ internal class IdentityUserClaimConfig
 
         builder.Entity<IdentityUserClaim<string>>()
             .Property(p => p.ClaimType)
-            .HasColumnName("tipo_permissao");
+            .HasColumnName("claim_type");
 
         builder.Entity<IdentityUserClaim<string>>()
             .Property(p => p.ClaimValue)
-            .HasColumnName("valor_permissao");
+            .HasColumnName("claim_value");
     }
 }

@@ -14,8 +14,8 @@ internal class EmailConfig : ConfigBase<Email>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Email>()
-            .Property(x => x.Endereco)
-            .HasColumnName("endereco")
+            .Property(x => x.Address)
+            .HasColumnName("address")
             .IsRequired()
             .HasMaxLength(255);
     }

@@ -7,7 +7,7 @@ internal class IdentityRoleConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityRole>().ToTable("perfil");
+        builder.Entity<IdentityRole>().ToTable("identity_role");
         builder.Entity<IdentityRole>().HasKey(x => x.Id);
 
         builder.Entity<IdentityRole>()
@@ -16,11 +16,11 @@ internal class IdentityRoleConfig
 
         builder.Entity<IdentityRole>()
             .Property(p => p.Name)
-            .HasColumnName("nome");
+            .HasColumnName("name");
 
         builder.Entity<IdentityRole>()
             .Property(p => p.NormalizedName)
-            .HasColumnName("nome_normalizado");
+            .HasColumnName("normalized_name");
 
         builder.Entity<IdentityRole>()
            .Property(p => p.ConcurrencyStamp)

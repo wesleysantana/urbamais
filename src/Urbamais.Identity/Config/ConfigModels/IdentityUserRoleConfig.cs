@@ -7,16 +7,16 @@ internal class IdentityUserRoleConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityUserRole<string>>().ToTable("usuarios_perfis");
+        builder.Entity<IdentityUserRole<string>>().ToTable("identity_user_role");
 
         builder.Entity<IdentityUserRole<string>>().HasKey(x => new { x.UserId, x.RoleId });
 
         builder.Entity<IdentityUserRole<string>>()
             .Property(p => p.UserId)
-            .HasColumnName("usuario_id");
+            .HasColumnName("user_id");
 
         builder.Entity<IdentityUserRole<string>>()
             .Property(p => p.RoleId)
-            .HasColumnName("perfil_id");
+            .HasColumnName("role_id");
     }
 }

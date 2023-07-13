@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Urbamais.Application.App.ConcreteClasses.Planejamento;
-using Urbamais.Application.App.Interfaces.Planejamento;
+using Urbamais.Application.App.ConcreteClasses.Planning;
+using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.Interfaces.Core;
 using Urbamais.Application.Interfaces.Generic;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.Services.Core;
 using Urbamais.Application.Services.Generic;
-using Urbamais.Application.Services.Planejamento;
+using Urbamais.Application.Services.Planning;
 using Urbamais.Domain.InterfacesRepositories.Core;
 using Urbamais.Domain.InterfacesRepositories.Generic;
 using Urbamais.Domain.InterfacesRepositories.Planejamento;
@@ -18,7 +18,7 @@ using Urbamais.Domain.Services.Interfaces.Generic;
 using Urbamais.Domain.Services.Interfaces.Planejamento;
 using Urbamais.Infra.Repositories.Core;
 using Urbamais.Infra.Repositories.Generic;
-using Urbamais.Infra.Repositories.Planejamento;
+using Urbamais.Infra.Repositories.Planning;
 
 namespace Urbamais.CrossCutting.IOC;
 
@@ -28,33 +28,32 @@ public static class ModuloIOC
     {
         #region App
 
-        services.AddTransient<IUnidadeApp, UnidadeApp>();
+        services.AddTransient<IUnitApp, UnitApp>();
 
         #endregion App
 
         #region AppServices
 
         services.AddTransient(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
-        services.AddTransient<ICidadeAppService, CidadeAppService>();
-        services.AddTransient<IUnidadeAppService, UnidadeAppService>();
+        services.AddTransient<ICityAppService, CityAppService>();
+        services.AddTransient<IUnitAppService, UnitAppService>();
 
         #endregion AppServices
 
         #region Services
 
         services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-        services.AddTransient<ICidadeService, CidadeService>();
-        services.AddTransient<IUnidadeService, UnidadeService>();
+        services.AddTransient<ICityService, CityService>();
+        services.AddTransient<IUnitService, UnitService>();
 
         #endregion Services
 
         #region Repositories
 
         services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-        services.AddTransient<ICidadeRepository, CidadeRepository>();
-        services.AddTransient<IUnidadeRepository, UnidadeRepository>();
+        services.AddTransient<ICityRepository, CityRepository>();
+        services.AddTransient<IUnitRepository, UnitRepository>();
 
         #endregion Repositories
-
     }
 }

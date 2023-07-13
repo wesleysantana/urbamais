@@ -1,5 +1,5 @@
 ﻿using Core.ValueObjects;
-using Urbamais.Domain.Entities.Planejamento;
+using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Test.Entities;
 

@@ -1,26 +1,26 @@
 ﻿using Core.ValueObjects;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Fornecedor;
+using Urbamais.Domain.Entities.Supplier;
 
 namespace Urbamais.Test.Entities;
 
 public class FornecedorTest
 {
-    public static Fornecedor CadastroFornecedor()
+    public static Supplier CadastroFornecedor()
     {
-        var nome = new NomeVO("Fornecedor Teste");
-        var razao = new NomeVO("Fornecedor Teste LTDA");
+        var nome = new NameVO("Fornecedor Teste");
+        var razao = new NameVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new List<Endereco>()
+        var endereco = new List<Address>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
+            new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
-        List<Telefone> telefones = new()
+        List<Phone> telefones = new()
         {
-            new Telefone("112313213"),
-            new Telefone("221561511")
+            new Phone("112313213"),
+            new Phone("221561511")
         };
 
         List<Email> emails = new()
@@ -29,7 +29,7 @@ public class FornecedorTest
             new Email("rita.santana@hotmail.com")
         };
 
-        return new Fornecedor(nome, razao, cnpj, "123.456-45", null, endereco, telefones, emails);
+        return new Supplier(nome, razao, cnpj, "123.456-45", null, endereco, telefones, emails);
     }
 
     [Fact]
@@ -45,12 +45,12 @@ public class FornecedorTest
         var Fornecedor = CadastroFornecedor();
         Assert.True(Fornecedor.IsValid);
 
-        var endereco = new List<Endereco>()
+        var endereco = new List<Address>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
+            new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
-        Fornecedor.Update(new NomeVO("Novo Nome Razão"), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
+        Fornecedor.Update(new NameVO("Novo Nome Razão"), new NameVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
         Assert.True(Fornecedor.IsValid);
     }
 
@@ -60,31 +60,31 @@ public class FornecedorTest
         var Fornecedor = CadastroFornecedor();
         Assert.True(Fornecedor.IsValid);
 
-        var endereco = new List<Endereco>()
+        var endereco = new List<Address>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
+            new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
-        Fornecedor.Update(new NomeVO(""), new NomeVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
+        Fornecedor.Update(new NameVO(""), new NameVO("novo Nome"), new CnpjVO("11.587.881/0001-05"), endereco);
         Assert.False(Fornecedor.IsValid);
     }
 
     [Fact]
     public void NomeIncorreto()
     {
-        var nome = new NomeVO("");
-        var razao = new NomeVO("Fornecedor Teste LTDA");
+        var nome = new NameVO("");
+        var razao = new NameVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new List<Endereco>()
+        var endereco = new List<Address>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
+            new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
-        List<Telefone> telefones = new()
+        List<Phone> telefones = new()
         {
-            new Telefone("112313213"),
-            new Telefone("221561511")
+            new Phone("112313213"),
+            new Phone("221561511")
         };
 
         List<Email> emails = new()
@@ -93,28 +93,28 @@ public class FornecedorTest
             new Email("rita.santana@hotmail.com")
         };
 
-        var Fornecedor = new Fornecedor(razao, nome, cnpj, "123.456-45", null, endereco, telefones, emails);
+        var Fornecedor = new Supplier(razao, nome, cnpj, "123.456-45", null, endereco, telefones, emails);
         Assert.False(Fornecedor.IsValid);
     }
 
     [Fact]
     public void TelefoneIncorreto()
     {
-        var nome = new NomeVO("Fornecedor Teste");
-        var razao = new NomeVO("Fornecedor Teste LTDA");
+        var nome = new NameVO("Fornecedor Teste");
+        var razao = new NameVO("Fornecedor Teste LTDA");
         var cnpj = new CnpjVO("11.587.881/0001-05");
 
-        var endereco = new List<Endereco>()
+        var endereco = new List<Address>()
         {
-            new Endereco("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
+            new Address("Rua Tito Lívio Brasil", "70", "", "Vila Verinha", "19040170", 1)
         };
 
         var numeroLong = "112313213000000000001111111";
-        List<Telefone> telefones = new()
+        List<Phone> telefones = new()
         {
-            new Telefone(numeroLong),
-            new Telefone("221561511"),
-            new Telefone(""),
+            new Phone(numeroLong),
+            new Phone("221561511"),
+            new Phone(""),
         };
 
         List<Email> emails = new()
@@ -123,7 +123,7 @@ public class FornecedorTest
             new Email("rita.santana@hotmail.com")
         };
 
-        var Fornecedor = new Fornecedor(razao, nome, cnpj, "123.456-45", null, endereco, telefones, emails);
+        var Fornecedor = new Supplier(razao, nome, cnpj, "123.456-45", null, endereco, telefones, emails);
 
         var msg = $"'Numero' must not be empty.";
         Assert.Contains(Fornecedor.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
@@ -147,8 +147,8 @@ public class FornecedorTest
     {
         var Fornecedor1 = CadastroFornecedor();
         var Fornecedor2 = CadastroFornecedor();
-        var newList = Fornecedor2.Telefones.ToList();
-        newList.Add(new Telefone("123456789"));
+        var newList = Fornecedor2.Phones.ToList();
+        newList.Add(new Phone("123456789"));
         Fornecedor2.Update(telefones: newList);
 
         Assert.False(Fornecedor1.Equals(Fornecedor2));
@@ -168,7 +168,7 @@ public class FornecedorTest
     {
         var Fornecedor1 = CadastroFornecedor();
         var Fornecedor2 = CadastroFornecedor();
-        Fornecedor2.Update(nomeFantasia: new NomeVO("Novo Nome"));
+        Fornecedor2.Update(nomeFantasia: new NameVO("Novo Nome"));
 
         Assert.True(Fornecedor1 != Fornecedor2);
     }
@@ -187,7 +187,7 @@ public class FornecedorTest
     {
         var Fornecedor1 = CadastroFornecedor();
         var Fornecedor2 = CadastroFornecedor();
-        Fornecedor2.Update(razaoSocial: new NomeVO("Nova Razão Social"));
+        Fornecedor2.Update(razaoSocial: new NameVO("Nova Razão Social"));
 
         Assert.False(Fornecedor1.GetHashCode().Equals(Fornecedor2.GetHashCode()));
     }

@@ -3,6 +3,7 @@
 public static class DataAnnotationsMessages
 {
     public const string REQUIRED = "O campo {0} é obrigatório.";
+    public const string EMAIL = "O e-mail informado não está no formato correto.";
     public const string STRINGLENGHT = "O campo {0} deve ter entre {2} e {1} caracteres.";
     public const string STRINGLENGHTFIX = "O campo {0} deve ter {1} caractere(s).";
     public const string MAXLENGHT = "O campo {0} deve ter, no máximo, {1} caractere(s).";
