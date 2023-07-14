@@ -24,10 +24,10 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public string CNH { get; private set; }
     public string EPI { get; private set; }
     public string CTPS { get; private set; }
-    public string? NumberPreEmploymentHealthAssessment { get; private set; }
+    public string? NumberAdmissionExam { get; private set; }
 
-    public DateTime? ExpirationDatePreEmploymentHealthAssessment { get; private set; }
-    public string PreEmploymentHealthAssessment { get; private set; }
+    public DateTime? ExpirationDateAdmissionExam { get; private set; }
+    public string AdmissionExam { get; private set; }
     public string RegistrationForm { get; private set; }
     public string ServiceOrder { get; private set; }
 
@@ -59,7 +59,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public Collaborator(NameVO name, CpfVO cpf,
         List<Address> address, string numberCtps, string numberCNH, string typeCnh,
         DateTime expirationDateCNH, string cnh, string epi, string ctps,
-        string numeroExameAdmissional, DateTime validadeExameAdmissional, string preEmploymentHealthAssessment,
+        string numeroExameAdmissional, DateTime validadeExameAdmissional, string admissionExam,
         string registrationForm, string serviceOrder, List<Phone>? listPhones, List<Email>? listEmails)
     {
         Name = name;
@@ -72,9 +72,9 @@ public class Collaborator : BaseEntity, IAggregateRoot
         CNH = cnh;
         EPI = epi;
         CTPS = ctps;
-        NumberPreEmploymentHealthAssessment = numeroExameAdmissional;
-        ExpirationDatePreEmploymentHealthAssessment = validadeExameAdmissional;
-        PreEmploymentHealthAssessment = preEmploymentHealthAssessment;
+        NumberAdmissionExam = numeroExameAdmissional;
+        ExpirationDateAdmissionExam = validadeExameAdmissional;
+        AdmissionExam = admissionExam;
         RegistrationForm = registrationForm;
         ServiceOrder = serviceOrder;
         _listPhones = listPhones;
@@ -122,8 +122,8 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public void Update(NameVO? name = null, CpfVO? cpf = null,
        List<Address>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
        DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? CTPS = null,
-       string? numberPreEmploymentHealthAssessment = null, DateTime? expirationDatePreEmploymentHealthAssessment = null, 
-       string? preEmploymentHealthAssessment = null, string? registrationForm = null, string? serviceOrder = null, 
+       string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null, 
+       string? admissionExam = null, string? registrationForm = null, string? serviceOrder = null, 
        List<Phone>? listPhones = null, List<Email>? listEmails = null)
     {
         if (name is not null) Name = name;
@@ -137,13 +137,13 @@ public class Collaborator : BaseEntity, IAggregateRoot
         if (epi is not null) this.EPI = epi;
         if (CTPS is not null) this.CTPS = CTPS;
 
-        if (numberPreEmploymentHealthAssessment is not null) 
-            NumberPreEmploymentHealthAssessment = numberPreEmploymentHealthAssessment;
+        if (numberAdmissionExam is not null) 
+            NumberAdmissionExam = numberAdmissionExam;
 
-        if (expirationDatePreEmploymentHealthAssessment is not null) 
-            ExpirationDatePreEmploymentHealthAssessment = (DateTime)expirationDatePreEmploymentHealthAssessment;
+        if (expirationDateAdmissionExam is not null) 
+            ExpirationDateAdmissionExam = (DateTime)expirationDateAdmissionExam;
 
-        if (preEmploymentHealthAssessment is not null) PreEmploymentHealthAssessment = preEmploymentHealthAssessment;
+        if (admissionExam is not null) AdmissionExam = admissionExam;
         if (registrationForm is not null) RegistrationForm = registrationForm;
         if (serviceOrder is not null) ServiceOrder = serviceOrder;
         if (listPhones is not null) _listPhones = listPhones;
@@ -171,9 +171,9 @@ public class Collaborator : BaseEntity, IAggregateRoot
             EqualityComparer<string>.Default.Equals(CNH, colaborador.CNH) &&
             EqualityComparer<string>.Default.Equals(EPI, colaborador.EPI) &&
             EqualityComparer<string>.Default.Equals(CTPS, colaborador.CTPS) &&
-            NumberPreEmploymentHealthAssessment == colaborador.NumberPreEmploymentHealthAssessment &&
-            ExpirationDatePreEmploymentHealthAssessment == colaborador.ExpirationDatePreEmploymentHealthAssessment &&
-            EqualityComparer<string>.Default.Equals(PreEmploymentHealthAssessment, colaborador.PreEmploymentHealthAssessment) &&
+            NumberAdmissionExam == colaborador.NumberAdmissionExam &&
+            ExpirationDateAdmissionExam == colaborador.ExpirationDateAdmissionExam &&
+            EqualityComparer<string>.Default.Equals(AdmissionExam, colaborador.AdmissionExam) &&
             EqualityComparer<string>.Default.Equals(RegistrationForm, colaborador.RegistrationForm) &&
             EqualityComparer<string>.Default.Equals(ServiceOrder, colaborador.ServiceOrder) &&
             Enumerable.SequenceEqual(_listAddress!.OrderBy(e => e.Id), colaborador._listAddress!.OrderBy(e => e.Id)) &&
@@ -196,9 +196,9 @@ public class Collaborator : BaseEntity, IAggregateRoot
         hash.Add(CNH);
         hash.Add(EPI);
         hash.Add(CTPS);
-        hash.Add(NumberPreEmploymentHealthAssessment);
-        hash.Add(ExpirationDatePreEmploymentHealthAssessment);
-        hash.Add(PreEmploymentHealthAssessment);
+        hash.Add(NumberAdmissionExam);
+        hash.Add(ExpirationDateAdmissionExam);
+        hash.Add(AdmissionExam);
         hash.Add(RegistrationForm);
         hash.Add(ServiceOrder);
         return hash.ToHashCode();
@@ -219,7 +219,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
             RuleFor(x => x.TypeCNH)
                 .MaximumLength(2);
 
-            RuleFor(x => x.NumberPreEmploymentHealthAssessment)
+            RuleFor(x => x.NumberAdmissionExam)
                 .MaximumLength(20);
         }
     }

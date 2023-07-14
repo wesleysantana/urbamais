@@ -15,7 +15,7 @@ internal class InputConfig : ConfigBase<Input>
     {
         builder.Entity<Input>()
             .Property(x => x.Type)
-            .HasColumnName("typo")
+            .HasColumnName("type")
             .IsRequired();
 
         builder.Entity<Input>()

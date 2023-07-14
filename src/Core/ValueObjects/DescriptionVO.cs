@@ -7,9 +7,9 @@ public sealed class DescriptionVO : BaseValidate
 {
     public string? Description { get; private set; }
 
-    public DescriptionVO(string descricao)
+    public DescriptionVO(string description)
     {
-        Description = descricao.Trim();
+        Description = description.Trim();
         Validate(this, new DescriptionValidator());
 
         if (!IsValid) Description = default;

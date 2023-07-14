@@ -12,7 +12,7 @@ using Urbamais.Identity.Config;
 namespace Urbamais.Identity.Migrations
 {
     [DbContext(typeof(ContextIdentity))]
-    [Migration("20230616215537_Initial")]
+    [Migration("20230714150150_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,8 @@ namespace Urbamais.Identity.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("text")
@@ -36,15 +37,15 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text")
-                        .HasColumnName("nome");
+                        .HasColumnName("name");
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("text")
-                        .HasColumnName("nome_normalizado");
+                        .HasColumnName("normalized_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("perfil", (string)null);
+                    b.ToTable("identity_role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -58,19 +59,19 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text")
-                        .HasColumnName("tipo_permissao");
+                        .HasColumnName("claim_type");
 
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text")
-                        .HasColumnName("valor_permissao");
+                        .HasColumnName("claim_value");
 
                     b.Property<string>("RoleId")
                         .HasColumnType("text")
-                        .HasColumnName("perfil_id");
+                        .HasColumnName("role_id");
 
                     b.HasKey("Id");
 
-                    b.ToTable("perfis_permissoes", (string)null);
+                    b.ToTable("identity_role_claim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -94,7 +95,7 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean")
-                        .HasColumnName("email_confirmado");
+                        .HasColumnName("email_confirmed");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean")
@@ -106,26 +107,25 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("text")
-                        .HasColumnName("email_normalizado");
+                        .HasColumnName("normalized_email");
 
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("text")
-                        .HasColumnName("nome_normalizado");
+                        .HasColumnName("normalized_user_name");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)")
-                        .HasColumnName("senha");
+                        .HasColumnType("text")
+                        .HasColumnName("password_hash");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
-                        .HasColumnName("telefone");
+                        .HasColumnName("phone_number");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean")
-                        .HasColumnName("telefone_confirmado");
+                        .HasColumnName("phone_number_confirmed");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text")
@@ -133,16 +133,16 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean")
-                        .HasColumnName("two_factor_habilitado");
+                        .HasColumnName("two_factor_enabled");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("nome");
+                        .HasColumnName("user_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuario", (string)null);
+                    b.ToTable("identity_user", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -156,11 +156,11 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text")
-                        .HasColumnName("tipo_permissao");
+                        .HasColumnName("claim_type");
 
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text")
-                        .HasColumnName("valor_permissao");
+                        .HasColumnName("claim_value");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text")
@@ -168,7 +168,7 @@ namespace Urbamais.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuarios_permissoes", (string)null);
+                    b.ToTable("identity_user_claim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -187,33 +187,33 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("UserId")
                         .HasColumnType("text")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.ToTable("login", (string)null);
+                    b.ToTable("identity_user_login", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("text")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
                     b.Property<string>("RoleId")
                         .HasColumnType("text")
-                        .HasColumnName("perfil_id");
+                        .HasColumnName("role_id");
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.ToTable("usuarios_perfis", (string)null);
+                    b.ToTable("identity_user_role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("text")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text")
@@ -221,15 +221,15 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text")
-                        .HasColumnName("nome");
+                        .HasColumnName("name");
 
                     b.Property<string>("Value")
                         .HasColumnType("text")
-                        .HasColumnName("valor");
+                        .HasColumnName("value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("token", (string)null);
+                    b.ToTable("identity_user_token", (string)null);
                 });
 #pragma warning restore 612, 618
         }

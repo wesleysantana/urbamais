@@ -41,10 +41,10 @@ public class Equipment : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NameVO? nome = null, DescriptionVO? descricao = null)
+    public void Update(NameVO? name = null, DescriptionVO? description = null)
     {
-        if (nome is not null) Name = nome;
-        if (descricao is not null) Description = descricao;
+        if (name is not null) Name = name;
+        if (description is not null) Description = description;
 
         Validate();
     }

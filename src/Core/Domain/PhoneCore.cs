@@ -11,7 +11,7 @@ public class PhoneCore : BaseEntity, IEntity
     public PhoneCore(string number)
     {
         Number = number.Trim();
-        Validate(this, new TelefoneValidator());
+        Validate(this, new PhoneValidator());
 
         if (!IsValid && Id == default) Number = default;
     }
@@ -37,9 +37,9 @@ public class PhoneCore : BaseEntity, IEntity
 
     public static bool operator !=(PhoneCore left, PhoneCore right) => !left.Equals(right);
 
-    private class TelefoneValidator : AbstractValidator<PhoneCore>
+    private class PhoneValidator : AbstractValidator<PhoneCore>
     {
-        public TelefoneValidator()
+        public PhoneValidator()
         {
             RuleFor(x => x.Number)
                 .NotEmpty()

@@ -29,7 +29,7 @@ public class ContextEf : DbContext
     public DbSet<Construction> Constructions { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Planning> Plannings { get; set; }
-    public DbSet<PlannigInput> PlannigInputs { get; set; }
+    public DbSet<PlanningInput> PlannigInputs { get; set; }
     public DbSet<Phone> Phones { get; set; }
     public DbSet<Unit> Units { get; set; }
 
@@ -47,7 +47,7 @@ public class ContextEf : DbContext
         _ = new InputConfig(modelBuilder);
         _ = new OrderConfig(modelBuilder);
         _ = new PlanningConfig(modelBuilder);
-        _ = new PlannigInputsConfig(modelBuilder);
+        _ = new PlanningInputsConfig(modelBuilder);
         _ = new PhoneConfig(modelBuilder);
         _ = new UnitConfig(modelBuilder);
     }

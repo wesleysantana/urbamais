@@ -149,7 +149,7 @@ public class FornecedorTest
         var Fornecedor2 = CadastroFornecedor();
         var newList = Fornecedor2.Phones.ToList();
         newList.Add(new Phone("123456789"));
-        Fornecedor2.Update(telefones: newList);
+        Fornecedor2.Update(phones: newList);
 
         Assert.False(Fornecedor1.Equals(Fornecedor2));
     }
@@ -168,7 +168,7 @@ public class FornecedorTest
     {
         var Fornecedor1 = CadastroFornecedor();
         var Fornecedor2 = CadastroFornecedor();
-        Fornecedor2.Update(nomeFantasia: new NameVO("Novo Nome"));
+        Fornecedor2.Update(tradeName: new NameVO("Novo Nome"));
 
         Assert.True(Fornecedor1 != Fornecedor2);
     }
@@ -187,7 +187,7 @@ public class FornecedorTest
     {
         var Fornecedor1 = CadastroFornecedor();
         var Fornecedor2 = CadastroFornecedor();
-        Fornecedor2.Update(razaoSocial: new NameVO("Nova Razão Social"));
+        Fornecedor2.Update(corporateName: new NameVO("Nova Razão Social"));
 
         Assert.False(Fornecedor1.GetHashCode().Equals(Fornecedor2.GetHashCode()));
     }

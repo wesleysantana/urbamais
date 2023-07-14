@@ -10,7 +10,7 @@ public sealed class Phone : PhoneCore
     public ICollection<Companie>? Companies { get; private set; }
     public ICollection<Supplier.Supplier>? Suppliers { get; private set; }
 
-    public Phone(string numero) : base(numero)
+    public Phone(string number) : base(number)
     {
     }
 }

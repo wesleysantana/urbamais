@@ -49,13 +49,13 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
             .HasColumnName("expiration_date_cnh");
 
         builder.Entity<Collaborator>()
-            .Property(x => x.NumberPreEmploymentHealthAssessment)
-            .HasColumnName("number_pre_employment_health_assessment")
+            .Property(x => x.NumberAdmissionExam)
+            .HasColumnName("number_admission_exam")
             .HasMaxLength(20);
 
         builder.Entity<Collaborator>()
-            .Property(x => x.ExpirationDatePreEmploymentHealthAssessment)
-            .HasColumnName("expiration_date_pre_employment_health_assessment");
+            .Property(x => x.ExpirationDateAdmissionExam)
+            .HasColumnName("expiration_date_admission_exam");
 
         builder.Entity<Collaborator>()
             .HasMany(x => x.Address)

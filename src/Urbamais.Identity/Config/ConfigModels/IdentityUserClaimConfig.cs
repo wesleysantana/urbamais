@@ -7,7 +7,7 @@ internal class IdentityUserClaimConfig
 {
     public static void Config(ModelBuilder builder)
     {
-        builder.Entity<IdentityUserClaim<string>>().ToTable("usuarios_permissoes");
+        builder.Entity<IdentityUserClaim<string>>().ToTable("identity_user_claim");
 
         builder.Entity<IdentityUserClaim<string>>()
             .Property(p => p.Id)

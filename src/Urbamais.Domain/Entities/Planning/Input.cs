@@ -13,7 +13,7 @@ public class Input : BaseEntity, IAggregateRoot
     public int UnitId { get; private set; }
     public virtual Unit Unit { get; private set; }
     public TipoInsumo Type { get; private set; }
-    public virtual ICollection<PlannigInput>? PlannigInputs { get; private set; }
+    public virtual ICollection<PlanningInput>? PlannigInputs { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 

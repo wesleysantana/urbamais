@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace Urbamais.Domain.Entities.Planning;
 
-public class PlannigInput : BaseValidate, IEntity
+public class PlanningInput : BaseValidate, IEntity
 {
-    public int PlannigId { get; private set; }
+    public int PlanningId { get; private set; }
     public virtual Planning? Planning { get; private set; }
     public int InputId { get; private set; }
     public virtual Input? Input { get; private set; }
@@ -15,14 +15,14 @@ public class PlannigInput : BaseValidate, IEntity
     public DateTime StartDate { get; private set; }
     public DateTime FinalDate { get; private set; }
 
-    protected PlannigInput()
+    protected PlanningInput()
     {
     }
 
-    public PlannigInput(int plannigId, int inputId, decimal unitaryValue,
+    public PlanningInput(int planningId, int inputId, decimal unitaryValue,
         double amount, DateTime startDate, DateTime finalDate)
     {
-        PlannigId = plannigId;
+        PlanningId = planningId;
         InputId = inputId;
         UnitaryValue = unitaryValue;
         Amount = amount;
@@ -34,13 +34,13 @@ public class PlannigInput : BaseValidate, IEntity
 
     private void Validate()
     {
-        Validate(this, new PlannigInputValidator());
+        Validate(this, new PlanningInputValidator());
     }
 
-    public void Update(int? plannigId = null, int? inputId = null, decimal? unitaryValue = null,
+    public void Update(int? planningId = null, int? inputId = null, decimal? unitaryValue = null,
         double? amount = null, DateTime? startDate = null, DateTime? finalDate = null)
     {
-        if (plannigId is not null) PlannigId = (int)plannigId;
+        if (planningId is not null) PlanningId = (int)planningId;
         if (inputId is not null) InputId = (int)inputId;
         if (unitaryValue is not null) UnitaryValue = (decimal)unitaryValue;
         if (amount is not null) Amount = (double)amount;
@@ -50,11 +50,11 @@ public class PlannigInput : BaseValidate, IEntity
         Validate();
     }
 
-    private class PlannigInputValidator : AbstractValidator<PlannigInput>
+    private class PlanningInputValidator : AbstractValidator<PlanningInput>
     {
-        public PlannigInputValidator()
+        public PlanningInputValidator()
         {
-            RuleFor(x => x.PlannigId)
+            RuleFor(x => x.PlanningId)
                 .NotNull()
                 .NotEqual(0);
 

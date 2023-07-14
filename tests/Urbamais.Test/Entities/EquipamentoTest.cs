@@ -47,7 +47,7 @@ public class EquipamentoTest
         var equipamento = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
         Assert.True(equipamento.IsValid);
 
-        equipamento.Update(descricao: descricao);
+        equipamento.Update(description: descricao);
         Assert.Equal(descricao, equipamento.Description);
         Assert.True(equipamento.IsValid);
     }
@@ -67,7 +67,7 @@ public class EquipamentoTest
         var equipamento1 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
         var equipamento2 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
 
-        equipamento2.Update(descricao: new DescriptionVO("Obra Alterada"));
+        equipamento2.Update(description: new DescriptionVO("Obra Alterada"));
 
         Assert.False(equipamento1.Equals(equipamento2));
     }
@@ -86,7 +86,7 @@ public class EquipamentoTest
     {
         var equipamento1 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
         var equipamento2 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
-        equipamento2.Update(descricao: new DescriptionVO("Obra Alterada"));
+        equipamento2.Update(description: new DescriptionVO("Obra Alterada"));
 
         Assert.True(equipamento1 != equipamento2);
     }
@@ -105,7 +105,7 @@ public class EquipamentoTest
     {
         var equipamento1 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
         var equipamento2 = new Equipment(new NameVO("Novo Equipamento"), new DescriptionVO("Descrição Qualquer"));
-        equipamento2.Update(descricao: new DescriptionVO("Obra Alterada"));
+        equipamento2.Update(description: new DescriptionVO("Obra Alterada"));
 
         Assert.False(equipamento1.GetHashCode().Equals(equipamento2.GetHashCode()));
     }

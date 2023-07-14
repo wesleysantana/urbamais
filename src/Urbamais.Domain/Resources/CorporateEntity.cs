@@ -98,14 +98,14 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NameVO? razaoSocial = null, NameVO? nomeFantasia = null, CnpjVO? cnpj = null,
-        List<Address>? enderecos = null, List<Phone>? telefones = null, List<Email>? emails = null)
+    public void Update(NameVO? corporateName = null, NameVO? tradeName = null, CnpjVO? cnpj = null,
+        List<Address>? addresses = null, List<Phone>? phones = null, List<Email>? emails = null)
     {
-        if (razaoSocial is not null) CorporateName = razaoSocial;
-        if (nomeFantasia is not null) TradeName = nomeFantasia;
+        if (corporateName is not null) CorporateName = corporateName;
+        if (tradeName is not null) TradeName = tradeName;
         if (cnpj is not null) Cnpj = cnpj;
-        if (enderecos is not null) Addresses = enderecos;
-        if (telefones is not null) Phones = telefones;
+        if (addresses is not null) Addresses = addresses;
+        if (phones is not null) Phones = phones;
         if (emails is not null) Emails = emails;
 
         Validate();
@@ -129,16 +129,16 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
 
     public override int GetHashCode()
     {
-        int hashEndereco = 0;
+        int hashAddress = 0;
         foreach (var item in _listAddress!)
         {
-            hashEndereco += item.GetHashCode();
+            hashAddress += item.GetHashCode();
         }
 
-        int hashTel = 0;
+        int hashPhone = 0;
         foreach (var item in _listEmail!)
         {
-            hashTel += item.GetHashCode();
+            hashPhone += item.GetHashCode();
         }
 
         int hashEmail = 0;
@@ -147,7 +147,7 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
             hashEmail += item.GetHashCode();
         }
 
-        return HashCode.Combine(Id, CorporateName, TradeName, Cnpj, Addresses) + hashEndereco + hashTel + hashEmail;
+        return HashCode.Combine(Id, CorporateName, TradeName, Cnpj, Addresses) + hashAddress + hashPhone + hashEmail;
     }
 
     public static bool operator ==(CorporateEntity left, CorporateEntity right) => left.Equals(right);

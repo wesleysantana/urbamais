@@ -10,7 +10,7 @@ public sealed class Email : EmailCore
     public ICollection<Companie>? Companies { get; private set; }
     public ICollection<Supplier.Supplier>? Suppliers { get; private set; }
 
-    public Email(string endereco) : base(endereco)
+    public Email(string address) : base(address)
     {
     }
 }
