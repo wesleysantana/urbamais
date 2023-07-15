@@ -411,15 +411,21 @@ namespace Urbamais.Infra.Migrations
 
                     b.Property<string>("AdmissionExam")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("admission_exam");
 
                     b.Property<string>("CNH")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("cnh");
 
                     b.Property<string>("CTPS")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(25)
+                        .HasColumnType("character varying(25)")
+                        .HasColumnName("ctps");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp without time zone")
@@ -431,7 +437,9 @@ namespace Urbamais.Infra.Migrations
 
                     b.Property<string>("EPI")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("epi");
 
                     b.Property<DateTime?>("ExpirationDateAdmissionExam")
                         .HasColumnType("timestamp without time zone")
@@ -457,17 +465,21 @@ namespace Urbamais.Infra.Migrations
 
                     b.Property<string>("NumberCTPS")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("number_ctps");
 
                     b.Property<string>("RegistrationForm")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("registration_form");
 
                     b.Property<string>("ServiceOrder")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("service_order");
 
                     b.Property<string>("TypeCNH")
                         .HasMaxLength(2)
@@ -620,22 +632,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("purchase", (string)null);
                 });
 
-            modelBuilder.Entity("collaborator_phones", b =>
-                {
-                    b.Property<int>("collaborator_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("phone_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("collaborator_id", "phone_id");
-
-                    b.HasIndex("phone_id");
-
-                    b.ToTable("collaborator_phones");
-                });
-
-            modelBuilder.Entity("collaborators_adresses", b =>
+            modelBuilder.Entity("collaborators_addresses", b =>
                 {
                     b.Property<int>("address_id")
                         .HasColumnType("integer");
@@ -647,7 +644,7 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("collaborator_id");
 
-                    b.ToTable("collaborators_adresses");
+                    b.ToTable("collaborators_addresses");
                 });
 
             modelBuilder.Entity("collaborators_emails", b =>
@@ -665,7 +662,22 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("collaborators_emails");
                 });
 
-            modelBuilder.Entity("companies_Addresses", b =>
+            modelBuilder.Entity("collaborators_phones", b =>
+                {
+                    b.Property<int>("collaborator_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("phone_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("collaborator_id", "phone_id");
+
+                    b.HasIndex("phone_id");
+
+                    b.ToTable("collaborators_phones");
+                });
+
+            modelBuilder.Entity("companies_addresses", b =>
                 {
                     b.Property<int>("address_id")
                         .HasColumnType("integer");
@@ -677,7 +689,7 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("companie_id");
 
-                    b.ToTable("companies_Addresses");
+                    b.ToTable("companies_addresses");
                 });
 
             modelBuilder.Entity("companies_emails", b =>
@@ -695,7 +707,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("companies_emails");
                 });
 
-            modelBuilder.Entity("companies_telefones", b =>
+            modelBuilder.Entity("companies_phones", b =>
                 {
                     b.Property<int>("companie_id")
                         .HasColumnType("integer");
@@ -707,10 +719,10 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("phone_id");
 
-                    b.ToTable("companies_telefones");
+                    b.ToTable("companies_phones");
                 });
 
-            modelBuilder.Entity("supplier_addresses", b =>
+            modelBuilder.Entity("suppliers_addresses", b =>
                 {
                     b.Property<int>("address_id")
                         .HasColumnType("integer");
@@ -722,10 +734,10 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("supplier_id");
 
-                    b.ToTable("supplier_addresses");
+                    b.ToTable("suppliers_addresses");
                 });
 
-            modelBuilder.Entity("supplier_emails", b =>
+            modelBuilder.Entity("suppliers_emails", b =>
                 {
                     b.Property<int>("email_id")
                         .HasColumnType("integer");
@@ -737,22 +749,7 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("supplier_id");
 
-                    b.ToTable("supplier_emails");
-                });
-
-            modelBuilder.Entity("supplier_phones", b =>
-                {
-                    b.Property<int>("phone_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("supplier_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("phone_id", "supplier_id");
-
-                    b.HasIndex("supplier_id");
-
-                    b.ToTable("supplier_phones");
+                    b.ToTable("suppliers_emails");
                 });
 
             modelBuilder.Entity("suppliers_equipaments", b =>
@@ -768,6 +765,21 @@ namespace Urbamais.Infra.Migrations
                     b.HasIndex("supplier_id");
 
                     b.ToTable("suppliers_equipaments");
+                });
+
+            modelBuilder.Entity("suppliers_phones", b =>
+                {
+                    b.Property<int>("phone_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("supplier_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("phone_id", "supplier_id");
+
+                    b.HasIndex("supplier_id");
+
+                    b.ToTable("suppliers_phones");
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Construction.Companie", b =>
@@ -1180,22 +1192,7 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("collaborator_phones", b =>
-                {
-                    b.HasOne("Urbamais.Domain.Entities.Supplier.Collaborator", null)
-                        .WithMany()
-                        .HasForeignKey("collaborator_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Phone", null)
-                        .WithMany()
-                        .HasForeignKey("phone_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("collaborators_adresses", b =>
+            modelBuilder.Entity("collaborators_addresses", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Address", null)
                         .WithMany()
@@ -1225,7 +1222,22 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("companies_Addresses", b =>
+            modelBuilder.Entity("collaborators_phones", b =>
+                {
+                    b.HasOne("Urbamais.Domain.Entities.Supplier.Collaborator", null)
+                        .WithMany()
+                        .HasForeignKey("collaborator_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Phone", null)
+                        .WithMany()
+                        .HasForeignKey("phone_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("companies_addresses", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Address", null)
                         .WithMany()
@@ -1255,7 +1267,7 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("companies_telefones", b =>
+            modelBuilder.Entity("companies_phones", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.Construction.Companie", null)
                         .WithMany()
@@ -1270,7 +1282,7 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("supplier_addresses", b =>
+            modelBuilder.Entity("suppliers_addresses", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Address", null)
                         .WithMany()
@@ -1285,26 +1297,11 @@ namespace Urbamais.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("supplier_emails", b =>
+            modelBuilder.Entity("suppliers_emails", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Email", null)
                         .WithMany()
                         .HasForeignKey("email_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Urbamais.Domain.Entities.Supplier.Supplier", null)
-                        .WithMany()
-                        .HasForeignKey("supplier_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("supplier_phones", b =>
-                {
-                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Phone", null)
-                        .WithMany()
-                        .HasForeignKey("phone_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1320,6 +1317,21 @@ namespace Urbamais.Infra.Migrations
                     b.HasOne("Urbamais.Domain.Entities.Supplier.Equipment", null)
                         .WithMany()
                         .HasForeignKey("equipament_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Urbamais.Domain.Entities.Supplier.Supplier", null)
+                        .WithMany()
+                        .HasForeignKey("supplier_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("suppliers_phones", b =>
+                {
+                    b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Phone", null)
+                        .WithMany()
+                        .HasForeignKey("phone_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

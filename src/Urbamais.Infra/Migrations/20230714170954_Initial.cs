@@ -37,18 +37,18 @@ namespace Urbamais.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
-                    number_ctps = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
+                    number_ctps = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     number_cnh = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
                     type_cnh = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: true),
                     expiration_date_cnh = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    CNH = table.Column<string>(type: "text", nullable: false),
-                    EPI = table.Column<string>(type: "text", nullable: false),
-                    CTPS = table.Column<string>(type: "text", nullable: false),
+                    cnh = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    epi = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ctps = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
                     number_admission_exam = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     expiration_date_admission_exam = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    AdmissionExam = table.Column<string>(type: "text", nullable: false),
-                    RegistrationForm = table.Column<string>(type: "text", nullable: false),
-                    ServiceOrder = table.Column<string>(type: "text", nullable: false),
+                    admission_exam = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    registration_form = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    service_order = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
@@ -263,7 +263,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "collaborator_phones",
+                name: "collaborators_phones",
                 columns: table => new
                 {
                     collaborator_id = table.Column<int>(type: "integer", nullable: false),
@@ -271,15 +271,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_collaborator_phones", x => new { x.collaborator_id, x.phone_id });
+                    table.PrimaryKey("PK_collaborators_phones", x => new { x.collaborator_id, x.phone_id });
                     table.ForeignKey(
-                        name: "FK_collaborator_phones_collaborator_collaborator_id",
+                        name: "FK_collaborators_phones_collaborator_collaborator_id",
                         column: x => x.collaborator_id,
                         principalTable: "collaborator",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_collaborator_phones_phone_phone_id",
+                        name: "FK_collaborators_phones_phone_phone_id",
                         column: x => x.phone_id,
                         principalTable: "phone",
                         principalColumn: "id",
@@ -287,7 +287,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "companies_telefones",
+                name: "companies_phones",
                 columns: table => new
                 {
                     companie_id = table.Column<int>(type: "integer", nullable: false),
@@ -295,15 +295,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_companies_telefones", x => new { x.companie_id, x.phone_id });
+                    table.PrimaryKey("PK_companies_phones", x => new { x.companie_id, x.phone_id });
                     table.ForeignKey(
-                        name: "FK_companies_telefones_companie_companie_id",
+                        name: "FK_companies_phones_companie_companie_id",
                         column: x => x.companie_id,
                         principalTable: "companie",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_companies_telefones_phone_phone_id",
+                        name: "FK_companies_phones_phone_phone_id",
                         column: x => x.phone_id,
                         principalTable: "phone",
                         principalColumn: "id",
@@ -311,7 +311,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "supplier_emails",
+                name: "suppliers_emails",
                 columns: table => new
                 {
                     email_id = table.Column<int>(type: "integer", nullable: false),
@@ -319,39 +319,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_supplier_emails", x => new { x.email_id, x.supplier_id });
+                    table.PrimaryKey("PK_suppliers_emails", x => new { x.email_id, x.supplier_id });
                     table.ForeignKey(
-                        name: "FK_supplier_emails_email_email_id",
+                        name: "FK_suppliers_emails_email_email_id",
                         column: x => x.email_id,
                         principalTable: "email",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_supplier_emails_supplier_supplier_id",
-                        column: x => x.supplier_id,
-                        principalTable: "supplier",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "supplier_phones",
-                columns: table => new
-                {
-                    phone_id = table.Column<int>(type: "integer", nullable: false),
-                    supplier_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_supplier_phones", x => new { x.phone_id, x.supplier_id });
-                    table.ForeignKey(
-                        name: "FK_supplier_phones_phone_phone_id",
-                        column: x => x.phone_id,
-                        principalTable: "phone",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_supplier_phones_supplier_supplier_id",
+                        name: "FK_suppliers_emails_supplier_supplier_id",
                         column: x => x.supplier_id,
                         principalTable: "supplier",
                         principalColumn: "id",
@@ -376,6 +352,30 @@ namespace Urbamais.Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_suppliers_equipaments_supplier_supplier_id",
+                        column: x => x.supplier_id,
+                        principalTable: "supplier",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "suppliers_phones",
+                columns: table => new
+                {
+                    phone_id = table.Column<int>(type: "integer", nullable: false),
+                    supplier_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_suppliers_phones", x => new { x.phone_id, x.supplier_id });
+                    table.ForeignKey(
+                        name: "FK_suppliers_phones_phone_phone_id",
+                        column: x => x.phone_id,
+                        principalTable: "phone",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_suppliers_phones_supplier_supplier_id",
                         column: x => x.supplier_id,
                         principalTable: "supplier",
                         principalColumn: "id",
@@ -408,7 +408,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "collaborators_adresses",
+                name: "collaborators_addresses",
                 columns: table => new
                 {
                     address_id = table.Column<int>(type: "integer", nullable: false),
@@ -416,15 +416,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_collaborators_adresses", x => new { x.address_id, x.collaborator_id });
+                    table.PrimaryKey("PK_collaborators_addresses", x => new { x.address_id, x.collaborator_id });
                     table.ForeignKey(
-                        name: "FK_collaborators_adresses_address_address_id",
+                        name: "FK_collaborators_addresses_address_address_id",
                         column: x => x.address_id,
                         principalTable: "address",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_collaborators_adresses_collaborator_collaborator_id",
+                        name: "FK_collaborators_addresses_collaborator_collaborator_id",
                         column: x => x.collaborator_id,
                         principalTable: "collaborator",
                         principalColumn: "id",
@@ -432,7 +432,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "companies_Addresses",
+                name: "companies_addresses",
                 columns: table => new
                 {
                     address_id = table.Column<int>(type: "integer", nullable: false),
@@ -440,15 +440,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_companies_Addresses", x => new { x.address_id, x.companie_id });
+                    table.PrimaryKey("PK_companies_addresses", x => new { x.address_id, x.companie_id });
                     table.ForeignKey(
-                        name: "FK_companies_Addresses_address_address_id",
+                        name: "FK_companies_addresses_address_address_id",
                         column: x => x.address_id,
                         principalTable: "address",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_companies_Addresses_companie_companie_id",
+                        name: "FK_companies_addresses_companie_companie_id",
                         column: x => x.companie_id,
                         principalTable: "companie",
                         principalColumn: "id",
@@ -456,7 +456,7 @@ namespace Urbamais.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "supplier_addresses",
+                name: "suppliers_addresses",
                 columns: table => new
                 {
                     address_id = table.Column<int>(type: "integer", nullable: false),
@@ -464,15 +464,15 @@ namespace Urbamais.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_supplier_addresses", x => new { x.address_id, x.supplier_id });
+                    table.PrimaryKey("PK_suppliers_addresses", x => new { x.address_id, x.supplier_id });
                     table.ForeignKey(
-                        name: "FK_supplier_addresses_address_address_id",
+                        name: "FK_suppliers_addresses_address_address_id",
                         column: x => x.address_id,
                         principalTable: "address",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_supplier_addresses_supplier_supplier_id",
+                        name: "FK_suppliers_addresses_supplier_supplier_id",
                         column: x => x.supplier_id,
                         principalTable: "supplier",
                         principalColumn: "id",
@@ -598,13 +598,8 @@ namespace Urbamais.Infra.Migrations
                 column: "city_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_collaborator_phones_phone_id",
-                table: "collaborator_phones",
-                column: "phone_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_collaborators_adresses_collaborator_id",
-                table: "collaborators_adresses",
+                name: "IX_collaborators_addresses_collaborator_id",
+                table: "collaborators_addresses",
                 column: "collaborator_id");
 
             migrationBuilder.CreateIndex(
@@ -613,8 +608,13 @@ namespace Urbamais.Infra.Migrations
                 column: "email_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_companies_Addresses_companie_id",
-                table: "companies_Addresses",
+                name: "IX_collaborators_phones_phone_id",
+                table: "collaborators_phones",
+                column: "phone_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_companies_addresses_companie_id",
+                table: "companies_addresses",
                 column: "companie_id");
 
             migrationBuilder.CreateIndex(
@@ -623,8 +623,8 @@ namespace Urbamais.Infra.Migrations
                 column: "email_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_companies_telefones_phone_id",
-                table: "companies_telefones",
+                name: "IX_companies_phones_phone_id",
+                table: "companies_phones",
                 column: "phone_id");
 
             migrationBuilder.CreateIndex(
@@ -668,23 +668,23 @@ namespace Urbamais.Infra.Migrations
                 column: "supplier_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_supplier_addresses_supplier_id",
-                table: "supplier_addresses",
+                name: "IX_suppliers_addresses_supplier_id",
+                table: "suppliers_addresses",
                 column: "supplier_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_supplier_emails_supplier_id",
-                table: "supplier_emails",
-                column: "supplier_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_supplier_phones_supplier_id",
-                table: "supplier_phones",
+                name: "IX_suppliers_emails_supplier_id",
+                table: "suppliers_emails",
                 column: "supplier_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_suppliers_equipaments_supplier_id",
                 table: "suppliers_equipaments",
+                column: "supplier_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_suppliers_phones_supplier_id",
+                table: "suppliers_phones",
                 column: "supplier_id");
         }
 
@@ -692,22 +692,22 @@ namespace Urbamais.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "collaborator_phones");
-
-            migrationBuilder.DropTable(
-                name: "collaborators_adresses");
+                name: "collaborators_addresses");
 
             migrationBuilder.DropTable(
                 name: "collaborators_emails");
 
             migrationBuilder.DropTable(
-                name: "companies_Addresses");
+                name: "collaborators_phones");
+
+            migrationBuilder.DropTable(
+                name: "companies_addresses");
 
             migrationBuilder.DropTable(
                 name: "companies_emails");
 
             migrationBuilder.DropTable(
-                name: "companies_telefones");
+                name: "companies_phones");
 
             migrationBuilder.DropTable(
                 name: "planning_inputs");
@@ -716,16 +716,16 @@ namespace Urbamais.Infra.Migrations
                 name: "purchase");
 
             migrationBuilder.DropTable(
-                name: "supplier_addresses");
+                name: "suppliers_addresses");
 
             migrationBuilder.DropTable(
-                name: "supplier_emails");
-
-            migrationBuilder.DropTable(
-                name: "supplier_phones");
+                name: "suppliers_emails");
 
             migrationBuilder.DropTable(
                 name: "suppliers_equipaments");
+
+            migrationBuilder.DropTable(
+                name: "suppliers_phones");
 
             migrationBuilder.DropTable(
                 name: "collaborator");
@@ -743,10 +743,10 @@ namespace Urbamais.Infra.Migrations
                 name: "email");
 
             migrationBuilder.DropTable(
-                name: "phone");
+                name: "equipment");
 
             migrationBuilder.DropTable(
-                name: "equipment");
+                name: "phone");
 
             migrationBuilder.DropTable(
                 name: "supplier");

@@ -32,12 +32,23 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
             .Property(x => x.NumberCTPS)
             .HasColumnName("number_ctps")
             .IsRequired()
+            .HasMaxLength(50);
+
+        builder.Entity<Collaborator>()
+            .Property(x => x.CTPS)
+            .HasColumnName("ctps")
+            .IsRequired()
             .HasMaxLength(25);
 
         builder.Entity<Collaborator>()
            .Property(x => x.NumberCNH)
            .HasColumnName("number_cnh")
            .HasMaxLength(9);
+
+        builder.Entity<Collaborator>()
+          .Property(x => x.CNH)
+          .HasColumnName("cnh")
+          .HasMaxLength(50);
 
         builder.Entity<Collaborator>()
             .Property(x => x.TypeCNH)
@@ -47,6 +58,26 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
         builder.Entity<Collaborator>()
             .Property(x => x.ExpirationDateCNH)
             .HasColumnName("expiration_date_cnh");
+
+        builder.Entity<Collaborator>()
+          .Property(x => x.EPI)
+          .HasColumnName("epi")
+          .HasMaxLength(50);
+
+        builder.Entity<Collaborator>()
+          .Property(x => x.AdmissionExam)
+          .HasColumnName("admission_exam")
+          .HasMaxLength(50);
+
+        builder.Entity<Collaborator>()
+          .Property(x => x.RegistrationForm)
+          .HasColumnName("registration_form")
+          .HasMaxLength(50);
+
+        builder.Entity<Collaborator>()
+         .Property(x => x.ServiceOrder)
+         .HasColumnName("service_order")
+         .HasMaxLength(50);
 
         builder.Entity<Collaborator>()
             .Property(x => x.NumberAdmissionExam)
@@ -61,7 +92,7 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
             .HasMany(x => x.Address)
             .WithMany(x => x.Collaborators)
             .UsingEntity<Dictionary<string, object>>(
-                "collaborators_adresses",
+                "collaborators_addresses",
                 x => x.HasOne<Address>().WithMany().HasForeignKey("address_id"),
                 x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
             );
@@ -79,7 +110,7 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
            .HasMany(x => x.Phones)
            .WithMany(x => x.Collaborators)
            .UsingEntity<Dictionary<string, object>>(
-               "collaborator_phones",
+               "collaborators_phones",
                x => x.HasOne<Phone>().WithMany().HasForeignKey("phone_id"),
                x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
            );

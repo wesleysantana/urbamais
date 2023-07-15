@@ -49,7 +49,7 @@ internal class SupplierConfig : ConfigBase<Supplier>
             .HasMany(x => x.Addresses)
             .WithMany(x => x.Supplier)
             .UsingEntity<Dictionary<string, object>>(
-                "supplier_addresses",
+                "suppliers_addresses",
                 x => x.HasOne<Address>().WithMany().HasForeignKey("address_id"),
                 x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id")
             );
@@ -58,7 +58,7 @@ internal class SupplierConfig : ConfigBase<Supplier>
             .HasMany(x => x.Emails)
             .WithMany(x => x.Suppliers)
             .UsingEntity<Dictionary<string, object>>(
-                "supplier_emails",
+                "suppliers_emails",
                 x => x.HasOne<Email>().WithMany().HasForeignKey("email_id"),
                 x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id")
             );
@@ -67,7 +67,7 @@ internal class SupplierConfig : ConfigBase<Supplier>
            .HasMany(x => x.Phones)
            .WithMany(x => x.Suppliers)
            .UsingEntity<Dictionary<string, object>>(
-               "supplier_phones",
+               "suppliers_phones",
                x => x.HasOne<Phone>().WithMany().HasForeignKey("phone_id"),
                x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id")
            );

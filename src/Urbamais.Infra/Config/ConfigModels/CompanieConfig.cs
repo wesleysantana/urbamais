@@ -49,7 +49,7 @@ internal class companieConfig : ConfigBase<Companie>
             .HasMany(x => x.Addresses)
             .WithMany(x => x.Companies)
             .UsingEntity<Dictionary<string, object>>(
-                "companies_Addresses",
+                "companies_addresses",
                 x => x.HasOne<Address>().WithMany().HasForeignKey("address_id"),
                 x => x.HasOne<Companie>().WithMany().HasForeignKey("companie_id")
             );
@@ -67,7 +67,7 @@ internal class companieConfig : ConfigBase<Companie>
            .HasMany(x => x.Phones)
            .WithMany(x => x.Companies)
            .UsingEntity<Dictionary<string, object>>(
-               "companies_telefones",
+               "companies_phones",
                x => x.HasOne<Phone>().WithMany().HasForeignKey("phone_id"),
                x => x.HasOne<Companie>().WithMany().HasForeignKey("companie_id")
            );
