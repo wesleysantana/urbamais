@@ -15,4 +15,8 @@ public class UserRegisterRequest
 
     [Compare(nameof(Password), ErrorMessage = DataAnnotationsMessages.COMPAREPASSWORD)]
     public string ConfirmationPassword { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
+    [StringLength(50, ErrorMessage = DataAnnotationsMessages.STRINGLENGHT, MinimumLength = 2)]
+    public string Role { get; set; } = string.Empty;
 }

@@ -4,7 +4,7 @@ using Urbamais.Identity.Config.ConfigModels;
 
 namespace Urbamais.Identity.Config;
 
-public class ContextIdentity : IdentityDbContext
+public class ContextIdentity : IdentityDbContext<ApplicationUser>
 {
     public ContextIdentity(DbContextOptions<ContextIdentity> options) : base(options)
     {

@@ -11,5 +11,5 @@ public class UserLoginRequest
 
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [MaxLength(15, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
-    public string Senha { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

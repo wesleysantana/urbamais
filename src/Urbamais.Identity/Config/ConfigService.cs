@@ -15,11 +15,11 @@ public static class ConfigService
            options => options.UseNpgsql((configuration.GetConnectionString("DefaultConnection")!),
            o => o.SetPostgresVersion(9, 6)), ServiceLifetime.Transient);
 
-        services.AddDefaultIdentity<IdentityUser>()
+        services.AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ContextIdentity>()
             .AddDefaultTokenProviders();
-
-        services.AddScoped<IIdentityAppService, IdentityService>();
+       
+        services.AddScoped<IIdentityAppService, IdentityService>();  
     }
 }

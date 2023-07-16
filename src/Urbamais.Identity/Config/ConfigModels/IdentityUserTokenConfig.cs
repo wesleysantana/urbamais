@@ -13,18 +13,22 @@ internal class IdentityUserTokenConfig
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.UserId)
-            .HasColumnName("user_id");        
+            .HasColumnName("user_id")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.LoginProvider)
-            .HasColumnName("login_provider");
+            .HasColumnName("login_provider")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.Name)
-            .HasColumnName("name");
+            .HasColumnName("name")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityUserToken<string>>()
             .Property(p => p.Value)
-            .HasColumnName("value");
+            .HasColumnName("value")
+            .HasMaxLength(100);
     }
 }

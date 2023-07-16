@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using Urbamais.Identity.Config;
 
 namespace Urbamais.Identity.Services;
 
-public class CustomPerfil : IRoleStore<IdentityRole>
+public class RoleService //: IRoleAppService//, IRoleStore<IdentityRole>
 {
     private readonly ContextIdentity _dbContext;
 
-    public CustomPerfil(ContextIdentity dbContext)
+    public RoleService(ContextIdentity dbContext)
     {
         _dbContext = dbContext;
     }
@@ -17,21 +16,21 @@ public class CustomPerfil : IRoleStore<IdentityRole>
     public async Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken)
     {
         _dbContext.Roles.Add(role);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await Commit(cancellationToken);
         return IdentityResult.Success;
     }
 
     public async Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
     {
         _dbContext.Entry(role).State = EntityState.Modified;
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await Commit(cancellationToken);
         return IdentityResult.Success;
     }
 
     public async Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
     {
         _dbContext.Roles.Remove(role);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await Commit(cancellationToken);
         return IdentityResult.Success;
     }
 
@@ -72,12 +71,9 @@ public class CustomPerfil : IRoleStore<IdentityRole>
         return (await _dbContext.Roles.FirstOrDefaultAsync(r => r.NormalizedName == normalizedRoleName, cancellationToken))!;
     }
 
-    public void Permissao(Dictionary<string, NivelPermissao> pairs)
+    public async Task Commit(CancellationToken cancellationToken)
     {
-        foreach (var item in pairs)
-        {
-            _ = new Claim(item.Key.ToString(), item.Value.ToString());
-        }
+        await Commit(cancellationToken);
     }
 
     public void Dispose()

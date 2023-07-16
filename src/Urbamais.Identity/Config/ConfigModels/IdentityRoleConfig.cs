@@ -12,18 +12,30 @@ internal class IdentityRoleConfig
 
         builder.Entity<IdentityRole>()
             .Property(x => x.Id)
-            .HasColumnName("id");
+            .HasColumnName("id")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRole>()
             .Property(p => p.Name)
-            .HasColumnName("name");
+            .HasColumnName("name")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRole>()
             .Property(p => p.NormalizedName)
-            .HasColumnName("normalized_name");
+            .HasColumnName("normalized_name")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRole>()
            .Property(p => p.ConcurrencyStamp)
-           .HasColumnName("concurrency_stamp");
+           .HasColumnName("concurrency_stamp")
+           .HasMaxLength(100);
+
+        //builder.Entity<IdentityRole>().HasData(
+        //       new IdentityRole
+        //       {
+        //           Name = "developer",
+        //           Id = "af92719d-1d7f-4c80-aadc-ead1e2ab3a9d"
+        //       }
+        //   );
     }
 }

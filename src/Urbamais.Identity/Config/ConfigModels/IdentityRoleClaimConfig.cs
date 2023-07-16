@@ -11,18 +11,22 @@ internal class IdentityRoleClaimConfig
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.Id)
-            .HasColumnName("id");
+            .HasColumnName("id")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.RoleId)
-            .HasColumnName("role_id");
+            .HasColumnName("role_id")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.ClaimType)
-            .HasColumnName("claim_type");
+            .HasColumnName("claim_type")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityRoleClaim<string>>()
             .Property(p => p.ClaimValue)
-            .HasColumnName("claim_value");
+            .HasColumnName("claim_value")
+            .HasMaxLength(100);
     }
 }

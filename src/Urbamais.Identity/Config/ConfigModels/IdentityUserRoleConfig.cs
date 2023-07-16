@@ -13,10 +13,12 @@ internal class IdentityUserRoleConfig
 
         builder.Entity<IdentityUserRole<string>>()
             .Property(p => p.UserId)
-            .HasColumnName("user_id");
+            .HasColumnName("user_id")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityUserRole<string>>()
             .Property(p => p.RoleId)
-            .HasColumnName("role_id");
+            .HasColumnName("role_id")
+            .HasMaxLength(100);
     }
 }

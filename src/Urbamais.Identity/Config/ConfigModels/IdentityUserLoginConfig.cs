@@ -13,18 +13,22 @@ internal class IdentityUserLoginConfig
 
         builder.Entity<IdentityUserLogin<string>>()
             .Property(p => p.LoginProvider)
-            .HasColumnName("login_provider");
+            .HasColumnName("login_provider")
+            .HasMaxLength(100);
 
         builder.Entity<IdentityUserLogin<string>>()
            .Property(p => p.ProviderKey)
-           .HasColumnName("provider_key");
+           .HasColumnName("provider_key")
+           .HasMaxLength(100);
 
         builder.Entity<IdentityUserLogin<string>>()
            .Property(p => p.ProviderDisplayName)
-           .HasColumnName("provider_display_name");
+           .HasColumnName("provider_display_name")
+           .HasMaxLength(100);
 
         builder.Entity<IdentityUserLogin<string>>()
            .Property(p => p.UserId)
-           .HasColumnName("user_id");
+           .HasColumnName("user_id")
+           .HasMaxLength(100);
     }
 }

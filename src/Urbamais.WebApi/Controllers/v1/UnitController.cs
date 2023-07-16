@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
 using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.ViewModels.Request.v1.Unit;
 using Urbamais.Application.ViewModels.Response.v1.Unit;
@@ -12,12 +13,12 @@ namespace Urbamais.WebApi.Controllers.v1;
 [Route("api/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
-public class UnidadeController : ControllerBase
+public class UnitController : ControllerBase
 {
     private readonly IUnitApp _unidadeApp;
     private readonly IMapper _mapper;
 
-    public UnidadeController(IUnitApp unidadeApp, IMapper mapper)
+    public UnitController(IUnitApp unidadeApp, IMapper mapper)
     {
         _unidadeApp = unidadeApp;
         _mapper = mapper;
@@ -32,7 +33,7 @@ public class UnidadeController : ControllerBase
     public async Task<ActionResult<List<UnitResponse>>> Get([FromQuery] UnitFilterRequest filtro, CancellationToken cancellationToken)
     {
         try
-        {
+        {            
             var response = await _unidadeApp.Query(filtro, cancellationToken);
             if (response is not null && response.Any())
                 return Ok(_mapper.Map<List<UnitResponse>>(response));
