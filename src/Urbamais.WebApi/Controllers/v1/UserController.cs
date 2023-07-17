@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
-using System.Xml.Linq;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.v1.Role;
 using Urbamais.Application.ViewModels.Request.v1.User;
-using Urbamais.Application.ViewModels.Response.v1.Role;
+using Urbamais.Application.ViewModels.Response.v1.Unit;
 using Urbamais.Application.ViewModels.Response.v1.User;
 using Urbamais.WebApi.Shared;
 
@@ -17,29 +15,33 @@ namespace Urbamais.WebApi.Controllers.v1;
 [ApiVersion("1.0")]
 public class UserController : ControllerBase
 {
-    private IIdentityAppService _identityService;
+    private readonly IIdentityAppService _identityService;
 
     public UserController(IIdentityAppService identityService) =>
         _identityService = identityService;
 
-    //[ProducesResponseType(typeof(UserRegisterResponse), StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //[HttpPost("register-user")]
-    //[Authorize]
-    //public async Task<IActionResult> RegisterUser(UserRegisterRequest userRegister)
-    //{
-    //    var result = await _identityService.RegisterUser(userRegister);
-    //    if (result.Success)
-    //        return Ok(result);
-    //    else if (result.Errors.Count > 0)
-    //    {
-    //        var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Errors);
-    //        return BadRequest(problemDetails);
-    //    }
+    [ProducesResponseType(typeof(List<UserResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
+    [HttpGet]
+    public async Task<ActionResult<List<UnitResponse>>> Get(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var response = await _identityService.GetUsers(cancellationToken);
+            if (response is not null && response.Any())
+                return Ok(response);
 
-    //    return StatusCode(StatusCodes.Status500InternalServerError);
-    //}
+            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
+        }
+        catch (Exception ex)
+        {
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
+        }
+    }
 
     [ProducesResponseType(typeof(UserRegisterResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -48,9 +50,9 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var result = await _identityService.RegisterUser(userRegister, userId!);       
+        var result = await _identityService.RegisterUser(userRegister, userId!);
 
-        if(!result.Item2)
+        if (!result.Item2)
         {
             var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item1.Errors);
             return BadRequest(problemDetails);
@@ -101,63 +103,16 @@ public class UserController : ControllerBase
         return Unauthorized();
     }
 
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UserResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPost("register-role")]
-    public async Task<ActionResult<RoleResponse>> RegisterRole(RoleRequest roleRegister)
-    {
-        var result = await _identityService.RegisterRole(roleRegister);
-        if (result.Success)
-            return Ok(result);
-        else if (result.Errors.Count > 0)
-        {
-            var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Errors);
-            return BadRequest(problemDetails);
-        }
-
-        return StatusCode(StatusCodes.Status500InternalServerError);
-    }
-
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPut("update-role")]
-    public async Task<ActionResult<RoleResponse>> UpdateRole(string name, RoleRequest roleUpdate)
+    [HttpDelete("delete-user")]
+    public async Task<ActionResult<UserResponse>> DeleteUser(string userIdDelete)
     {
         try
         {
-            var result = await _identityService.UpdateRole(name, roleUpdate);
-
-            if (!result.Item1)
-            {
-                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
-            }
-
-            if (result.Item2.Errors.Count > 0)
-            {
-                var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item2.Errors);
-                return BadRequest(problemDetails);
-            }
-
-            return Ok(result.Item2);
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
-    }
-
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpDelete("delete-role")]
-    public async Task<ActionResult<RoleResponse>> DeleteRole(RoleRequest roleDelete)
-    {
-        try
-        {
-            var result = await _identityService.DeleteRole(roleDelete.Name);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _identityService.DeleteUser(userIdDelete, userId!);
 
             if (!result.Item1)
             {

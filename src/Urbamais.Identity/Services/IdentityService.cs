@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -83,13 +84,32 @@ public class IdentityService : IIdentityAppService
         return Tuple.Create(userRegisterResponse, true);
     }
 
-    public async Task<UsuarioLoginResponse> Login(UserLoginRequest userLogin)
+    public async Task<List<UserResponse>> GetUsers(CancellationToken cancellationToken)
+    {
+        var result = await _userManager.Users.Where(x => x.DeletionDate == null).ToListAsync(cancellationToken);        
+
+        var listResponse = new List<UserResponse>();
+
+        foreach (var item in result)
+        {
+            listResponse.Add(new UserResponse
+            {
+                Email = item.Email!,
+                Name = item.Name
+            });
+        }
+
+        return listResponse;
+    }
+    
+
+    public async Task<UserLoginResponse> Login(UserLoginRequest userLogin)
     {
         var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true);
         if (result.Succeeded)
             return await CredentialRegister(userLogin.Email);
 
-        var userLoginResponse = new UsuarioLoginResponse();
+        var userLoginResponse = new UserLoginResponse();
         if (!result.Succeeded)
         {
             if (result.IsLockedOut)
@@ -105,9 +125,9 @@ public class IdentityService : IIdentityAppService
         return userLoginResponse;
     }
 
-    public async Task<UsuarioLoginResponse> RefreshLogin(string userId)
+    public async Task<UserLoginResponse> RefreshLogin(string userId)
     {
-        var userLoginResponse = new UsuarioLoginResponse();
+        var userLoginResponse = new UserLoginResponse();
         var user = await _userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
@@ -122,6 +142,24 @@ public class IdentityService : IIdentityAppService
             return await CredentialRegister(user!.Email!);
 
         return userLoginResponse;
+    }
+
+    public async Task<Tuple<bool, UserRegisterResponse>> DeleteUser(string userIdDelete, string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userIdDelete.ToString());
+
+        if (user is null)
+            return Tuple.Create(false, new UserRegisterResponse());
+
+        user.Delete(userId);
+        var result = await _userManager.UpdateAsync(user);
+
+        var roleRegisterResponse = new UserRegisterResponse(result.Succeeded);
+
+        if (!result.Succeeded && result.Errors.Any())
+            roleRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
+
+        return Tuple.Create(true, roleRegisterResponse);
     }
 
     public async Task<RoleResponse> RegisterRole(RoleRequest roleRequest)
@@ -163,7 +201,25 @@ public class IdentityService : IIdentityAppService
         var role = _roleManager.FindByNameAsync(name).Result;
 
         if (role is null)
-            return Tuple.Create(false, new RoleResponse());        
+            return Tuple.Create(false, new RoleResponse());
+
+        var usersInRole = await _userManager.GetUsersInRoleAsync(name);
+
+        if (usersInRole.Any(x => x.DeletionDate is null))
+        {
+            var roleResponse = new RoleResponse(false);
+            roleResponse.AddErrors(new List<string> { "Existem usuário(s) ativo(s) com esta permissão. Exclusão não permitida" });
+            return Tuple.Create(true, roleResponse);
+        }
+
+        if (usersInRole.Any())
+        {
+            // Excluir manualmente as associações de usuários com a função
+            foreach (var user in usersInRole)
+            {
+                await _userManager.RemoveFromRoleAsync(user, role.Name!);
+            }
+        }
 
         var result = await _roleManager.DeleteAsync(role);
 
@@ -175,7 +231,29 @@ public class IdentityService : IIdentityAppService
         return Tuple.Create(true, roleRegisterResponse);
     }
 
-    private async Task<UsuarioLoginResponse> CredentialRegister(string email)
+    public async Task<Tuple<bool, List<UserResponse>>> GetUsersInRole(string name)
+    {
+        var role = _roleManager.FindByNameAsync(name).Result;
+
+        if (role is null)
+            return Tuple.Create(false, new List<UserResponse>());
+
+        var usersInRole = await _userManager.GetUsersInRoleAsync(name);
+        
+        var listReturn = new List<UserResponse>();
+        foreach (var item in usersInRole)
+        {
+            listReturn.Add(new UserResponse
+            {
+                Name = item.Name,
+                Email = item.Email!
+            });
+        }
+
+        return Tuple.Create(true, listReturn);
+    }
+
+    private async Task<UserLoginResponse> CredentialRegister(string email)
     {
         var user = await _userManager.FindByEmailAsync(email);
 
@@ -188,7 +266,7 @@ public class IdentityService : IIdentityAppService
         var accessToken = TokenRegister(accessTokenClaims, dataExpiracaoAccessToken);
         var refreshToken = TokenRegister(refreshTokenClaims, dataExpiracaoRefreshToken);
 
-        return new UsuarioLoginResponse
+        return new UserLoginResponse
         (
             accessToken: accessToken,
             refreshToken: refreshToken
@@ -231,5 +309,5 @@ public class IdentityService : IIdentityAppService
         }
 
         return claims;
-    }
+    }   
 }

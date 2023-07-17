@@ -10,13 +10,19 @@ public interface IIdentityAppService
     //Task<UserRegisterResponse> RegisterUser(UserRegisterRequest userRegister);
     Task<Tuple<UserRegisterResponse, bool>> RegisterUser(UserRegisterRequest userRegister, string idUser);
 
-    Task<UsuarioLoginResponse> Login(UserLoginRequest userLogin);
+    Task<UserLoginResponse> Login(UserLoginRequest userLogin);
 
-    Task<UsuarioLoginResponse> RefreshLogin(string userId);
+    Task<UserLoginResponse> RefreshLogin(string userId);
+
+    Task<List<UserResponse>> GetUsers(CancellationToken cancellationToken);
 
     Task<RoleResponse> RegisterRole(RoleRequest roleRequest);
 
     Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleRequest roleRequest);
 
     Task<Tuple<bool, RoleResponse>> DeleteRole(string name);
+
+    Task<Tuple<bool, List<UserResponse>>> GetUsersInRole(string name);
+
+    Task<Tuple<bool, UserRegisterResponse>> DeleteUser(string userIdDelete, string userId);
 }

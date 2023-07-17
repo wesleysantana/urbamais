@@ -2,7 +2,7 @@
 
 namespace Urbamais.Application.ViewModels.Response.v1.User;
 
-public class UsuarioLoginResponse
+public class UserLoginResponse
 {
     public bool Success => Errors.Count == 0;
 
@@ -14,9 +14,9 @@ public class UsuarioLoginResponse
 
     public List<string> Errors { get; private set; }
 
-    public UsuarioLoginResponse() => Errors = new List<string>();
+    public UserLoginResponse() => Errors = new List<string>();
 
-    public UsuarioLoginResponse(string accessToken, string refreshToken) : this()
+    public UserLoginResponse(string accessToken, string refreshToken) : this()
     {
         AccessToken = accessToken;
         RefreshToken = refreshToken;
