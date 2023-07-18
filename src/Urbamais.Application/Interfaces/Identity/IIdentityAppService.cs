@@ -19,7 +19,7 @@ public interface IIdentityAppService
 
     Task<RoleResponse> RegisterRole(RoleRequest roleRequest);
 
-    Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleRequest roleRequest);
+    Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleUpdateRequest roleRequest);
 
     Task<Tuple<bool, RoleResponse>> DeleteRole(string name);
 

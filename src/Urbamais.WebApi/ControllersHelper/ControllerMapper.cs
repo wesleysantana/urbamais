@@ -18,7 +18,7 @@ public static class ControllerMapper
             // como registrar o controller em algum container de injeção de dependência
             // ou adicionar rotas personalizadas.
 
-            ListControllers.Instance.List.Add(controllerType.Name.Replace("Controller", ""), "");
+            ListControllers.Instance.List.Add(controllerType.Name.Replace("Controller", ""));
         }
     }
 }

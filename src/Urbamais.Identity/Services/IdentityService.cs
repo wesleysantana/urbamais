@@ -229,7 +229,7 @@ public class IdentityService : IIdentityAppService
         return roleRegisterResponse;
     }
 
-    public async Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleRequest roleRequest)
+    public async Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleUpdateRequest roleRequest)
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 

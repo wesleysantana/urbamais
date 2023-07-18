@@ -81,6 +81,8 @@ public class UnitController : ControllerBase
     {
         try
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var unidade = await _unidadeApp.Insert(_mapper.Map<Unit>(unidadeRequest));
             if (unidade.IsValid)
             {
@@ -110,6 +112,8 @@ public class UnitController : ControllerBase
     {
         try
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var unidade = await _unidadeApp.Update(id, unidadeRequest);
 
             if (!unidade.Item1)
@@ -145,6 +149,7 @@ public class UnitController : ControllerBase
     {
         try
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var unidade = await _unidadeApp.Delete(id);
 
             if (!unidade.Item1)
