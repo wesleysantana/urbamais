@@ -6,8 +6,7 @@ using Urbamais.Application.ViewModels.Response.v1.User;
 namespace Urbamais.Application.Interfaces.Identity;
 
 public interface IIdentityAppService
-{
-    //Task<UserRegisterResponse> RegisterUser(UserRegisterRequest userRegister);
+{    
     Task<Tuple<UserRegisterResponse, bool>> RegisterUser(UserRegisterRequest userRegister, string idUser);
 
     Task<UserLoginResponse> Login(UserLoginRequest userLogin);

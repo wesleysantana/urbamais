@@ -48,8 +48,7 @@ public class IdentityService : IIdentityAppService
             Email = userRegister.Email,
             EmailConfirmed = true,
             IdUserCreation = idUser,
-            CreationDate = DateTime.UtcNow,
-            Name = userRegister.
+            Name = userRegister.Name
         };
 
         var result = await _userManager.CreateAsync(identityUser, userRegister.Password);
@@ -142,8 +141,7 @@ public class IdentityService : IIdentityAppService
             }
         }
 
-        user.ModificationDate = DateTime.Now;
-        user.IdUserModification = userId;
+        user.Update(userId);
 
         if (!string.IsNullOrEmpty(userRequest.Name))
             user.Name = userRequest.Name!;

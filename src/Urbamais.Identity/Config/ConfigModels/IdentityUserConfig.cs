@@ -135,7 +135,6 @@ internal class IdentityUserConfig
         {
             UserName = "dev@metamais.com",
             NormalizedUserName = "DEV@METAMAIS.COM",
-            CreationDate = DateTime.Now,
             Email = "dev@metamais.com",
             NormalizedEmail = "DEV@METAMAIS.COM",
             EmailConfirmed = true,
