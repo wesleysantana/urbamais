@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.v1.Unit;
 using Urbamais.Application.ViewModels.Request.v1.User;
 using Urbamais.Application.ViewModels.Response.v1.Unit;
 using Urbamais.Application.ViewModels.Response.v1.User;
@@ -52,24 +51,30 @@ public class UserController : ControllerBase
     [HttpPost("register-user")]
     public async Task<ActionResult<UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister)
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var result = await _identityService.RegisterUser(userRegister, userId!);
-
-        if (!result.Item2)
+        try
         {
-            var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item1.Errors);
-            return BadRequest(problemDetails);
-        }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _identityService.RegisterUser(userRegister, userId!);
 
-        if (result.Item1.Success)
-            return Ok(result.Item1);
-        else if (result.Item1.Errors.Count > 0)
+            if (!result.Item1)
+            {
+                var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item2.Errors);
+                return BadRequest(problemDetails);
+            }
+
+            if (result.Item2.Errors.Count > 0)
+            {
+                var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item2.Errors);
+                return BadRequest(problemDetails);
+            }
+
+            return Ok(result.Item2);
+        }
+        catch (Exception ex)
         {
-            var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item1.Errors);
-            return BadRequest(problemDetails);
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
         }
-
-        return StatusCode(StatusCodes.Status500InternalServerError);
     }
 
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
@@ -95,7 +100,7 @@ public class UserController : ControllerBase
                 var problemDetail =
                 new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: user.Item2.Errors);
 
-                return BadRequest(problemDetail);                
+                return BadRequest(problemDetail);
             }
 
             return Ok(user.Item2);

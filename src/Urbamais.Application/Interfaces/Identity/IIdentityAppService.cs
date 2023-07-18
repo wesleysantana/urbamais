@@ -7,7 +7,7 @@ namespace Urbamais.Application.Interfaces.Identity;
 
 public interface IIdentityAppService
 {    
-    Task<Tuple<UserRegisterResponse, bool>> RegisterUser(UserRegisterRequest userRegister, string idUser);
+    Task<Tuple<bool, UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister, string idUser);
 
     Task<UserLoginResponse> Login(UserLoginRequest userLogin);
 

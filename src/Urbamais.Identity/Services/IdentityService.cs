@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Xml.Linq;
 using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Application.ViewModels.Request.v1.Role;
 using Urbamais.Application.ViewModels.Request.v1.User;
@@ -31,15 +30,15 @@ public class IdentityService : IIdentityAppService
         _jwtOptions = jwtOptions.Value;
     }
 
-    public async Task<Tuple<UserRegisterResponse, bool>> RegisterUser(UserRegisterRequest userRegister, string idUser)
+    public async Task<Tuple<bool, UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister, string idUser)
     {
         var role = _roleManager.FindByNameAsync(userRegister.Role);
 
-        if (role.Result is null)
+        if (role.Result is null || role.Result.Name!.Equals("developer"))
         {
             var response = new UserRegisterResponse();
             response.AddErrors(new List<string> { "Perfil de acesso não localizado." });
-            return Tuple.Create(response, false);
+            return Tuple.Create(false, response);
         }
 
         var identityUser = new ApplicationUser
@@ -62,12 +61,15 @@ public class IdentityService : IIdentityAppService
         if (!result.Succeeded && result.Errors.Any())
             userRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
 
-        return Tuple.Create(userRegisterResponse, true);
+        return Tuple.Create(true, userRegisterResponse);
     }
 
     public async Task<List<UserResponse>> GetUsers(CancellationToken cancellationToken)
     {
-        var result = await _userManager.Users.Where(x => x.DeletionDate == null).ToListAsync(cancellationToken);
+        var result = await _userManager.Users
+            .Where(x => x.DeletionDate == null && !x.UserName!.Equals("dev@metamais.com"))
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
 
         var listResponse = new List<UserResponse>();
 
@@ -128,7 +130,7 @@ public class IdentityService : IIdentityAppService
     {
         var user = await _userManager.FindByIdAsync(userIdUpdate);
 
-        if (user is null)
+        if (user is null || user.UserName!.Equals("dev@metamais.com"))
             return Tuple.Create(false, new UserRegisterResponse());
 
         if (!string.IsNullOrEmpty(userRequest.Role))
@@ -168,7 +170,7 @@ public class IdentityService : IIdentityAppService
     {
         var user = await _userManager.FindByIdAsync(userIdDelete);
 
-        if (user is null)
+        if (user is null || user.UserName!.Equals("dev@metamais.com"))
             return Tuple.Create(false, new UserRegisterResponse());
 
         user.Delete(userId);
@@ -202,7 +204,7 @@ public class IdentityService : IIdentityAppService
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 
-        if (role is null)
+        if (role is null || role.Name!.Equals("developer"))
             return Tuple.Create(false, new RoleResponse());
 
         role.Name = roleRequest.Name;
@@ -220,7 +222,7 @@ public class IdentityService : IIdentityAppService
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 
-        if (role is null)
+        if (role is null || role.Name!.Equals("developer"))
             return Tuple.Create(false, new RoleResponse());
 
         var usersInRole = await _userManager.GetUsersInRoleAsync(name);
@@ -255,7 +257,7 @@ public class IdentityService : IIdentityAppService
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 
-        if (role is null)
+        if (role is null || role.Name!.Equals("developer"))
             return Tuple.Create(false, new List<UserResponse>());
 
         var usersInRole = await _userManager.GetUsersInRoleAsync(name);
