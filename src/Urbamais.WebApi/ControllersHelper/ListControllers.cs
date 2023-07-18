@@ -8,10 +8,10 @@ internal class ListControllers
 
     public static ListControllers Instance => _instance.Value;
 
-    public IList<string> List { get; set; }
+    public IDictionary<string, string> List { get; set; }
 
     private ListControllers()
     {
-        List = new List<string>();
+        List = new Dictionary<string, string>();
     }
 }

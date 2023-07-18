@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Net;
+using System.Text.RegularExpressions;
 using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Application.ViewModels.Request.v1.Role;
 using Urbamais.Application.ViewModels.Response.v1.Role;
+using Urbamais.WebApi.ControllersHelper;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.v1;
@@ -49,7 +52,37 @@ public class RoleController : ControllerBase
     [HttpPost("register-role")]
     public async Task<ActionResult<RoleResponse>> RegisterRole(RoleRequest roleRegister)
     {
+        if (roleRegister.Claims.Keys.Any(key => !ListControllers.Instance.List.ContainsKey(key)))
+        {
+            var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest,
+                errors: new List<string> { @"Foi infomado Controller(s) inexistente(s) para criação do Perfil." });
+            return BadRequest(problemDetails);
+        }
+
+        foreach (var kvp in roleRegister.Claims)
+        {
+            string key = kvp.Key;
+            string value = kvp.Value;
+
+            /*
+                ^ indica o início da string.
+                | representa uma alternativa, neste caso, uma string vazia.
+                [CRUD] é uma classe de caracteres que permite apenas as letras C, R, U e D.
+                {1,4} define que essa classe de caracteres pode aparecer de 1 a 4 vezes.
+                $ indica o fim da string.
+            */
+            bool isValid = Regex.IsMatch(value, @"^(|[CRUD]{1,4})$");
+
+            if (!isValid)
+            {
+                var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest,
+                    errors: new List<string> { @"Os valores de permissão devem ser 'C', 'R', 'U' ou 'D'." });
+                return BadRequest(problemDetails);
+            }
+        }
+
         var result = await _identityService.RegisterRole(roleRegister);
+        
         if (result.Success)
             return Ok(result);
         else if (result.Errors.Count > 0)

@@ -19,6 +19,8 @@ public class IdentityService : IIdentityAppService
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly JwtOptions _jwtOptions;
 
+    private ApplicationUser? _user;
+
     public IdentityService(SignInManager<ApplicationUser> signInManager,
                            UserManager<ApplicationUser> userManager,
                            RoleManager<IdentityRole> roleManager,
@@ -104,7 +106,26 @@ public class IdentityService : IIdentityAppService
                 userLoginResponse.AddError("Usuário ou senha estão incorretos");
         }
 
+        AddClaimsToUser(ref userLoginResponse);
+
         return userLoginResponse;
+    }
+
+    private void AddClaimsToUser(ref UserLoginResponse userLogin)
+    {
+        var roles = _userManager.GetRolesAsync(_user!).Result;
+        foreach (var role in roles)
+        {
+            var roleObj = _roleManager.FindByNameAsync(role).Result;
+            if (roleObj != null)
+            {
+                var roleClaims = _roleManager.GetClaimsAsync(roleObj).Result;
+                foreach (var item in roleClaims)
+                {
+                    userLogin.Claims.Add(item.Value, item.ValueType);
+                }
+            }
+        }
     }
 
     public async Task<UserLoginResponse> RefreshLogin(string userId)
@@ -193,6 +214,14 @@ public class IdentityService : IIdentityAppService
 
         var result = await _roleManager.CreateAsync(identityRole);
 
+        if (roleRequest.Claims.Any())
+        {
+            foreach (var claim in roleRequest.Claims)
+            {
+                await _roleManager.AddClaimAsync(identityRole, new Claim(claim.Key, claim.Value));
+            }
+        }
+
         var roleRegisterResponse = new RoleResponse(result.Succeeded);
         if (!result.Succeeded && result.Errors.Any())
             roleRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
@@ -277,10 +306,10 @@ public class IdentityService : IIdentityAppService
 
     private async Task<UserLoginResponse> CredentialRegister(string email)
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        _user = await _userManager.FindByEmailAsync(email);
 
-        var accessTokenClaims = await GetClaims(user!, addClaimsUser: true);
-        var refreshTokenClaims = await GetClaims(user!, addClaimsUser: false);
+        var accessTokenClaims = await GetClaims(_user!, addClaimsUser: true);
+        var refreshTokenClaims = await GetClaims(_user!, addClaimsUser: false);
 
         var dataExpiracaoAccessToken = DateTime.Now.AddSeconds(_jwtOptions.AccessTokenExpiration);
         var dataExpiracaoRefreshToken = DateTime.Now.AddSeconds(_jwtOptions.RefreshTokenExpiration);

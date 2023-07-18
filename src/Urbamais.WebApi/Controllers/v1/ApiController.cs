@@ -8,8 +8,8 @@ namespace Urbamais.WebApi.Controllers.v1;
 public class ApiController : ControllerBase
 {
     [HttpGet]
-    public List<string> Get()
+    public IDictionary<string, string> Get()
     {
-        return ListControllers.Instance.List.ToList();
+        return ListControllers.Instance.List;
     }
 }

@@ -14,6 +14,8 @@ public class UserLoginResponse
 
     public List<string> Errors { get; private set; }
 
+    public IDictionary<string, string> Claims { get; set; } = new Dictionary<string, string>();
+
     public UserLoginResponse() => Errors = new List<string>();
 
     public UserLoginResponse(string accessToken, string refreshToken) : this()

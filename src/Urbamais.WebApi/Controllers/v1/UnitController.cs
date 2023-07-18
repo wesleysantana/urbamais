@@ -35,6 +35,7 @@ public class UnitController : ControllerBase
         try
         {            
             var response = await _unidadeApp.Query(filtro, cancellationToken);
+            
             if (response is not null && response.Any())
                 return Ok(_mapper.Map<List<UnitResponse>>(response));
 
