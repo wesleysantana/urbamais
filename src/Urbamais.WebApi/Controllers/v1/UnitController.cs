@@ -116,7 +116,7 @@ public class UnitController : ControllerBase
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (unidade.Item2.IsValid)
+            if (!unidade.Item2.IsValid)
             {
                 return Ok(_mapper.Map<UnitResponse>(unidade.Item2));
             }

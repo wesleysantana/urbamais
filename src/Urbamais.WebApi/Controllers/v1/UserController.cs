@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
+using Urbamais.Application.ViewModels.Request.v1.Unit;
 using Urbamais.Application.ViewModels.Request.v1.User;
 using Urbamais.Application.ViewModels.Response.v1.Unit;
 using Urbamais.Application.ViewModels.Response.v1.User;
@@ -17,8 +18,10 @@ public class UserController : ControllerBase
 {
     private readonly IIdentityAppService _identityService;
 
-    public UserController(IIdentityAppService identityService) =>
+    public UserController(IIdentityAppService identityService)
+    {
         _identityService = identityService;
+    }
 
     [ProducesResponseType(typeof(List<UserResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -67,6 +70,41 @@ public class UserController : ControllerBase
         }
 
         return StatusCode(StatusCodes.Status500InternalServerError);
+    }
+
+    [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
+    [HttpPut("{id}")]
+    public async Task<ActionResult<UserResponse>> Update(string id, UserUpdateRequest userUpdateRequest)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _identityService.UpdateUser(id, userUpdateRequest, userId!);
+
+            if (!user.Item1)
+            {
+                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
+            }
+
+            if (!user.Item2.Success)
+            {
+                var problemDetail =
+                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: user.Item2.Errors);
+
+                return BadRequest(problemDetail);                
+            }
+
+            return Ok(user.Item2);
+        }
+        catch (Exception ex)
+        {
+            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
+            return StatusCode(500, problemDetail);
+        }
     }
 
     [ProducesResponseType(typeof(UserRegisterResponse), StatusCodes.Status200OK)]

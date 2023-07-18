@@ -6,6 +6,10 @@ namespace Urbamais.Application.ViewModels.Request.v1.User;
 public class UserRegisterRequest
 {
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
+    [StringLength(100, ErrorMessage = DataAnnotationsMessages.STRINGLENGHT, MinimumLength = 2)]
+    public string Name { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [EmailAddress(ErrorMessage = DataAnnotationsMessages.EMAIL)]
     public string Email { get; set; } = string.Empty;
 

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Xml.Linq;
 using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Application.ViewModels.Request.v1.Role;
 using Urbamais.Application.ViewModels.Request.v1.User;
@@ -30,26 +31,6 @@ public class IdentityService : IIdentityAppService
         _jwtOptions = jwtOptions.Value;
     }
 
-    //public async Task<UserRegisterResponse> RegisterUser(UserRegisterRequest userRegister)
-    //{
-    //    var identityUser = new IdentityUser
-    //    {
-    //        UserName = userRegister.Email,
-    //        Email = userRegister.Email,
-    //        EmailConfirmed = true
-    //    };
-
-    //    var result = await _userManager.CreateAsync(identityUser, userRegister.Password);
-    //    if (result.Succeeded)
-    //        await _userManager.SetLockoutEnabledAsync(identityUser, false);
-
-    //    var userRegisterResponse = new UserRegisterResponse(result.Succeeded);
-    //    if (!result.Succeeded && result.Errors.Any())
-    //        userRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
-
-    //    return userRegisterResponse;
-    //}
-
     public async Task<Tuple<UserRegisterResponse, bool>> RegisterUser(UserRegisterRequest userRegister, string idUser)
     {
         var role = _roleManager.FindByNameAsync(userRegister.Role);
@@ -67,7 +48,8 @@ public class IdentityService : IIdentityAppService
             Email = userRegister.Email,
             EmailConfirmed = true,
             IdUserCreation = idUser,
-            CreationDate = DateTime.UtcNow
+            CreationDate = DateTime.UtcNow,
+            Name = userRegister.
         };
 
         var result = await _userManager.CreateAsync(identityUser, userRegister.Password);
@@ -86,7 +68,7 @@ public class IdentityService : IIdentityAppService
 
     public async Task<List<UserResponse>> GetUsers(CancellationToken cancellationToken)
     {
-        var result = await _userManager.Users.Where(x => x.DeletionDate == null).ToListAsync(cancellationToken);        
+        var result = await _userManager.Users.Where(x => x.DeletionDate == null).ToListAsync(cancellationToken);
 
         var listResponse = new List<UserResponse>();
 
@@ -101,7 +83,6 @@ public class IdentityService : IIdentityAppService
 
         return listResponse;
     }
-    
 
     public async Task<UserLoginResponse> Login(UserLoginRequest userLogin)
     {
@@ -144,9 +125,50 @@ public class IdentityService : IIdentityAppService
         return userLoginResponse;
     }
 
+    public async Task<Tuple<bool, UserRegisterResponse>> UpdateUser(string userIdUpdate, UserUpdateRequest userRequest, string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userIdUpdate);
+
+        if (user is null)
+            return Tuple.Create(false, new UserRegisterResponse());
+
+        if (!string.IsNullOrEmpty(userRequest.Role))
+        {
+            if (await _roleManager.FindByNameAsync(userRequest.Role!) is null)
+            {
+                var userRegister = new UserRegisterResponse(false);
+                userRegister.AddErrors(new List<string> { "Perfil não localizado." });
+                return Tuple.Create(true, userRegister);
+            }
+        }
+
+        user.ModificationDate = DateTime.Now;
+        user.IdUserModification = userId;
+
+        if (!string.IsNullOrEmpty(userRequest.Name))
+            user.Name = userRequest.Name!;
+
+        await _userManager.UpdateAsync(user);
+
+        // Vincula novo perfil ao usuário e exclui o anterior
+        if (!string.IsNullOrEmpty(userRequest.Role))
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                await _userManager.RemoveFromRoleAsync(user, role);
+            }
+
+            await _userManager.AddToRoleAsync(user, userRequest.Role);
+        }
+
+        return Tuple.Create(true, new UserRegisterResponse(true));
+    }
+
     public async Task<Tuple<bool, UserRegisterResponse>> DeleteUser(string userIdDelete, string userId)
     {
-        var user = await _userManager.FindByIdAsync(userIdDelete.ToString());
+        var user = await _userManager.FindByIdAsync(userIdDelete);
 
         if (user is null)
             return Tuple.Create(false, new UserRegisterResponse());
@@ -239,7 +261,7 @@ public class IdentityService : IIdentityAppService
             return Tuple.Create(false, new List<UserResponse>());
 
         var usersInRole = await _userManager.GetUsersInRoleAsync(name);
-        
+
         var listReturn = new List<UserResponse>();
         foreach (var item in usersInRole)
         {
@@ -309,5 +331,5 @@ public class IdentityService : IIdentityAppService
         }
 
         return claims;
-    }   
+    }
 }

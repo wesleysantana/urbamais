@@ -16,6 +16,8 @@ public interface IIdentityAppService
 
     Task<List<UserResponse>> GetUsers(CancellationToken cancellationToken);
 
+    Task<Tuple<bool, UserRegisterResponse>> UpdateUser(string userIdUpdate, UserUpdateRequest userRequest, string userId);
+
     Task<RoleResponse> RegisterRole(RoleRequest roleRequest);
 
     Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleRequest roleRequest);
