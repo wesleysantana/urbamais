@@ -8,12 +8,17 @@ public class PhoneCore : BaseEntity, IEntity
 {
     public string? Number { get; private set; }
 
-    public PhoneCore(string number)
+    public PhoneCore(string idUserCreation, string number)
     {
         Number = number.Trim();
         Validate(this, new PhoneValidator());
 
         if (!IsValid && Id == default) Number = default;
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     #region Sobrescrita Object

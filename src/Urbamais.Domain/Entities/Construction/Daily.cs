@@ -29,7 +29,7 @@ public class Daily : BaseEntity, IAggregateRoot
     protected Daily() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Daily(Construction construction, DateTime date, Supplier.Supplier supplier,
+    public Daily(string idUserCreation, Construction construction, DateTime date, Supplier.Supplier supplier,
         string descriptionActivities, Collaborator collaborator, List<FileStream> photos)
     {
         Construction = construction;
@@ -40,6 +40,11 @@ public class Daily : BaseEntity, IAggregateRoot
         Fotos = photos;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     private void Validate()
@@ -65,7 +70,7 @@ public class Daily : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(Construction? construction = null, DateTime? date = null, Supplier.Supplier? supplier = null,
+    public void Update(string idUserModification, Construction? construction = null, DateTime? date = null, Supplier.Supplier? supplier = null,
         string? descriptionActivities = null, Collaborator? collaborator = null, List<FileStream>? photos = null)
     {
         if (construction is not null) Construction = construction;
@@ -76,6 +81,12 @@ public class Daily : BaseEntity, IAggregateRoot
         if (photos is not null) Fotos = photos;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
+        }
     }
 
     #region Sobrescrita Object

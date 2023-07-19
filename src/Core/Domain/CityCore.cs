@@ -18,13 +18,18 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CityCore(NameVO name, Uf uf)
+    public CityCore(string userId, NameVO name, Uf uf)
     {
         Name = name;
         Uf = uf;
         CreationDate = DateTime.Now;        
 
         Validar();
+
+        if (IsValid)
+        {
+            IdUserCreation = userId;
+        }
     }
 
     private void Validar()
@@ -43,13 +48,18 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NameVO? name = null, Uf? uf = null)
+    public void Update(string idUserModification, NameVO? name = null, Uf? uf = null)
     {
         if (name is not null) Name = name;
         if (uf is not null) Uf = uf.Value;
-
-        ModificationDate = DateTime.Now;
+        
         Validar();
+
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
+        }
     }
 
     #region Sobrescrita Object

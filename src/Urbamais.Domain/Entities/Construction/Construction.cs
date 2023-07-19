@@ -19,12 +19,17 @@ public class Construction : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Construction(Companie companie, DescriptionVO description)
+    public Construction(string idUserCreation, Companie companie, DescriptionVO description)
     {
         Companie = companie;
         Description = description;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     private void Validate()
@@ -41,10 +46,16 @@ public class Construction : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(DescriptionVO description)
+    public void Update(string idUserModification, DescriptionVO description)
     {
         Description = description;
         Validate();
+
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
+        }
     }
 
     #region Sobrescrita Object

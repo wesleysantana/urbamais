@@ -13,11 +13,16 @@ public class Order : BaseEntity, IAggregateRoot
     {
     }
 
-    public Order(int planningId)
+    public Order(string idUserCreation, int planningId)
     {
         PlanningId = planningId;
 
         Validate(this, new OrderValidator());
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     public override string ToString()

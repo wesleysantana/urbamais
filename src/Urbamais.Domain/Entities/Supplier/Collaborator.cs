@@ -56,7 +56,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Collaborator(NameVO name, CpfVO cpf,
+    public Collaborator(string idUserCreation, NameVO name, CpfVO cpf,
         List<Address> address, string numberCtps, string numberCNH, string typeCnh,
         DateTime expirationDateCNH, string cnh, string epi, string ctps,
         string numeroExameAdmissional, DateTime validadeExameAdmissional, string admissionExam,
@@ -81,6 +81,11 @@ public class Collaborator : BaseEntity, IAggregateRoot
         _listEmails = listEmails;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     private void Validate()
@@ -119,9 +124,9 @@ public class Collaborator : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NameVO? name = null, CpfVO? cpf = null,
+    public void Update(string idUserModification, NameVO? name = null, CpfVO? cpf = null,
        List<Address>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
-       DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? CTPS = null,
+       DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? ctps = null,
        string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null, 
        string? admissionExam = null, string? registrationForm = null, string? serviceOrder = null, 
        List<Phone>? listPhones = null, List<Email>? listEmails = null)
@@ -134,8 +139,8 @@ public class Collaborator : BaseEntity, IAggregateRoot
         if (typeCnh is not null) TypeCNH = typeCnh;
         if (expirationDateCNH is not null) ExpirationDateCNH = (DateTime)expirationDateCNH;
         if (cnh is not null) CNH = cnh;
-        if (epi is not null) this.EPI = epi;
-        if (CTPS is not null) this.CTPS = CTPS;
+        if (epi is not null) EPI = epi;
+        if (ctps is not null) CTPS = ctps;
 
         if (numberAdmissionExam is not null) 
             NumberAdmissionExam = numberAdmissionExam;
@@ -150,6 +155,12 @@ public class Collaborator : BaseEntity, IAggregateRoot
         if (listEmails is not null) _listEmails = listEmails;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
+        }
     }
 
     #region Sobrescrita Object

@@ -6,16 +6,21 @@ namespace Urbamais.Domain.Entities.Planning;
 
 public class Unit : BaseEntity, IAggregateRoot
 {
-    public string? Description { get; private set; }
-    public string? Acronym { get; private set; }
+    public string Description { get; private set; }
+    public string Acronym { get; private set; }
     public virtual ICollection<Input>? Inputs { get; private set; }
 
-    public Unit(string? description, string? acronym)
+    public Unit(string idUserCreation, string description, string acronym)
     {
-        Description = description?.Trim();
-        Acronym = acronym?.Trim();
+        Description = description.Trim();
+        Acronym = acronym.Trim();
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     private void Validate()
@@ -24,19 +29,23 @@ public class Unit : BaseEntity, IAggregateRoot
 
         if (!IsValid && Id == 0)
         {
-            Description = default;
-            Acronym = default;
+            Description = default!;
+            Acronym = default!;
         }
     }
 
-    public void Update(string? description = null, string? acronym = null)
+    public void Update(string idUserModification, string? description = null, string? acronym = null)
     {
         if (!string.IsNullOrWhiteSpace(description)) Description = description.Trim();
         if (!string.IsNullOrWhiteSpace(acronym)) Acronym = acronym.Trim();
 
         Validate();
 
-        if(IsValid) ModificationDate = DateTime.Now;
+        if (IsValid)
+        {
+            ModificationDate = DateTime.Now;
+            IdUserModification = idUserModification;
+        }
     }
 
     #region Sobrescrita Object

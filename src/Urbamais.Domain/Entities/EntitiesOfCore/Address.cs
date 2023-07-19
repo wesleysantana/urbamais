@@ -14,8 +14,8 @@ public sealed class Address : AddressCore
     public new int CityId { get; private set; }
     public new City? City { get; private set; }
 
-    public Address(string thoroughfare, string number, string complement, string neighborhood, string zipCode, int cityId)
-        : base(thoroughfare, number, complement, neighborhood, zipCode, cityId)
+    public Address(string idUserCreation, string thoroughfare, string number, string complement, string neighborhood, string zipCode, int cityId)
+        : base(idUserCreation, thoroughfare, number, complement, neighborhood, zipCode, cityId)
     {
     }
 }

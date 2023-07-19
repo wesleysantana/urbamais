@@ -5,9 +5,9 @@ using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class companieConfig : ConfigBase<Companie>
+internal class CompanieConfig : ConfigBase<Companie>
 {
-    public companieConfig(ModelBuilder builder) : base(builder)
+    public CompanieConfig(ModelBuilder builder) : base(builder)
     {
         Config(builder);
     }

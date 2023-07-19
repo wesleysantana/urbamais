@@ -22,7 +22,7 @@ public class Input : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Input(NameVO name, string description, Unit unit, TipoInsumo type)
+    public Input(string idUserCreation, NameVO name, string description, Unit unit, TipoInsumo type)
     {
         Name = name;
         Description = description.Trim();
@@ -39,6 +39,11 @@ public class Input : BaseEntity, IAggregateRoot
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
                 item.SetValue(this, default);
+        }
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
         }
     }
 

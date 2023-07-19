@@ -1,5 +1,4 @@
-﻿using Core.SeedWork;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Urbamais.Domain.Entities.Construction;
 using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planning;
@@ -23,7 +22,7 @@ public class ContextEf : DbContext
     public DbSet<Email> Emails { get; set; }
     public DbSet<Companie> Companies { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<Equipment> Equipments { get; private set; }
+    public DbSet<Equipment> Equipments { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Input> Inputs { get; set; }
     public DbSet<Construction> Constructions { get; set; }
@@ -35,41 +34,20 @@ public class ContextEf : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        _ = new AddressConfig(modelBuilder);
         _ = new CityConfig(modelBuilder);
         _ = new CollaboratorConfig(modelBuilder);
-        _ = new PurchaseConfig(modelBuilder);
-        _ = new EmailConfig(modelBuilder);
-        _ = new companieConfig(modelBuilder);
-        _ = new AddressConfig(modelBuilder);
-        _ = new EquipmentConfig(modelBuilder);
-        _ = new SupplierConfig(modelBuilder);
+        _ = new CompanieConfig(modelBuilder);
         _ = new ConstructionConfig(modelBuilder);
+        _ = new EmailConfig(modelBuilder);
+        _ = new EquipmentConfig(modelBuilder);
         _ = new InputConfig(modelBuilder);
         _ = new OrderConfig(modelBuilder);
+        _ = new PhoneConfig(modelBuilder);
         _ = new PlanningConfig(modelBuilder);
         _ = new PlanningInputsConfig(modelBuilder);
-        _ = new PhoneConfig(modelBuilder);
+        _ = new PurchaseConfig(modelBuilder);
+        _ = new SupplierConfig(modelBuilder);
         _ = new UnitConfig(modelBuilder);
-    }
-
-    public override int SaveChanges()
-    {
-        SetData();
-        return base.SaveChanges();
-    }
-
-    private void SetData()
-    {
-        foreach (var item in ChangeTracker.Entries())
-        {
-            if (item.Entity.GetType() == typeof(BaseEntity))
-            {
-                if (item.State == EntityState.Added)
-                    item.Property(((BaseEntity)item.Entity).CreationDate.ToString()).CurrentValue = DateTime.Now;
-
-                if (item.State == EntityState.Modified)
-                    item.Property(((BaseEntity)item.Entity).ModificationDate.ToString()!).CurrentValue = DateTime.Now;
-            }
-        }
-    }
+    }    
 }

@@ -10,7 +10,7 @@ public class Companie : CorporateEntity
 
     protected Companie() { }
 
-    public Companie(NameVO tradeName, NameVO corporateName, CnpjVO cnpj, string ie,
+    public Companie(string idUserCreation, NameVO tradeName, NameVO corporateName, CnpjVO cnpj, string ie,
         string? im, List<Address> listAddress, List<Phone>? listPhone, List<Email>? listEmail)
-        : base(tradeName, corporateName, cnpj, ie, im, listAddress, listPhone, listEmail) { }
+        : base(idUserCreation, tradeName, corporateName, cnpj, ie, im, listAddress, listPhone, listEmail) { }
 }

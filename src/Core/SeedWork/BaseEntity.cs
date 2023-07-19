@@ -3,9 +3,12 @@
 public abstract class BaseEntity : BaseValidate
 {
     public int Id { get; protected set; }
-    public DateTime CreationDate { get; protected set; } = DateTime.Now;
+    public string IdUserCreation { get; protected set; } = string.Empty;
+    public DateTime CreationDate { get; init; } = DateTime.Now;
+    public string? IdUserModification { get; protected set; }
     public DateTime? ModificationDate { get; protected set; }
+    public string? IdUserDeletion { get; protected set; }
     public DateTime? DeletionDate { get; protected set; }
 
-    public void Delete() => DeletionDate = DateTime.Now;
+    public void Delete() => DeletionDate = DateTime.Now;    
 }

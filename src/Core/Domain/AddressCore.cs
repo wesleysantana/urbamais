@@ -22,7 +22,7 @@ public abstract class AddressCore : BaseEntity, IEntity
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public AddressCore(string thoroughfare, string number, string complement, string zipCode, string neighborhood, int cityId)
+    public AddressCore(string idUserCreation, string thoroughfare, string number, string complement, string zipCode, string neighborhood, int cityId)
     {
         Thoroughfare = thoroughfare.Trim();
         Number = number.Trim();
@@ -40,6 +40,11 @@ public abstract class AddressCore : BaseEntity, IEntity
             {
                 item.SetValue(this, default);
             }
+        }
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
         }
     }
 

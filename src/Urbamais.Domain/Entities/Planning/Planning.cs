@@ -20,9 +20,10 @@ public class Planning : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Planning(int constructionId)
+    public Planning(string idUserCreation, int constructionId)
     {
         ConstructionId = constructionId;
+        IdUserCreation = idUserCreation;
     }
 
     public override bool Equals(object? obj)

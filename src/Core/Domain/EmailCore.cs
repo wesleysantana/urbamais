@@ -8,13 +8,18 @@ public abstract class EmailCore : BaseEntity, IEntity
 {
     public string? Address { get; private set; }
 
-    public EmailCore(string address)
+    public EmailCore(string idUserCreation, string address)
     {
         Address = address.Trim();
 
         Validate(this, new EmailValidator());
 
         if (!IsValid && Id == default) Address = default;
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     #region Sobrescrita Object

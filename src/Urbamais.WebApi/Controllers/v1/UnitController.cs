@@ -33,9 +33,9 @@ public class UnitController : ControllerBase
     public async Task<ActionResult<List<UnitResponse>>> Get([FromQuery] UnitFilterRequest filtro, CancellationToken cancellationToken)
     {
         try
-        {            
+        {
             var response = await _unidadeApp.Query(filtro, cancellationToken);
-            
+
             if (response is not null && response.Any())
                 return Ok(_mapper.Map<List<UnitResponse>>(response));
 
@@ -81,7 +81,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            unidadeRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
             var unidade = await _unidadeApp.Insert(_mapper.Map<Unit>(unidadeRequest));
             if (unidade.IsValid)
@@ -112,7 +112,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            unidadeRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
             var unidade = await _unidadeApp.Update(id, unidadeRequest);
 
@@ -123,14 +123,13 @@ public class UnitController : ControllerBase
 
             if (!unidade.Item2.IsValid)
             {
-                return Ok(_mapper.Map<UnitResponse>(unidade.Item2));
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
+                    errors: unidade.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+
+                return BadRequest(problemDetail);
             }
 
-            var problemDetail =
-                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                errors: unidade.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
-            return BadRequest(problemDetail);
+            return Ok(_mapper.Map<UnitResponse>(unidade.Item2));
         }
         catch (Exception ex)
         {

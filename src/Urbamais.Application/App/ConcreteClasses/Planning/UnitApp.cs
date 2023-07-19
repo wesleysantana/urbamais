@@ -37,7 +37,7 @@ public class UnitApp : IUnitApp
 
         var unitUpdate = entity as UnitUpdateRequest;
 
-        unit.Update(unitUpdate?.Description, unitUpdate?.Acronym);
+        unit.Update(unitUpdate!.IdUserModification, unitUpdate?.Description, unitUpdate?.Acronym);
 
         if (unit.IsValid)
         {

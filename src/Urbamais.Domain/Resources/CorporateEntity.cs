@@ -44,7 +44,7 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CorporateEntity(NameVO tradeName, NameVO corporateName, CnpjVO cnpj, string stateRegistration,
+    public CorporateEntity(string idUserCreation, NameVO tradeName, NameVO corporateName, CnpjVO cnpj, string stateRegistration,
         string? municipalRegistration, List<Address> listAddress, List<Phone>? listPhone, List<Email>? listEmail)
     {
         TradeName = tradeName;
@@ -57,6 +57,11 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
         _listEmail = listEmail;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserCreation = idUserCreation;
+        }
     }
 
     private void Validate()
@@ -98,7 +103,7 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(NameVO? corporateName = null, NameVO? tradeName = null, CnpjVO? cnpj = null,
+    public void Update(string idUserModification, NameVO? corporateName = null, NameVO? tradeName = null, CnpjVO? cnpj = null,
         List<Address>? addresses = null, List<Phone>? phones = null, List<Email>? emails = null)
     {
         if (corporateName is not null) CorporateName = corporateName;
@@ -109,6 +114,12 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
         if (emails is not null) Emails = emails;
 
         Validate();
+
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
+        }
     }
 
     #region Sobrescrita Object
