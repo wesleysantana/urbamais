@@ -37,7 +37,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, 'R')) 
+            if (!AuthorizeAccess.Valid(_nameController, Constants.READ)) 
                 return Unauthorized();
 
             var response = await _unidadeApp.Query(filtro, cancellationToken);
@@ -64,7 +64,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, 'R'))
+            if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
                 return Unauthorized();
 
             var unidade = _mapper.Map<UnitResponse>(await _unidadeApp.Get(id));
@@ -90,7 +90,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, 'C'))
+            if (!AuthorizeAccess.Valid(_nameController, Constants.CREATE))
                 return Unauthorized();
 
             unidadeRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -124,7 +124,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, 'U'))
+            if (!AuthorizeAccess.Valid(_nameController, Constants.UPDATE))
                 return Unauthorized();
 
             unidadeRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -163,7 +163,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, 'D'))
+            if (!AuthorizeAccess.Valid(_nameController, Constants.DELETE))
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
