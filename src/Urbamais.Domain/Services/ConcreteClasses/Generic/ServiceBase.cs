@@ -19,7 +19,7 @@ public class ServiceBase<T> : IDisposable, IServiceBase<T> where T : class
 
     public void Update(T entity) => _repository.Update(entity);
 
-    public void Delete(object id) => _repository.Delete(id);
+    public void Delete(object id, string IdUserDeletion) => _repository.Delete(id, IdUserDeletion);
 
     #region Query
 

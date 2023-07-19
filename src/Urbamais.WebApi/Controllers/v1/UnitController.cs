@@ -138,7 +138,7 @@ public class UnitController : ControllerBase
         }
     }
 
-    [ProducesResponseType(typeof(UnitResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
@@ -148,8 +148,8 @@ public class UnitController : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var unidade = await _unidadeApp.Delete(id);
+            var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var unidade = await _unidadeApp.Delete(id, IdUserDeletion!);
 
             if (!unidade.Item1)
             {

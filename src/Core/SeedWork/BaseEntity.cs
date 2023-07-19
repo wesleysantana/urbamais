@@ -10,5 +10,9 @@ public abstract class BaseEntity : BaseValidate
     public string? IdUserDeletion { get; protected set; }
     public DateTime? DeletionDate { get; protected set; }
 
-    public void Delete() => DeletionDate = DateTime.Now;    
+    public void Delete(string idUserDeletion)
+    {
+        IdUserDeletion = idUserDeletion;
+        DeletionDate = DateTime.Now;
+    }
 }

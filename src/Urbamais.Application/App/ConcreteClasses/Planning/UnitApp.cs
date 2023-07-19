@@ -48,14 +48,14 @@ public class UnitApp : IUnitApp
         return Tuple.Create(true, unit);
     }
 
-    public async Task<Tuple<bool, bool>> Delete(object id)
+    public async Task<Tuple<bool, bool>> Delete(object id, string IdUserDeletion)
     {
         var unit = await _service.Get(id);
 
         if (unit is null)
             return Tuple.Create(false, false);
 
-        _service.Delete(id);
+        _service.Delete(id, IdUserDeletion);
 
         if (await Commit() > 0)
             return Tuple.Create(true, true);

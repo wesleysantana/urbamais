@@ -17,7 +17,7 @@ public class AppServiceBase<T> : IDisposable, IAppServiceBase<T> where T : class
 
     public Task<int> Commit() => _serviceBase.Commit();
 
-    public void Delete(object id) => _serviceBase.Delete(id);
+    public void Delete(object id, string IdUserDeletion) => _serviceBase.Delete(id, IdUserDeletion);
 
     public void Update(T entity) => _serviceBase.Update(entity);
 

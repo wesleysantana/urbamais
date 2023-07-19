@@ -19,7 +19,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
 
     public void Update(T entity) => _context.Update(entity);
 
-    public void Delete(object id)
+    public void Delete(object id, string idUserDeletion)
     {
         var entity = Get(id).Result;
         if (entity is null)
@@ -28,7 +28,7 @@ public class RepositoryBase<T> : IDisposable, IUnitOfWork, IRepositoryBase<T> wh
         if (entity.GetType().BaseType == typeof(BaseEntity))
         {
             var entidade = entity as BaseEntity;
-            entidade?.Delete();
+            entidade?.Delete(idUserDeletion);
             return;
         }
 

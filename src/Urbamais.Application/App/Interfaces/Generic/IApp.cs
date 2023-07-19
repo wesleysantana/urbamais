@@ -10,7 +10,7 @@ public interface IApp<T> where T : class
 
     Task<Tuple<bool, T>> Update(object id, IDomainUpdate entity);
 
-    Task<Tuple<bool, bool>> Delete(object id);
+    Task<Tuple<bool, bool>> Delete(object id, string IdUserDeletion);
 
     Task<int> Commit();
 
