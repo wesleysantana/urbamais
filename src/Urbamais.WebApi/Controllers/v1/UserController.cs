@@ -121,7 +121,10 @@ public class UserController : ControllerBase
     {
         var result = await _identityService.Login(userLogin);
         if (result.Success)
+        {
+            ListClaims.Instance.Claims = userLogin.Claims;
             return Ok(result);
+        }
 
         return Unauthorized();
     }

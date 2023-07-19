@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
@@ -13,10 +14,12 @@ namespace Urbamais.WebApi.Controllers.v1;
 [Route("api/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
+[Authorize]
 public class UnitController : ControllerBase
 {
     private readonly IUnitApp _unidadeApp;
     private readonly IMapper _mapper;
+    private readonly string _nameController = "Unit";
 
     public UnitController(IUnitApp unidadeApp, IMapper mapper)
     {
@@ -34,6 +37,9 @@ public class UnitController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, 'R')) 
+                return Unauthorized();
+
             var response = await _unidadeApp.Query(filtro, cancellationToken);
 
             if (response is not null && response.Any())
@@ -58,6 +64,9 @@ public class UnitController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, 'R'))
+                return Unauthorized();
+
             var unidade = _mapper.Map<UnitResponse>(await _unidadeApp.Get(id));
             if (unidade is not null)
                 return Ok(unidade);
@@ -81,6 +90,9 @@ public class UnitController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, 'C'))
+                return Unauthorized();
+
             unidadeRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
             var unidade = await _unidadeApp.Insert(_mapper.Map<Unit>(unidadeRequest));
@@ -112,6 +124,9 @@ public class UnitController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, 'U'))
+                return Unauthorized();
+
             unidadeRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
             var unidade = await _unidadeApp.Update(id, unidadeRequest);
@@ -148,6 +163,9 @@ public class UnitController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, 'D'))
+                return Unauthorized();
+
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var unidade = await _unidadeApp.Delete(id, IdUserDeletion!);
 

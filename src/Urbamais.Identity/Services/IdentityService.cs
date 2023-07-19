@@ -91,7 +91,10 @@ public class IdentityService : IIdentityAppService
     {
         var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true);
         if (result.Succeeded)
+        {
+            AddClaimsToUser(ref userLogin);
             return await CredentialRegister(userLogin.Email);
+        }
 
         var userLoginResponse = new UserLoginResponse();
         if (!result.Succeeded)
@@ -106,14 +109,14 @@ public class IdentityService : IIdentityAppService
                 userLoginResponse.AddError("Usuário ou senha estão incorretos");
         }
 
-        AddClaimsToUser(ref userLoginResponse);
-
         return userLoginResponse;
     }
 
-    private void AddClaimsToUser(ref UserLoginResponse userLogin)
+    private void AddClaimsToUser(ref UserLoginRequest userLogin)
     {
-        var roles = _userManager.GetRolesAsync(_user!).Result;
+        var user = _userManager.FindByEmailAsync(userLogin.Email).Result;
+        var roles = _userManager.GetRolesAsync(user!).Result;
+
         foreach (var role in roles)
         {
             var roleObj = _roleManager.FindByNameAsync(role).Result;
@@ -122,7 +125,7 @@ public class IdentityService : IIdentityAppService
                 var roleClaims = _roleManager.GetClaimsAsync(roleObj).Result;
                 foreach (var item in roleClaims)
                 {
-                    userLogin.Claims.Add(item.Value, item.ValueType);
+                    userLogin.Claims.Add(item.Type, item.Value);
                 }
             }
         }

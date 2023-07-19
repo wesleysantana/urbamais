@@ -12,9 +12,7 @@ public class UserLoginResponse
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string RefreshToken { get; private set; } = string.Empty;
 
-    public List<string> Errors { get; private set; }
-
-    public IDictionary<string, string> Claims { get; set; } = new Dictionary<string, string>();
+    public List<string> Errors { get; private set; }    
 
     public UserLoginResponse() => Errors = new List<string>();
 
