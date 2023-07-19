@@ -12,18 +12,26 @@ namespace Urbamais.WebApi.Controllers.v1;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class RoleController : ControllerBase
 {
     private readonly IIdentityAppService _identityService;
+    private readonly string _nameController = "Role";
 
     public RoleController(IIdentityAppService identityService)
     {
         _identityService = identityService;
     }
-    
+
     [ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK)]
     [HttpGet("get_list_controllers")]
-    public ActionResult<List<string>> GetlistControllers() => Ok(ListControllers.Instance.List.ToList());
+    public ActionResult<List<string>> GetlistControllers()
+    {
+        if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+            return Unauthorized();
+
+        return Ok(ListControllers.Instance.List.ToList());
+    }
 
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,6 +42,9 @@ public class RoleController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+                return Unauthorized();
+
             var result = await _identityService.GetUsersInRole(roleName);
 
             if (!result.Item1)
@@ -58,6 +69,9 @@ public class RoleController : ControllerBase
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.CREATE))
+                return Unauthorized();
+
             var validRoleAndClaims = ValidRoleAndClaims(roleRegister.Claims);
             if (validRoleAndClaims is not null)
                 return BadRequest(validRoleAndClaims);
@@ -87,6 +101,10 @@ public class RoleController : ControllerBase
     {
         try
         {
+
+            if (!AuthorizeAccess.Valid(_nameController, Constants.UPDATE))
+                return Unauthorized();
+
             var validRoleAndClaims = ValidRoleAndClaims(roleUpdate.Claims!);
             if (validRoleAndClaims is not null)
                 return BadRequest(validRoleAndClaims);
@@ -121,6 +139,10 @@ public class RoleController : ControllerBase
     {
         try
         {
+
+            if (!AuthorizeAccess.Valid(_nameController, Constants.DELETE))
+                return Unauthorized();
+
             var result = await _identityService.DeleteRole(roleDelete.Name);
 
             if (!result.Item1)
@@ -144,7 +166,7 @@ public class RoleController : ControllerBase
     }
 
     private CustomProblemDetails? ValidRoleAndClaims(IDictionary<string, string> roleRegister)
-    {       
+    {
         if (roleRegister.Keys.Any(key => !ListControllers.Instance.List.Contains(key)))
         {
             return new CustomProblemDetails(HttpStatusCode.BadRequest,

@@ -16,6 +16,7 @@ namespace Urbamais.WebApi.Controllers.v1;
 public class UserController : ControllerBase
 {
     private readonly IIdentityAppService _identityService;
+    private readonly string _nameController = "User";
 
     public UserController(IIdentityAppService identityService)
     {
@@ -27,11 +28,15 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<List<UnitResponse>>> Get(CancellationToken cancellationToken)
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+                return Unauthorized();
+
             var response = await _identityService.GetUsers(cancellationToken);
             if (response is not null && response.Any())
                 return Ok(response);
@@ -48,11 +53,15 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(UserRegisterResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Authorize]
     [HttpPost("register-user")]
     public async Task<ActionResult<UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister)
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.CREATE))
+                return Unauthorized();
+
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var result = await _identityService.RegisterUser(userRegister, userId!);
 
@@ -82,11 +91,15 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult<UserResponse>> Update(string id, UserUpdateRequest userUpdateRequest)
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.UPDATE))
+                return Unauthorized();
+
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _identityService.UpdateUser(id, userUpdateRequest, userId!);
 
@@ -152,11 +165,15 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Authorize]
     [HttpDelete("delete-user")]
     public async Task<ActionResult<UserResponse>> DeleteUser(string userIdDelete)
     {
         try
         {
+            if (!AuthorizeAccess.Valid(_nameController, Constants.DELETE))
+                return Unauthorized();
+
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var result = await _identityService.DeleteUser(userIdDelete, userId!);
 
