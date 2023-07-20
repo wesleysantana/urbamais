@@ -11,6 +11,8 @@ public class PlanningInput : BaseValidate, IEntity
     public int InputId { get; private set; }
     public virtual Input? Input { get; private set; }
     public decimal UnitaryValue { get; private set; }
+    public int UnitId { get; private set; }
+    public virtual Unit? Unit { get; private set; }
     public double Amount { get; private set; }
     public DateTime StartDate { get; private set; }
     public DateTime FinalDate { get; private set; }
@@ -19,11 +21,12 @@ public class PlanningInput : BaseValidate, IEntity
     {
     }
 
-    public PlanningInput(int planningId, int inputId, decimal unitaryValue,
+    public PlanningInput(int planningId, int inputId, int unitId, decimal unitaryValue,
         double amount, DateTime startDate, DateTime finalDate)
     {
         PlanningId = planningId;
         InputId = inputId;
+        UnitId = unitId;
         UnitaryValue = unitaryValue;
         Amount = amount;
         StartDate = startDate;
@@ -37,11 +40,12 @@ public class PlanningInput : BaseValidate, IEntity
         Validate(this, new PlanningInputValidator());
     }
 
-    public void Update(int? planningId = null, int? inputId = null, decimal? unitaryValue = null,
+    public void Update(int? planningId = null, int? inputId = null, int? unitId = null, decimal? unitaryValue = null,
         double? amount = null, DateTime? startDate = null, DateTime? finalDate = null)
     {
         if (planningId is not null) PlanningId = (int)planningId;
         if (inputId is not null) InputId = (int)inputId;
+        if (unitId is not null) UnitId = (int)unitId;
         if (unitaryValue is not null) UnitaryValue = (decimal)unitaryValue;
         if (amount is not null) Amount = (double)amount;
         if (startDate is not null) StartDate = (DateTime)startDate;
@@ -59,6 +63,10 @@ public class PlanningInput : BaseValidate, IEntity
                 .NotEqual(0);
 
             RuleFor(x => x.InputId)
+                .NotNull()
+                .NotEqual(0);
+
+            RuleFor(x => x.UnitId)
                 .NotNull()
                 .NotEqual(0);
 

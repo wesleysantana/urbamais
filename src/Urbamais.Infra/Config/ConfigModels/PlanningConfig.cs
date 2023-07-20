@@ -19,7 +19,7 @@ internal class PlanningConfig : ConfigBase<Planning>
             .IsRequired();
 
         builder.Entity<Planning>()
-            .HasOne(x => x.Obra)
+            .HasOne(x => x.Construction)
             .WithMany(x => x.Plannings)
             .HasForeignKey(x => x.ConstructionId);
     }
