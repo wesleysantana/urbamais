@@ -6,6 +6,7 @@ namespace Urbamais.Domain.Entities.Planning;
 
 public class PlanningInput : BaseValidate, IEntity
 {
+    public int NumericalOrder { get; private set; }
     public int PlanningId { get; private set; }
     public virtual Planning? Planning { get; private set; }
     public int InputId { get; private set; }

@@ -11,9 +11,14 @@ internal class PlanningInputsConfig
     }
 
     private static void Config(ModelBuilder builder)
-    {
+    { 
         builder.Entity<PlanningInput>()
             .ToTable("planning_inputs");
+
+        builder.Entity<PlanningInput>()
+            .Property(x => x.NumericalOrder)
+            .HasColumnName("numerical_order")
+            .IsRequired();
 
         builder.Entity<PlanningInput>()
             .Property(x => x.PlanningId)
@@ -26,7 +31,7 @@ internal class PlanningInputsConfig
             .IsRequired();
 
         builder.Entity<PlanningInput>()
-            .HasKey(x => new { x.PlanningId, x.InputId });
+            .HasKey(x => new { x.NumericalOrder, x.PlanningId, x.InputId });
 
         builder.Entity<PlanningInput>()
             .Property(x => x.Amount)
