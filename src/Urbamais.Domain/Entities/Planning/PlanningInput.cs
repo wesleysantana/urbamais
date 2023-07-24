@@ -1,12 +1,13 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
 using FluentValidation;
+using System.Reflection;
 
 namespace Urbamais.Domain.Entities.Planning;
 
 public class PlanningInput : BaseValidate, IEntity
 {
-    public int NumericalOrder { get; private set; }
+    public int Id { get; private set; }
     public int PlanningId { get; private set; }
     public virtual Planning? Planning { get; private set; }
     public int InputId { get; private set; }
@@ -34,6 +35,13 @@ public class PlanningInput : BaseValidate, IEntity
         FinalDate = finalDate;
 
         Validate();
+
+        if (!IsValid)
+        {
+            var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            foreach (var item in propriedades)
+                item.SetValue(this, default);
+        }
     }
 
     private void Validate()
@@ -44,6 +52,8 @@ public class PlanningInput : BaseValidate, IEntity
     public void Update(int? planningId = null, int? inputId = null, int? unitId = null, decimal? unitaryValue = null,
         double? amount = null, DateTime? startDate = null, DateTime? finalDate = null)
     {
+        var memento = CreateMemento();
+
         if (planningId is not null) PlanningId = (int)planningId;
         if (inputId is not null) InputId = (int)inputId;
         if (unitId is not null) UnitId = (int)unitId;
@@ -53,6 +63,40 @@ public class PlanningInput : BaseValidate, IEntity
         if (finalDate is not null) FinalDate = (DateTime)finalDate;
 
         Validate();
+
+        if (!IsValid)
+        {
+            RestoreMemento(memento);
+        }
+    }
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            PlanningId,
+            InputId,
+            UnitId,
+            UnitaryValue,
+            Amount,
+            StartDate,
+            FinalDate
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        PlanningId = state.PlanningId;
+        InputId = state.InputId;
+        UnitId = state.UnitId;
+        UnitaryValue = state.UnitaryValue;
+        Amount = state.Amount;
+        StartDate = state.StartDate;
+        FinalDate = state.FinalDate;
     }
 
     private class PlanningInputValidator : AbstractValidator<PlanningInput>

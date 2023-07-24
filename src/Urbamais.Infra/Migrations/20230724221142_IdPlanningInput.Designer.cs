@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Urbamais.Infra.Config;
@@ -11,9 +12,11 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    partial class ContextEfModelSnapshot : ModelSnapshot
+    [Migration("20230724221142_IdPlanningInput")]
+    partial class IdPlanningInput
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,7 +439,7 @@ namespace Urbamais.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnName("numerical_order");
 
                     b.Property<int>("PlanningId")
                         .HasColumnType("integer")
@@ -459,8 +462,7 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnName("start_date");
 
                     b.Property<int>("UnitId")
-                        .HasColumnType("integer")
-                        .HasColumnName("unit_id");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("UnitaryValue")
                         .HasColumnType("numeric")
