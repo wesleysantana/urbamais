@@ -34,7 +34,7 @@ public class PlanningInput : BaseValidate, IEntity
         StartDate = startDate;
         FinalDate = finalDate;
 
-        Validate();
+        Validate(this, new PlanningInputValidator());
 
         if (!IsValid)
         {
@@ -42,11 +42,6 @@ public class PlanningInput : BaseValidate, IEntity
             foreach (var item in propriedades)
                 item.SetValue(this, default);
         }
-    }
-
-    private void Validate()
-    {
-        Validate(this, new PlanningInputValidator());
     }
 
     public void Update(int? planningId = null, int? inputId = null, int? unitId = null, decimal? unitaryValue = null,
@@ -62,13 +57,13 @@ public class PlanningInput : BaseValidate, IEntity
         if (startDate is not null) StartDate = (DateTime)startDate;
         if (finalDate is not null) FinalDate = (DateTime)finalDate;
 
-        Validate();
+        Validate(this, new PlanningInputValidator());
 
         if (!IsValid)
-        {
             RestoreMemento(memento);
-        }
     }
+
+    #region Memento
 
     private object CreateMemento()
     {
@@ -98,6 +93,8 @@ public class PlanningInput : BaseValidate, IEntity
         StartDate = state.StartDate;
         FinalDate = state.FinalDate;
     }
+
+    #endregion Memento
 
     private class PlanningInputValidator : AbstractValidator<PlanningInput>
     {

@@ -26,6 +26,7 @@ internal class InputConfig : ConfigBase<Input>
             .HasMaxLength(255);
 
         builder.Entity<Input>()
+            .OwnsOne(x => x.Description)
             .Property(x => x.Description)
             .HasColumnName("description")
             .IsRequired()

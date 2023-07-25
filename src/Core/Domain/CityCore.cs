@@ -9,7 +9,7 @@ namespace Core.Domain;
 public abstract class CityCore : BaseEntity, IAggregateRoot
 {
     public NameVO Name { get; private set; }
-    public Uf Uf { get; private set; }    
+    public Uf Uf { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -22,17 +22,15 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
     {
         Name = name;
         Uf = uf;
-        CreationDate = DateTime.Now;        
+        CreationDate = DateTime.Now;
 
-        Validar();
+        Validate();
 
         if (IsValid)
-        {
             IdUserCreation = userId;
-        }
     }
 
-    private void Validar()
+    private void Validate()
     {
         ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
 
@@ -50,17 +48,44 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
     public void Update(string idUserModification, NameVO? name = null, Uf? uf = null)
     {
+        var memento = CreateMemento();
+
         if (name is not null) Name = name;
         if (uf is not null) Uf = uf.Value;
-        
-        Validar();
+
+        Validate();
 
         if (IsValid)
         {
             IdUserModification = idUserModification;
             ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Name,
+            Uf
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Name = state.Name;
+        Uf = state.Uf;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

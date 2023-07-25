@@ -26,7 +26,10 @@ public class Daily : BaseEntity, IAggregateRoot
     }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    protected Daily() { }
+
+    protected Daily()
+    { }
+
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Daily(string idUserCreation, Construction construction, DateTime date, Supplier.Supplier supplier,
@@ -42,9 +45,7 @@ public class Daily : BaseEntity, IAggregateRoot
         Validate();
 
         if (IsValid)
-        {
             IdUserCreation = idUserCreation;
-        }
     }
 
     private void Validate()
@@ -73,6 +74,8 @@ public class Daily : BaseEntity, IAggregateRoot
     public void Update(string idUserModification, Construction? construction = null, DateTime? date = null, Supplier.Supplier? supplier = null,
         string? descriptionActivities = null, Collaborator? collaborator = null, List<FileStream>? photos = null)
     {
+        var memento = CreateMemento();
+
         if (construction is not null) Construction = construction;
         if (date is not null) Date = (DateTime)date;
         if (supplier is not null) Supplier = supplier;
@@ -87,7 +90,38 @@ public class Daily : BaseEntity, IAggregateRoot
             IdUserModification = idUserModification;
             ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            ConstructionId,
+            Date,
+            SupplierId,
+            DescriptionActivities,
+            CollaboratorId
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        ConstructionId = state.ConstructionId;
+        Date = state.Date;
+        SupplierId = state.SupplierId;
+        DescriptionActivities = state.DescriptionActivities;
+        CollaboratorId = state.CollaboratorId;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

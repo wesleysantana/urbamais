@@ -19,10 +19,8 @@ public class Order : BaseEntity, IAggregateRoot
 
         Validate(this, new OrderValidator());
 
-        if (IsValid)
-        {
-            IdUserCreation = idUserCreation;
-        }
+        if (IsValid)        
+            IdUserCreation = idUserCreation;        
     }
 
     public override string ToString()

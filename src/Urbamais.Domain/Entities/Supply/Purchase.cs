@@ -1,8 +1,7 @@
 ﻿using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planning;
-using Urbamais.Domain.Entities.Supply;
 
-namespace Urbamais.Domain.Entities.Suprimento;
+namespace Urbamais.Domain.Entities.Supply;
 
 public class Purchase
 {

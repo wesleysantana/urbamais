@@ -13,13 +13,49 @@ public class PhoneCore : BaseEntity, IEntity
         Number = number.Trim();
         Validate(this, new PhoneValidator());
 
-        if (!IsValid && Id == default) Number = default;
+        if (!IsValid)
+            Number = default;
+        else
+            IdUserCreation = idUserCreation;
+    }
+
+    public void Update(string idUserModification, string number)
+    {
+        var memento = CreateMemento();
+
+        Number = number.Trim();
+
+        Validate(this, new PhoneValidator());
 
         if (IsValid)
         {
-            IdUserCreation = idUserCreation;
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Number
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Number = state.Number;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

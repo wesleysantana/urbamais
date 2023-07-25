@@ -48,6 +48,8 @@ public class Equipment : BaseEntity, IAggregateRoot
 
     public void Update(string idUserModification, NameVO? name = null, DescriptionVO? description = null)
     {
+        var memento = CreateMemento();
+
         if (name is not null) Name = name;
         if (description is not null) Description = description;
 
@@ -58,7 +60,32 @@ public class Equipment : BaseEntity, IAggregateRoot
             IdUserModification = idUserModification;
             ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Name,
+            Description
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Name = state.Name;
+        Description = state.Description;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

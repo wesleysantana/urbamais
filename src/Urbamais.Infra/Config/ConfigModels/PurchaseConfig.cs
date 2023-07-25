@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Suprimento;
+using Urbamais.Domain.Entities.Supply;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 

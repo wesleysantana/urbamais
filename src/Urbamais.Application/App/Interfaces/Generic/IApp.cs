@@ -17,7 +17,7 @@ public interface IApp<T> where T : class
     #region Querys
 
     //Task<IQueryable<T>> Query(IFiltroRequest query);
-    Task<IList<Unit>> Query(IFilterRequest filter, CancellationToken cancellationToken);
+    Task<IList<T>> Query(IFilterRequest filter, CancellationToken cancellationToken);
 
     Task<T> Get(object id);
 

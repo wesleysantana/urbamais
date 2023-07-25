@@ -1,7 +1,7 @@
 ﻿using Core.Domain;
 using Urbamais.Domain.Entities.Construction;
 using Urbamais.Domain.Entities.Supplier;
-using Urbamais.Domain.Entities.Suprimento;
+using Urbamais.Domain.Entities.Supply;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 

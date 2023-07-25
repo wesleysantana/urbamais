@@ -33,7 +33,7 @@ public abstract class AddressCore : BaseEntity, IEntity
 
         Validate(this, new AddressValidator());
 
-        if (!IsValid && Id == default)
+        if (!IsValid)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
@@ -41,12 +41,63 @@ public abstract class AddressCore : BaseEntity, IEntity
                 item.SetValue(this, default);
             }
         }
+        else
+            IdUserCreation = idUserCreation;
+    }
+
+    public void Update(string idUserModification, string? thoroughfare = null, string? number = null, string? complement = null,
+        string? zipCode = null, string? neighborhood = null, int? cityId = null)
+    {
+        var memento = CreateMemento();
+
+        if (!string.IsNullOrWhiteSpace(thoroughfare)) Thoroughfare = thoroughfare.Trim();
+        if (!string.IsNullOrWhiteSpace(number)) Number = number.Trim();
+        if (!string.IsNullOrWhiteSpace(complement)) Complement = complement.Trim();
+        if (!string.IsNullOrWhiteSpace(zipCode)) ZipCode = zipCode.Trim();
+        if (!string.IsNullOrWhiteSpace(neighborhood)) Neighborhood = neighborhood.Trim();
+        if (cityId != null) CityId = (int)cityId;
+
+        Validate(this, new AddressValidator());
 
         if (IsValid)
         {
-            IdUserCreation = idUserCreation;
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Thoroughfare,
+            Number,
+            Complement,
+            ZipCode,
+            Neighborhood,
+            CityId
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Thoroughfare = state.Thoroughfare;
+        Number = state.Number;
+        Complement = state.Complement;
+        ZipCode = state.ZipCode;
+        Neighborhood = state.Neighborhood;
+        CityId = state.CityId;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

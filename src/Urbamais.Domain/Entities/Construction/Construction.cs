@@ -27,9 +27,7 @@ public class Construction : BaseEntity, IAggregateRoot
         Validate();
 
         if (IsValid)
-        {
             IdUserCreation = idUserCreation;
-        }
     }
 
     private void Validate()
@@ -48,6 +46,8 @@ public class Construction : BaseEntity, IAggregateRoot
 
     public void Update(string idUserModification, DescriptionVO description)
     {
+        var memento = CreateMemento();
+
         Description = description;
         Validate();
 
@@ -56,7 +56,32 @@ public class Construction : BaseEntity, IAggregateRoot
             IdUserModification = idUserModification;
             ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            CompanieId,
+            Description
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        CompanieId = state.CompanieId;
+        Description = state.Description;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

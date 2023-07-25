@@ -14,13 +14,48 @@ public abstract class EmailCore : BaseEntity, IEntity
 
         Validate(this, new EmailValidator());
 
-        if (!IsValid && Id == default) Address = default;
+        if (!IsValid && Id == default)
+            Address = default;
+        else
+            IdUserCreation = idUserCreation;
+    }
+
+    public void Update(string idUserModification, string address)
+    {
+        var memento = CreateMemento();
+
+        Address = address.Trim();
+        Validate(this, new EmailValidator());
 
         if (IsValid)
         {
-            IdUserCreation = idUserCreation;
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Address
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Address = state.Address;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

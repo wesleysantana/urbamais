@@ -26,6 +26,13 @@ public class Planning : BaseEntity, IAggregateRoot
         IdUserCreation = idUserCreation;
     }
 
+    public void Update(string idUserModification, int constructionId)
+    {
+        ConstructionId = constructionId;
+        IdUserModification = idUserModification;
+        ModificationDate = DateTime.Now;
+    }
+
     public override bool Equals(object? obj)
     {
         return obj is Planning planejamento &&

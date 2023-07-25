@@ -9,9 +9,9 @@ namespace Urbamais.Domain.Entities.Planning;
 public class Input : BaseEntity, IAggregateRoot
 {
     public NameVO Name { get; private set; }
-    public string Description { get; private set; }
+    public DescriptionVO Description { get; private set; }
     public int UnitId { get; private set; }
-    public virtual Unit Unit { get; private set; }
+    public virtual Unit? Unit { get; private set; }
     public InputType Type { get; private set; }
     public virtual ICollection<PlanningInput>? PlannigInputs { get; private set; }
 
@@ -22,30 +22,71 @@ public class Input : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Input(string idUserCreation, NameVO name, string description, Unit unit, InputType type)
+    public Input(string idUserCreation, NameVO name, DescriptionVO description, int unitId, InputType type)
     {
         Name = name;
-        Description = description.Trim();
-        Unit = unit;
+        Description = description;
+        UnitId = unitId;
         Type = type;
 
         ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Unit.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
 
         Validate(this, new InputValidator());
 
-        if (!IsValid && Id == default)
+        if (!IsValid)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
                 item.SetValue(this, default);
         }
-
-        if (IsValid)
-        {
+        else
             IdUserCreation = idUserCreation;
-        }
     }
+
+    public void Update(string? idUserCreation = null, NameVO? name = null,
+        DescriptionVO? description = null, int? unitId = null, InputType? type = null)
+    {
+        var memento = CreateMemento();
+
+        if (idUserCreation is not null) IdUserCreation = idUserCreation;
+        if (name is not null) Name = name;
+        if (description is not null) Description = description;
+        if (unitId is not null) UnitId = (int)unitId;
+        if (type is not null) Type = type.Value;
+
+        Validate(this, new InputValidator());
+
+        if (!IsValid)
+            RestoreMemento(memento);
+    }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Name,
+            Description,
+            UnitId,
+            Type
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Name = state.Name;
+        Description = state.Description;
+        UnitId = state.UnitId;
+        Type = state.Type;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 
@@ -76,9 +117,6 @@ public class Input : BaseEntity, IAggregateRoot
     {
         public InputValidator()
         {
-            RuleFor(x => x.Description)
-                .MaximumLength(255);
-
             RuleFor(x => x.Type)
                 .IsInEnum();
         }

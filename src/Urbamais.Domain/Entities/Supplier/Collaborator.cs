@@ -83,9 +83,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
         Validate();
 
         if (IsValid)
-        {
             IdUserCreation = idUserCreation;
-        }
     }
 
     private void Validate()
@@ -127,10 +125,12 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public void Update(string idUserModification, NameVO? name = null, CpfVO? cpf = null,
        List<Address>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
        DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? ctps = null,
-       string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null, 
-       string? admissionExam = null, string? registrationForm = null, string? serviceOrder = null, 
+       string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null,
+       string? admissionExam = null, string? registrationForm = null, string? serviceOrder = null,
        List<Phone>? listPhones = null, List<Email>? listEmails = null)
     {
+        var memento = CreateMemento();
+
         if (name is not null) Name = name;
         if (cpf is not null) Cpf = cpf;
         if (address is not null) Address = address;
@@ -142,10 +142,10 @@ public class Collaborator : BaseEntity, IAggregateRoot
         if (epi is not null) EPI = epi;
         if (ctps is not null) CTPS = ctps;
 
-        if (numberAdmissionExam is not null) 
+        if (numberAdmissionExam is not null)
             NumberAdmissionExam = numberAdmissionExam;
 
-        if (expirationDateAdmissionExam is not null) 
+        if (expirationDateAdmissionExam is not null)
             ExpirationDateAdmissionExam = (DateTime)expirationDateAdmissionExam;
 
         if (admissionExam is not null) AdmissionExam = admissionExam;
@@ -161,7 +161,62 @@ public class Collaborator : BaseEntity, IAggregateRoot
             IdUserModification = idUserModification;
             ModificationDate = DateTime.Now;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Name,
+            Cpf,
+            Address,
+            NumberCTPS,
+            NumberCNH,
+            TypeCNH,
+            ExpirationDateCNH,
+            CNH,
+            EPI,
+            CTPS,
+            NumberAdmissionExam,
+            ExpirationDateAdmissionExam,
+            AdmissionExam,
+            RegistrationForm,
+            ServiceOrder,
+            _listPhones,
+            _listEmails
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Name = state.Name;
+        Cpf = state.Cpf;
+        Address = state.Address;
+        NumberCTPS = state.NumberCTPS;
+        NumberCNH = state.NumberCNH;
+        TypeCNH = state.TypeCNH;
+        ExpirationDateCNH = state.ExpirationDateCNH;
+        CNH = state.CNH;
+        EPI = state.EPI;
+        CTPS = state.CTPS;
+        NumberAdmissionExam = state.NumberAdmissionExam;
+        ExpirationDateAdmissionExam = state.ExpirationDateAdmissionExam;
+        AdmissionExam = state.AdmissionExam;
+        RegistrationForm = state.RegistrationForm;
+        ServiceOrder = state.ServiceOrder;
+        _listPhones = state._listPhones;
+        _listEmails = state._listEmails;
+    }
+
+    #endregion memento
 
     #region Sobrescrita Object
 

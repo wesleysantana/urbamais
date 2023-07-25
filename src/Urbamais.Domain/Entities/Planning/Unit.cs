@@ -15,38 +15,57 @@ public class Unit : BaseEntity, IAggregateRoot
         Description = description.Trim();
         Acronym = acronym.Trim();
 
-        Validate();
-
-        if (IsValid)
-        {
-            IdUserCreation = idUserCreation;
-        }
-    }
-
-    private void Validate()
-    {
         Validate(this, new UnitValidator());
 
-        if (!IsValid && Id == 0)
+        if (!IsValid)
         {
             Description = default!;
             Acronym = default!;
         }
+        else
+            IdUserCreation = idUserCreation;
     }
 
     public void Update(string idUserModification, string? description = null, string? acronym = null)
     {
+        var memento = CreateMemento();
+
         if (!string.IsNullOrWhiteSpace(description)) Description = description.Trim();
         if (!string.IsNullOrWhiteSpace(acronym)) Acronym = acronym.Trim();
 
-        Validate();
+        Validate(this, new UnitValidator());
 
         if (IsValid)
         {
             ModificationDate = DateTime.Now;
             IdUserModification = idUserModification;
         }
+        else
+            RestoreMemento(memento);
     }
+
+    #region Memento
+
+    private object CreateMemento()
+    {
+        return new
+        {
+            Description,
+            Acronym
+        };
+    }
+
+    private void RestoreMemento(object memento)
+    {
+        if (memento is null) return;
+
+        var state = (dynamic)memento;
+
+        Description = state.Description;
+        Acronym = state.Acronym;
+    }
+
+    #endregion Memento
 
     #region Sobrescrita Object
 

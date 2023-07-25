@@ -4,8 +4,10 @@ using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.Interfaces.Core;
 using Urbamais.Application.Interfaces.Generic;
 using Urbamais.Application.Interfaces.Planejamento;
+using Urbamais.Application.Interfaces.Planning;
 using Urbamais.Application.Services.Core;
 using Urbamais.Application.Services.Generic;
+using Urbamais.Application.Services.Plannig;
 using Urbamais.Application.Services.Planning;
 using Urbamais.Domain.InterfacesRepositories.Core;
 using Urbamais.Domain.InterfacesRepositories.Generic;
@@ -28,6 +30,7 @@ public static class ModuloIOC
     {
         #region App
 
+        services.AddTransient<IInputApp, InputApp>();
         services.AddTransient<IUnitApp, UnitApp>();
 
         #endregion App
@@ -36,6 +39,7 @@ public static class ModuloIOC
 
         services.AddTransient(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
         services.AddTransient<ICityAppService, CityAppService>();
+        services.AddTransient<IInputAppService, InputAppService>();
         services.AddTransient<IUnitAppService, UnitAppService>();
 
         #endregion AppServices
@@ -44,6 +48,7 @@ public static class ModuloIOC
 
         services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
         services.AddTransient<ICityService, CityService>();
+        services.AddTransient<IInputService, InputService>();
         services.AddTransient<IUnitService, UnitService>();
 
         #endregion Services
@@ -52,6 +57,7 @@ public static class ModuloIOC
 
         services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
         services.AddTransient<ICityRepository, CityRepository>();
+        services.AddTransient<IInputRepository, InputRepository>();
         services.AddTransient<IUnitRepository, UnitRepository>();
 
         #endregion Repositories
