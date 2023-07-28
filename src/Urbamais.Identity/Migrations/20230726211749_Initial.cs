@@ -46,6 +46,7 @@ namespace Urbamais.Identity.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     id_user_creation = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     id_user_modification = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -134,13 +135,13 @@ namespace Urbamais.Identity.Migrations
 
             migrationBuilder.InsertData(
                 table: "identity_user",
-                columns: new[] { "id", "access_failed_count", "concurrency_stamp", "creation_date", "deletion_date", "email", "email_confirmed", "id_user_creation", "id_user_deletion", "id_user_modification", "lockout_enable", "lockout_end", "modification_date", "normalized_email", "normalized_user_name", "password_hash", "phone_number", "phone_number_confirmed", "security_stamp", "two_factor_enabled", "user_name" },
-                values: new object[] { "9de47cee-b5de-45e3-af71-630970b526d6", 0, "52bb7a9d-d612-47ed-8994-c2389682dfbe", new DateTime(2023, 7, 16, 20, 43, 9, 275, DateTimeKind.Local).AddTicks(5967), null, "dev@metamais.com", false, "30f1dd45-b5d7-44bf-90e2-ca68e66e076d", null, null, false, null, null, "DEV@METAMAIS.COM", "DEV@METAMAIS.COM", "AQAAAAIAAYagAAAAEFKYrwwrYlFfMd6uWseLo8nA41tIafHbKBza+hOc4JK+koAa64ZBiE+bwfOBxAue0Q==", null, false, "e46f17e8-9daf-48ca-b990-bb2a4586d38c", false, "dev@metamais.com" });
+                columns: new[] { "id", "access_failed_count", "concurrency_stamp", "creation_date", "deletion_date", "email", "email_confirmed", "id_user_creation", "id_user_deletion", "id_user_modification", "lockout_enable", "lockout_end", "modification_date", "Name", "normalized_email", "normalized_user_name", "password_hash", "phone_number", "phone_number_confirmed", "security_stamp", "two_factor_enabled", "user_name" },
+                values: new object[] { "59bfe934-5daa-4fdc-9c8a-b5ee9948670f", 0, "084b4b3d-9165-46cf-bc85-898e1cf01e57", new DateTime(2023, 7, 26, 18, 17, 49, 28, DateTimeKind.Local).AddTicks(2281), null, "dev@metamais.com", true, "484b4ff8-34fc-4d45-8f82-97a6276696d0", null, null, false, null, null, "", "DEV@METAMAIS.COM", "DEV@METAMAIS.COM", "AQAAAAIAAYagAAAAELNf8tswBgPYgVtNrtNLp95AokxeIUWIvYXEN/eKegbrhOlu6+4wVTRYmLOMQl2CXQ==", null, false, "441ba3cb-4f24-4014-9972-57656c41e942", false, "dev@metamais.com" });
 
             migrationBuilder.InsertData(
                 table: "identity_user_role",
                 columns: new[] { "role_id", "user_id" },
-                values: new object[] { "af92719d-1d7f-4c80-aadc-ead1e2ab3a9d", "9de47cee-b5de-45e3-af71-630970b526d6" });
+                values: new object[] { "af92719d-1d7f-4c80-aadc-ead1e2ab3a9d", "59bfe934-5daa-4fdc-9c8a-b5ee9948670f" });
         }
 
         /// <inheritdoc />

@@ -2,8 +2,11 @@
 using System.Linq.Expressions;
 using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.Interfaces.Planejamento;
+using Urbamais.Application.Resources;
 using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Request.v1.Unit;
+using Urbamais.Application.ViewModels.Response;
+using Urbamais.Application.ViewModels.Response.v1.Unit;
 using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Application.App.ConcreteClasses.Planning;
@@ -22,7 +25,8 @@ public class UnitApp : IUnitApp
         if (entity.IsValid)
         {
             await _service.Insert(entity);
-            await Commit();
+            if (await Commit() < 1)
+                throw new Exception(ConstantsApp.INSERT_ERROR);
         }
 
         return entity;
@@ -42,25 +46,37 @@ public class UnitApp : IUnitApp
         if (unit.IsValid)
         {
             _service.Update(unit);
-            await Commit();
+            if (await Commit() < 1)
+                throw new Exception(ConstantsApp.UPDATE_ERROR);
         }
 
         return Tuple.Create(true, unit);
     }
 
-    public async Task<Tuple<bool, bool>> Delete(object id, string IdUserDeletion)
+    public async Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
         var unit = await _service.Get(id);
+        IValidateViewModel result = new UnitResponse();
 
         if (unit is null)
-            return Tuple.Create(false, false);
+        {
+            result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
+            return Tuple.Create(false, result);
+        }
+
+        if (_service.GetInputs(unit.Id).Result.Any())
+        {
+            result.AddError("Não é possível excluir a unidade pois ela está vinculada a insumo(s) ainda ativo(s).");
+            return Tuple.Create(true, result);
+        }
 
         _service.Delete(id, IdUserDeletion);
 
         if (await Commit() > 0)
-            return Tuple.Create(true, true);
+            return Tuple.Create(true, result);
 
-        return Tuple.Create(true, false);
+        result.AddError(ConstantsApp.DELETE_ERROR);
+        return Tuple.Create(true, result);
     }
 
     public Task<int> Commit() => _service.Commit();
@@ -87,6 +103,8 @@ public class UnitApp : IUnitApp
 
     public async Task<IList<Unit>> ResultQuery(IQueryable<Unit> query, CancellationToken cancellationToken) =>
         await _service.ResultQuery(query, cancellationToken);
+
+    public async Task<List<Input>> GetInputs(int unitId) => await _service.GetInputs(unitId);
 
     #endregion Querys
 }

@@ -5,4 +5,5 @@ namespace Urbamais.Application.Interfaces.Planejamento;
 
 public interface IUnitAppService : IAppServiceBase<Unit>
 {
+    Task<List<Input>> GetInputs(int unitId);
 }

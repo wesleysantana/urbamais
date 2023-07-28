@@ -7,7 +7,7 @@ namespace Urbamais.Domain.Entities.Planning;
 public class Unit : BaseEntity, IAggregateRoot
 {
     public string Description { get; private set; }
-    public string Acronym { get; private set; }
+    public string Acronym { get; private set; }   
     public virtual ICollection<Input>? Inputs { get; private set; }
 
     public Unit(string idUserCreation, string description, string acronym)

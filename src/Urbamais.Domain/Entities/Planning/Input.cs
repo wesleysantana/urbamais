@@ -29,10 +29,7 @@ public class Input : BaseEntity, IAggregateRoot
         UnitId = unitId;
         Type = type;
 
-        ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
-
-        Validate(this, new InputValidator());
+        Validate();
 
         if (!IsValid)
         {
@@ -44,20 +41,32 @@ public class Input : BaseEntity, IAggregateRoot
             IdUserCreation = idUserCreation;
     }
 
-    public void Update(string? idUserCreation = null, NameVO? name = null,
-        DescriptionVO? description = null, int? unitId = null, InputType? type = null)
+    private void Validate()
+    {
+        ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
+
+        Validate(this, new InputValidator());
+    }
+
+    public void Update(string? idUserModification = null, string? name = null,
+        string? description = null, int? unitId = null, InputType? type = null)
     {
         var memento = CreateMemento();
-
-        if (idUserCreation is not null) IdUserCreation = idUserCreation;
-        if (name is not null) Name = name;
-        if (description is not null) Description = description;
+        
+        if (!string.IsNullOrWhiteSpace(name)) Name = new NameVO(name!);
+        if (!string.IsNullOrWhiteSpace(description)) Description = new DescriptionVO(description!);
         if (unitId is not null) UnitId = (int)unitId;
         if (type is not null) Type = type.Value;
 
-        Validate(this, new InputValidator());
+        Validate();
 
-        if (!IsValid)
+        if (IsValid)
+        {
+            IdUserModification = idUserModification;
+            ModificationDate = DateTime.UtcNow;
+        }
+        else
             RestoreMemento(memento);
     }
 

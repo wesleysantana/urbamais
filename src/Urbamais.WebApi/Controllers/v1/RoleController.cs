@@ -27,7 +27,7 @@ public class RoleController : ControllerBase
     [HttpGet("get_list_controllers")]
     public ActionResult<List<string>> GetlistControllers()
     {
-        if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+        if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
             return Unauthorized();
 
         return Ok(ListControllers.Instance.List.ToList());
@@ -42,7 +42,7 @@ public class RoleController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
                 return Unauthorized();
 
             var result = await _identityService.GetUsersInRole(roleName);
@@ -69,7 +69,7 @@ public class RoleController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
                 return Unauthorized();
 
             var validRoleAndClaims = ValidRoleAndClaims(roleRegister.Claims);
@@ -101,8 +101,7 @@ public class RoleController : ControllerBase
     {
         try
         {
-
-            if (!AuthorizeAccess.Valid(_nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
                 return Unauthorized();
 
             var validRoleAndClaims = ValidRoleAndClaims(roleUpdate.Claims!);
@@ -139,8 +138,7 @@ public class RoleController : ControllerBase
     {
         try
         {
-
-            if (!AuthorizeAccess.Valid(_nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
                 return Unauthorized();
 
             var result = await _identityService.DeleteRole(roleDelete.Name);

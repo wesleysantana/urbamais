@@ -18,8 +18,11 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     uf = table.Column<int>(type: "integer", nullable: false)
@@ -49,8 +52,11 @@ namespace Urbamais.Infra.Migrations
                     admission_exam = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     registration_form = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     service_order = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -64,8 +70,11 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     trade_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     corporate_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
@@ -84,8 +93,11 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     address = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
@@ -102,8 +114,11 @@ namespace Urbamais.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -117,8 +132,11 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     number = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                 },
@@ -133,8 +151,11 @@ namespace Urbamais.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     trade_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     corporate_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
@@ -155,8 +176,11 @@ namespace Urbamais.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     description = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     acronym = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -171,8 +195,11 @@ namespace Urbamais.Infra.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     city_id = table.Column<int>(type: "integer", nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     thoroughfare = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     number = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
@@ -199,8 +226,11 @@ namespace Urbamais.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     companie_id = table.Column<int>(type: "integer", nullable: false),
                     description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -392,8 +422,11 @@ namespace Urbamais.Infra.Migrations
                     description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     unit_id = table.Column<int>(type: "integer", nullable: false),
                     type = table.Column<int>(type: "integer", nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -486,8 +519,11 @@ namespace Urbamais.Infra.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     construction_id = table.Column<int>(type: "integer", nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -508,8 +544,11 @@ namespace Urbamais.Infra.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     planning_id = table.Column<int>(type: "integer", nullable: false),
+                    id_user_creation = table.Column<string>(type: "text", nullable: false),
                     creation_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    id_user_modification = table.Column<string>(type: "text", nullable: true),
                     modification_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    id_user_deletion = table.Column<string>(type: "text", nullable: true),
                     deletion_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -527,16 +566,18 @@ namespace Urbamais.Infra.Migrations
                 name: "planning_inputs",
                 columns: table => new
                 {
+                    id = table.Column<int>(type: "integer", nullable: false),
                     planning_id = table.Column<int>(type: "integer", nullable: false),
                     input_id = table.Column<int>(type: "integer", nullable: false),
                     unitary_value = table.Column<decimal>(type: "numeric", nullable: false),
+                    unit_id = table.Column<int>(type: "integer", nullable: false),
                     amount = table.Column<double>(type: "double precision", nullable: false),
                     start_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     final_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_planning_inputs", x => new { x.planning_id, x.input_id });
+                    table.PrimaryKey("PK_planning_inputs", x => new { x.id, x.planning_id, x.input_id });
                     table.ForeignKey(
                         name: "FK_planning_inputs_input_input_id",
                         column: x => x.input_id,
@@ -547,6 +588,12 @@ namespace Urbamais.Infra.Migrations
                         name: "FK_planning_inputs_planning_planning_id",
                         column: x => x.planning_id,
                         principalTable: "planning",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_planning_inputs_unit_unit_id",
+                        column: x => x.unit_id,
+                        principalTable: "unit",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -651,6 +698,16 @@ namespace Urbamais.Infra.Migrations
                 name: "IX_planning_inputs_input_id",
                 table: "planning_inputs",
                 column: "input_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_planning_inputs_planning_id",
+                table: "planning_inputs",
+                column: "planning_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_planning_inputs_unit_id",
+                table: "planning_inputs",
+                column: "unit_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_purchase_delivery_place_id",

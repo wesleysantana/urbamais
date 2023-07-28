@@ -6,7 +6,7 @@ internal class ListClaims
 
     public static ListClaims Instance => _instance.Value;
 
-    public IDictionary<string, string>? Claims;
+    public IDictionary<string, string>? Claims = new Dictionary<string, string>();
 
     private ListClaims()
     {        

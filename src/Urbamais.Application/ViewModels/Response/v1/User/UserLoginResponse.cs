@@ -6,15 +6,16 @@ public class UserLoginResponse
 {
     public bool Success => Errors.Count == 0;
 
+    public List<string> Errors { get; set; } = new List<string>();
+
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string AccessToken { get; private set; } = string.Empty;
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string RefreshToken { get; private set; } = string.Empty;
 
-    public List<string> Errors { get; private set; }    
-
-    public UserLoginResponse() => Errors = new List<string>();
+    public UserLoginResponse()
+    { }
 
     public UserLoginResponse(string accessToken, string refreshToken) : this()
     {

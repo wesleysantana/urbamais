@@ -12,8 +12,8 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    [Migration("20230718233309_UserModification")]
-    partial class UserModification
+    [Migration("20230726211803_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -350,12 +350,6 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("deletion_date");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("description");
-
                     b.Property<string>("IdUserCreation")
                         .IsRequired()
                         .HasColumnType("text")
@@ -437,6 +431,10 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Planning.PlanningInput", b =>
                 {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
                     b.Property<int>("PlanningId")
                         .HasColumnType("integer")
                         .HasColumnName("planning_id");
@@ -457,13 +455,21 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("start_date");
 
+                    b.Property<int>("UnitId")
+                        .HasColumnType("integer")
+                        .HasColumnName("unit_id");
+
                     b.Property<decimal>("UnitaryValue")
                         .HasColumnType("numeric")
                         .HasColumnName("unitary_value");
 
-                    b.HasKey("PlanningId", "InputId");
+                    b.HasKey("Id", "PlanningId", "InputId");
 
                     b.HasIndex("InputId");
+
+                    b.HasIndex("PlanningId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("planning_inputs", (string)null);
                 });
@@ -762,7 +768,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("order", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Purchase", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Supply.Purchase", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnType("integer")
@@ -1100,6 +1106,25 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Core.ValueObjects.DescriptionVO", "Description", b1 =>
+                        {
+                            b1.Property<int>("InputId")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(255)
+                                .HasColumnType("character varying(255)")
+                                .HasColumnName("description");
+
+                            b1.HasKey("InputId");
+
+                            b1.ToTable("input");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputId");
+                        });
+
                     b.OwnsOne("Core.ValueObjects.NameVO", "Name", b1 =>
                         {
                             b1.Property<int>("InputId")
@@ -1119,6 +1144,9 @@ namespace Urbamais.Infra.Migrations
                                 .HasForeignKey("InputId");
                         });
 
+                    b.Navigation("Description")
+                        .IsRequired();
+
                     b.Navigation("Name")
                         .IsRequired();
 
@@ -1127,13 +1155,13 @@ namespace Urbamais.Infra.Migrations
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Planning.Planning", b =>
                 {
-                    b.HasOne("Urbamais.Domain.Entities.Construction.Construction", "Obra")
+                    b.HasOne("Urbamais.Domain.Entities.Construction.Construction", "Construction")
                         .WithMany("Plannings")
                         .HasForeignKey("ConstructionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Obra");
+                    b.Navigation("Construction");
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Planning.PlanningInput", b =>
@@ -1150,9 +1178,17 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Urbamais.Domain.Entities.Planning.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Input");
 
                     b.Navigation("Planning");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Supplier.Collaborator", b =>
@@ -1329,7 +1365,7 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Planning");
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Purchase", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Supply.Purchase", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Address", "DeliveryPlace")
                         .WithMany("Purchases")

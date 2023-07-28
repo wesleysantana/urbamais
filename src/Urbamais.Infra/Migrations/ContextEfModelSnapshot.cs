@@ -347,12 +347,6 @@ namespace Urbamais.Infra.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("deletion_date");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("description");
-
                     b.Property<string>("IdUserCreation")
                         .IsRequired()
                         .HasColumnType("text")
@@ -771,7 +765,7 @@ namespace Urbamais.Infra.Migrations
                     b.ToTable("order", (string)null);
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Purchase", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Supply.Purchase", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnType("integer")
@@ -1109,6 +1103,25 @@ namespace Urbamais.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Core.ValueObjects.DescriptionVO", "Description", b1 =>
+                        {
+                            b1.Property<int>("InputId")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(255)
+                                .HasColumnType("character varying(255)")
+                                .HasColumnName("description");
+
+                            b1.HasKey("InputId");
+
+                            b1.ToTable("input");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputId");
+                        });
+
                     b.OwnsOne("Core.ValueObjects.NameVO", "Name", b1 =>
                         {
                             b1.Property<int>("InputId")
@@ -1127,6 +1140,9 @@ namespace Urbamais.Infra.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("InputId");
                         });
+
+                    b.Navigation("Description")
+                        .IsRequired();
 
                     b.Navigation("Name")
                         .IsRequired();
@@ -1346,7 +1362,7 @@ namespace Urbamais.Infra.Migrations
                     b.Navigation("Planning");
                 });
 
-            modelBuilder.Entity("Urbamais.Domain.Entities.Suprimento.Purchase", b =>
+            modelBuilder.Entity("Urbamais.Domain.Entities.Supply.Purchase", b =>
                 {
                     b.HasOne("Urbamais.Domain.Entities.EntitiesOfCore.Address", "DeliveryPlace")
                         .WithMany("Purchases")

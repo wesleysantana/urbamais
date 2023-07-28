@@ -26,17 +26,7 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
         Validate();
 
-        if (IsValid)
-            IdUserCreation = userId;
-    }
-
-    private void Validate()
-    {
-        ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
-
-        Validate(this, new CityValidator());
-
-        if (!IsValid && Id == default)
+        if (!IsValid)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
@@ -44,6 +34,15 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
                 item.SetValue(this, default);
             }
         }
+        else
+            IdUserCreation = userId;
+    }
+
+    private void Validate()
+    {
+        ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
+
+        Validate(this, new CityValidator());        
     }
 
     public void Update(string idUserModification, NameVO? name = null, Uf? uf = null)

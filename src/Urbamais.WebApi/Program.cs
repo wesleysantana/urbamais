@@ -67,33 +67,6 @@ builder.Services.AddSwaggerGen(c =>
                 });
 });
 
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    //c.SwaggerDoc("v1", new OpenApiInfo { Title = "Urbamais", Version = "v1" });
-
-//    // Configuração para autenticação JWT no Swagger UI
-//    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-//    {
-//        Description = "JWT Authorization header using the Bearer scheme",
-//        Type = SecuritySchemeType.Http,
-//        Scheme = "bearer"
-//    });
-//    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-//        {
-//            {
-//                new OpenApiSecurityScheme
-//                {
-//                    Reference = new OpenApiReference
-//                    {
-//                        Type = ReferenceType.SecurityScheme,
-//                        Id = "Bearer"
-//                    }
-//                },
-//                new string[] {}
-//            }
-//        });
-//});
-
 var app = builder.Build();
 
 var versionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();

@@ -5,4 +5,5 @@ namespace Urbamais.Domain.InterfacesRepositories.Planejamento;
 
 public interface IUnitRepository : IRepositoryBase<Unit>
 {
+    Task<List<Input>> GetInputs(int unitId);
 }

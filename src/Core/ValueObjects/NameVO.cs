@@ -9,7 +9,7 @@ public sealed class NameVO : BaseValidate
 
     public NameVO(string name)
     {
-        Name = name.Trim();
+        Name = string.IsNullOrWhiteSpace(name) ? name : name.Trim();
         Validate(this, new NomeValidator());
 
         if (!IsValid) Name = default;

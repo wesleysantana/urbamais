@@ -1,11 +1,13 @@
-﻿using Urbamais.Domain.Entities.Planning;
+﻿using Urbamais.Application.ViewModels.Response.v1.Unit;
+using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Application.ViewModels.Response.v1.Input;
 
-public class InputResponse
+public class InputResponse : ValidateViewModel
 {
-    public string? Name { get;  set; }
+    public int Id { get; set; }
+    public string? Name { get; set; }
     public string? Description { get; set; }
-    public int UnitId { get;  set; }
-    public InputType Type { get;  set; }
+    public UnitResponse? Unit { get; set; }
+    public InputType Type { get; set; }
 }

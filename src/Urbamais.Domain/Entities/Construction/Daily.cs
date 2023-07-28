@@ -42,21 +42,9 @@ public class Daily : BaseEntity, IAggregateRoot
         Collaborator = collaborator;
         Fotos = photos;
 
-        Validate();
-
-        if (IsValid)
-            IdUserCreation = idUserCreation;
-    }
-
-    private void Validate()
-    {
-        ValidationResult?.Errors.AddRange(Construction.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Supplier.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Collaborator.ValidationResult!.Errors);
-
         Validate(this, new DailyValidator());
 
-        if (!IsValid && Id == default)
+        if (!IsValid)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
@@ -69,7 +57,9 @@ public class Daily : BaseEntity, IAggregateRoot
                 item.SetValue(this, default);
             }
         }
-    }
+        else
+            IdUserCreation = idUserCreation;
+    }    
 
     public void Update(string idUserModification, Construction? construction = null, DateTime? date = null, Supplier.Supplier? supplier = null,
         string? descriptionActivities = null, Collaborator? collaborator = null, List<FileStream>? photos = null)
@@ -83,7 +73,7 @@ public class Daily : BaseEntity, IAggregateRoot
         if (collaborator is not null) Collaborator = collaborator;
         if (photos is not null) Fotos = photos;
 
-        Validate();
+        Validate(this, new DailyValidator());
 
         if (IsValid)
         {

@@ -9,7 +9,7 @@ public sealed class DescriptionVO : BaseValidate
 
     public DescriptionVO(string description)
     {
-        Description = description.Trim();
+        Description = string.IsNullOrWhiteSpace(description) ? description : description.Trim();
         Validate(this, new DescriptionValidator());
 
         if (!IsValid) Description = default;

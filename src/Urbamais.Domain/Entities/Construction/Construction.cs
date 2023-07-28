@@ -26,15 +26,7 @@ public class Construction : BaseEntity, IAggregateRoot
 
         Validate();
 
-        if (IsValid)
-            IdUserCreation = idUserCreation;
-    }
-
-    private void Validate()
-    {
-        ValidationResult?.Errors.AddRange(Companie.ValidationResult!.Errors);
-
-        if (!IsValid && Id == default)
+        if (!IsValid)
         {
             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (var item in propriedades)
@@ -42,6 +34,13 @@ public class Construction : BaseEntity, IAggregateRoot
                 item.SetValue(this, default);
             }
         }
+        else
+            IdUserCreation = idUserCreation;
+    }
+
+    private void Validate()
+    {
+        ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
     }
 
     public void Update(string idUserModification, DescriptionVO description)

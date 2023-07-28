@@ -17,7 +17,7 @@ using Urbamais.Domain.Services.ConcreteClasses.Generic;
 using Urbamais.Domain.Services.ConcreteClasses.Planejamento;
 using Urbamais.Domain.Services.Interfaces.Core;
 using Urbamais.Domain.Services.Interfaces.Generic;
-using Urbamais.Domain.Services.Interfaces.Planejamento;
+using Urbamais.Domain.Services.Interfaces.Planning;
 using Urbamais.Infra.Repositories.Core;
 using Urbamais.Infra.Repositories.Generic;
 using Urbamais.Infra.Repositories.Planning;

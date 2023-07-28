@@ -34,7 +34,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
                 return Unauthorized();
 
             var response = await _identityService.GetUsers(cancellationToken);
@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -97,7 +97,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -171,7 +171,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(_nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

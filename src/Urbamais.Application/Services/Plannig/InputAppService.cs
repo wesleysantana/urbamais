@@ -1,7 +1,7 @@
 ﻿using Urbamais.Application.Interfaces.Planning;
 using Urbamais.Application.Services.Generic;
 using Urbamais.Domain.Entities.Planning;
-using Urbamais.Domain.Services.Interfaces.Planejamento;
+using Urbamais.Domain.Services.Interfaces.Planning;
 
 namespace Urbamais.Application.Services.Plannig;
 

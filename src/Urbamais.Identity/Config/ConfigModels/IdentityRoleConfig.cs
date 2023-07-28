@@ -29,13 +29,5 @@ internal class IdentityRoleConfig
            .Property(p => p.ConcurrencyStamp)
            .HasColumnName("concurrency_stamp")
            .HasMaxLength(100);
-
-        //builder.Entity<IdentityRole>().HasData(
-        //       new IdentityRole
-        //       {
-        //           Name = "developer",
-        //           Id = "af92719d-1d7f-4c80-aadc-ead1e2ab3a9d"
-        //       }
-        //   );
     }
 }

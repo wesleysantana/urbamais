@@ -6,12 +6,10 @@ namespace Urbamais.Domain.Entities.Planning;
 
 public class Planning : BaseEntity, IAggregateRoot
 {
-    public List<Input> _listInputs = new();
-
     public int ConstructionId { get; private set; }
     public virtual Construction.Construction? Construction { get; private set; }
     public virtual ICollection<PlanningInput>? PlannigInputs { get; private set; }
-    public virtual ICollection<Order>? Orders { get; private set; }
+    public virtual ICollection<Order>? Orders { get; private set; }   
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
