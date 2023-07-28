@@ -9,7 +9,7 @@ public sealed class CpfVO : BaseValidate
 
     public CpfVO(string cpf)
     {
-        Cpf = cpf.Replace(".", "").Replace("-", "").Trim();
+        Cpf = string.IsNullOrWhiteSpace(cpf) ? cpf : cpf.Replace(".", "").Replace("-", "").Trim();
         Validate(this, new CpfValidator());
 
         if (!IsValid) Cpf = default;
@@ -39,6 +39,7 @@ public sealed class CpfVO : BaseValidate
         public CpfValidator()
         {
             RuleFor(x => x.Cpf)
+                .NotNull()
                 .Length(11)
                 .Must(x => Validar(x));
         }

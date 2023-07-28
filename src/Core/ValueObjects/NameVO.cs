@@ -38,6 +38,7 @@ public sealed class NameVO : BaseValidate
         public NomeValidator()
         {
             RuleFor(x => x.Name)
+                .NotNull()
                 .MinimumLength(3)
                 .MaximumLength(255);
         }

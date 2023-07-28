@@ -39,6 +39,7 @@ public sealed class DescriptionVO : BaseValidate
         public DescriptionValidator()
         {
             RuleFor(x => x.Description)
+                .NotNull()
                 .MaximumLength(255);
         }
     }

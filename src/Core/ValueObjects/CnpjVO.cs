@@ -9,7 +9,7 @@ public sealed class CnpjVO : BaseValidate
 
     public CnpjVO(string cnpj)
     {
-        Cnpj = cnpj.Replace(".", "").Replace("/", "").Replace("-", "").Trim();
+        Cnpj = string.IsNullOrWhiteSpace(cnpj) ? cnpj : cnpj.Replace(".", "").Replace("/", "").Replace("-", "").Trim();
         Validate(this, new CnpjValidator());
 
         if (!IsValid) Cnpj = default;
@@ -39,6 +39,7 @@ public sealed class CnpjVO : BaseValidate
         public CnpjValidator()
         {
             RuleFor(x => x.Cnpj)
+                .NotNull()
                 .Length(14)
                 .Must(x => Validar(x));
         }
