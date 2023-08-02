@@ -4,7 +4,7 @@ using Core.Constants;
 using System.ComponentModel.DataAnnotations;
 using Urbamais.Domain.Entities.Planning;
 
-namespace Urbamais.Application.ViewModels.Request.v1.Input;
+namespace Urbamais.Application.ViewModels.Request.V1.Input;
 
 public class InputFilterRequest : FilterRequest
 {

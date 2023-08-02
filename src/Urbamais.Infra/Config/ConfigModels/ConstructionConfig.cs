@@ -25,7 +25,7 @@ internal class ConstructionConfig : ConfigBase<Construction>
 
         builder.Entity<Construction>()
             .OwnsOne(x => x.Description)
-            .Property(x => x.Description)
+            .Property(x => x.Value)
             .HasColumnName("description")
             .IsRequired()
             .HasMaxLength(255);

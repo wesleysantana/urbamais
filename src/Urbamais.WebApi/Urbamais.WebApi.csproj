@@ -20,9 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Urbamais.CrossCutting\Urbamais.CrossCutting.csproj" />
     <ProjectReference Include="..\Urbamais.Application\Urbamais.Application.csproj" />
+    <ProjectReference Include="..\Urbamais.CrossCutting\Urbamais.CrossCutting.csproj" />
     <ProjectReference Include="..\Urbamais.Identity\Urbamais.Identity.csproj" />
+    <ProjectReference Include="..\Urbamais.Infra\Urbamais.Infra.csproj" />
   </ItemGroup>	
 
 </Project>

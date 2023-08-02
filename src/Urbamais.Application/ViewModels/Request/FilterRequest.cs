@@ -2,7 +2,7 @@
 
 namespace Urbamais.Application.ViewModels.Request;
 
-public class FilterRequest : IFilterRequest
+public abstract class FilterRequest : IFilterRequest
 {
     [NotMapped]
     public int? Limit { get; set; } = 10;

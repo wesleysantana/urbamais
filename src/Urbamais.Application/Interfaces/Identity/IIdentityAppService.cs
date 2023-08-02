@@ -1,7 +1,7 @@
-﻿using Urbamais.Application.ViewModels.Request.v1.Role;
-using Urbamais.Application.ViewModels.Request.v1.User;
-using Urbamais.Application.ViewModels.Response.v1.Role;
-using Urbamais.Application.ViewModels.Response.v1.User;
+﻿using Urbamais.Application.ViewModels.Request.V1.Role;
+using Urbamais.Application.ViewModels.Request.V1.User;
+using Urbamais.Application.ViewModels.Response.V1.Role;
+using Urbamais.Application.ViewModels.Response.V1.User;
 
 namespace Urbamais.Application.Interfaces.Identity;
 

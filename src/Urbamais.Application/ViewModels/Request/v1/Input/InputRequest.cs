@@ -1,11 +1,10 @@
 ﻿using Core.Constants;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using Urbamais.Domain.Entities.Planning;
 
-namespace Urbamais.Application.ViewModels.Request.v1.Input;
+namespace Urbamais.Application.ViewModels.Request.V1.Input;
 
-public class InputRequest
+public class InputRequest : RequestBase
 {
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [StringLength(255, ErrorMessage = DataAnnotationsMessages.STRINGLENGHT, MinimumLength = 3)]
@@ -17,10 +16,7 @@ public class InputRequest
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     public int UnitId { get; set; }
 
-    [Required(ErrorMessage =DataAnnotationsMessages.REQUIRED)]
+    [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [Range(0, 1, ErrorMessage = DataAnnotationsMessages.RANGE)]
     public InputType Type { get; set; }
-
-    [JsonIgnore]
-    public string IdUserCreation { get; set; } = string.Empty;
 }

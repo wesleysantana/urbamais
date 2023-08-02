@@ -3,7 +3,7 @@ using AspNetCore.IQueryable.Extensions.Filter;
 using Core.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request.v1.Unit;
+namespace Urbamais.Application.ViewModels.Request.V1.Unit;
 
 public class UnitFilterRequest : FilterRequest
 {

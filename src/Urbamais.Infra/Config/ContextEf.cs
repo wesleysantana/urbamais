@@ -4,7 +4,6 @@ using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planning;
 using Urbamais.Domain.Entities.Supplier;
 using Urbamais.Domain.Entities.Supply;
-using Urbamais.Domain.Entities.Supply;
 using Urbamais.Infra.Config.ConfigModels;
 
 namespace Urbamais.Infra.Config;
@@ -49,5 +48,5 @@ public class ContextEf : DbContext
         _ = new PurchaseConfig(modelBuilder);
         _ = new SupplierConfig(modelBuilder);
         _ = new UnitConfig(modelBuilder);
-    }    
+    }
 }

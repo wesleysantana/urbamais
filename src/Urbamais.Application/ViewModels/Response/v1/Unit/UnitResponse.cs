@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Application.ViewModels.Response.v1.Unit;
+﻿namespace Urbamais.Application.ViewModels.Response.V1.Unit;
 
 public class UnitResponse : ValidateViewModel
 {

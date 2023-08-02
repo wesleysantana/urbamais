@@ -13,8 +13,8 @@ public class Collaborator : BaseEntity, IAggregateRoot
     private List<Email>? _listEmails = new();
     private List<Address> _listAddress = new();
 
-    public NameVO Name { get; private set; }
-    public CpfVO Cpf { get; private set; }
+    public Name Name { get; private set; }
+    public Cpf Cpf { get; private set; }
 
     public string? NumberCTPS { get; private set; }
     public string? NumberCNH { get; private set; }
@@ -56,7 +56,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Collaborator(string idUserCreation, NameVO name, CpfVO cpf,
+    public Collaborator(string idUserCreation, Name name, Cpf cpf,
         List<Address> address, string numberCtps, string numberCNH, string typeCnh,
         DateTime expirationDateCNH, string cnh, string epi, string ctps,
         string numeroExameAdmissional, DateTime validadeExameAdmissional, string admissionExam,
@@ -122,7 +122,7 @@ public class Collaborator : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(string idUserModification, NameVO? name = null, CpfVO? cpf = null,
+    public void Update(string idUserModification, Name? name = null, Cpf? cpf = null,
        List<Address>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
        DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? ctps = null,
        string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null,
@@ -228,8 +228,8 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public override bool Equals(object? obj)
     {
         return obj is Collaborator colaborador &&
-            EqualityComparer<NameVO>.Default.Equals(Name, colaborador.Name) &&
-            EqualityComparer<CpfVO>.Default.Equals(Cpf, colaborador.Cpf) &&
+            EqualityComparer<Name>.Default.Equals(Name, colaborador.Name) &&
+            EqualityComparer<Cpf>.Default.Equals(Cpf, colaborador.Cpf) &&
             NumberCTPS == colaborador.NumberCTPS &&
             NumberCNH == colaborador.NumberCNH &&
             TypeCNH == colaborador.TypeCNH &&

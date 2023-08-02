@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Urbamais.Application.ViewModels.Request.v1.User;
+namespace Urbamais.Application.ViewModels.Request.V1.User;
 
 public class UserLoginRequest
 {

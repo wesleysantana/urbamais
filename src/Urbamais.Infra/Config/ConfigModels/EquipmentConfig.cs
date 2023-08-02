@@ -15,14 +15,14 @@ internal class EquipmentConfig : ConfigBase<Equipment>
     {
         builder.Entity<Equipment>()
             .OwnsOne(x => x.Name)
-            .Property(x => x.Name)
+            .Property(x => x.Value)
             .HasColumnName("name")
             .HasMaxLength(255)
             .IsRequired();
 
         builder.Entity<Equipment>()
             .OwnsOne(x => x.Description)
-            .Property(x => x.Description)
+            .Property(x => x.Value)
             .HasColumnName("description")
             .HasMaxLength(255)
             .IsRequired();

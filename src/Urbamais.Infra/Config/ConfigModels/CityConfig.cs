@@ -15,7 +15,7 @@ internal class CityConfig : ConfigBase<City>
     {
         builder.Entity<City>()
             .OwnsOne(x => x.Name)
-            .Property(x => x.Name)
+            .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()
             .HasMaxLength(255);

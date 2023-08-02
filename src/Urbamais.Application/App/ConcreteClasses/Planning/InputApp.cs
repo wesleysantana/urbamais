@@ -4,9 +4,9 @@ using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.Interfaces.Planning;
 using Urbamais.Application.Resources;
 using Urbamais.Application.ViewModels.Request;
-using Urbamais.Application.ViewModels.Request.v1.Input;
+using Urbamais.Application.ViewModels.Request.V1.Input;
 using Urbamais.Application.ViewModels.Response;
-using Urbamais.Application.ViewModels.Response.v1.Input;
+using Urbamais.Application.ViewModels.Response.V1.Input;
 using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Application.App.ConcreteClasses.Planning;

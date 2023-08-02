@@ -20,14 +20,14 @@ internal class InputConfig : ConfigBase<Input>
 
         builder.Entity<Input>()
             .OwnsOne(x => x.Name)
-            .Property(x => x.Name)
+            .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()
             .HasMaxLength(255);
 
         builder.Entity<Input>()
             .OwnsOne(x => x.Description)
-            .Property(x => x.Description)
+            .Property(x => x.Value)
             .HasColumnName("description")
             .IsRequired()
             .HasMaxLength(255);

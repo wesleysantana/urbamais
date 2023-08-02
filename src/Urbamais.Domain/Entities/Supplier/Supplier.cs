@@ -11,7 +11,7 @@ public class Supplier : CorporateEntity
     protected Supplier()
     { }
 
-    public Supplier(string idUserCreation, NameVO tradeName, NameVO corporateName, CnpjVO cnpj, string ie,
+    public Supplier(string idUserCreation, Name tradeName, Name corporateName, Cnpj cnpj, string ie,
         string? im, List<Address> listAddress, List<Phone>? listPhone, List<Email>? listEmail)
         : base(idUserCreation, tradeName, corporateName, cnpj, ie, im, listAddress, listPhone, listEmail)
     { }

@@ -16,14 +16,14 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
     {
         builder.Entity<Collaborator>()
             .OwnsOne(x => x.Name)
-            .Property(x => x.Name)
+            .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()
             .HasMaxLength(255);
 
         builder.Entity<Collaborator>()
             .OwnsOne(x => x.Cpf)
-            .Property(x => x.Cpf)
+            .Property(x => x.Value)
             .HasColumnName("cpf")
         .IsRequired()
         .HasMaxLength(11);

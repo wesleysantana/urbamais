@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 using Urbamais.Application.App.Interfaces.Planning;
-using Urbamais.Application.ViewModels.Request.v1.Unit;
-using Urbamais.Application.ViewModels.Response.v1.Unit;
+using Urbamais.Application.ViewModels.Request.V1.Unit;
+using Urbamais.Application.ViewModels.Response.V1.Unit;
 using Urbamais.Domain.Entities.Planning;
 using Urbamais.WebApi.Shared;
 
-namespace Urbamais.WebApi.Controllers.v1;
+namespace Urbamais.WebApi.Controllers.V1;
 
 [Route("api/[controller]")]
 [ApiController]

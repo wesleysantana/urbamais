@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Application.ViewModels.Response.v1.Role;
+﻿namespace Urbamais.Application.ViewModels.Response.V1.Role;
 
 public class RoleResponse
 {

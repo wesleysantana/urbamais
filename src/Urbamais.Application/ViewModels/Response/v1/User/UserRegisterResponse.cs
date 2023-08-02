@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Application.ViewModels.Response.v1.User;
+﻿namespace Urbamais.Application.ViewModels.Response.V1.User;
 
 public class UserRegisterResponse
 {

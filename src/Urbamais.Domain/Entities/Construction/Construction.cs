@@ -9,7 +9,7 @@ public class Construction : BaseEntity, IAggregateRoot
 {
     public int CompanieId { get; private set; }
     public virtual Companie Companie { get; private set; }
-    public DescriptionVO Description { get; private set; }
+    public Description Description { get; private set; }
     public virtual ICollection<Planning.Planning>? Plannings { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -19,7 +19,7 @@ public class Construction : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Construction(string idUserCreation, Companie companie, DescriptionVO description)
+    public Construction(string idUserCreation, Companie companie, Description description)
     {
         Companie = companie;
         Description = description;
@@ -43,7 +43,7 @@ public class Construction : BaseEntity, IAggregateRoot
         ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
     }
 
-    public void Update(string idUserModification, DescriptionVO description)
+    public void Update(string idUserModification, Description description)
     {
         var memento = CreateMemento();
 

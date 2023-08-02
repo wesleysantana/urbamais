@@ -1,7 +1,7 @@
 ﻿using Core.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request.v1.Role;
+namespace Urbamais.Application.ViewModels.Request.V1.Role;
 
 public class RoleRequest
 { 

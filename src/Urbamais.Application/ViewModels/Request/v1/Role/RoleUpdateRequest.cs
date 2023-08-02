@@ -1,4 +1,4 @@
-﻿namespace Urbamais.Application.ViewModels.Request.v1.Role;
+﻿namespace Urbamais.Application.ViewModels.Request.V1.Role;
 
 public class RoleUpdateRequest
 {

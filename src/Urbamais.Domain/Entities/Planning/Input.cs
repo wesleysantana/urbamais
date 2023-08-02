@@ -8,8 +8,8 @@ namespace Urbamais.Domain.Entities.Planning;
 
 public class Input : BaseEntity, IAggregateRoot
 {
-    public NameVO Name { get; private set; }
-    public DescriptionVO Description { get; private set; }
+    public Name Name { get; private set; }
+    public Description Description { get; private set; }
     public int UnitId { get; private set; }
     public virtual Unit? Unit { get; private set; }
     public InputType Type { get; private set; }
@@ -22,7 +22,7 @@ public class Input : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Input(string idUserCreation, NameVO name, DescriptionVO description, int unitId, InputType type)
+    public Input(string idUserCreation, Name name, Description description, int unitId, InputType type)
     {
         Name = name;
         Description = description;
@@ -54,8 +54,8 @@ public class Input : BaseEntity, IAggregateRoot
     {
         var memento = CreateMemento();
         
-        if (!string.IsNullOrWhiteSpace(name)) Name = new NameVO(name!);
-        if (!string.IsNullOrWhiteSpace(description)) Description = new DescriptionVO(description!);
+        if (!string.IsNullOrWhiteSpace(name)) Name = new Name(name!);
+        if (!string.IsNullOrWhiteSpace(description)) Description = new Description(description!);
         if (unitId is not null) UnitId = (int)unitId;
         if (type is not null) Type = type.Value;
 
@@ -105,7 +105,7 @@ public class Input : BaseEntity, IAggregateRoot
     public override bool Equals(object? obj)
     {
         return obj is Input insumo &&
-            EqualityComparer<NameVO>.Default.Equals(Name, insumo.Name) &&
+            EqualityComparer<Name>.Default.Equals(Name, insumo.Name) &&
             Description == insumo.Description &&
             EqualityComparer<Unit>.Default.Equals(Unit, insumo.Unit) &&
             Type == insumo.Type;

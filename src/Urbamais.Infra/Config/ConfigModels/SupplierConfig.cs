@@ -16,21 +16,21 @@ internal class SupplierConfig : ConfigBase<Supplier>
     {
         builder.Entity<Supplier>()
           .OwnsOne(x => x.TradeName)
-          .Property(x => x.Name)
+          .Property(x => x.Value)
           .HasColumnName("trade_name")
           .IsRequired()
           .HasMaxLength(255);
 
         builder.Entity<Supplier>()
            .OwnsOne(x => x.CorporateName)
-           .Property(x => x.Name)
+           .Property(x => x.Value)
            .HasColumnName("corporate_name")
            .IsRequired()
            .HasMaxLength(255);
 
         builder.Entity<Supplier>()
            .OwnsOne(x => x.Cnpj)
-           .Property(x => x.Cnpj)
+           .Property(x => x.Value)
            .HasColumnName("cnpj")
            .IsRequired()
            .HasMaxLength(14);

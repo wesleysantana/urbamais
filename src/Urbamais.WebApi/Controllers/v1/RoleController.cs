@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.RegularExpressions;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.v1.Role;
-using Urbamais.Application.ViewModels.Response.v1.Role;
+using Urbamais.Application.ViewModels.Request.V1.Role;
+using Urbamais.Application.ViewModels.Response.V1.Role;
 using Urbamais.WebApi.ControllersHelper;
 using Urbamais.WebApi.Shared;
 
-namespace Urbamais.WebApi.Controllers.v1;
+namespace Urbamais.WebApi.Controllers.V1;
 
 [Route("api/[controller]")]
 [ApiController]

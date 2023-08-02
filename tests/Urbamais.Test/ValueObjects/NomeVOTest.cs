@@ -7,7 +7,7 @@ public class NomeVOTest
     [Fact]
     public void NomeAdequado()
     {
-        var nome = new NameVO("Wesley Santana");
+        var nome = new Name("Wesley Santana");
 
         Assert.True(nome.IsValid);
     }
@@ -16,22 +16,22 @@ public class NomeVOTest
     public void NomeComMenosDe3Caracteres()
     {
         var valor = "12";
-        var nome = new NameVO(valor);
+        var nome = new Name(valor);
 
         Assert.False(nome.IsValid);
 
-        var msg = $"The length of '{nameof(nome.Name)}' must be at least 3 characters. You entered {valor.Length} characters.";
+        var msg = $"The length of '{nameof(nome.Value)}' must be at least 3 characters. You entered {valor.Length} characters.";
         Assert.Contains(nome.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
     public void NomeVazio()
     {
-        var nome = new NameVO("");
+        var nome = new Name("");
 
         Assert.False(nome.IsValid);
 
-        var msg = $"The length of '{nameof(nome.Name)}' must be at least 3 characters. You entered 0 characters.";
+        var msg = $"The length of '{nameof(nome.Value)}' must be at least 3 characters. You entered 0 characters.";
         Assert.Contains(nome.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
@@ -46,18 +46,18 @@ public class NomeVOTest
         sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
         Aldus PageMaker including versions of Lorem Ipsum.";
 
-        var nome = new NameVO(valor);
+        var nome = new Name(valor);
         Assert.False(nome.IsValid);
 
-        var msg = $"The length of '{nameof(nome.Name)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
+        var msg = $"The length of '{nameof(nome.Value)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
         Assert.Contains(nome.ValidationResult!.Errors, x => x.ErrorMessage.Equals(msg));
     }
 
     [Fact]
     public void Igualdade()
     {
-        var nome1 = new NameVO("Wesley Santana");
-        var nome2 = new NameVO("Wesley Santana");
+        var nome1 = new Name("Wesley Santana");
+        var nome2 = new Name("Wesley Santana");
 
         Assert.Equal(nome1, nome2);
     }
@@ -65,8 +65,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var nome01 = new NameVO("Wesley Santana");
-        var nome02 = new NameVO("Rita Santana");
+        var nome01 = new Name("Wesley Santana");
+        var nome02 = new Name("Rita Santana");
 
         Assert.False(nome01.Equals(nome02));
     }
@@ -74,8 +74,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var nome01 = new NameVO("Wesley Santana");
-        var nome02 = new NameVO("Wesley Santana");
+        var nome01 = new Name("Wesley Santana");
+        var nome02 = new Name("Wesley Santana");
 
         Assert.True(nome01 == nome02);
     }
@@ -83,8 +83,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var nome01 = new NameVO("Wesley Santana");
-        var nome02 = new NameVO("Rita Santana");
+        var nome01 = new Name("Wesley Santana");
+        var nome02 = new Name("Rita Santana");
 
         Assert.True(nome01 != nome02);
     }
@@ -92,8 +92,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var nome01 = new NameVO("Wesley Santana");
-        var nome02 = new NameVO("Wesley Santana");
+        var nome01 = new Name("Wesley Santana");
+        var nome02 = new Name("Wesley Santana");
 
         Assert.True(nome01.GetHashCode().Equals(nome02.GetHashCode()));
     }
@@ -101,8 +101,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var nome01 = new NameVO("Wesley Santana");
-        var nome02 = new NameVO("Rita Santana");
+        var nome01 = new Name("Wesley Santana");
+        var nome02 = new Name("Rita Santana");
 
         Assert.False(nome01.GetHashCode().Equals(nome02.GetHashCode()));
     }
