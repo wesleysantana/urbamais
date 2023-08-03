@@ -16,11 +16,6 @@ public sealed class Name : ValueObjectBase
     {
     }
 
-    public string ToUpper()
-    {
-        return Value!.ToUpper();
-    }
-
     #region Sobrescrita Object
 
     public override bool Equals(object? obj)

@@ -10,7 +10,6 @@ using Urbamais.Application.ViewModels.Request.V1.City;
 using Urbamais.Application.ViewModels.Response;
 using Urbamais.Application.ViewModels.Response.V1.City;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Planning;
 
 namespace Urbamais.Application.App.ConcreteClasses.Core;
 
@@ -100,7 +99,6 @@ public class CityApp : ICityApp
 
         return await ResultQuery(query, cancellationToken);
     }
-
 
     //public async Task<IList<City>> Query(IFilterRequest filter, CancellationToken cancellationToken)
     //{
