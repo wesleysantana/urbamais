@@ -6,21 +6,21 @@ using System.Reflection;
 
 namespace Core.Domain;
 
-public abstract class CityCore : BaseEntity, IAggregateRoot
+public abstract class CidadeCore : BaseEntity, IAggregateRoot
 {
-    public Name Name { get; private set; }
+    public Name Nome { get; private set; }
     public Uf Uf { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    protected CityCore()
+    protected CidadeCore()
     { }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CityCore(string userId, Name name, Uf uf)
+    public CidadeCore(string userId, Name nome, Uf uf)
     {
-        Name = name;
+        Nome = nome;
         Uf = uf;
         CreationDate = DateTime.Now;
 
@@ -40,16 +40,16 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
     private void Validate()
     {
-        ValidationResult?.Errors.AddRange(Name.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
 
-        Validate(this, new CityValidator());        
+        Validate(this, new CidadeValidator());        
     }
 
     public void Update(string idUserModification, Name? name = null, Uf? uf = null)
     {
         var memento = CreateMemento();
 
-        if (name is not null) Name = name;
+        if (name is not null) Nome = name;
         if (uf is not null) Uf = uf.Value;
 
         Validate();
@@ -69,7 +69,7 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
     {
         return new
         {
-            Name,
+            Nome,
             Uf
         };
     }
@@ -80,7 +80,7 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
         var state = (dynamic)memento;
 
-        Name = state.Name;
+        Nome = state.Name;
         Uf = state.Uf;
     }
 
@@ -88,30 +88,30 @@ public abstract class CityCore : BaseEntity, IAggregateRoot
 
     #region Sobrescrita Object
 
-    public override string ToString() => $"Cidade - Id: {Id}, Nome: {Name}, Estado: {Uf}";
+    public override string ToString() => $"Cidade - Id: {Id}, Nome: {Nome}, Estado: {Uf}";
 
     public override bool Equals(object? obj)
     {
-        return obj is CityCore cidade &&
+        return obj is CidadeCore cidade &&
             Id == cidade.Id &&
-            EqualityComparer<Name>.Default.Equals(Name, cidade.Name) &&
+            EqualityComparer<Name>.Default.Equals(Nome, cidade.Nome) &&
             EqualityComparer<Uf>.Default.Equals(Uf, cidade.Uf);
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Name, Uf);
+        return HashCode.Combine(Id, Nome, Uf);
     }
 
-    public static bool operator ==(CityCore left, CityCore right) => left.Equals(right);
+    public static bool operator ==(CidadeCore left, CidadeCore right) => left.Equals(right);
 
-    public static bool operator !=(CityCore left, CityCore right) => !left.Equals(right);
+    public static bool operator !=(CidadeCore left, CidadeCore right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
 
-    private class CityValidator : AbstractValidator<CityCore>
+    private class CidadeValidator : AbstractValidator<CidadeCore>
     {
-        public CityValidator()
+        public CidadeValidator()
         {
             RuleFor(x => x.Uf)
                 .IsInEnum();

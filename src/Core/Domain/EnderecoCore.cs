@@ -13,7 +13,7 @@ public abstract class EnderecoCore : BaseEntity, IEntity
     public string Bairro { get; private set; }
     public string CodigoPostal { get; private set; }
     public int CidadeId { get; private set; }
-    public virtual CityCore? Cidade { get; private set; }
+    public virtual CidadeCore? Cidade { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -103,7 +103,7 @@ public abstract class EnderecoCore : BaseEntity, IEntity
     #region Sobrescrita Object
 
     public override string ToString() => $"Cidade - Id: {Id}, Logradouro: {Logradouro}, Número: {Numero}, " +
-        $"Complemento: {Complemento}, Bairro: {Bairro}, Cep: {CodigoPostal}, Cidade: {Cidade?.Name}, Estado: {Cidade?.Uf}";
+        $"Complemento: {Complemento}, Bairro: {Bairro}, Cep: {CodigoPostal}, Cidade: {Cidade?.Nome}, Estado: {Cidade?.Uf}";
 
     public override bool Equals(object? obj)
     {
@@ -114,7 +114,7 @@ public abstract class EnderecoCore : BaseEntity, IEntity
             Complemento == endereco.Complemento &&
             CodigoPostal == endereco.CodigoPostal &&
             Bairro == endereco.Bairro &&
-            EqualityComparer<CityCore>.Default.Equals(Cidade, endereco.Cidade);
+            EqualityComparer<CidadeCore>.Default.Equals(Cidade, endereco.Cidade);
     }
 
     public override int GetHashCode()

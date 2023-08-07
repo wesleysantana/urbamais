@@ -3,7 +3,7 @@ using Core.ValueObjects;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
-public class City : CityCore
+public class City : CidadeCore
 {
     public IEnumerable<Address>? Address { get; private set; }
 

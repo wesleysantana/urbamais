@@ -14,7 +14,7 @@ internal class CityConfig : ConfigBase<City>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<City>()
-            .OwnsOne(x => x.Name)
+            .OwnsOne(x => x.Nome)
             .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()

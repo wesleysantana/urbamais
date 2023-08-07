@@ -21,7 +21,7 @@ public class MappingProfile : Profile
         CreateMap<CityRequest, City>();
         CreateMap<CityUpdateRequest, Companie>();
         CreateMap<City, CityResponse>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Value));
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Nome.Value));
 
         // Companie
         CreateMap<CompanieRequest, Companie>();
