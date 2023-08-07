@@ -6,25 +6,25 @@ namespace Core.Domain;
 
 public abstract class EmailCore : BaseEntity, IEntity
 {
-    public string? Address { get; private set; }
+    public string? Endereco { get; private set; }
 
-    public EmailCore(string idUserCreation, string address)
+    public EmailCore(string idUserCreation, string endereco)
     {
-        Address = address.Trim();
+        Endereco = endereco.Trim();
 
         Validate(this, new EmailValidator());
 
         if (!IsValid && Id == default)
-            Address = default;
+            Endereco = default;
         else
             IdUserCreation = idUserCreation;
     }
 
-    public void Update(string idUserModification, string address)
+    public void Update(string idUserModification, string endereco)
     {
         var memento = CreateMemento();
 
-        Address = address.Trim();
+        Endereco = endereco.Trim();
         Validate(this, new EmailValidator());
 
         if (IsValid)
@@ -42,7 +42,7 @@ public abstract class EmailCore : BaseEntity, IEntity
     {
         return new
         {
-            Address
+            Endereco
         };
     }
 
@@ -52,25 +52,25 @@ public abstract class EmailCore : BaseEntity, IEntity
 
         var state = (dynamic)memento;
 
-        Address = state.Address;
+        Endereco = state.Address;
     }
 
     #endregion Memento
 
     #region Sobrescrita Object
 
-    public override string ToString() => $"Email: {Address}";
+    public override string ToString() => $"Email: {Endereco}";
 
     public override bool Equals(object? obj)
     {
         return obj is EmailCore email &&
             Id == email.Id &&
-            Address == email.Address;
+            Endereco == email.Endereco;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Address);
+        return HashCode.Combine(Id, Endereco);
     }
 
     public static bool operator ==(EmailCore left, EmailCore right) => left.Equals(right);
@@ -83,10 +83,10 @@ public abstract class EmailCore : BaseEntity, IEntity
     {
         public EmailValidator()
         {
-            RuleFor(x => x.Address)
+            RuleFor(x => x.Endereco)
                 .EmailAddress();
 
-            RuleFor(x => x.Address)
+            RuleFor(x => x.Endereco)
                 .MaximumLength(255);
         }
     }
