@@ -1,11 +1,11 @@
 ﻿using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.Services.Generic;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Domain.Services.Interfaces.Planning;
 
 namespace Urbamais.Application.Services.Planning;
 
-public class UnitAppService : AppServiceBase<Unit>, IUnitAppService
+public class UnitAppService : AppServiceBase<Unidade>, IUnitAppService
 {
     private readonly IUnitService _unitService;
 
@@ -14,5 +14,5 @@ public class UnitAppService : AppServiceBase<Unit>, IUnitAppService
         _unitService = service;
     }
 
-    public async Task<List<Input>> GetInputs(int unitId) => await _unitService.GetInputs(unitId);
+    public async Task<List<Insumo>> GetInputs(int unitId) => await _unitService.GetInputs(unitId);
 }

@@ -1,5 +1,5 @@
 ﻿using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.Domain.Entities.Supply;
 
@@ -8,7 +8,7 @@ public class Purchase
     public int OrderId { get; private set; }
     public virtual Order? Order { get; private set; }
     public int InputId { get; private set; }
-    public virtual Input? Input { get; private set; }
+    public virtual Insumo? Input { get; private set; }
     public int SupplierId { get; private set; }
     public virtual Supplier.Supplier? Supplier { get; private set; }
     public double Amount { get; private set; }

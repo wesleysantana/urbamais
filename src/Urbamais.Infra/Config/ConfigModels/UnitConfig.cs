@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class UnitConfig : ConfigBase<Unit>
+internal class UnitConfig : ConfigBase<Unidade>
 {
     public UnitConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,14 +13,14 @@ internal class UnitConfig : ConfigBase<Unit>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Unit>()
-            .Property(x => x.Description)
+        builder.Entity<Unidade>()
+            .Property(x => x.Descricao)
             .HasColumnName("description")
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Entity<Unit>()
-            .Property(x => x.Acronym)
+        builder.Entity<Unidade>()
+            .Property(x => x.Sigla)
             .HasColumnName("acronym")
             .HasMaxLength(10)
             .IsRequired();

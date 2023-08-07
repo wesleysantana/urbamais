@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Domain.Entities.Supplier;
 using Urbamais.Domain.Entities.Supply;
 using Urbamais.Infra.Config.ConfigModels;
@@ -23,13 +23,13 @@ public class ContextEf : DbContext
     public DbSet<Endereco> Addresses { get; set; }
     public DbSet<Equipment> Equipments { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
-    public DbSet<Input> Inputs { get; set; }
+    public DbSet<Insumo> Inputs { get; set; }
     public DbSet<Obra> Constructions { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<Planning> Plannings { get; set; }
-    public DbSet<PlanningInput> PlannigInputs { get; set; }
+    public DbSet<Planejamento> Plannings { get; set; }
+    public DbSet<PlanejamentoInsumo> PlannigInputs { get; set; }
     public DbSet<Telefone> Phones { get; set; }
-    public DbSet<Unit> Units { get; set; }
+    public DbSet<Unidade> Units { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -20,7 +20,7 @@ internal class OrderConfig : ConfigBase<Order>
 
         builder.Entity<Order>()
             .HasOne(x => x.Planning)
-            .WithMany(x => x.Orders)
+            .WithMany(x => x.Ordens)
             .HasForeignKey(x => x.PlanningId)
             .IsRequired();
     }

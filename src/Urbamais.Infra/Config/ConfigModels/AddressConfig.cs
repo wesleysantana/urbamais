@@ -43,13 +43,13 @@ internal class AddressConfig : ConfigBase<Endereco>
             .HasMaxLength(8);
 
         builder.Entity<Endereco>()
-            .Property(x => x.CityId)
+            .Property(x => x.CidadeId)
             .HasColumnName("city_id")
             .IsRequired();
 
         builder.Entity<Endereco>()
-            .HasOne(x => x.City)
-            .WithMany(x => x.Address)
-            .HasForeignKey(x => x.CityId);
+            .HasOne(x => x.Cidade)
+            .WithMany(x => x.Endereco)
+            .HasForeignKey(x => x.CidadeId);
     }
 }

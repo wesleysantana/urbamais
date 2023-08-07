@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class PlanningConfig : ConfigBase<Planning>
+internal class PlanningConfig : ConfigBase<Planejamento>
 {
     public PlanningConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,14 +13,14 @@ internal class PlanningConfig : ConfigBase<Planning>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Planning>()
-            .Property(x => x.ConstructionId)
+        builder.Entity<Planejamento>()
+            .Property(x => x.ObraId)
             .HasColumnName("construction_id")
             .IsRequired();
 
-        builder.Entity<Planning>()
-            .HasOne(x => x.Construction)
+        builder.Entity<Planejamento>()
+            .HasOne(x => x.Obra)
             .WithMany(x => x.Planejamentos)
-            .HasForeignKey(x => x.ConstructionId);
+            .HasForeignKey(x => x.ObraId);
     }
 }

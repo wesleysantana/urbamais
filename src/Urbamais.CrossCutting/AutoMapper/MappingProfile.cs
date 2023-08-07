@@ -9,7 +9,7 @@ using Urbamais.Application.ViewModels.Response.V1.Input;
 using Urbamais.Application.ViewModels.Response.V1.Unit;
 using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.CrossCutting.AutoMapper;
 
@@ -32,15 +32,15 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Cnpj, opt => opt.MapFrom(src => src.Cnpj.Value));
                 
         // Input
-        CreateMap<InputRequest, Input>();
-        CreateMap<InputUpdateRequest, Input>();
-        CreateMap<Input, InputResponse>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Value))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description.Value));
+        CreateMap<InputRequest, Insumo>();
+        CreateMap<InputUpdateRequest, Insumo>();
+        CreateMap<Insumo, InputResponse>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Nome.Value))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Descricao.Value));
 
         // Unity
-        CreateMap<UnitRequest, Unit>();
-        CreateMap<UnitUpdateRequest, Unit>();
-        CreateMap<Unit, UnitResponse>();
+        CreateMap<UnitRequest, Unidade>();
+        CreateMap<UnitUpdateRequest, Unidade>();
+        CreateMap<Unidade, UnitResponse>();
     }
 }

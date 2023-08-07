@@ -7,7 +7,7 @@ namespace Urbamais.Domain.Entities.Supply;
 public class Order : BaseEntity, IAggregateRoot
 {
     public int PlanningId { get; private set; }
-    public virtual Planning.Planning? Planning { get; set; }
+    public virtual Planejamentos.Planejamento? Planning { get; set; }
 
     protected Order()
     {

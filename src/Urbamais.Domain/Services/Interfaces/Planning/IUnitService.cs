@@ -1,9 +1,9 @@
-﻿using Urbamais.Domain.Entities.Planning;
+﻿using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Domain.Services.Interfaces.Generic;
 
 namespace Urbamais.Domain.Services.Interfaces.Planning;
 
-public interface IUnitService : IServiceBase<Unit>
+public interface IUnitService : IServiceBase<Unidade>
 {
-    Task<List<Input>> GetInputs(int unitId);
+    Task<List<Insumo>> GetInputs(int unitId);
 }

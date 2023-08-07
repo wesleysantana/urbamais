@@ -7,7 +7,7 @@ using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Request.V1.Input;
 using Urbamais.Application.ViewModels.Response;
 using Urbamais.Application.ViewModels.Response.V1.Input;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.Application.App.ConcreteClasses.Planning;
 
@@ -22,7 +22,7 @@ public class InputApp : IInputApp
 
     public Task<int> Commit() => _service.Commit();
 
-    public async Task<Input> Insert(Input entity)
+    public async Task<Insumo> Insert(Insumo entity)
     {
         if (entity.IsValid)
         {
@@ -34,12 +34,12 @@ public class InputApp : IInputApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Input>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<bool, Insumo>> Update(object id, IDomainUpdate entity)
     {
         var input = await _service.Get(id);
 
         if (input is null)
-            return Tuple.Create(false, (Input)entity);
+            return Tuple.Create(false, (Insumo)entity);
 
         var inputUpdate = entity as InputUpdateRequest;
 
@@ -78,17 +78,17 @@ public class InputApp : IInputApp
 
     #region Query
 
-    public async Task<Input> Get(object id) => await _service.Get(id);
+    public async Task<Insumo> Get(object id) => await _service.Get(id);
 
-    public async Task<Input> Get(Expression<Func<Input, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<Insumo> Get(Expression<Func<Insumo, bool>> where, CancellationToken cancellationToken) =>
         await _service.Get(where, cancellationToken);
 
-    public async Task<IList<Input>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
+    public async Task<IList<Insumo>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
 
-    public async Task<IList<Input>> List(Expression<Func<Input, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<IList<Insumo>> List(Expression<Func<Insumo, bool>> where, CancellationToken cancellationToken) =>
         await _service.List(where, cancellationToken);
 
-    public async Task<IList<Input>> Query(IFilterRequest filter, CancellationToken cancellationToken)
+    public async Task<IList<Insumo>> Query(IFilterRequest filter, CancellationToken cancellationToken)
     {
         var query = _service.Query;
         query = query.Apply(filter);
@@ -96,7 +96,7 @@ public class InputApp : IInputApp
         return await ResultQuery(query, cancellationToken);
     }
 
-    public async Task<IList<Input>> ResultQuery(IQueryable<Input> query, CancellationToken cancellationToken) =>
+    public async Task<IList<Insumo>> ResultQuery(IQueryable<Insumo> query, CancellationToken cancellationToken) =>
         await _service.ResultQuery(query, cancellationToken);
 
     #endregion Query

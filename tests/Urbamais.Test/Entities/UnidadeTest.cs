@@ -1,4 +1,4 @@
-﻿using Urbamais.Domain.Entities.Planning;
+﻿using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.Test.Entities;
 

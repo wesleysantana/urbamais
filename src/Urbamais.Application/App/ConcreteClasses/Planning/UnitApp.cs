@@ -7,7 +7,7 @@ using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Request.V1.Unit;
 using Urbamais.Application.ViewModels.Response;
 using Urbamais.Application.ViewModels.Response.V1.Unit;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.Application.App.ConcreteClasses.Planning;
 
@@ -20,7 +20,7 @@ public class UnitApp : IUnitApp
         _service = service;
     }
 
-    public async Task<Unit> Insert(Unit entity)
+    public async Task<Unidade> Insert(Unidade entity)
     {
         if (entity.IsValid)
         {
@@ -32,12 +32,12 @@ public class UnitApp : IUnitApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Unit>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<bool, Unidade>> Update(object id, IDomainUpdate entity)
     {
         var unit = await _service.Get(id);
 
         if (unit is null)
-            return Tuple.Create(false, (Unit)entity);
+            return Tuple.Create(false, (Unidade)entity);
 
         var unitUpdate = entity as UnitUpdateRequest;
 
@@ -83,7 +83,7 @@ public class UnitApp : IUnitApp
 
     #region Querys
 
-    public async Task<IList<Unit>> Query(IFilterRequest filter, CancellationToken cancellationToken)
+    public async Task<IList<Unidade>> Query(IFilterRequest filter, CancellationToken cancellationToken)
     {
         var query = _service.Query;
         query = query.Apply(filter);
@@ -91,20 +91,20 @@ public class UnitApp : IUnitApp
         return await ResultQuery(query, cancellationToken);
     }
 
-    public async Task<Unit> Get(object id) => await _service.Get(id);
+    public async Task<Unidade> Get(object id) => await _service.Get(id);
 
-    public async Task<Unit> Get(Expression<Func<Unit, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<Unidade> Get(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
         await _service.Get(where, cancellationToken);
 
-    public async Task<IList<Unit>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
+    public async Task<IList<Unidade>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
 
-    public async Task<IList<Unit>> List(Expression<Func<Unit, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<IList<Unidade>> List(Expression<Func<Unidade, bool>> where, CancellationToken cancellationToken) =>
         await _service.List(where, cancellationToken);
 
-    public async Task<IList<Unit>> ResultQuery(IQueryable<Unit> query, CancellationToken cancellationToken) =>
+    public async Task<IList<Unidade>> ResultQuery(IQueryable<Unidade> query, CancellationToken cancellationToken) =>
         await _service.ResultQuery(query, cancellationToken);
 
-    public async Task<List<Input>> GetInputs(int unitId) => await _service.GetInputs(unitId);
+    public async Task<List<Insumo>> GetInputs(int unitId) => await _service.GetInputs(unitId);
 
     #endregion Querys
 }

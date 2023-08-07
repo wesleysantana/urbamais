@@ -6,7 +6,7 @@ using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.ViewModels.Request.V1.Input;
 using Urbamais.Application.ViewModels.Response.V1.Input;
 using Urbamais.Application.ViewModels.Response.V1.Unit;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.V1;
@@ -92,7 +92,7 @@ public class InputController : ControllerBase
 
             InputRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var Input = await _InputApp.Insert(_mapper.Map<Input>(InputRequest));
+            var Input = await _InputApp.Insert(_mapper.Map<Insumo>(InputRequest));
             if (Input.IsValid)
             {
                 return StatusCode((int)HttpStatusCode.Created, _mapper.Map<InputResponse>(Input));

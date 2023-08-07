@@ -6,7 +6,7 @@ using System.Security.Claims;
 using Urbamais.Application.App.Interfaces.Planning;
 using Urbamais.Application.ViewModels.Request.V1.Unit;
 using Urbamais.Application.ViewModels.Response.V1.Unit;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.V1;
@@ -95,7 +95,7 @@ public class UnitController : ControllerBase
 
             unitRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var unit = await _unitApp.Insert(_mapper.Map<Unit>(unitRequest));
+            var unit = await _unitApp.Insert(_mapper.Map<Unidade>(unitRequest));
             if (unit.IsValid)
             {
                 return StatusCode((int)HttpStatusCode.Created, _mapper.Map<UnitResponse>(unit));

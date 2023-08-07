@@ -1,23 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Planning;
+using Urbamais.Domain.Entities.Planejamentos;
 using Urbamais.Domain.InterfacesRepositories.Planejamento;
 using Urbamais.Infra.Config;
 using Urbamais.Infra.Repositories.Generic;
 
 namespace Urbamais.Infra.Repositories.Planning;
 
-public class InputRepository : RepositoryBaseEntity<Input>, IInputRepository
+public class InputRepository : RepositoryBaseEntity<Insumo>, IInputRepository
 {
     public InputRepository(ContextEf context) : base(context)
     {        
     }    
 
-    public override async Task<IList<Input>> ResultQuery(IQueryable<Input> query, CancellationToken cancellationToken)
+    public override async Task<IList<Insumo>> ResultQuery(IQueryable<Insumo> query, CancellationToken cancellationToken)
     {
         try
         {
             return await query.Where(x => x.DeletionDate == null)
-                .Include(x => x.Unit)
+                .Include(x => x.Unidade)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
@@ -27,12 +27,12 @@ public class InputRepository : RepositoryBaseEntity<Input>, IInputRepository
         }
     }
 
-    public override Task<Input> Get(object id)
+    public override Task<Insumo> Get(object id)
     {
         try
         {
             return Task.FromResult(_context.Inputs
-                .Include(x => x.Unit)
+                .Include(x => x.Unidade)
                 .FirstOrDefault(x => x.DeletionDate == null && x.Id == (int)id)!);
         }
         catch (Exception ex)
