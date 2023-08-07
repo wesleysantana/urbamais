@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Urbamais.Application.App.ConcreteClasses.Construction;
+using Urbamais.Application.App.ConcreteClasses.Obras;
 using Urbamais.Application.App.ConcreteClasses.Core;
-using Urbamais.Application.App.ConcreteClasses.Planning;
-using Urbamais.Application.App.Interfaces.Construction;
+using Urbamais.Application.App.ConcreteClasses.Planejamentos;
+using Urbamais.Application.App.Interfaces.Obras;
 using Urbamais.Application.App.Interfaces.Core;
-using Urbamais.Application.App.Interfaces.Planning;
-using Urbamais.Application.Interfaces.Construction;
+using Urbamais.Application.App.Interfaces.Planejamentos;
+using Urbamais.Application.Interfaces.Obras;
 using Urbamais.Application.Interfaces.Core;
 using Urbamais.Application.Interfaces.Generic;
 using Urbamais.Application.Interfaces.Planejamento;
@@ -13,8 +13,8 @@ using Urbamais.Application.Interfaces.Planning;
 using Urbamais.Application.Services.Construction;
 using Urbamais.Application.Services.Core;
 using Urbamais.Application.Services.Generic;
-using Urbamais.Application.Services.Plannig;
-using Urbamais.Application.Services.Planning;
+using Urbamais.Application.Services.Planejamentos;
+using Urbamais.Application.Services.Planejamentos;
 using Urbamais.Domain.InterfacesRepositories.Obras;
 using Urbamais.Domain.InterfacesRepositories.Core;
 using Urbamais.Domain.InterfacesRepositories.Generic;
@@ -40,20 +40,20 @@ public static class ModuloIOC
     {
         #region App
 
-        services.AddTransient<ICityApp, CityApp>();
-        services.AddTransient<ICompanieApp, CompanieApp>();
-        services.AddTransient<IInputApp, InputApp>();
-        services.AddTransient<IUnitApp, UnitApp>();
+        services.AddTransient<ICidadeApp, CidadeApp>();
+        services.AddTransient<IEmpresaApp, EmpresaApp>();
+        services.AddTransient<IInsumoApp, InsumoApp>();
+        services.AddTransient<IUnidadeApp, UnidadeApp>();
 
         #endregion App
 
         #region AppServices
 
         services.AddTransient(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
-        services.AddTransient<ICityAppService, CityAppService>();
-        services.AddTransient<ICompanieAppService, CompanieAppService>();
-        services.AddTransient<IInputAppService, InputAppService>();
-        services.AddTransient<IUnitAppService, UnitAppService>();
+        services.AddTransient<ICidadeAppService, CityAppService>();
+        services.AddTransient<IEmpresaAppService, EmpresaAppService>();
+        services.AddTransient<IInsumoAppService, InsumoAppService>();
+        services.AddTransient<IUnidadeAppService, UnidadeAppService>();
 
         #endregion AppServices
 

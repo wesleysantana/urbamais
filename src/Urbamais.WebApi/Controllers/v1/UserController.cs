@@ -4,7 +4,7 @@ using System.Net;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
 using Urbamais.Application.ViewModels.Request.V1.User;
-using Urbamais.Application.ViewModels.Response.V1.Unit;
+using Urbamais.Application.ViewModels.Response.V1.Unidade;
 using Urbamais.Application.ViewModels.Response.V1.User;
 using Urbamais.WebApi.Shared;
 
@@ -30,7 +30,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<List<UnitResponse>>> Get(CancellationToken cancellationToken)
+    public async Task<ActionResult<List<UnidadeResponse>>> Get(CancellationToken cancellationToken)
     {
         try
         {
