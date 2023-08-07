@@ -6,7 +6,7 @@ using Urbamais.Application.App.Interfaces.Construction;
 using Urbamais.Application.ViewModels.Request.V1.Companie;
 using Urbamais.Application.ViewModels.Response.V1.Companie;
 using Urbamais.Application.ViewModels.Response.V1.Unit;
-using Urbamais.Domain.Entities.Construction;
+using Urbamais.Domain.Entities.Obras;
 using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.V1;
@@ -93,7 +93,7 @@ public class CompanieController : ControllerBase
 
             CompanieRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var Companie = await _CompanieApp.Insert(_mapper.Map<Companie>(CompanieRequest));
+            var Companie = await _CompanieApp.Insert(_mapper.Map<Empresa>(CompanieRequest));
             if (Companie.IsValid)
             {
                 return StatusCode((int)HttpStatusCode.Created, _mapper.Map<CompanieResponse>(Companie));

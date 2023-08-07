@@ -4,7 +4,7 @@ using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class CityConfig : ConfigBase<City>
+internal class CityConfig : ConfigBase<Cidade>
 {
     public CityConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,14 +13,14 @@ internal class CityConfig : ConfigBase<City>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<City>()
+        builder.Entity<Cidade>()
             .OwnsOne(x => x.Nome)
             .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()
             .HasMaxLength(255);
 
-        builder.Entity<City>()
+        builder.Entity<Cidade>()
             .Property(x => x.Uf)
             .HasColumnName("uf");
     }

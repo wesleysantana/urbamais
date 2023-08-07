@@ -53,7 +53,7 @@ internal class PurchaseConfig
 
         builder.Entity<Purchase>()
             .HasOne(x => x.DeliveryPlace)
-            .WithMany(x => x.Purchases)
+            .WithMany(x => x.Compras)
             .HasForeignKey(x => x.DeliveryPlaceId);
     }
 }

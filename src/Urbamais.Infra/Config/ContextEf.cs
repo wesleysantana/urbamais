@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Construction;
+using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planning;
 using Urbamais.Domain.Entities.Supplier;
@@ -15,20 +15,20 @@ public class ContextEf : DbContext
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
-    public DbSet<City> Citys { get; set; }
+    public DbSet<Cidade> Citys { get; set; }
     public DbSet<Collaborator> Collaborators { get; set; }
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<Email> Emails { get; set; }
-    public DbSet<Companie> Companies { get; set; }
-    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Empresa> Companies { get; set; }
+    public DbSet<Endereco> Addresses { get; set; }
     public DbSet<Equipment> Equipments { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Input> Inputs { get; set; }
-    public DbSet<Construction> Constructions { get; set; }
+    public DbSet<Obra> Constructions { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Planning> Plannings { get; set; }
     public DbSet<PlanningInput> PlannigInputs { get; set; }
-    public DbSet<Phone> Phones { get; set; }
+    public DbSet<Telefone> Phones { get; set; }
     public DbSet<Unit> Units { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

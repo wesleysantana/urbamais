@@ -20,7 +20,7 @@ internal class PlanningConfig : ConfigBase<Planning>
 
         builder.Entity<Planning>()
             .HasOne(x => x.Construction)
-            .WithMany(x => x.Plannings)
+            .WithMany(x => x.Planejamentos)
             .HasForeignKey(x => x.ConstructionId);
     }
 }

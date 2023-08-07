@@ -4,7 +4,7 @@ using Urbamais.Domain.Resources;
 
 namespace Urbamais.Domain.Entities.Supplier;
 
-public class Supplier : CorporateEntity
+public class Supplier : PessoaJuridica
 {
     public ICollection<Equipment>? Equipments { get; private set; }
 
@@ -12,7 +12,7 @@ public class Supplier : CorporateEntity
     { }
 
     public Supplier(string idUserCreation, Nome tradeName, Nome corporateName, Cnpj cnpj, string ie,
-        string? im, List<Address> listAddress, List<Phone>? listPhone, List<Email>? listEmail)
+        string? im, List<Endereco> listAddress, List<Telefone>? listPhone, List<Email>? listEmail)
         : base(idUserCreation, tradeName, corporateName, cnpj, ie, im, listAddress, listPhone, listEmail)
     { }
 }

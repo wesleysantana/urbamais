@@ -15,14 +15,14 @@ internal class SupplierConfig : ConfigBase<Supplier>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Supplier>()
-          .OwnsOne(x => x.TradeName)
+          .OwnsOne(x => x.NomeFantasia)
           .Property(x => x.Value)
           .HasColumnName("trade_name")
           .IsRequired()
           .HasMaxLength(255);
 
         builder.Entity<Supplier>()
-           .OwnsOne(x => x.CorporateName)
+           .OwnsOne(x => x.RazaoSocial)
            .Property(x => x.Value)
            .HasColumnName("corporate_name")
            .IsRequired()
@@ -36,27 +36,27 @@ internal class SupplierConfig : ConfigBase<Supplier>
            .HasMaxLength(14);
 
         builder.Entity<Supplier>()
-            .Property(x => x.StateRegistration)
+            .Property(x => x.InscricaoEstadual)
             .HasColumnName("state_registration")
             .HasMaxLength(50);
 
         builder.Entity<Supplier>()
-           .Property(x => x.MunicipalRegistration)
+           .Property(x => x.IncricaoMunicipal)
            .HasColumnName("municipal_registration")
            .HasMaxLength(50);
 
         builder.Entity<Supplier>()
-            .HasMany(x => x.Addresses)
-            .WithMany(x => x.Supplier)
+            .HasMany(x => x.Enderecos)
+            .WithMany(x => x.Fornecedores)
             .UsingEntity<Dictionary<string, object>>(
                 "suppliers_addresses",
-                x => x.HasOne<Address>().WithMany().HasForeignKey("address_id"),
+                x => x.HasOne<Endereco>().WithMany().HasForeignKey("address_id"),
                 x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id")
             );
 
         builder.Entity<Supplier>()
             .HasMany(x => x.Emails)
-            .WithMany(x => x.Suppliers)
+            .WithMany(x => x.Fornecedores)
             .UsingEntity<Dictionary<string, object>>(
                 "suppliers_emails",
                 x => x.HasOne<Email>().WithMany().HasForeignKey("email_id"),
@@ -64,11 +64,11 @@ internal class SupplierConfig : ConfigBase<Supplier>
             );
 
         builder.Entity<Supplier>()
-           .HasMany(x => x.Phones)
-           .WithMany(x => x.Suppliers)
+           .HasMany(x => x.Telefones)
+           .WithMany(x => x.Fornecedores)
            .UsingEntity<Dictionary<string, object>>(
                "suppliers_phones",
-               x => x.HasOne<Phone>().WithMany().HasForeignKey("phone_id"),
+               x => x.HasOne<Telefone>().WithMany().HasForeignKey("phone_id"),
                x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id")
            );
     }

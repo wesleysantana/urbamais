@@ -3,18 +3,18 @@ using Core.ValueObjects;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
-public class City : CidadeCore
+public class Cidade : CidadeCore
 {
-    public IEnumerable<Address>? Address { get; private set; }
+    public IEnumerable<Endereco>? Endereco { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    protected City()
+    protected Cidade()
     { }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public City(string idUserCreation, Nome name, Uf uf) : base(idUserCreation, name, uf)
+    public Cidade(string idUserCreation, Nome nome, Uf uf) : base(idUserCreation, nome, uf)
     {
     }
 }

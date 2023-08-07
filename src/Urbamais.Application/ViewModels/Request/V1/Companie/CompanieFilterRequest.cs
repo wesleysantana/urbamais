@@ -9,12 +9,12 @@ namespace Urbamais.Application.ViewModels.Request.V1.Companie;
 public class CompanieFilterRequest : FilterRequest
 {
     [MaxLength(20, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
-    public ICollection<Phone>? Phones { get; set; }
+    public ICollection<Telefone>? Phones { get; set; }
     
     [MaxLength(255, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
     public ICollection<Email>? Emails { get; set; }
 
-    public ICollection<Address>? Addresses { get; set; }
+    public ICollection<Endereco>? Addresses { get; set; }
 
     [MaxLength(255, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
     [QueryOperator(Operator = WhereOperator.Contains, CaseSensitive = false)]

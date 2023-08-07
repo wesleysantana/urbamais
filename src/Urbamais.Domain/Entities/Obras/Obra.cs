@@ -3,26 +3,26 @@ using Core.SeedWork;
 using Core.ValueObjects;
 using System.Reflection;
 
-namespace Urbamais.Domain.Entities.Construction;
+namespace Urbamais.Domain.Entities.Obras;
 
-public class Construction : BaseEntity, IAggregateRoot
+public class Obra : BaseEntity, IAggregateRoot
 {
-    public int CompanieId { get; private set; }
-    public virtual Companie Companie { get; private set; }
-    public Descricao Description { get; private set; }
-    public virtual ICollection<Planning.Planning>? Plannings { get; private set; }
+    public int EmpresaId { get; private set; }
+    public virtual Empresa Empresa { get; private set; }
+    public Descricao Descricao { get; private set; }
+    public virtual ICollection<Planning.Planning>? Planejamentos { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    protected Construction()
+    protected Obra()
     { }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Construction(string idUserCreation, Companie companie, Descricao description)
+    public Obra(string idUserCreation, Empresa empresa, Descricao descricao)
     {
-        Companie = companie;
-        Description = description;
+        Empresa = empresa;
+        Descricao = descricao;
 
         Validate();
 
@@ -40,14 +40,14 @@ public class Construction : BaseEntity, IAggregateRoot
 
     private void Validate()
     {
-        ValidationResult?.Errors.AddRange(Description.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Descricao.ValidationResult!.Errors);
     }
 
     public void Update(string idUserModification, Descricao description)
     {
         var memento = CreateMemento();
 
-        Description = description;
+        Descricao = description;
         Validate();
 
         if (IsValid)
@@ -65,8 +65,8 @@ public class Construction : BaseEntity, IAggregateRoot
     {
         return new
         {
-            CompanieId,
-            Description
+            EmpresaId,
+            Descricao
         };
     }
 
@@ -76,8 +76,8 @@ public class Construction : BaseEntity, IAggregateRoot
 
         var state = (dynamic)memento;
 
-        CompanieId = state.CompanieId;
-        Description = state.Description;
+        EmpresaId = state.CompanieId;
+        Descricao = state.Description;
     }
 
     #endregion Memento
@@ -86,21 +86,21 @@ public class Construction : BaseEntity, IAggregateRoot
 
     public override bool Equals(object? obj)
     {
-        return obj is Construction obra &&
+        return obj is Obra obra &&
             Id == obra.Id &&
-            Description == obra.Description &&
-            CompanieId == obra.CompanieId &&
-            EqualityComparer<Companie>.Default.Equals(Companie, obra.Companie);
+            Descricao == obra.Descricao &&
+            EmpresaId == obra.EmpresaId &&
+            EqualityComparer<Empresa>.Default.Equals(Empresa, obra.Empresa);
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Description, CompanieId, Companie);
+        return HashCode.Combine(Id, Descricao, EmpresaId, Empresa);
     }
 
-    public static bool operator ==(Construction left, Construction right) => left.Equals(right);
+    public static bool operator ==(Obra left, Obra right) => left.Equals(right);
 
-    public static bool operator !=(Construction left, Construction right) => !left.Equals(right);
+    public static bool operator !=(Obra left, Obra right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
 }

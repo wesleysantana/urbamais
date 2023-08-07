@@ -8,7 +8,7 @@ using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Request.V1.Companie;
 using Urbamais.Application.ViewModels.Response;
 using Urbamais.Application.ViewModels.Response.V1.Companie;
-using Urbamais.Domain.Entities.Construction;
+using Urbamais.Domain.Entities.Obras;
 
 namespace Urbamais.Application.App.ConcreteClasses.Construction;
 
@@ -23,7 +23,7 @@ public class CompanieApp : ICompanieApp
 
     public Task<int> Commit() => _service.Commit();
 
-    public async Task<Companie> Insert(Companie entity)
+    public async Task<Empresa> Insert(Empresa entity)
     {
         if (entity.IsValid)
         {
@@ -35,12 +35,12 @@ public class CompanieApp : ICompanieApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Companie>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<bool, Empresa>> Update(object id, IDomainUpdate entity)
     {
         var companie = await _service.Get(id);
 
         if (companie is null)
-            return Tuple.Create(false, (Companie)entity);
+            return Tuple.Create(false, (Empresa)entity);
 
         var companieUpdate = entity as CompanieUpdateRequest;
 
@@ -83,17 +83,17 @@ public class CompanieApp : ICompanieApp
 
     #region Query
 
-    public async Task<Companie> Get(object id) => await _service.Get(id);
+    public async Task<Empresa> Get(object id) => await _service.Get(id);
 
-    public async Task<Companie> Get(Expression<Func<Companie, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<Empresa> Get(Expression<Func<Empresa, bool>> where, CancellationToken cancellationToken) =>
         await _service.Get(where, cancellationToken);
 
-    public async Task<IList<Companie>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
+    public async Task<IList<Empresa>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
 
-    public async Task<IList<Companie>> List(Expression<Func<Companie, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<IList<Empresa>> List(Expression<Func<Empresa, bool>> where, CancellationToken cancellationToken) =>
         await _service.List(where, cancellationToken);
 
-    public async Task<IList<Companie>> Query(IFilterRequest filter, CancellationToken cancellationToken)
+    public async Task<IList<Empresa>> Query(IFilterRequest filter, CancellationToken cancellationToken)
     {
         var query = _service.Query;
         query = query.Apply(filter);
@@ -101,7 +101,7 @@ public class CompanieApp : ICompanieApp
         return await ResultQuery(query, cancellationToken);
     }
 
-    public async Task<IList<Companie>> ResultQuery(IQueryable<Companie> query, CancellationToken cancellationToken) =>
+    public async Task<IList<Empresa>> ResultQuery(IQueryable<Empresa> query, CancellationToken cancellationToken) =>
         await _service.ResultQuery(query, cancellationToken);
 
     #endregion Query

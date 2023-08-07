@@ -90,16 +90,16 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
 
         builder.Entity<Collaborator>()
             .HasMany(x => x.Address)
-            .WithMany(x => x.Collaborators)
+            .WithMany(x => x.Colaboradores)
             .UsingEntity<Dictionary<string, object>>(
                 "collaborators_addresses",
-                x => x.HasOne<Address>().WithMany().HasForeignKey("address_id"),
+                x => x.HasOne<Endereco>().WithMany().HasForeignKey("address_id"),
                 x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
             );
 
         builder.Entity<Collaborator>()
             .HasMany(x => x.Emails)
-            .WithMany(x => x.Collaborators)
+            .WithMany(x => x.Colaboradores)
             .UsingEntity<Dictionary<string, object>>(
                 "collaborators_emails",
                 x => x.HasOne<Email>().WithMany().HasForeignKey("email_id"),
@@ -108,10 +108,10 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
 
         builder.Entity<Collaborator>()
            .HasMany(x => x.Phones)
-           .WithMany(x => x.Collaborators)
+           .WithMany(x => x.Colaboradores)
            .UsingEntity<Dictionary<string, object>>(
                "collaborators_phones",
-               x => x.HasOne<Phone>().WithMany().HasForeignKey("phone_id"),
+               x => x.HasOne<Telefone>().WithMany().HasForeignKey("phone_id"),
                x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
            );
     }

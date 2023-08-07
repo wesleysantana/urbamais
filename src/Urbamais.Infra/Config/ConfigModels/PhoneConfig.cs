@@ -4,7 +4,7 @@ using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class PhoneConfig : ConfigBase<Phone>
+internal class PhoneConfig : ConfigBase<Telefone>
 {
     public PhoneConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,7 +13,7 @@ internal class PhoneConfig : ConfigBase<Phone>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Phone>()
+        builder.Entity<Telefone>()
             .Property(x => x.Numero)
             .HasColumnName("number")
             .IsRequired()

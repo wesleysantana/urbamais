@@ -5,7 +5,7 @@ using Urbamais.Domain.Services.Interfaces.Core;
 
 namespace Urbamais.Domain.Services.ConcreteClasses.Core;
 
-public class CityService : ServiceBase<City>, ICityService
+public class CityService : ServiceBase<Cidade>, ICityService
 {
     public CityService(ICityRepository repository) : base(repository)
     {

@@ -9,9 +9,9 @@ namespace Urbamais.Domain.Entities.Supplier;
 
 public class Collaborator : BaseEntity, IAggregateRoot
 {
-    private List<Phone>? _listPhones = new();
+    private List<Telefone>? _listPhones = new();
     private List<Email>? _listEmails = new();
-    private List<Address> _listAddress = new();
+    private List<Endereco> _listAddress = new();
 
     public Nome Name { get; private set; }
     public Cpf Cpf { get; private set; }
@@ -31,13 +31,13 @@ public class Collaborator : BaseEntity, IAggregateRoot
     public string RegistrationForm { get; private set; }
     public string ServiceOrder { get; private set; }
 
-    public IReadOnlyCollection<Address> Address
+    public IReadOnlyCollection<Endereco> Address
     {
         get => _listAddress;
         private set => _listAddress = value.ToList();
     }
 
-    public IReadOnlyCollection<Phone> Phones
+    public IReadOnlyCollection<Telefone> Phones
     {
         get => _listPhones!;
         private set => _listPhones = value.ToList();
@@ -57,10 +57,10 @@ public class Collaborator : BaseEntity, IAggregateRoot
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Collaborator(string idUserCreation, Nome name, Cpf cpf,
-        List<Address> address, string numberCtps, string numberCNH, string typeCnh,
+        List<Endereco> address, string numberCtps, string numberCNH, string typeCnh,
         DateTime expirationDateCNH, string cnh, string epi, string ctps,
         string numeroExameAdmissional, DateTime validadeExameAdmissional, string admissionExam,
-        string registrationForm, string serviceOrder, List<Phone>? listPhones, List<Email>? listEmails)
+        string registrationForm, string serviceOrder, List<Telefone>? listPhones, List<Email>? listEmails)
     {
         Name = name;
         Cpf = cpf;
@@ -123,11 +123,11 @@ public class Collaborator : BaseEntity, IAggregateRoot
     }
 
     public void Update(string idUserModification, Nome? name = null, Cpf? cpf = null,
-       List<Address>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
+       List<Endereco>? address = null, string? numberCtps = null, string? numbercnh = null, string? typeCnh = null,
        DateTime? expirationDateCNH = null, string? cnh = null, string? epi = null, string? ctps = null,
        string? numberAdmissionExam = null, DateTime? expirationDateAdmissionExam = null,
        string? admissionExam = null, string? registrationForm = null, string? serviceOrder = null,
-       List<Phone>? listPhones = null, List<Email>? listEmails = null)
+       List<Telefone>? listPhones = null, List<Email>? listEmails = null)
     {
         var memento = CreateMemento();
 

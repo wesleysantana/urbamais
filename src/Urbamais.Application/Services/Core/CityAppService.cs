@@ -5,9 +5,9 @@ using Urbamais.Application.Interfaces.Core;
 
 namespace Urbamais.Application.Services.Core;
 
-public class CityAppService : AppServiceBase<City>, ICityAppService
+public class CityAppService : AppServiceBase<Cidade>, ICityAppService
 {
-    public CityAppService(IServiceBase<City> serviceBase) : base(serviceBase)
+    public CityAppService(IServiceBase<Cidade> serviceBase) : base(serviceBase)
     {
     }
 }

@@ -93,7 +93,7 @@ public class CityController : ControllerBase
 
             cityRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var city = await _cityApp.Insert(_mapper.Map<City>(cityRequest));
+            var city = await _cityApp.Insert(_mapper.Map<Cidade>(cityRequest));
             if (city.IsValid)
             {
                 return StatusCode((int)HttpStatusCode.Created, _mapper.Map<CityResponse>(city));

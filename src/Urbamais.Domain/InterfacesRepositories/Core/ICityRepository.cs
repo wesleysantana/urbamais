@@ -3,6 +3,6 @@ using Urbamais.Domain.InterfacesRepositories.Generic;
 
 namespace Urbamais.Domain.InterfacesRepositories.Core;
 
-public interface ICityRepository : IRepositoryBase<City>
+public interface ICityRepository : IRepositoryBase<Cidade>
 {
 }

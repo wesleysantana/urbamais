@@ -8,7 +8,7 @@ public class CompanieRequest : RequestBase
 {
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [MaxLength(20, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
-    public List<Phone> Phones { get; set; } = new();
+    public List<Telefone> Phones { get; set; } = new();
 
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [EmailAddress(ErrorMessage = DataAnnotationsMessages.EMAIL)]
@@ -16,7 +16,7 @@ public class CompanieRequest : RequestBase
     public List<Email> Emails { get; set; } = new();
 
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
-    public List<Address> Addresses { get; set; } = new();
+    public List<Endereco> Addresses { get; set; } = new();
 
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [MaxLength(255, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]

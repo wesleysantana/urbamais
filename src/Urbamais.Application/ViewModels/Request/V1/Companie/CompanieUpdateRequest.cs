@@ -16,11 +16,11 @@ public class CompanieUpdateRequest : DomainUpdate
     public string? Cnpj { get; set; }
 
     [MaxLength(20, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
-    public List<Phone>? Phones { get; set; } = new();
+    public List<Telefone>? Phones { get; set; } = new();
 
     [EmailAddress(ErrorMessage = DataAnnotationsMessages.EMAIL)]
     [MaxLength(255, ErrorMessage = DataAnnotationsMessages.MAXLENGHT)]
     public List<Email> Emails { get; set; } = new();
 
-    public List<Address>? Addresses { get; set; } = new();
+    public List<Endereco>? Addresses { get; set; } = new();
 }

@@ -24,7 +24,7 @@ public class CityApp : ICityApp
 
     public Task<int> Commit() => _service.Commit();
 
-    public async Task<City> Insert(City entity)
+    public async Task<Cidade> Insert(Cidade entity)
     {
         if (entity.IsValid)
         {
@@ -36,12 +36,12 @@ public class CityApp : ICityApp
         return entity;
     }
 
-    public async Task<Tuple<bool, City>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<bool, Cidade>> Update(object id, IDomainUpdate entity)
     {
         var city = await _service.Get(id);
 
         if (city is null)
-            return Tuple.Create(false, (City)entity);
+            return Tuple.Create(false, (Cidade)entity);
 
         var cityUpdate = entity as CityUpdateRequest;
 
@@ -82,17 +82,17 @@ public class CityApp : ICityApp
 
     #region Query
 
-    public async Task<City> Get(object id) => await _service.Get(id);
+    public async Task<Cidade> Get(object id) => await _service.Get(id);
 
-    public async Task<City> Get(Expression<Func<City, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<Cidade> Get(Expression<Func<Cidade, bool>> where, CancellationToken cancellationToken) =>
         await _service.Get(where, cancellationToken);
 
-    public async Task<IList<City>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
+    public async Task<IList<Cidade>> List(CancellationToken cancellationToken) => await _service.List(cancellationToken);
 
-    public async Task<IList<City>> List(Expression<Func<City, bool>> where, CancellationToken cancellationToken) =>
+    public async Task<IList<Cidade>> List(Expression<Func<Cidade, bool>> where, CancellationToken cancellationToken) =>
         await _service.List(where, cancellationToken);
 
-    public async Task<IList<City>> Query(IFilterRequest filter, CancellationToken cancellationToken)
+    public async Task<IList<Cidade>> Query(IFilterRequest filter, CancellationToken cancellationToken)
     {
         var query = _service.Query;
         query = query.Apply(filter);
@@ -113,7 +113,7 @@ public class CityApp : ICityApp
     //    return await lista;
     //}
 
-    public async Task<IList<City>> ResultQuery(IQueryable<City> query, CancellationToken cancellationToken) =>
+    public async Task<IList<Cidade>> ResultQuery(IQueryable<Cidade> query, CancellationToken cancellationToken) =>
         await _service.ResultQuery(query, cancellationToken);
 
     //public async Task<List<City>> ListarPaginado(int pagina, int tamanhoPagina, Expression<Func<Cliente, bool>> predicate)

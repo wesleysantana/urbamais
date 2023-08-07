@@ -6,7 +6,7 @@ using Urbamais.Infra.Repositories.Generic;
 
 namespace Urbamais.Infra.Repositories.Core;
 
-public class CityRepository : RepositoryBaseEntity<City>, ICityRepository
+public class CityRepository : RepositoryBaseEntity<Cidade>, ICityRepository
 {
     public CityRepository(ContextEf context) : base(context)
     {

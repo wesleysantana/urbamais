@@ -15,7 +15,7 @@ public class Purchase
     public decimal UnitaryValue { get; private set; }
     public DateTime? DeliveryDate { get; private set; }
     public int? DeliveryPlaceId { get; private set; }
-    public virtual Address DeliveryPlace { get; private set; }
+    public virtual Endereco DeliveryPlace { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -25,7 +25,7 @@ public class Purchase
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Purchase(int orderId, int inputId, int supplierId, double amount,
-        decimal unitaryValue, DateTime deliveryDate, Address deliveryPlace)
+        decimal unitaryValue, DateTime deliveryDate, Endereco deliveryPlace)
     {
         OrderId = orderId;
         InputId = inputId;

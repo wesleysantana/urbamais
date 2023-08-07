@@ -3,6 +3,6 @@ using Urbamais.Domain.Services.Interfaces.Generic;
 
 namespace Urbamais.Domain.Services.Interfaces.Core;
 
-public interface ICityService : IServiceBase<City>
+public interface ICityService : IServiceBase<Cidade>
 {
 }
