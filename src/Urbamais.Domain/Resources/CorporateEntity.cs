@@ -13,8 +13,8 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
     private List<Email>? _listEmail = new();
     private List<Address> _listAddress = new();
 
-    public Name TradeName { get; private set; }
-    public Name CorporateName { get; private set; }
+    public Nome TradeName { get; private set; }
+    public Nome CorporateName { get; private set; }
     public Cnpj Cnpj { get; private set; }
     public string StateRegistration { get; private set; }
     public string? MunicipalRegistration { get; private set; }
@@ -44,7 +44,7 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CorporateEntity(string idUserCreation, Name tradeName, Name corporateName, Cnpj cnpj, string stateRegistration,
+    public CorporateEntity(string idUserCreation, Nome tradeName, Nome corporateName, Cnpj cnpj, string stateRegistration,
         string? municipalRegistration, List<Address> listAddress, List<Phone>? listPhone, List<Email>? listEmail)
     {
         TradeName = tradeName;
@@ -103,7 +103,7 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(string idUserModification, Name? corporateName = null, Name? tradeName = null, Cnpj? cnpj = null,
+    public void Update(string idUserModification, Nome? corporateName = null, Nome? tradeName = null, Cnpj? cnpj = null,
         List<Address>? addresses = null, List<Phone>? phones = null, List<Email>? emails = null)
     {
         if (corporateName is not null) CorporateName = corporateName;
@@ -130,8 +130,8 @@ public abstract class CorporateEntity : BaseEntity, IAggregateRoot
     public override bool Equals(object? obj)
     {
         return obj is CorporateEntity companie &&
-            EqualityComparer<Name>.Default.Equals(CorporateName, companie.CorporateName) &&
-            EqualityComparer<Name>.Default.Equals(TradeName, companie.TradeName) &&
+            EqualityComparer<Nome>.Default.Equals(CorporateName, companie.CorporateName) &&
+            EqualityComparer<Nome>.Default.Equals(TradeName, companie.TradeName) &&
             EqualityComparer<Cnpj>.Default.Equals(Cnpj, companie.Cnpj) &&
             Enumerable.SequenceEqual(_listAddress!.OrderBy(e => e.Id), companie._listAddress!.OrderBy(e => e.Id)) &&
             Enumerable.SequenceEqual(_listEmail!.OrderBy(e => e.Id), companie._listEmail!.OrderBy(e => e.Id)) &&

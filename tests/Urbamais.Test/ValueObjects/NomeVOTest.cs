@@ -7,7 +7,7 @@ public class NomeVOTest
     [Fact]
     public void NomeAdequado()
     {
-        var nome = new Name("Wesley Santana");
+        var nome = new Nome("Wesley Santana");
 
         Assert.True(nome.IsValid);
     }
@@ -16,7 +16,7 @@ public class NomeVOTest
     public void NomeComMenosDe3Caracteres()
     {
         var valor = "12";
-        var nome = new Name(valor);
+        var nome = new Nome(valor);
 
         Assert.False(nome.IsValid);
 
@@ -27,7 +27,7 @@ public class NomeVOTest
     [Fact]
     public void NomeVazio()
     {
-        var nome = new Name("");
+        var nome = new Nome("");
 
         Assert.False(nome.IsValid);
 
@@ -46,7 +46,7 @@ public class NomeVOTest
         sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
         Aldus PageMaker including versions of Lorem Ipsum.";
 
-        var nome = new Name(valor);
+        var nome = new Nome(valor);
         Assert.False(nome.IsValid);
 
         var msg = $"The length of '{nameof(nome.Value)}' must be 255 characters or fewer. You entered {valor.Length} characters.";
@@ -56,8 +56,8 @@ public class NomeVOTest
     [Fact]
     public void Igualdade()
     {
-        var nome1 = new Name("Wesley Santana");
-        var nome2 = new Name("Wesley Santana");
+        var nome1 = new Nome("Wesley Santana");
+        var nome2 = new Nome("Wesley Santana");
 
         Assert.Equal(nome1, nome2);
     }
@@ -65,8 +65,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeFalha()
     {
-        var nome01 = new Name("Wesley Santana");
-        var nome02 = new Name("Rita Santana");
+        var nome01 = new Nome("Wesley Santana");
+        var nome02 = new Nome("Rita Santana");
 
         Assert.False(nome01.Equals(nome02));
     }
@@ -74,8 +74,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeOperator()
     {
-        var nome01 = new Name("Wesley Santana");
-        var nome02 = new Name("Wesley Santana");
+        var nome01 = new Nome("Wesley Santana");
+        var nome02 = new Nome("Wesley Santana");
 
         Assert.True(nome01 == nome02);
     }
@@ -83,8 +83,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeFalhaOperator()
     {
-        var nome01 = new Name("Wesley Santana");
-        var nome02 = new Name("Rita Santana");
+        var nome01 = new Nome("Wesley Santana");
+        var nome02 = new Nome("Rita Santana");
 
         Assert.True(nome01 != nome02);
     }
@@ -92,8 +92,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeHashcode()
     {
-        var nome01 = new Name("Wesley Santana");
-        var nome02 = new Name("Wesley Santana");
+        var nome01 = new Nome("Wesley Santana");
+        var nome02 = new Nome("Wesley Santana");
 
         Assert.True(nome01.GetHashCode().Equals(nome02.GetHashCode()));
     }
@@ -101,8 +101,8 @@ public class NomeVOTest
     [Fact]
     public void IgualdadeHashcodeFalha()
     {
-        var nome01 = new Name("Wesley Santana");
-        var nome02 = new Name("Rita Santana");
+        var nome01 = new Nome("Wesley Santana");
+        var nome02 = new Nome("Rita Santana");
 
         Assert.False(nome01.GetHashCode().Equals(nome02.GetHashCode()));
     }

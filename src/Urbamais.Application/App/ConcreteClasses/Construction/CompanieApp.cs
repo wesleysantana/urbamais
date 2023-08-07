@@ -44,8 +44,8 @@ public class CompanieApp : ICompanieApp
 
         var companieUpdate = entity as CompanieUpdateRequest;
 
-        var corporateName = new Name(companieUpdate!.CorporateName!);
-        var tradeName = new Name(companieUpdate!.TradeName!);
+        var corporateName = new Nome(companieUpdate!.CorporateName!);
+        var tradeName = new Nome(companieUpdate!.TradeName!);
         var cnpj = new Cnpj(companieUpdate!.Cnpj!);
         companie.Update(companieUpdate!.IdUserModification, corporateName, tradeName,
             cnpj, companieUpdate.Addresses, companieUpdate.Phones, companieUpdate.Emails);

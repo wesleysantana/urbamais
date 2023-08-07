@@ -8,7 +8,7 @@ namespace Core.Domain;
 
 public abstract class CidadeCore : BaseEntity, IAggregateRoot
 {
-    public Name Nome { get; private set; }
+    public Nome Nome { get; private set; }
     public Uf Uf { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -18,7 +18,7 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CidadeCore(string userId, Name nome, Uf uf)
+    public CidadeCore(string userId, Nome nome, Uf uf)
     {
         Nome = nome;
         Uf = uf;
@@ -45,7 +45,7 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
         Validate(this, new CidadeValidator());        
     }
 
-    public void Update(string idUserModification, Name? name = null, Uf? uf = null)
+    public void Update(string idUserModification, Nome? name = null, Uf? uf = null)
     {
         var memento = CreateMemento();
 
@@ -94,7 +94,7 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
     {
         return obj is CidadeCore cidade &&
             Id == cidade.Id &&
-            EqualityComparer<Name>.Default.Equals(Nome, cidade.Nome) &&
+            EqualityComparer<Nome>.Default.Equals(Nome, cidade.Nome) &&
             EqualityComparer<Uf>.Default.Equals(Uf, cidade.Uf);
     }
 

@@ -7,7 +7,7 @@ namespace Urbamais.Domain.Entities.Supplier;
 
 public class Equipment : BaseEntity, IAggregateRoot
 {
-    public Name Name { get; private set; }
+    public Nome Name { get; private set; }
     public Descricao Description { get; private set; }
     public ICollection<Supplier>? Suppliers { get; private set; }
 
@@ -18,7 +18,7 @@ public class Equipment : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Equipment(string idUserCreation, Name name, Descricao description)
+    public Equipment(string idUserCreation, Nome name, Descricao description)
     {
         Name = name;
         Description = description;
@@ -46,7 +46,7 @@ public class Equipment : BaseEntity, IAggregateRoot
         }
     }
 
-    public void Update(string idUserModification, Name? name = null, Descricao? description = null)
+    public void Update(string idUserModification, Nome? name = null, Descricao? description = null)
     {
         var memento = CreateMemento();
 
@@ -95,7 +95,7 @@ public class Equipment : BaseEntity, IAggregateRoot
     {
         return obj is Equipment equipamento &&
             Id == equipamento.Id &&
-            EqualityComparer<Name>.Default.Equals(Name, equipamento.Name) &&
+            EqualityComparer<Nome>.Default.Equals(Name, equipamento.Name) &&
             EqualityComparer<Descricao>.Default.Equals(Description, equipamento.Description);
     }
 

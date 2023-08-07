@@ -45,7 +45,7 @@ public class CityApp : ICityApp
 
         var cityUpdate = entity as CityUpdateRequest;
 
-        var name = new Name(cityUpdate!.Name!);
+        var name = new Nome(cityUpdate!.Name!);
         _ = Enum.TryParse(cityUpdate!.Name!, out Uf uf);
         city.Update(cityUpdate.IdUserModification, name, uf);
 
