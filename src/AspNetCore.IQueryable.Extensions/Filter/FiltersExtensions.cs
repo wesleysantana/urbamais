@@ -74,9 +74,6 @@ namespace AspNetCore.IQueryable.Extensions.Filter
         {
             switch (expression.Criteria.Operator)
             {
-                //case WhereOperator.Equals:
-                //    return Expression.Equal(fieldToFilter, filterBy);
-
                 case WhereOperator.Equals:
                     if (fieldToFilter.Type.IsEnum && filterBy.Type == typeof(string))
                     {

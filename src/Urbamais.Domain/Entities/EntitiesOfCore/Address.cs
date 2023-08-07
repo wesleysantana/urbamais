@@ -5,7 +5,7 @@ using Urbamais.Domain.Entities.Supply;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
-public sealed class Address : AddressCore
+public sealed class Address : EnderecoCore
 {
     public ICollection<Collaborator>? Collaborators { get; private set; }
     public ICollection<Companie>? Companies { get; private set; }

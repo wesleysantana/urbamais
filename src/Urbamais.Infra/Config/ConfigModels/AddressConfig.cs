@@ -14,30 +14,30 @@ internal class AddressConfig : ConfigBase<Address>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Address>()
-            .Property(x => x.Thoroughfare)
+            .Property(x => x.Logradouro)
             .HasColumnName("thoroughfare")
             .IsRequired()
             .HasMaxLength(150);
 
         builder.Entity<Address>()
-            .Property(x => x.Number)
+            .Property(x => x.Numero)
             .HasColumnName("number")
             .IsRequired()
             .HasMaxLength(10);
 
         builder.Entity<Address>()
-            .Property(x => x.Complement)
+            .Property(x => x.Complemento)
             .HasColumnName("complement")
             .HasMaxLength(100);
 
         builder.Entity<Address>()
-            .Property(x => x.Neighborhood)
+            .Property(x => x.Bairro)
             .HasColumnName("neighborhood")
             .IsRequired()
             .HasMaxLength(100);
 
         builder.Entity<Address>()
-            .Property(x => x.ZipCode)
+            .Property(x => x.CodigoPostal)
             .HasColumnName("zip_code")
             .IsRequired()
             .HasMaxLength(8);
