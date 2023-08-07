@@ -14,7 +14,7 @@ internal class PhoneConfig : ConfigBase<Phone>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Phone>()
-            .Property(x => x.Number)
+            .Property(x => x.Numero)
             .HasColumnName("number")
             .IsRequired()
             .HasMaxLength(20);

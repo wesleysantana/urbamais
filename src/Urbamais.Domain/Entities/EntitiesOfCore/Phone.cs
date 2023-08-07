@@ -4,7 +4,7 @@ using Urbamais.Domain.Entities.Construction;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
-public sealed class Phone : PhoneCore
+public sealed class Phone : TelefoneCore
 {
     public ICollection<Collaborator>? Collaborators { get; private set; }
     public ICollection<Companie>? Companies { get; private set; }
