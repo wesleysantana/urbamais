@@ -74,11 +74,23 @@ namespace AspNetCore.IQueryable.Extensions.Filter
         {
             switch (expression.Criteria.Operator)
             {
+                //case WhereOperator.Equals:
+                //    return Expression.Equal(fieldToFilter, filterBy);
+
                 case WhereOperator.Equals:
+                    if (fieldToFilter.Type.IsEnum && filterBy.Type == typeof(string))
+                    {
+                        filterBy = ConvertStringToEnum(filterBy, fieldToFilter.Type);
+                    }
+                    else if (fieldToFilter.Type != filterBy.Type)
+                    {
+                        throw new InvalidOperationException($"Cannot compare different types: {fieldToFilter.Type} and {filterBy.Type}");
+                    }
+
                     return Expression.Equal(fieldToFilter, filterBy);
 
                 case WhereOperator.NotEquals:
-                    return Expression.NotEqual(fieldToFilter, filterBy);
+                    return Expression.NotEqual(fieldToFilter, filterBy);               
 
                 case WhereOperator.GreaterThan:
                     return Expression.GreaterThan(fieldToFilter, filterBy);
@@ -110,6 +122,18 @@ namespace AspNetCore.IQueryable.Extensions.Filter
                 default:
                     return Expression.Equal(fieldToFilter, filterBy);
             }
+        }
+
+        private static Expression ConvertStringToEnum(Expression expression, Type enumType)
+        {
+            // Obtém o valor da expressão como uma constante
+            var stringValue = ((ConstantExpression)expression).Value.ToString();
+
+            // Faz a conversão da string para o enum
+            var enumValue = Enum.Parse(enumType, stringValue, ignoreCase: true);
+
+            // Retorna a expressão convertida
+            return Expression.Constant(enumValue);
         }
 
         private static Expression LessThanOrEqualWhenNullable(Expression e1, Expression e2)
