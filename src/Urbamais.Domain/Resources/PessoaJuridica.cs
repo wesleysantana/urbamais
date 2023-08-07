@@ -17,7 +17,7 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
     public Nome RazaoSocial { get; private set; }
     public Cnpj Cnpj { get; private set; }
     public string InscricaoEstadual { get; private set; }
-    public string? IncricaoMunicipal { get; private set; }
+    public string? InscricaoMunicipal { get; private set; }
 
     public IReadOnlyCollection<Endereco> Enderecos
     {
@@ -51,7 +51,7 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
         InscricaoEstadual = inscricaoEstadual;
-        IncricaoMunicipal = inscricaoMunicipal;
+        InscricaoMunicipal = inscricaoMunicipal;
         _listEndereco = listEndereco;
         _listTelefone = listTelefone;
         _listEmail = listEmail;
@@ -174,7 +174,7 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
             RuleFor(x => x.InscricaoEstadual)
                 .MaximumLength(50);
 
-            RuleFor(x => x.IncricaoMunicipal)
+            RuleFor(x => x.InscricaoMunicipal)
                 .MaximumLength(50);
 
             RuleFor(x => x.Enderecos)

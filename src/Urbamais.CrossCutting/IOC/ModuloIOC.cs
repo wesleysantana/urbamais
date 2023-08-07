@@ -15,19 +15,19 @@ using Urbamais.Application.Services.Core;
 using Urbamais.Application.Services.Generic;
 using Urbamais.Application.Services.Plannig;
 using Urbamais.Application.Services.Planning;
-using Urbamais.Domain.InterfacesRepositories.Construction;
+using Urbamais.Domain.InterfacesRepositories.Obras;
 using Urbamais.Domain.InterfacesRepositories.Core;
 using Urbamais.Domain.InterfacesRepositories.Generic;
-using Urbamais.Domain.InterfacesRepositories.Planejamento;
-using Urbamais.Domain.Services.ConcreteClasses.Construction;
+using Urbamais.Domain.InterfacesRepositories.Planejamentos;
+using Urbamais.Domain.Services.ConcreteClasses.Obras;
 using Urbamais.Domain.Services.ConcreteClasses.Core;
 using Urbamais.Domain.Services.ConcreteClasses.Generic;
-using Urbamais.Domain.Services.ConcreteClasses.Planejamento;
-using Urbamais.Domain.Services.Interfaces.Construction;
+using Urbamais.Domain.Services.ConcreteClasses.Planejamentos;
+using Urbamais.Domain.Services.Interfaces.Obras;
 using Urbamais.Domain.Services.Interfaces.Core;
 using Urbamais.Domain.Services.Interfaces.Generic;
-using Urbamais.Domain.Services.Interfaces.Planning;
-using Urbamais.Infra.Repositories.Construction;
+using Urbamais.Domain.Services.Interfaces.Planejamentos;
+using Urbamais.Infra.Repositories.Obras;
 using Urbamais.Infra.Repositories.Core;
 using Urbamais.Infra.Repositories.Generic;
 using Urbamais.Infra.Repositories.Planning;
@@ -60,20 +60,20 @@ public static class ModuloIOC
         #region Services
 
         services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-        services.AddTransient<ICityService, CityService>();
-        services.AddTransient<ICompanieService, CompanieService>();
-        services.AddTransient<IInputService, InputService>();
-        services.AddTransient<IUnitService, UnitService>();
+        services.AddTransient<ICityService, CidadeService>();
+        services.AddTransient<IEmpresaService, EmpresaService>();
+        services.AddTransient<IInsumoService, InsumoService>();
+        services.AddTransient<IUnidadeService, UnidadeService>();
 
         #endregion Services
 
         #region Repositories
 
         services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-        services.AddTransient<ICityRepository, CityRepository>();
-        services.AddTransient<ICompanieRepository, CompanieRepository>();
-        services.AddTransient<IInputRepository, InputRepository>();
-        services.AddTransient<IUnitRepository, UnitRepository>();
+        services.AddTransient<ICityRepository, CidadeRepository>();
+        services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+        services.AddTransient<IInsumoRepository, InsumoRepository>();
+        services.AddTransient<IUnidadeRepository, UnidadeRepository>();
 
         #endregion Repositories
     }

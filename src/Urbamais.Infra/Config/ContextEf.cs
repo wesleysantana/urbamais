@@ -15,38 +15,38 @@ public class ContextEf : DbContext
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
-    public DbSet<Cidade> Citys { get; set; }
-    public DbSet<Colaborador> Collaborators { get; set; }
-    public DbSet<Compra> Purchases { get; set; }
+    public DbSet<Cidade> Cidades { get; set; }
+    public DbSet<Colaborador> Colaboradores { get; set; }
+    public DbSet<Compra> Compras { get; set; }
     public DbSet<Email> Emails { get; set; }
-    public DbSet<Empresa> Companies { get; set; }
-    public DbSet<Endereco> Addresses { get; set; }
-    public DbSet<Equipamento> Equipments { get; set; }
-    public DbSet<Fornecedor> Suppliers { get; set; }
-    public DbSet<Insumo> Inputs { get; set; }
-    public DbSet<Obra> Constructions { get; set; }
-    public DbSet<Pedido> Orders { get; set; }
-    public DbSet<Planejamento> Plannings { get; set; }
-    public DbSet<PlanejamentoInsumo> PlannigInputs { get; set; }
-    public DbSet<Telefone> Phones { get; set; }
-    public DbSet<Unidade> Units { get; set; }
+    public DbSet<Empresa> Empresas { get; set; }
+    public DbSet<Endereco> Enderecos { get; set; }
+    public DbSet<Equipamento> Equipamentos { get; set; }
+    public DbSet<Fornecedor> Fornecedores { get; set; }
+    public DbSet<Insumo> Insumos { get; set; }
+    public DbSet<Obra> Obras { get; set; }
+    public DbSet<Pedido> Pedidos { get; set; }
+    public DbSet<Planejamento> Planejamentos { get; set; }
+    public DbSet<PlanejamentoInsumo> PlanejamentosInsumos { get; set; }
+    public DbSet<Telefone> Telefones { get; set; }
+    public DbSet<Unidade> Unidades { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _ = new AddressConfig(modelBuilder);
-        _ = new CityConfig(modelBuilder);
-        _ = new CollaboratorConfig(modelBuilder);
-        _ = new CompanieConfig(modelBuilder);
-        _ = new ConstructionConfig(modelBuilder);
+        _ = new EnderecoConfig(modelBuilder);
+        _ = new CidadeConfig(modelBuilder);
+        _ = new ColaboradorConfig(modelBuilder);
+        _ = new EmpresaConfig(modelBuilder);
+        _ = new ObraConfig(modelBuilder);
         _ = new EmailConfig(modelBuilder);
-        _ = new EquipmentConfig(modelBuilder);
-        _ = new InputConfig(modelBuilder);
-        _ = new OrderConfig(modelBuilder);
-        _ = new PhoneConfig(modelBuilder);
-        _ = new PlanningConfig(modelBuilder);
-        _ = new PlanningInputsConfig(modelBuilder);
-        _ = new PurchaseConfig(modelBuilder);
-        _ = new SupplierConfig(modelBuilder);
-        _ = new UnitConfig(modelBuilder);
+        _ = new EquipamentoConfig(modelBuilder);
+        _ = new InsumoConfig(modelBuilder);
+        _ = new PedidoConfig(modelBuilder);
+        _ = new TelefoneConfig(modelBuilder);
+        _ = new PlanejamentoConfig(modelBuilder);
+        _ = new PlanejamentoInsumoConfig(modelBuilder);
+        _ = new CompraConfig(modelBuilder);
+        _ = new FornecedorConfig(modelBuilder);
+        _ = new UnidadeConfig(modelBuilder);
     }
 }

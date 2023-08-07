@@ -4,19 +4,19 @@ using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class EmailConfig : ConfigBase<Email>
+internal class TelefoneConfig : ConfigBase<Telefone>
 {
-    public EmailConfig(ModelBuilder builder) : base(builder)
+    public TelefoneConfig(ModelBuilder builder) : base(builder)
     {
         Config(builder);
     }
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Email>()
-            .Property(x => x.Endereco)
-            .HasColumnName("endereco")
+        builder.Entity<Telefone>()
+            .Property(x => x.Numero)
+            .HasColumnName("numero")
             .IsRequired()
-            .HasMaxLength(255);
+            .HasMaxLength(20);
     }
 }
