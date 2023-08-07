@@ -52,7 +52,7 @@ internal class PurchaseConfig
             .HasColumnName("delivery_place_id");
 
         builder.Entity<Compra>()
-            .HasOne(x => x.LocalEntregaId)
+            .HasOne(x => x.LocalEntrega)
             .WithMany(x => x.Compras)
             .HasForeignKey(x => x.LocalEntregaId);
     }
