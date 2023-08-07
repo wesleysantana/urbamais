@@ -2,6 +2,7 @@
 using Core.SeedWork;
 using Core.ValueObjects;
 using System.Reflection;
+using Urbamais.Domain.Entities.Planejamentos;
 
 namespace Urbamais.Domain.Entities.Obras;
 
@@ -10,7 +11,7 @@ public class Obra : BaseEntity, IAggregateRoot
     public int EmpresaId { get; private set; }
     public virtual Empresa Empresa { get; private set; }
     public Descricao Descricao { get; private set; }
-    public virtual ICollection<Planejamentos.Planejamento>? Planejamentos { get; private set; }
+    public virtual ICollection<Planejamento>? Planejamentos { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 

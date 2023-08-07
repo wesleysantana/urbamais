@@ -2,8 +2,8 @@
 using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Planejamentos;
-using Urbamais.Domain.Entities.Supplier;
-using Urbamais.Domain.Entities.Supply;
+using Urbamais.Domain.Entities.Fornecedores;
+using Urbamais.Domain.Entities.Suprimentos;
 using Urbamais.Infra.Config.ConfigModels;
 
 namespace Urbamais.Infra.Config;
@@ -16,16 +16,16 @@ public class ContextEf : DbContext
     }
 
     public DbSet<Cidade> Citys { get; set; }
-    public DbSet<Collaborator> Collaborators { get; set; }
-    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<Colaborador> Collaborators { get; set; }
+    public DbSet<Compra> Purchases { get; set; }
     public DbSet<Email> Emails { get; set; }
     public DbSet<Empresa> Companies { get; set; }
     public DbSet<Endereco> Addresses { get; set; }
-    public DbSet<Equipment> Equipments { get; set; }
-    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Equipamento> Equipments { get; set; }
+    public DbSet<Fornecedor> Suppliers { get; set; }
     public DbSet<Insumo> Inputs { get; set; }
     public DbSet<Obra> Constructions { get; set; }
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Pedido> Orders { get; set; }
     public DbSet<Planejamento> Plannings { get; set; }
     public DbSet<PlanejamentoInsumo> PlannigInputs { get; set; }
     public DbSet<Telefone> Phones { get; set; }

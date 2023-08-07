@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Supply;
+using Urbamais.Domain.Entities.Suprimentos;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class OrderConfig : ConfigBase<Order>
+internal class OrderConfig : ConfigBase<Pedido>
 {
     public OrderConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,15 +13,15 @@ internal class OrderConfig : ConfigBase<Order>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Order>()
-            .Property(x => x.PlanningId)
+        builder.Entity<Pedido>()
+            .Property(x => x.PlanejamentoId)
             .HasColumnName("planning_id")
             .IsRequired();
 
-        builder.Entity<Order>()
-            .HasOne(x => x.Planning)
+        builder.Entity<Pedido>()
+            .HasOne(x => x.Planejamento)
             .WithMany(x => x.Ordens)
-            .HasForeignKey(x => x.PlanningId)
+            .HasForeignKey(x => x.PlanejamentoId)
             .IsRequired();
     }
 }

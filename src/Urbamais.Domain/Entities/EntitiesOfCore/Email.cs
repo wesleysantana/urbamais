@@ -1,14 +1,14 @@
 ﻿using Core.Domain;
 using Urbamais.Domain.Entities.Obras;
-using Urbamais.Domain.Entities.Supplier;
+using Urbamais.Domain.Entities.Fornecedores;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
 public sealed class Email : EmailCore
 {
-    public ICollection<Collaborator>? Colaboradores { get; private set; }
+    public ICollection<Colaborador>? Colaboradores { get; private set; }
     public ICollection<Empresa>? Empresas { get; private set; }
-    public ICollection<Supplier.Supplier>? Fornecedores { get; private set; }
+    public ICollection<Fornecedor>? Fornecedores { get; private set; }
 
     public Email(string idUserCreation, string endereco) : base(idUserCreation, endereco)
     {

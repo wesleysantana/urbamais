@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Urbamais.Domain.Entities.EntitiesOfCore;
-using Urbamais.Domain.Entities.Supplier;
+using Urbamais.Domain.Entities.Fornecedores;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class CollaboratorConfig : ConfigBase<Collaborator>
+internal class CollaboratorConfig : ConfigBase<Colaborador>
 {
     public CollaboratorConfig(ModelBuilder builder) : base(builder)
     {
@@ -14,105 +14,105 @@ internal class CollaboratorConfig : ConfigBase<Collaborator>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Collaborator>()
-            .OwnsOne(x => x.Name)
+        builder.Entity<Colaborador>()
+            .OwnsOne(x => x.Nome)
             .Property(x => x.Value)
             .HasColumnName("name")
             .IsRequired()
             .HasMaxLength(255);
 
-        builder.Entity<Collaborator>()
+        builder.Entity<Colaborador>()
             .OwnsOne(x => x.Cpf)
             .Property(x => x.Value)
             .HasColumnName("cpf")
         .IsRequired()
         .HasMaxLength(11);
 
-        builder.Entity<Collaborator>()
-            .Property(x => x.NumberCTPS)
+        builder.Entity<Colaborador>()
+            .Property(x => x.NumeroCTPS)
             .HasColumnName("number_ctps")
             .IsRequired()
             .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
+        builder.Entity<Colaborador>()
             .Property(x => x.CTPS)
             .HasColumnName("ctps")
             .IsRequired()
             .HasMaxLength(25);
 
-        builder.Entity<Collaborator>()
-           .Property(x => x.NumberCNH)
+        builder.Entity<Colaborador>()
+           .Property(x => x.NumeroCNH)
            .HasColumnName("number_cnh")
            .HasMaxLength(9);
 
-        builder.Entity<Collaborator>()
+        builder.Entity<Colaborador>()
           .Property(x => x.CNH)
           .HasColumnName("cnh")
           .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
-            .Property(x => x.TypeCNH)
+        builder.Entity<Colaborador>()
+            .Property(x => x.TipoCNH)
             .HasColumnName("type_cnh")
             .HasMaxLength(2);
 
-        builder.Entity<Collaborator>()
-            .Property(x => x.ExpirationDateCNH)
+        builder.Entity<Colaborador>()
+            .Property(x => x.DataExpiracaoCNH)
             .HasColumnName("expiration_date_cnh");
 
-        builder.Entity<Collaborator>()
+        builder.Entity<Colaborador>()
           .Property(x => x.EPI)
           .HasColumnName("epi")
           .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
-          .Property(x => x.AdmissionExam)
+        builder.Entity<Colaborador>()
+          .Property(x => x.ExameAdimissional)
           .HasColumnName("admission_exam")
           .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
-          .Property(x => x.RegistrationForm)
+        builder.Entity<Colaborador>()
+          .Property(x => x.FichaRegistro)
           .HasColumnName("registration_form")
           .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
-         .Property(x => x.ServiceOrder)
+        builder.Entity<Colaborador>()
+         .Property(x => x.OrdemServico)
          .HasColumnName("service_order")
          .HasMaxLength(50);
 
-        builder.Entity<Collaborator>()
-            .Property(x => x.NumberAdmissionExam)
+        builder.Entity<Colaborador>()
+            .Property(x => x.NumeroExameAdmissional)
             .HasColumnName("number_admission_exam")
             .HasMaxLength(20);
 
-        builder.Entity<Collaborator>()
-            .Property(x => x.ExpirationDateAdmissionExam)
+        builder.Entity<Colaborador>()
+            .Property(x => x.DataExpiracaoExameAdmissional)
             .HasColumnName("expiration_date_admission_exam");
 
-        builder.Entity<Collaborator>()
-            .HasMany(x => x.Address)
+        builder.Entity<Colaborador>()
+            .HasMany(x => x.Enderecos)
             .WithMany(x => x.Colaboradores)
             .UsingEntity<Dictionary<string, object>>(
                 "collaborators_addresses",
                 x => x.HasOne<Endereco>().WithMany().HasForeignKey("address_id"),
-                x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
+                x => x.HasOne<Colaborador>().WithMany().HasForeignKey("collaborator_id")
             );
 
-        builder.Entity<Collaborator>()
+        builder.Entity<Colaborador>()
             .HasMany(x => x.Emails)
             .WithMany(x => x.Colaboradores)
             .UsingEntity<Dictionary<string, object>>(
                 "collaborators_emails",
                 x => x.HasOne<Email>().WithMany().HasForeignKey("email_id"),
-                x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
+                x => x.HasOne<Colaborador>().WithMany().HasForeignKey("collaborator_id")
             );
 
-        builder.Entity<Collaborator>()
-           .HasMany(x => x.Phones)
+        builder.Entity<Colaborador>()
+           .HasMany(x => x.Telefones)
            .WithMany(x => x.Colaboradores)
            .UsingEntity<Dictionary<string, object>>(
                "collaborators_phones",
                x => x.HasOne<Telefone>().WithMany().HasForeignKey("phone_id"),
-               x => x.HasOne<Collaborator>().WithMany().HasForeignKey("collaborator_id")
+               x => x.HasOne<Colaborador>().WithMany().HasForeignKey("collaborator_id")
            );
     }
 }

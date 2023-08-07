@@ -1,16 +1,16 @@
 ﻿using Core.Domain;
 using Urbamais.Domain.Entities.Obras;
-using Urbamais.Domain.Entities.Supplier;
-using Urbamais.Domain.Entities.Supply;
+using Urbamais.Domain.Entities.Fornecedores;
+using Urbamais.Domain.Entities.Suprimentos;
 
 namespace Urbamais.Domain.Entities.EntitiesOfCore;
 
 public sealed class Endereco : EnderecoCore
 {
-    public ICollection<Collaborator>? Colaboradores { get; private set; }
+    public ICollection<Colaborador>? Colaboradores { get; private set; }
     public ICollection<Empresa>? Empresas { get; private set; }
-    public ICollection<Supplier.Supplier>? Fornecedores { get; private set; }
-    public ICollection<Purchase>? Compras { get; private set; }
+    public ICollection<Fornecedor>? Fornecedores { get; private set; }
+    public ICollection<Compra>? Compras { get; private set; }
     public new int CidadeId { get; private set; }
     public new Cidade? Cidade { get; private set; }
 

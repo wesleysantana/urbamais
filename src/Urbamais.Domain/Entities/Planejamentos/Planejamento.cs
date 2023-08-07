@@ -1,6 +1,6 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
-using Urbamais.Domain.Entities.Supply;
+using Urbamais.Domain.Entities.Suprimentos;
 
 namespace Urbamais.Domain.Entities.Planejamentos;
 
@@ -9,7 +9,7 @@ public class Planejamento : BaseEntity, IAggregateRoot
     public int ObraId { get; private set; }
     public virtual Obras.Obra? Obra { get; private set; }
     public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
-    public virtual ICollection<Order>? Ordens { get; private set; }   
+    public virtual ICollection<Pedido>? Ordens { get; private set; }   
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 

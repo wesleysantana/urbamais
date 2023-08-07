@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Supplier;
+using Urbamais.Domain.Entities.Fornecedores;
 using Urbamais.Infra.Config.ConfigModels.Base;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
-internal class EquipmentConfig : ConfigBase<Equipment>
+internal class EquipmentConfig : ConfigBase<Equipamento>
 {
     public EquipmentConfig(ModelBuilder builder) : base(builder)
     {
@@ -13,27 +13,27 @@ internal class EquipmentConfig : ConfigBase<Equipment>
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Equipment>()
-            .OwnsOne(x => x.Name)
+        builder.Entity<Equipamento>()
+            .OwnsOne(x => x.Nome)
             .Property(x => x.Value)
             .HasColumnName("name")
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Entity<Equipment>()
-            .OwnsOne(x => x.Description)
+        builder.Entity<Equipamento>()
+            .OwnsOne(x => x.Descricao)
             .Property(x => x.Value)
             .HasColumnName("description")
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Entity<Equipment>()
-            .HasMany(x => x.Suppliers)
-            .WithMany(x => x.Equipments)
+        builder.Entity<Equipamento>()
+            .HasMany(x => x.Fornecedores)
+            .WithMany(x => x.Equipamentos)
             .UsingEntity<Dictionary<string, object>>(
                 "suppliers_equipaments",
-                x => x.HasOne<Supplier>().WithMany().HasForeignKey("supplier_id"),
-                x => x.HasOne<Equipment>().WithMany().HasForeignKey("equipament_id")
+                x => x.HasOne<Fornecedor>().WithMany().HasForeignKey("supplier_id"),
+                x => x.HasOne<Equipamento>().WithMany().HasForeignKey("equipament_id")
             );
     }
 }

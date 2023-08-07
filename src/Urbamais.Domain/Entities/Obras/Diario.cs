@@ -2,7 +2,7 @@
 using Core.SeedWork;
 using FluentValidation;
 using System.Reflection;
-using Urbamais.Domain.Entities.Supplier;
+using Urbamais.Domain.Entities.Fornecedores;
 
 namespace Urbamais.Domain.Entities.Obras;
 
@@ -14,10 +14,10 @@ public class Diario : BaseEntity, IAggregateRoot
     public virtual Obra Obra { get; private set; }
     public DateTime Data { get; private set; }
     public int FornecedorId { get; private set; }
-    public virtual Supplier.Supplier Fornecedor { get; private set; }
+    public virtual Fornecedor Fornecedor { get; private set; }
     public string DescricaoAtividade { get; private set; }
     public int ColaboradorId { get; private set; }
-    public virtual Collaborator Colaborador { get; private set; }
+    public virtual Colaborador Colaborador { get; private set; }
 
     public IReadOnlyCollection<FileStream> Fotos
     {
@@ -32,8 +32,8 @@ public class Diario : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Diario(string idUserCreation, Obra obra, DateTime data, Supplier.Supplier fornecedor,
-        string descricaoAtividade, Collaborator colaborador, List<FileStream> fotos)
+    public Diario(string idUserCreation, Obra obra, DateTime data, Fornecedores.Fornecedor fornecedor,
+        string descricaoAtividade, Colaborador colaborador, List<FileStream> fotos)
     {
         Obra = obra;
         Data = data;
@@ -61,8 +61,8 @@ public class Diario : BaseEntity, IAggregateRoot
             IdUserCreation = idUserCreation;
     }    
 
-    public void Update(string idUserModification, Obra? obra = null, DateTime? data = null, Supplier.Supplier? fornecedor = null,
-        string? descricaoAtividade = null, Collaborator? colaborador = null, List<FileStream>? fotos = null)
+    public void Update(string idUserModification, Obra? obra = null, DateTime? data = null, Fornecedores.Fornecedor? fornecedor = null,
+        string? descricaoAtividade = null, Colaborador? colaborador = null, List<FileStream>? fotos = null)
     {
         var memento = CreateMemento();
 
@@ -127,10 +127,10 @@ public class Diario : BaseEntity, IAggregateRoot
             EqualityComparer<Obra>.Default.Equals(Obra, diario.Obra) &&
             Data == diario.Data &&
             FornecedorId == diario.FornecedorId &&
-            EqualityComparer<Supplier.Supplier>.Default.Equals(Fornecedor, diario.Fornecedor) &&
+            EqualityComparer<Fornecedores.Fornecedor>.Default.Equals(Fornecedor, diario.Fornecedor) &&
             DescricaoAtividade == diario.DescricaoAtividade &&
             ColaboradorId == diario.ColaboradorId &&
-            EqualityComparer<Collaborator>.Default.Equals(Colaborador, diario.Colaborador);
+            EqualityComparer<Colaborador>.Default.Equals(Colaborador, diario.Colaborador);
     }
 
     public override int GetHashCode()

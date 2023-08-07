@@ -11,6 +11,6 @@ public class Empresa : PessoaJuridica
     protected Empresa() { }
 
     public Empresa(string idUserCreation, Nome nomeFantasia, Nome razaoSocial, Cnpj cnpj, string ie,
-    string? im, List<Endereco> listaEnderecos, List<Telefone>? listaTelefones, List<Email>? listaEmails)
-    : base(idUserCreation, nomeFantasia, razaoSocial, cnpj, ie, im, listaEnderecos, listaTelefones, listaEmails) { }
+    string? im, List<Endereco> listaEndereco, List<Telefone>? listaTelefone, List<Email>? listaEmail)
+    : base(idUserCreation, nomeFantasia, razaoSocial, cnpj, ie, im, listaEndereco, listaTelefone, listaEmail) { }
 }

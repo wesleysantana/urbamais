@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Urbamais.Domain.Entities.Supply;
+using Urbamais.Domain.Entities.Suprimentos;
 
 namespace Urbamais.Infra.Config.ConfigModels;
 
@@ -12,48 +12,48 @@ internal class PurchaseConfig
 
     private static void Config(ModelBuilder builder)
     {
-        builder.Entity<Purchase>()
+        builder.Entity<Compra>()
             .ToTable("purchase");
 
-        builder.Entity<Purchase>()
-            .Property(x => x.OrderId)
+        builder.Entity<Compra>()
+            .Property(x => x.PedidoId)
             .HasColumnName("order_id")
             .IsRequired();
 
-        builder.Entity<Purchase>()
-            .Property(x => x.InputId)
+        builder.Entity<Compra>()
+            .Property(x => x.InsumoId)
             .HasColumnName("input_id")
             .IsRequired();
 
-        builder.Entity<Purchase>()
-            .HasKey(x => new { x.OrderId, x.InputId });
+        builder.Entity<Compra>()
+            .HasKey(x => new { x.PedidoId, x.InsumoId });
 
-        builder.Entity<Purchase>()
-            .Property(x => x.SupplierId)
+        builder.Entity<Compra>()
+            .Property(x => x.FornecedorId)
             .HasColumnName("supplier_id")
             .IsRequired();
 
-        builder.Entity<Purchase>()
-            .Property(x => x.Amount)
+        builder.Entity<Compra>()
+            .Property(x => x.Quantidade)
             .HasColumnName("amount")
             .IsRequired();
 
-        builder.Entity<Purchase>()
-            .Property(x => x.UnitaryValue)
+        builder.Entity<Compra>()
+            .Property(x => x.ValorUnitario)
             .HasColumnName("unitary_value")
             .IsRequired();
 
-        builder.Entity<Purchase>()
-            .Property(x => x.DeliveryDate)
+        builder.Entity<Compra>()
+            .Property(x => x.DataEntrega)
             .HasColumnName("delivery_date");
 
-        builder.Entity<Purchase>()
-            .Property(x => x.DeliveryPlaceId)
+        builder.Entity<Compra>()
+            .Property(x => x.LocalEntregaId)
             .HasColumnName("delivery_place_id");
 
-        builder.Entity<Purchase>()
-            .HasOne(x => x.DeliveryPlace)
+        builder.Entity<Compra>()
+            .HasOne(x => x.LocalEntregaId)
             .WithMany(x => x.Compras)
-            .HasForeignKey(x => x.DeliveryPlaceId);
+            .HasForeignKey(x => x.LocalEntregaId);
     }
 }
