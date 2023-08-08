@@ -163,7 +163,7 @@ namespace Urbamais.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "59bfe934-5daa-4fdc-9c8a-b5ee9948670f",
+                            UserId = "f287461c-b983-418c-9b88-08b101e7201d",
                             RoleId = "af92719d-1d7f-4c80-aadc-ead1e2ab3a9d"
                         });
                 });
@@ -260,7 +260,9 @@ namespace Urbamais.Identity.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(100)
@@ -309,20 +311,20 @@ namespace Urbamais.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59bfe934-5daa-4fdc-9c8a-b5ee9948670f",
+                            Id = "f287461c-b983-418c-9b88-08b101e7201d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "084b4b3d-9165-46cf-bc85-898e1cf01e57",
-                            CreationDate = new DateTime(2023, 7, 26, 18, 17, 49, 28, DateTimeKind.Local).AddTicks(2281),
+                            ConcurrencyStamp = "907f6382-3be2-4f18-9457-e82274ff3dbd",
+                            CreationDate = new DateTime(2023, 8, 8, 9, 5, 29, 421, DateTimeKind.Local).AddTicks(3949),
                             Email = "dev@metamais.com",
                             EmailConfirmed = true,
-                            IdUserCreation = "484b4ff8-34fc-4d45-8f82-97a6276696d0",
+                            IdUserCreation = "be5391f6-c590-436c-b588-4f9c1b767ebf",
                             LockoutEnabled = false,
                             Name = "",
                             NormalizedEmail = "DEV@METAMAIS.COM",
                             NormalizedUserName = "DEV@METAMAIS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELNf8tswBgPYgVtNrtNLp95AokxeIUWIvYXEN/eKegbrhOlu6+4wVTRYmLOMQl2CXQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDbilRCukhZzm0Sis/WbivRLzfBv50EmvJdKDApwEDVZNu2A0t4V9f3x4678W8KwtA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "441ba3cb-4f24-4014-9972-57656c41e942",
+                            SecurityStamp = "a805f93d-bd6b-4ae9-b98f-50092a147e70",
                             TwoFactorEnabled = false,
                             UserName = "dev@metamais.com"
                         });

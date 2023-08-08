@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.RegularExpressions;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.V1.Role;
-using Urbamais.Application.ViewModels.Response.V1.Role;
+using Urbamais.Application.ViewModels.Request.V1.Perfil;
+using Urbamais.Application.ViewModels.Response.V1.Perfil;
+using Urbamais.Identity.Services;
 using Urbamais.WebApi.ControllersHelper;
 using Urbamais.WebApi.Shared;
 
@@ -13,12 +15,11 @@ namespace Urbamais.WebApi.Controllers.V1;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class RoleController : ControllerBase
+public class PerfilController : ControllerBase
 {
     private readonly IIdentityAppService _identityService;
-    private readonly string _nameController = "Role";
 
-    public RoleController(IIdentityAppService identityService)
+    public PerfilController(IIdentityAppService identityService)
     {
         _identityService = identityService;
     }
@@ -27,25 +28,50 @@ public class RoleController : ControllerBase
     [HttpGet("get_list_controllers")]
     public ActionResult<List<string>> GetlistControllers()
     {
-        if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+        if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
             return Unauthorized();
 
         return Ok(ListControllers.Instance.List.ToList());
     }
 
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<IdentityRole>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpGet("get-users-in-role")]
-    public async Task<ActionResult<RoleResponse>> GetUsersInRole(string roleName)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<IdentityRole>>> GetRoles()
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
                 return Unauthorized();
 
-            var result = await _identityService.GetUsersInRole(roleName);
+            var result = await ((IdentityService)_identityService).GetRoles();
+
+            if (!result.Any())
+                return NotFound();            
+
+            return Ok(result);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    [ProducesResponseType(typeof(PerfilResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [HttpGet("get-users-role")]
+    public async Task<ActionResult<PerfilResponse>> GetUsersInRole(string nomePerfil)
+    {
+        try
+        {
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
+                return Unauthorized();
+
+            var result = await _identityService.GetUsersInRole(nomePerfil);
 
             if (!result.Item1)
                 return NotFound();
@@ -61,22 +87,22 @@ public class RoleController : ControllerBase
         }
     }
 
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PerfilResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPost("register-role")]
-    public async Task<ActionResult<RoleResponse>> RegisterRole(RoleRequest roleRegister)
+    [HttpPost]
+    public async Task<ActionResult<PerfilResponse>> RegisterRole(PerfilRequest perfilRegistro)
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.CREATE))
                 return Unauthorized();
 
-            var validRoleAndClaims = ValidRoleAndClaims(roleRegister.Claims);
+            var validRoleAndClaims = ValidRoleAndClaims(perfilRegistro.Claims);
             if (validRoleAndClaims is not null)
                 return BadRequest(validRoleAndClaims);
 
-            var result = await _identityService.RegisterRole(roleRegister);
+            var result = await _identityService.RegisterRole(perfilRegistro);
 
             if (result.Errors.Count > 0)
             {
@@ -93,22 +119,22 @@ public class RoleController : ControllerBase
         }
     }
 
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PerfilResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPut("update-role")]
-    public async Task<ActionResult<RoleResponse>> UpdateRole(string name, RoleUpdateRequest roleUpdate)
+    [HttpPut]
+    public async Task<ActionResult<PerfilResponse>> UpdateRole(string name, PerfilUpdateRequest perfilUpdate)
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
-            var validRoleAndClaims = ValidRoleAndClaims(roleUpdate.Claims!);
+            var validRoleAndClaims = ValidRoleAndClaims(perfilUpdate.Claims!);
             if (validRoleAndClaims is not null)
                 return BadRequest(validRoleAndClaims);
 
-            var result = await _identityService.UpdateRole(name, roleUpdate);
+            var result = await _identityService.UpdateRole(name, perfilUpdate);
 
             if (!result.Item1)
             {
@@ -130,18 +156,18 @@ public class RoleController : ControllerBase
         }
     }
 
-    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(PerfilResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpDelete("delete-role")]
-    public async Task<ActionResult<RoleResponse>> DeleteRole(RoleRequest roleDelete)
+    [HttpDelete]
+    public async Task<ActionResult<PerfilResponse>> DeleteRole(PerfilRequest perfilDelete)
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.DELETE))
                 return Unauthorized();
 
-            var result = await _identityService.DeleteRole(roleDelete.Name);
+            var result = await _identityService.DeleteRole(perfilDelete.Name);
 
             if (!result.Item1)
             {

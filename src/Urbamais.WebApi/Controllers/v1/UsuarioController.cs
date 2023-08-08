@@ -13,12 +13,11 @@ namespace Urbamais.WebApi.Controllers.V1;
 [Route("api/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
-public class UserController : ControllerBase
+public class UsuarioController : ControllerBase
 {
     private readonly IIdentityAppService _identityService;
-    private readonly string _nameController = "User";
 
-    public UserController(IIdentityAppService identityService)
+    public UsuarioController(IIdentityAppService identityService)
     {
         _identityService = identityService;
     }
@@ -34,7 +33,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
                 return Unauthorized();
 
             var response = await _identityService.GetUsers(cancellationToken);
@@ -59,7 +58,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.CREATE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -97,7 +96,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -135,7 +134,7 @@ public class UserController : ControllerBase
         var result = await _identityService.Login(userLogin);
         if (result.Success)
         {
-            ListClaims.Instance.Claims = userLogin.Claims;
+            ListPerfis.Instance.Claims = userLogin.Claims;
             return Ok(result);
         }
 
@@ -171,7 +170,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.DELETE))
                 return Unauthorized();
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

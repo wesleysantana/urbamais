@@ -1,6 +1,6 @@
-﻿namespace Urbamais.Application.ViewModels.Request.V1.Role;
+﻿namespace Urbamais.Application.ViewModels.Request.V1.Perfil;
 
-public class RoleUpdateRequest
+public class PerfilUpdateRequest
 {
     public string? Name { get; set; }
 

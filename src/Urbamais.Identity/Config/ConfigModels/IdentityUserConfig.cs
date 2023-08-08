@@ -16,6 +16,12 @@ internal class IdentityUserConfig
             .HasMaxLength(100);
 
         builder.Entity<ApplicationUser>()
+            .Property(x => x.Name)
+            .HasColumnName("name")
+            .HasMaxLength(250)
+            .IsRequired();
+
+        builder.Entity<ApplicationUser>()
             .Property(x => x.UserName)
             .HasColumnName("user_name")
             .HasMaxLength(100)

@@ -100,47 +100,8 @@ public class CidadeApp : ICidadeApp
         return await ResultQuery(query, cancellationToken);
     }
 
-    //public async Task<IList<City>> Query(IFilterRequest filter, CancellationToken cancellationToken)
-    //{
-    //    var pbClienteContato = PredicateBuilder.True<City>();
-    //    CityFilterRequest? cityFilter = filter as CityFilterRequest;
-
-    //    if (!string.IsNullOrWhiteSpace(cityFilter!.Name))
-    //        pbClienteContato = pbClienteContato.And(x => x.Name.Name!.ToLower().Contains(cityFilter.Name.ToLower()));
-
-    //    var lista = _service.List(pbClienteContato, cancellationToken);
-
-    //    return await lista;
-    //}
-
     public async Task<IList<Cidade>> ResultQuery(IQueryable<Cidade> query, CancellationToken cancellationToken) =>
-        await _service.ResultQuery(query, cancellationToken);
-
-    //public async Task<List<City>> ListarPaginado(int pagina, int tamanhoPagina, Expression<Func<Cliente, bool>> predicate)
-    //{
-    //    var pular = (pagina - 1) * tamanhoPagina;
-
-    //    var clientes = _context.Clientes.Include(c => c.Contatos).Where(predicate).OrderBy(c => c.Nome).Skip(pular).Take(tamanhoPagina).Select(c => new Cliente
-    //    {
-    //        CustomerSuccess = c.CustomerSuccess,
-    //        DataCriacao = c.DataCriacao,
-    //        DataEdicao = c.DataEdicao,
-    //        IdCustomerSuccess = c.IdCustomerSuccess,
-    //        Nome = c.Nome,
-    //        ResponsavelCriacao = c.ResponsavelCriacao,
-    //        ResponsavelEdicao = c.ResponsavelEdicao,
-    //        Setor = c.Setor,
-    //        SetorId = c.SetorId,
-    //        Nomeada = c.Nomeada,
-    //        ServicosAtivos = c.ServicosAtivos,
-    //        Solicitacoes = c.Solicitacoes,
-    //        Telefone = c.Telefone,
-    //        Id = c.Id,
-    //        Contatos = c.Contatos
-    //    }).ToList();
-
-    //    return clientes;
-    //}
+        await _service.ResultQuery(query, cancellationToken);    
 
     #endregion Query
 }

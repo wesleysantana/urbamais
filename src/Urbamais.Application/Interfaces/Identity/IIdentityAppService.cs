@@ -1,6 +1,6 @@
-﻿using Urbamais.Application.ViewModels.Request.V1.Role;
+﻿using Urbamais.Application.ViewModels.Request.V1.Perfil;
 using Urbamais.Application.ViewModels.Request.V1.User;
-using Urbamais.Application.ViewModels.Response.V1.Role;
+using Urbamais.Application.ViewModels.Response.V1.Perfil;
 using Urbamais.Application.ViewModels.Response.V1.User;
 
 namespace Urbamais.Application.Interfaces.Identity;
@@ -17,11 +17,11 @@ public interface IIdentityAppService
 
     Task<Tuple<bool, UserRegisterResponse>> UpdateUser(string userIdUpdate, UserUpdateRequest userRequest, string userId);
 
-    Task<RoleResponse> RegisterRole(RoleRequest roleRequest);
+    Task<PerfilResponse> RegisterRole(PerfilRequest roleRequest);
 
-    Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleUpdateRequest roleRequest);
+    Task<Tuple<bool, PerfilResponse>> UpdateRole(string name, PerfilUpdateRequest roleRequest);
 
-    Task<Tuple<bool, RoleResponse>> DeleteRole(string name);
+    Task<Tuple<bool, PerfilResponse>> DeleteRole(string name);
 
     Task<Tuple<bool, List<UserResponse>>> GetUsersInRole(string name);
 

@@ -9,7 +9,7 @@ public static class AuthorizeAccess
         if (user.IsInRole("developer"))
             return true;
 
-        if (ListClaims.Instance.Claims!.Any(x => x.Key == nameController && x.Value.Contains(value)))
+        if (ListPerfis.Instance.Claims!.Any(x => x.Key == nameController.Replace("Controller", "") && x.Value.Contains(value)))
             return true;
 
         return false;

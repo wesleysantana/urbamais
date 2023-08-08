@@ -17,7 +17,6 @@ public class CidadeController : ControllerBase
 {
     private readonly ICidadeApp _cityApp;
     private readonly IMapper _mapper;
-    private readonly string _nameController = "Cidade";
 
     public CidadeController(ICidadeApp CityApp, IMapper mapper)
     {
@@ -35,7 +34,7 @@ public class CidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
                 return Unauthorized();
 
             var response = await _cityApp.Query(filtro, cancellationToken);
@@ -62,7 +61,7 @@ public class CidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
                 return Unauthorized();
 
             var city = _mapper.Map<CidadeResponse>(await _cityApp.Get(id));
@@ -88,7 +87,7 @@ public class CidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.CREATE))
                 return Unauthorized();
 
             cityRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -122,7 +121,7 @@ public class CidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
             cityRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -161,7 +160,7 @@ public class CidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.DELETE))
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

@@ -19,7 +19,6 @@ public class UnidadeController : ControllerBase
 {
     private readonly IUnidadeApp _unitApp;
     private readonly IMapper _mapper;
-    private readonly string _nameController = "Unidade";
 
     public UnidadeController(IUnidadeApp unitApp, IMapper mapper)
     {
@@ -37,7 +36,7 @@ public class UnidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ)) 
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ)) 
                 return Unauthorized();
 
             var response = await _unitApp.Query(filtro, cancellationToken);
@@ -64,7 +63,7 @@ public class UnidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.READ))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.READ))
                 return Unauthorized();
 
             var unit = _mapper.Map<UnidadeResponse>(await _unitApp.Get(id));
@@ -90,7 +89,7 @@ public class UnidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.CREATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.CREATE))
                 return Unauthorized();
 
             unitRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -124,7 +123,7 @@ public class UnidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.UPDATE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
             unitRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
@@ -163,7 +162,7 @@ public class UnidadeController : ControllerBase
     {
         try
         {
-            if (!AuthorizeAccess.Valid(User, _nameController, Constants.DELETE))
+            if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.DELETE))
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

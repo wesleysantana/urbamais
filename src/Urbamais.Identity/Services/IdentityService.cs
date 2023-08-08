@@ -5,9 +5,9 @@ using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Urbamais.Application.Interfaces.Identity;
-using Urbamais.Application.ViewModels.Request.V1.Role;
+using Urbamais.Application.ViewModels.Request.V1.Perfil;
 using Urbamais.Application.ViewModels.Request.V1.User;
-using Urbamais.Application.ViewModels.Response.V1.Role;
+using Urbamais.Application.ViewModels.Response.V1.Perfil;
 using Urbamais.Application.ViewModels.Response.V1.User;
 
 namespace Urbamais.Identity.Services;
@@ -208,7 +208,7 @@ public class IdentityService : IIdentityAppService
         return Tuple.Create(true, roleRegisterResponse);
     }
 
-    public async Task<RoleResponse> RegisterRole(RoleRequest roleRequest)
+    public async Task<PerfilResponse> RegisterRole(PerfilRequest roleRequest)
     {
         var identityRole = new IdentityRole
         {
@@ -225,43 +225,46 @@ public class IdentityService : IIdentityAppService
             }
         }
 
-        var roleRegisterResponse = new RoleResponse(result.Succeeded);
+        var roleRegisterResponse = new PerfilResponse(result.Succeeded);
         if (!result.Succeeded && result.Errors.Any())
             roleRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
 
         return roleRegisterResponse;
     }
 
-    public async Task<Tuple<bool, RoleResponse>> UpdateRole(string name, RoleUpdateRequest roleRequest)
+    public async Task<IEnumerable<IdentityRole>> GetRoles() =>
+        await _roleManager.Roles.Where(x => x.Name != "developer").ToListAsync();    
+
+    public async Task<Tuple<bool, PerfilResponse>> UpdateRole(string name, PerfilUpdateRequest roleRequest)
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 
         if (role is null || role.Name!.Equals("developer"))
-            return Tuple.Create(false, new RoleResponse());
+            return Tuple.Create(false, new PerfilResponse());
 
         role.Name = roleRequest.Name;
 
         var result = await _roleManager.UpdateAsync(role);
 
-        var roleRegisterResponse = new RoleResponse(result.Succeeded);
+        var roleRegisterResponse = new PerfilResponse(result.Succeeded);
         if (!result.Succeeded && result.Errors.Any())
             roleRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));
 
         return Tuple.Create(true, roleRegisterResponse);
     }
 
-    public async Task<Tuple<bool, RoleResponse>> DeleteRole(string name)
+    public async Task<Tuple<bool, PerfilResponse>> DeleteRole(string name)
     {
         var role = _roleManager.FindByNameAsync(name).Result;
 
         if (role is null || role.Name!.Equals("developer"))
-            return Tuple.Create(false, new RoleResponse());
+            return Tuple.Create(false, new PerfilResponse());
 
         var usersInRole = await _userManager.GetUsersInRoleAsync(name);
 
         if (usersInRole.Any(x => x.DeletionDate is null))
         {
-            var roleResponse = new RoleResponse(false);
+            var roleResponse = new PerfilResponse(false);
             roleResponse.AddErrors(new List<string> { "Existem usuário(s) ativo(s) com esta permissão. Exclusão não permitida" });
             return Tuple.Create(true, roleResponse);
         }
@@ -277,7 +280,7 @@ public class IdentityService : IIdentityAppService
 
         var result = await _roleManager.DeleteAsync(role);
 
-        var roleRegisterResponse = new RoleResponse(result.Succeeded);
+        var roleRegisterResponse = new PerfilResponse(result.Succeeded);
 
         if (!result.Succeeded && result.Errors.Any())
             roleRegisterResponse.AddErrors(result.Errors.Select(r => r.Description));

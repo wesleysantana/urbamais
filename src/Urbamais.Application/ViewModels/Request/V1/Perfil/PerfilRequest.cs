@@ -1,13 +1,13 @@
 ﻿using Core.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace Urbamais.Application.ViewModels.Request.V1.Role;
+namespace Urbamais.Application.ViewModels.Request.V1.Perfil;
 
-public class RoleRequest
+public class PerfilRequest
 { 
     [Required(ErrorMessage = DataAnnotationsMessages.REQUIRED)]
     [StringLength(50, ErrorMessage = DataAnnotationsMessages.STRINGLENGHT, MinimumLength = 2)]
     public string Name { get; set; } = string.Empty;
-    
+
     public IDictionary<string, string> Claims { get; set; } = new Dictionary<string, string>();    
 }

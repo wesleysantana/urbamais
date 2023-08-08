@@ -10,10 +10,10 @@ public class Unidade : BaseEntity, IAggregateRoot
     public string Sigla { get; private set; }   
     public virtual ICollection<Insumo>? Insumos { get; private set; }
 
-    public Unidade(string idUserCreation, string description, string acronym)
+    public Unidade(string idUserCreation, string descricao, string sigla)
     {
-        Descricao = description.Trim();
-        Sigla = acronym.Trim();
+        Descricao = descricao.Trim();
+        Sigla = sigla.Trim();
 
         Validate(this, new UnidadeValidator());
 
@@ -26,12 +26,12 @@ public class Unidade : BaseEntity, IAggregateRoot
             IdUserCreation = idUserCreation;
     }
 
-    public void Update(string idUserModification, string? description = null, string? acronym = null)
+    public void Update(string idUserModification, string? descricao = null, string? sigla = null)
     {
         var memento = CreateMemento();
 
-        if (!string.IsNullOrWhiteSpace(description)) Descricao = description.Trim();
-        if (!string.IsNullOrWhiteSpace(acronym)) Sigla = acronym.Trim();
+        if (!string.IsNullOrWhiteSpace(descricao)) Descricao = descricao.Trim();
+        if (!string.IsNullOrWhiteSpace(sigla)) Sigla = sigla.Trim();
 
         Validate(this, new UnidadeValidator());
 
