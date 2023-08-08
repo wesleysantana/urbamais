@@ -53,7 +53,7 @@ public class UsuarioController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [Authorize]
-    [HttpPost("register-user")]
+    [HttpPost]
     public async Task<ActionResult<UserRegisterResponse>> RegisterUser(UserRegisterRequest userRegister)
     {
         try
@@ -64,13 +64,7 @@ public class UsuarioController : ControllerBase
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var result = await _identityService.RegisterUser(userRegister, userId!);
 
-            if (!result.Item1)
-            {
-                var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item2.Errors);
-                return BadRequest(problemDetails);
-            }
-
-            if (result.Item2.Errors.Count > 0)
+            if (!result.Item1 || result.Item2.Errors.Count > 0)
             {
                 var problemDetails = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: result.Item2.Errors);
                 return BadRequest(problemDetails);
@@ -110,7 +104,7 @@ public class UsuarioController : ControllerBase
             if (!user.Item2.Success)
             {
                 var problemDetail =
-                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: user.Item2.Errors);
+                    new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: user.Item2.Errors);
 
                 return BadRequest(problemDetail);
             }
@@ -165,7 +159,7 @@ public class UsuarioController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [Authorize]
-    [HttpDelete("delete-user")]
+    [HttpDelete]
     public async Task<ActionResult<UserResponse>> DeleteUser(string userIdDelete)
     {
         try
