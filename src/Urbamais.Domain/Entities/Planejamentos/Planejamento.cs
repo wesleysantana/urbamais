@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
+using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.Suprimentos;
 
 namespace Urbamais.Domain.Entities.Planejamentos;
@@ -7,7 +8,7 @@ namespace Urbamais.Domain.Entities.Planejamentos;
 public class Planejamento : BaseEntity, IAggregateRoot
 {
     public int ObraId { get; private set; }
-    public virtual Obras.Obra? Obra { get; private set; }
+    public virtual Obra? Obra { get; private set; }
     public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
     public virtual ICollection<Pedido>? Ordens { get; private set; }   
 
