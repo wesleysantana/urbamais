@@ -1,6 +1,6 @@
 ﻿namespace Core.Enums;
 
-public enum FileType
+public enum TipoArquivo
 {
     CNH,
     EPI,
