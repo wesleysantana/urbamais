@@ -3,25 +3,25 @@ using FluentValidation;
 
 namespace Core.ValueObjects;
 
-public class ValorUnitario : ValueObjectDecimal
+public class Quantidade : ValueObjectDouble
 {
-    public ValorUnitario(decimal valor)
+    public Quantidade(double valor)
     {
         Value = valor;
 
-        Validate(this, new ValorUnitarioValidator());
+        Validate(this, new QuantidadeValidator());
 
         if (!IsValid)
             Value = default;
     }
 
-    public void Update(decimal valor)
+    public void Update(double valor)
     {
         var memento = CreateMemento();
 
         Value = valor;
 
-        Validate(this, new ValorUnitarioValidator());
+        Validate(this, new QuantidadeValidator());
 
         if (!IsValid)
             RestoreMemento(memento);
@@ -31,7 +31,7 @@ public class ValorUnitario : ValueObjectDecimal
 
     public override bool Equals(object? obj)
     {
-        return obj is ValorUnitario vO &&
+        return obj is Quantidade vO &&
                Value == vO.Value;
     }
 
@@ -40,15 +40,15 @@ public class ValorUnitario : ValueObjectDecimal
         return HashCode.Combine(Value);
     }
 
-    public static bool operator ==(ValorUnitario left, ValorUnitario right) => left.Equals(right);
+    public static bool operator ==(Quantidade left, Quantidade right) => left.Equals(right);
 
-    public static bool operator !=(ValorUnitario left, ValorUnitario right) => !left.Equals(right);
+    public static bool operator !=(Quantidade left, Quantidade right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
 
-    private class ValorUnitarioValidator : AbstractValidator<ValorUnitario>
+    private class QuantidadeValidator : AbstractValidator<Quantidade>
     {
-        public ValorUnitarioValidator()
+        public QuantidadeValidator()
         {
             RuleFor(x => x.Value)
                 .NotNull()

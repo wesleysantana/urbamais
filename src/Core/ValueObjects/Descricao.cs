@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using Core.ValueObjects.Base;
+using FluentValidation;
 
 namespace Core.ValueObjects;
 
-public sealed class Descricao : ValueObjectBase
+public sealed class Descricao : ValueObjectString
 {
     public Descricao(string descricao)
     {
@@ -14,6 +15,18 @@ public sealed class Descricao : ValueObjectBase
 
     protected Descricao()
     {
+    }
+
+    public void Update(string valor)
+    {
+        var memento = CreateMemento();
+
+        Value = valor;
+
+        Validate(this, new DescricaoValidator());
+
+        if (!IsValid)
+            RestoreMemento(memento);
     }
 
     #region Sobrescrita Object

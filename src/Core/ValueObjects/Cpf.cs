@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using Core.ValueObjects.Base;
+using FluentValidation;
 
 namespace Core.ValueObjects;
 
-public sealed class Cpf : ValueObjectBase
+public sealed class Cpf : ValueObjectString
 {
     public Cpf(string cpf)
     {
@@ -15,6 +16,18 @@ public sealed class Cpf : ValueObjectBase
     protected Cpf()
     {
     }
+
+    public void Update(string valor)
+    {
+        var memento = CreateMemento();
+
+        Value = valor;
+
+        Validate(this, new CpfValidator());
+
+        if (!IsValid)
+            RestoreMemento(memento);
+    }    
 
     #region Sobrescrita Object
 

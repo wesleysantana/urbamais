@@ -1,4 +1,4 @@
-﻿using Core.ValueObjects;
+﻿using Core.ValueObjects.Base;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

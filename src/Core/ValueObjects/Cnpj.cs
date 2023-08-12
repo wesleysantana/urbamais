@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using Core.ValueObjects.Base;
+using FluentValidation;
 
 namespace Core.ValueObjects;
 
-public sealed class Cnpj : ValueObjectBase
+public sealed class Cnpj : ValueObjectString
 {
     public Cnpj(string cnpj)
     {
@@ -14,6 +15,18 @@ public sealed class Cnpj : ValueObjectBase
 
     protected Cnpj()
     {
+    }
+
+    public void Update(string valor)
+    {
+        var memento = CreateMemento();
+
+        Value = valor;
+
+        Validate(this, new CnpjValidator());
+
+        if (!IsValid)
+            RestoreMemento(memento);
     }
 
     #region Sobrescrita Object

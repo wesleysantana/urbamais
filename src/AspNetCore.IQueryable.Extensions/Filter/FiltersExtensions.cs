@@ -1,4 +1,4 @@
-﻿using Core.ValueObjects;
+﻿using Core.ValueObjects.Base;
 using System;
 using System.Collections;
 using System.Linq;
