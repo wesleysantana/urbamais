@@ -1,14 +1,12 @@
-﻿using Core.Domain.Interfaces;
-using Core.SeedWork;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Core.Domain;
+namespace Core.ValueObjects;
 
-public class ValorUnitarioCore : BaseValidate, IEntity
+public class ValorUnitario : ValueObjectBase
 {
     public decimal Valor { get; private set; }
 
-    public ValorUnitarioCore(decimal valor)
+    public ValorUnitario(decimal valor)
     {
         Valor = valor;
 
@@ -49,7 +47,9 @@ public class ValorUnitarioCore : BaseValidate, IEntity
         Valor = state.Valor;
     }
 
-    private class ValorUnitarioCoreValidator : AbstractValidator<ValorUnitarioCore>
+    #endregion Memento
+
+    private class ValorUnitarioCoreValidator : AbstractValidator<ValorUnitario>
     {
         public ValorUnitarioCoreValidator()
         {
