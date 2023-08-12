@@ -1,4 +1,5 @@
-﻿using Core.Domain.Interfaces;
+﻿using Core.Domain;
+using Core.Domain.Interfaces;
 using Core.SeedWork;
 using Urbamais.Domain.Entities.Fornecedores;
 
@@ -11,16 +12,16 @@ public class Concorrencia : BaseValidate, IEntity
     public virtual Pedido? Pedido { get; private set; }
     public int FornecedorId { get; private set; }
     public virtual Fornecedor? Fornecedor { get; private set; }
-    public decimal ValorUnitario { get; private set; }
+    public ValorUnitarioCore ValorUnitario { get; private set; }
     public double Quantidade { get; private set; }
     public string FormaPagamento { get; private set; }
     public string CondicaoPagamento { get; private set; }
-    public decimal ValorEntrega { get; private set; }
+    public ValorUnitarioCore ValorEntrega { get; private set; }
     public DateTime PrazoEntrega { get; private set; }
     public string Observacao { get; private set; }
 
-    public Concorrencia(int id, int idPedido, int fornecedorId, decimal valorUnitario, double quantidade, 
-        string formaPagamento, string condicaoPagamento, decimal valorEntrega, DateTime prazoEntrega, string observacao)
+    public Concorrencia(int id, int idPedido, int fornecedorId, ValorUnitarioCore valorUnitario, double quantidade, 
+        string formaPagamento, string condicaoPagamento, ValorUnitarioCore valorEntrega, DateTime prazoEntrega, string observacao)
     {
         Id = id;
         IdPedido = idPedido;
