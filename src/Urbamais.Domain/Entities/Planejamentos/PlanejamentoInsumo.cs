@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
+using Core.ValueObjects;
 using FluentValidation;
 using System.Reflection;
 
@@ -12,19 +13,21 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
     public virtual Planejamento? Planejamento { get; private set; }
     public int InsumoId { get; private set; }
     public virtual Insumo? Insumo { get; private set; }
-    public decimal ValorUnitario { get; private set; }
+    public ValorUnitario ValorUnitario { get; private set; }
     public int UnidadeId { get; private set; }
     public virtual Unidade? Unidade { get; private set; }
-    public double Quantidade { get; private set; }
+    public Quantidade Quantidade { get; private set; }
     public DateTime DataInicial { get; private set; }
     public DateTime DataFinal { get; private set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     protected PlanejamentoInsumo()
-    {
-    }
+    { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+   
 
-    public PlanejamentoInsumo(int planejamentoId, int insumoId, int unidadeId, decimal valorUnitario,
-        double quantidade, DateTime dataInicial, DateTime dataFinal)
+    public PlanejamentoInsumo(int planejamentoId, int insumoId, int unidadeId, ValorUnitario valorUnitario,
+        Quantidade quantidade, DateTime dataInicial, DateTime dataFinal)
     {
         PlanejamentoId = planejamentoId;
         InsumoId = insumoId;
@@ -34,7 +37,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
         DataInicial = dataInicial;
         DataFinal = dataFinal;
 
-        Validate(this, new PlanejamentoInsumoValidator());
+        Validate();
 
         if (!IsValid)
         {
@@ -44,20 +47,28 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
         }
     }
 
-    public void Update(int? planejamentoId = null, int? insumoId = null, int? unidadeId = null, decimal? valorUnitario = null,
-        double? quantidade = null, DateTime? dataInicial = null, DateTime? dataFinal = null)
+    private void Validate()
+    {
+        ValidationResult?.Errors.AddRange(ValorUnitario.ValidationResult!.Errors);
+        ValidationResult?.Errors.AddRange(Quantidade.ValidationResult!.Errors);
+
+        Validate(this, new PlanejamentoInsumoValidator());
+    }
+
+    public void Update(int? planejamentoId = null, int? insumoId = null, int? unidadeId = null, ValorUnitario? valorUnitario = null,
+        Quantidade? quantidade = null, DateTime? dataInicial = null, DateTime? dataFinal = null)
     {
         var memento = CreateMemento();
 
         if (planejamentoId is not null) PlanejamentoId = (int)planejamentoId;
         if (insumoId is not null) InsumoId = (int)insumoId;
         if (unidadeId is not null) UnidadeId = (int)unidadeId;
-        if (valorUnitario is not null) ValorUnitario = (decimal)valorUnitario;
-        if (quantidade is not null) Quantidade = (double)quantidade;
+        if (valorUnitario is not null) ValorUnitario = valorUnitario;
+        if (quantidade is not null) Quantidade = quantidade;
         if (dataInicial is not null) DataInicial = (DateTime)dataInicial;
         if (dataFinal is not null) DataFinal = (DateTime)dataFinal;
 
-        Validate(this, new PlanejamentoInsumoValidator());
+        Validate();
 
         if (!IsValid)
             RestoreMemento(memento);
@@ -96,6 +107,40 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
 
     #endregion Memento
 
+    #region Sobrescrita Object
+
+    public override string ToString() => $"Planejamento Insumo - PlanejamentoId: {PlanejamentoId}, Insumo: {InsumoId}-{Insumo?.Descricao}, " +
+        $"";    
+
+    public override bool Equals(object? obj)
+    {
+        return obj is PlanejamentoInsumo insumo &&
+               Id == insumo.Id &&
+               PlanejamentoId == insumo.PlanejamentoId &&
+               InsumoId == insumo.InsumoId &&
+               ValorUnitario == insumo.ValorUnitario &&
+               UnidadeId == insumo.UnidadeId &&
+               Quantidade == insumo.Quantidade &&
+               DataInicial == insumo.DataInicial &&
+               DataFinal == insumo.DataFinal;
+    }
+
+    public override int GetHashCode()
+    {
+        HashCode hash = new();
+        hash.Add(Id);
+        hash.Add(PlanejamentoId);
+        hash.Add(InsumoId);
+        hash.Add(ValorUnitario);
+        hash.Add(UnidadeId);
+        hash.Add(Quantidade);
+        hash.Add(DataInicial);
+        hash.Add(DataFinal);
+        return hash.ToHashCode();
+    }
+
+    #endregion Sobrescrita Object
+
     private class PlanejamentoInsumoValidator : AbstractValidator<PlanejamentoInsumo>
     {
         public PlanejamentoInsumoValidator()
@@ -110,15 +155,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
 
             RuleFor(x => x.UnidadeId)
                 .NotNull()
-                .NotEqual(0);
-
-            RuleFor(x => x.ValorUnitario)
-                .NotNull()
-                .Must(x => x > 0);
-
-            RuleFor(x => x.Quantidade)
-                .NotNull()
-                .Must(x => x > 0);
+                .NotEqual(0);           
 
             RuleFor(x => x.DataInicial)
                 .Must(date => date != default);

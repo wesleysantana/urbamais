@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
+using Core.ValueObjects;
 using Urbamais.Domain.Entities.Obras;
 using Urbamais.Domain.Entities.Suprimentos;
 
@@ -10,7 +11,7 @@ public class Planejamento : BaseEntity, IAggregateRoot
     public int ObraId { get; private set; }
     public virtual Obra? Obra { get; private set; }
     public virtual ICollection<PlanejamentoInsumo>? PlanejamentosInsumos { get; private set; }
-    public virtual ICollection<Pedido>? Ordens { get; private set; }   
+    public virtual ICollection<Pedido>? Ordens { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -32,6 +33,10 @@ public class Planejamento : BaseEntity, IAggregateRoot
         ModificationDate = DateTime.Now;
     }
 
+    #region Sobrescrita Object
+
+    public override string ToString() => $"Planejamento - Id: {Id}, Obra: {ObraId}";
+
     public override bool Equals(object? obj)
     {
         return obj is Planejamento planejamento &&
@@ -43,4 +48,6 @@ public class Planejamento : BaseEntity, IAggregateRoot
     {
         return HashCode.Combine(ObraId);
     }
+
+    #endregion Sobrescrita Object
 }

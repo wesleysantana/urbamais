@@ -1,4 +1,5 @@
-﻿using Urbamais.Domain.Entities.EntitiesOfCore;
+﻿using Core.ValueObjects;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Fornecedores;
 using Urbamais.Domain.Entities.Planejamentos;
 
@@ -12,8 +13,8 @@ public class Compra
     public virtual Insumo? Insumo { get; private set; }
     public int FornecedorId { get; private set; }
     public virtual Fornecedor? Fornecedor { get; private set; }
-    public double Quantidade { get; private set; }
-    public decimal ValorUnitario { get; private set; }
+    public Quantidade Quantidade { get; private set; }
+    public ValorUnitario ValorUnitario { get; private set; }
     public DateTime? DataEntrega { get; private set; }
     public int? LocalEntregaId { get; private set; }
     public virtual Endereco? LocalEntrega { get; private set; }
@@ -25,8 +26,8 @@ public class Compra
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Compra(int pedidoId, int insumoId, int fornecedorId, double quantidade,
-        decimal valorUnitario, DateTime dataEntrega, int localEntregaId)
+    public Compra(int pedidoId, int insumoId, int fornecedorId, Quantidade quantidade,
+        ValorUnitario valorUnitario, DateTime dataEntrega, int localEntregaId)
     {
         PedidoId = pedidoId;
         InsumoId = insumoId;
@@ -35,5 +36,17 @@ public class Compra
         ValorUnitario = valorUnitario;
         DataEntrega = dataEntrega;
         LocalEntregaId = localEntregaId;
+    }
+
+    public void Update(int? pedidoId = null, int? insumoId = null, int? fornecedorId = null, Quantidade? quantidade = null,
+        ValorUnitario? valorUnitario = null, DateTime? dataEntrega = null, int? localEntregaId = null)
+    { 
+        if (pedidoId is not null) PedidoId = (int)pedidoId;
+        if (insumoId is not null) InsumoId = (int)insumoId;
+        if (fornecedorId is not null) FornecedorId = (int)fornecedorId;
+        if (quantidade is not null) Quantidade = quantidade;
+        if (valorUnitario is not null) ValorUnitario = valorUnitario;
+        if (dataEntrega is not null) DataEntrega = dataEntrega;
+        if (localEntregaId is not null) LocalEntregaId = localEntregaId;
     }
 }

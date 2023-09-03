@@ -20,7 +20,7 @@ internal class ObraConfig : ConfigBase<Obra>
 
         builder.Entity<Obra>()
             .HasOne(x => x.Empresa)
-            .WithMany(x => x.Constructions)
+            .WithMany(x => x.Obras)
             .HasForeignKey(x => x.EmpresaId);
 
         builder.Entity<Obra>()

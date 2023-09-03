@@ -21,15 +21,15 @@ public class Colaborador : BaseEntity, IAggregateRoot
     public string? TipoCNH { get; private set; }
     public DateTime? DataExpiracaoCNH { get; private set; }
 
-    public string CNH { get; private set; }
-    public string EPI { get; private set; }
-    public string CTPS { get; private set; }
+    public string? CNH { get; private set; }
+    public string? EPI { get; private set; }
+    public string? CTPS { get; private set; }
     public string? NumeroExameAdmissional { get; private set; }
 
     public DateTime? DataExpiracaoExameAdmissional { get; private set; }
-    public string ExameAdimissional { get; private set; }
-    public string FichaRegistro { get; private set; }
-    public string OrdemServico { get; private set; }
+    public string? ExameAdimissional { get; private set; }
+    public string? FichaRegistro { get; private set; }
+    public string? OrdemServico { get; private set; }
 
     public IReadOnlyCollection<Endereco> Enderecos
     {

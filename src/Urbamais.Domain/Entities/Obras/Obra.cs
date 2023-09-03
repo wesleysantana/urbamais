@@ -85,6 +85,9 @@ public class Obra : BaseEntity, IAggregateRoot
 
     #region Sobrescrita Object
 
+    public override string ToString() =>
+        $"Obra - Id: {Id}, Empresa: {EmpresaId}-{Empresa.NomeFantasia}, Descrição: {Descricao}";
+
     public override bool Equals(object? obj)
     {
         return obj is Obra obra &&

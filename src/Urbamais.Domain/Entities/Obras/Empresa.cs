@@ -6,7 +6,7 @@ namespace Urbamais.Domain.Entities.Obras;
 
 public class Empresa : PessoaJuridica
 {
-    public ICollection<Obra>? Constructions { get; private set; }
+    public ICollection<Obra>? Obras { get; private set; }
 
     protected Empresa() { }
 
