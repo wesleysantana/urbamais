@@ -14,16 +14,16 @@ public class Concorrencia : BaseValidate, IEntity
     public virtual Pedido? Pedido { get; private set; }
     public int FornecedorId { get; private set; }
     public virtual Fornecedor? Fornecedor { get; private set; }
-    public ValorUnitario ValorUnitario { get; private set; }
+    public ValorMonetario ValorUnitario { get; private set; }
     public Quantidade Quantidade { get; private set; }
     public string FormaPagamento { get; private set; }
     public string CondicaoPagamento { get; private set; }
-    public ValorUnitario ValorEntrega { get; private set; }
+    public ValorMonetario ValorEntrega { get; private set; }
     public DateTime PrazoEntrega { get; private set; }
     public string Observacao { get; private set; }
 
-    public Concorrencia(int id, int pedidoId, int fornecedorId, ValorUnitario valorUnitario, Quantidade quantidade,
-        string formaPagamento, string condicaoPagamento, ValorUnitario valorEntrega, DateTime prazoEntrega, string observacao)
+    public Concorrencia(int id, int pedidoId, int fornecedorId, ValorMonetario valorUnitario, Quantidade quantidade,
+        string formaPagamento, string condicaoPagamento, ValorMonetario valorEntrega, DateTime prazoEntrega, string observacao)
     {
         Id = id;
         PedidoId = pedidoId;
@@ -57,9 +57,9 @@ public class Concorrencia : BaseValidate, IEntity
         Validate(this, new ConcorrenciaValidator());
     }
 
-    public void Update(int? pedidoId = null, int? fornecedorId = null, ValorUnitario? valorUnitario = null,
+    public void Update(int? pedidoId = null, int? fornecedorId = null, ValorMonetario? valorUnitario = null,
         Quantidade? quantidade = null, string? formaPagamento = null, string? condicaoPagamento = null,
-        ValorUnitario? valorEntrega = null, DateTime? prazoEntrega = null, string? observacao = null)
+        ValorMonetario? valorEntrega = null, DateTime? prazoEntrega = null, string? observacao = null)
     {
         var memento = CreateMemento();
 
@@ -124,11 +124,11 @@ public class Concorrencia : BaseValidate, IEntity
                Id == concorrencia.Id &&
                PedidoId == concorrencia.PedidoId &&
                FornecedorId == concorrencia.FornecedorId &&
-               EqualityComparer<ValorUnitario>.Default.Equals(ValorUnitario, concorrencia.ValorUnitario) &&
+               EqualityComparer<ValorMonetario>.Default.Equals(ValorUnitario, concorrencia.ValorUnitario) &&
                EqualityComparer<Quantidade>.Default.Equals(Quantidade, concorrencia.Quantidade) &&
                FormaPagamento == concorrencia.FormaPagamento &&
                CondicaoPagamento == concorrencia.CondicaoPagamento &&
-               EqualityComparer<ValorUnitario>.Default.Equals(ValorEntrega, concorrencia.ValorEntrega) &&
+               EqualityComparer<ValorMonetario>.Default.Equals(ValorEntrega, concorrencia.ValorEntrega) &&
                PrazoEntrega == concorrencia.PrazoEntrega &&
                Observacao == concorrencia.Observacao;
     }

@@ -13,7 +13,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
     public virtual Planejamento? Planejamento { get; private set; }
     public int InsumoId { get; private set; }
     public virtual Insumo? Insumo { get; private set; }
-    public ValorUnitario ValorUnitario { get; private set; }
+    public ValorMonetario ValorUnitario { get; private set; }
     public int UnidadeId { get; private set; }
     public virtual Unidade? Unidade { get; private set; }
     public Quantidade Quantidade { get; private set; }
@@ -26,7 +26,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
    
 
-    public PlanejamentoInsumo(int planejamentoId, int insumoId, int unidadeId, ValorUnitario valorUnitario,
+    public PlanejamentoInsumo(int planejamentoId, int insumoId, int unidadeId, ValorMonetario valorUnitario,
         Quantidade quantidade, DateTime dataInicial, DateTime dataFinal)
     {
         PlanejamentoId = planejamentoId;
@@ -55,7 +55,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
         Validate(this, new PlanejamentoInsumoValidator());
     }
 
-    public void Update(int? planejamentoId = null, int? insumoId = null, int? unidadeId = null, ValorUnitario? valorUnitario = null,
+    public void Update(int? planejamentoId = null, int? insumoId = null, int? unidadeId = null, ValorMonetario? valorUnitario = null,
         Quantidade? quantidade = null, DateTime? dataInicial = null, DateTime? dataFinal = null)
     {
         var memento = CreateMemento();
@@ -164,7 +164,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
                 .Must(date => date != default);
 
             RuleFor(x => x.DataFinal)
-                .Must((objeto, dataFinal) => dataFinal > objeto.DataInicial);
+                .Must((obj, dataFinal) => dataFinal > obj.DataInicial);
         }
     }
 }

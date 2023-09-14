@@ -3,13 +3,13 @@ using FluentValidation;
 
 namespace Core.ValueObjects;
 
-public class ValorUnitario : ValueObjectDecimal
+public class ValorMonetario : ValueObjectDecimal
 {
-    public ValorUnitario(decimal valor)
+    public ValorMonetario(decimal valor)
     {
         Value = valor;
 
-        Validate(this, new ValorUnitarioValidator());
+        Validate(this, new ValorMonetarioValidator());
 
         if (!IsValid)
             Value = default;
@@ -21,7 +21,7 @@ public class ValorUnitario : ValueObjectDecimal
 
         Value = valor;
 
-        Validate(this, new ValorUnitarioValidator());
+        Validate(this, new ValorMonetarioValidator());
 
         if (!IsValid)
             RestoreMemento(memento);
@@ -31,7 +31,7 @@ public class ValorUnitario : ValueObjectDecimal
 
     public override bool Equals(object? obj)
     {
-        return obj is ValorUnitario vO &&
+        return obj is ValorMonetario vO &&
                Value == vO.Value;
     }
 
@@ -40,15 +40,15 @@ public class ValorUnitario : ValueObjectDecimal
         return HashCode.Combine(Value);
     }
 
-    public static bool operator ==(ValorUnitario left, ValorUnitario right) => left.Equals(right);
+    public static bool operator ==(ValorMonetario left, ValorMonetario right) => left.Equals(right);
 
-    public static bool operator !=(ValorUnitario left, ValorUnitario right) => !left.Equals(right);
+    public static bool operator !=(ValorMonetario left, ValorMonetario right) => !left.Equals(right);
 
     #endregion Sobrescrita Object
 
-    private class ValorUnitarioValidator : AbstractValidator<ValorUnitario>
+    private class ValorMonetarioValidator : AbstractValidator<ValorMonetario>
     {
-        public ValorUnitarioValidator()
+        public ValorMonetarioValidator()
         {
             RuleFor(x => x.Value)
                 .NotNull()

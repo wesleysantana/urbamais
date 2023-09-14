@@ -14,7 +14,7 @@ public class Compra
     public int FornecedorId { get; private set; }
     public virtual Fornecedor? Fornecedor { get; private set; }
     public Quantidade Quantidade { get; private set; }
-    public ValorUnitario ValorUnitario { get; private set; }
+    public ValorMonetario ValorUnitario { get; private set; }
     public DateTime? DataEntrega { get; private set; }
     public int? LocalEntregaId { get; private set; }
     public virtual Endereco? LocalEntrega { get; private set; }
@@ -27,7 +27,7 @@ public class Compra
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     public Compra(int pedidoId, int insumoId, int fornecedorId, Quantidade quantidade,
-        ValorUnitario valorUnitario, DateTime dataEntrega, int localEntregaId)
+        ValorMonetario valorUnitario, DateTime dataEntrega, int localEntregaId)
     {
         PedidoId = pedidoId;
         InsumoId = insumoId;
@@ -39,7 +39,7 @@ public class Compra
     }
 
     public void Update(int? pedidoId = null, int? insumoId = null, int? fornecedorId = null, Quantidade? quantidade = null,
-        ValorUnitario? valorUnitario = null, DateTime? dataEntrega = null, int? localEntregaId = null)
+        ValorMonetario? valorUnitario = null, DateTime? dataEntrega = null, int? localEntregaId = null)
     { 
         if (pedidoId is not null) PedidoId = (int)pedidoId;
         if (insumoId is not null) InsumoId = (int)insumoId;

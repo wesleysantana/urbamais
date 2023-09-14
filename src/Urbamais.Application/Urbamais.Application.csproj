@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
+    <PackageReference Include="EPPlus" Version="6.2.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -17,6 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\AspNetCore.IQueryable.Extensions\AspNetCore.IQueryable.Extensions.csproj" />
     <ProjectReference Include="..\Urbamais.Domain\Urbamais.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\Financeiro\" />
+    <Folder Include="Services\Financeiro\" />
   </ItemGroup>
 
 </Project>

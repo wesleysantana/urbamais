@@ -8,8 +8,6 @@ namespace Urbamais.Domain.Entities.Obras;
 
 public class Obra : BaseEntity, IAggregateRoot
 {
-    public int EmpresaId { get; private set; }
-    public virtual Empresa Empresa { get; private set; }
     public Descricao Descricao { get; private set; }
     public virtual ICollection<Planejamento>? Planejamentos { get; private set; }
 
@@ -20,9 +18,8 @@ public class Obra : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Obra(string idUserCreation, Empresa empresa, Descricao descricao)
+    public Obra(string idUserCreation, Descricao descricao)
     {
-        Empresa = empresa;
         Descricao = descricao;
 
         Validate();
@@ -66,7 +63,6 @@ public class Obra : BaseEntity, IAggregateRoot
     {
         return new
         {
-            EmpresaId,
             Descricao
         };
     }
@@ -77,8 +73,7 @@ public class Obra : BaseEntity, IAggregateRoot
 
         var state = (dynamic)memento;
 
-        EmpresaId = state.CompanieId;
-        Descricao = state.Description;
+        Descricao = state.Descricao;
     }
 
     #endregion Memento
@@ -86,20 +81,18 @@ public class Obra : BaseEntity, IAggregateRoot
     #region Sobrescrita Object
 
     public override string ToString() =>
-        $"Obra - Id: {Id}, Empresa: {EmpresaId}-{Empresa.NomeFantasia}, Descrição: {Descricao}";
+        $"Obra - Id: {Id}, Descrição: {Descricao}";
 
     public override bool Equals(object? obj)
     {
         return obj is Obra obra &&
             Id == obra.Id &&
-            Descricao == obra.Descricao &&
-            EmpresaId == obra.EmpresaId &&
-            EqualityComparer<Empresa>.Default.Equals(Empresa, obra.Empresa);
+            Descricao == obra.Descricao;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Descricao, EmpresaId, Empresa);
+        return HashCode.Combine(Id, Descricao);
     }
 
     public static bool operator ==(Obra left, Obra right) => left.Equals(right);
