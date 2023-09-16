@@ -20,9 +20,4 @@
     <ProjectReference Include="..\Urbamais.Domain\Urbamais.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Financeiro\" />
-    <Folder Include="Services\Financeiro\" />
-  </ItemGroup>
-
 </Project>

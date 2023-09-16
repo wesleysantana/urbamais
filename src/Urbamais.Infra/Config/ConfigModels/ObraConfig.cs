@@ -14,16 +14,6 @@ internal class ObraConfig : ConfigBase<Obra>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Obra>()
-            .Property(x => x.EmpresaId)
-            .HasColumnName("empresa_id")
-            .IsRequired();
-
-        builder.Entity<Obra>()
-            .HasOne(x => x.Empresa)
-            .WithMany(x => x.Obras)
-            .HasForeignKey(x => x.EmpresaId);
-
-        builder.Entity<Obra>()
             .OwnsOne(x => x.Descricao)
             .Property(x => x.Value)
             .HasColumnName("descricao")

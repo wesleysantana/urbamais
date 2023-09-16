@@ -12,7 +12,9 @@ public class CentroCusto : BaseEntity, IAggregateRoot
     public int Reduzido { get; private set; }
     public Descricao Descricao { get; private set; }
     public Natureza Natureza { get; private set; }
-    public string Extenso { get; private set; }
+    public long Extenso { get; private set; }
+    public virtual ICollection<RegistroFinanceiro>? RegistrosFinanceirosCentroCusto { get; private set; }
+    public virtual ICollection<RegistroFinanceiro> RegistrosFinanceirosClasseFinanceira { get; set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -21,7 +23,7 @@ public class CentroCusto : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public CentroCusto(string idUserCreation, int reduzido, Descricao descricao, Natureza natureza, string extenso)
+    public CentroCusto(string idUserCreation, int reduzido, Descricao descricao, Natureza natureza, long extenso)
     {
         Reduzido = reduzido;
         Descricao = descricao;
@@ -50,14 +52,14 @@ public class CentroCusto : BaseEntity, IAggregateRoot
     }
 
     public void Update(string idUserModification, int? reduzido = null, Descricao? descricao = null,
-        Natureza? natureza = null, string? extenso = null)
+        Natureza? natureza = null, long? extenso = null)
     {
         var memento = CreateMemento();
 
         if (reduzido is not null) Reduzido = (int)reduzido;
         if (descricao is not null) Descricao = descricao;
         if (natureza is not null) Natureza = (Natureza)natureza;
-        if (string.IsNullOrWhiteSpace(extenso)) Extenso = extenso!;
+        if (extenso is not null) Extenso = (long)extenso!;
 
         Validate();
 
@@ -134,7 +136,7 @@ public class CentroCusto : BaseEntity, IAggregateRoot
                 .IsInEnum();
 
             RuleFor(x => x.Extenso)
-                .NotNull();
+                .GreaterThan(0);
         }
     }
 }

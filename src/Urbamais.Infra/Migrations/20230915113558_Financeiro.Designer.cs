@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Urbamais.Infra.Config;
@@ -11,9 +12,11 @@ using Urbamais.Infra.Config;
 namespace Urbamais.Infra.Migrations
 {
     [DbContext(typeof(ContextEf))]
-    partial class ContextEfModelSnapshot : ModelSnapshot
+    [Migration("20230915113558_Financeiro")]
+    partial class Financeiro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,7 +285,7 @@ namespace Urbamais.Infra.Migrations
                     b.HasKey("Id")
                         .HasName("centrocusto_id");
 
-                    b.ToTable("centro_custo", (string)null);
+                    b.ToTable("centrocusto", (string)null);
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Financeiro.RegistroFinanceiro", b =>
@@ -388,7 +391,7 @@ namespace Urbamais.Infra.Migrations
 
                     b.HasIndex("ObraId");
 
-                    b.ToTable("registro_financeiro", (string)null);
+                    b.ToTable("registrofinanceiro", (string)null);
                 });
 
             modelBuilder.Entity("Urbamais.Domain.Entities.Fornecedores.Colaborador", b =>
@@ -1143,7 +1146,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("CentroCustoId");
 
-                            b1.ToTable("centro_custo");
+                            b1.ToTable("centrocusto");
 
                             b1.WithOwner()
                                 .HasForeignKey("CentroCustoId");
@@ -1185,7 +1188,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1203,7 +1206,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1221,7 +1224,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1239,7 +1242,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1257,7 +1260,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1275,7 +1278,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");
@@ -1293,7 +1296,7 @@ namespace Urbamais.Infra.Migrations
 
                             b1.HasKey("RegistroFinanceiroId");
 
-                            b1.ToTable("registro_financeiro");
+                            b1.ToTable("registrofinanceiro");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegistroFinanceiroId");

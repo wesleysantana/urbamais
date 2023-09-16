@@ -15,6 +15,10 @@ public class Quantidade : ValueObjectDouble
             Value = default;
     }
 
+    protected Quantidade()
+    {        
+    }
+
     public void Update(double valor)
     {
         var memento = CreateMemento();

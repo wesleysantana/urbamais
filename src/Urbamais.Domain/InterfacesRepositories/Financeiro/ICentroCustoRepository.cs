@@ -3,6 +3,6 @@ using Urbamais.Domain.InterfacesRepositories.Generic;
 
 namespace Urbamais.Domain.InterfacesRepositories.Financeiro;
 
-public interface ICentroCusto : IRepositoryBase<CentroCusto>
+public interface ICentroCustoRepository : IRepositoryBase<CentroCusto>
 {
 }

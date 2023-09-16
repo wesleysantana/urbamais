@@ -33,12 +33,14 @@ internal class CompraConfig
             .IsRequired();
 
         builder.Entity<Compra>()
-            .Property(x => x.Quantidade)
+            .OwnsOne(x => x.Quantidade)
+            .Property(x => x.Value)
             .HasColumnName("quantidade")
             .IsRequired();
 
         builder.Entity<Compra>()
-            .Property(x => x.ValorUnitario)
+            .OwnsOne(x => x.ValorUnitario)
+            .Property(x => x.Value)
             .HasColumnName("valor_unitario")
             .IsRequired();
 

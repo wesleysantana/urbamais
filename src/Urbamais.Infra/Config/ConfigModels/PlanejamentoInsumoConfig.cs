@@ -38,12 +38,14 @@ internal class PlanejamentoInsumoConfig
             .IsRequired();
 
         builder.Entity<PlanejamentoInsumo>()
-            .Property(x => x.Quantidade)
+            .OwnsOne(x => x.Quantidade)
+            .Property(x => x.Value)
             .HasColumnName("quantidade")
             .IsRequired();
 
         builder.Entity<PlanejamentoInsumo>()
-            .Property(x => x.ValorUnitario)
+            .OwnsOne(x => x.ValorUnitario)
+            .Property(x => x.Value)
             .HasColumnName("valor_unitario")
             .IsRequired();
 

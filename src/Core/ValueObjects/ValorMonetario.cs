@@ -15,6 +15,10 @@ public class ValorMonetario : ValueObjectDecimal
             Value = default;
     }
 
+    protected ValorMonetario()
+    {        
+    }
+
     public void Update(decimal valor)
     {
         var memento = CreateMemento();

@@ -15,11 +15,11 @@ internal class FornecedorConfig : ConfigBase<Fornecedor>
     private static void Config(ModelBuilder builder)
     {
         builder.Entity<Fornecedor>()
-     .OwnsOne(x => x.NomeFantasia)
-     .Property(x => x.Value)
-     .HasColumnName("nome_fantasia")
-     .IsRequired()
-     .HasMaxLength(255);
+            .OwnsOne(x => x.NomeFantasia)
+            .Property(x => x.Value)
+            .HasColumnName("nome_fantasia")
+            .IsRequired()
+            .HasMaxLength(255);
 
         builder.Entity<Fornecedor>()
             .OwnsOne(x => x.RazaoSocial)

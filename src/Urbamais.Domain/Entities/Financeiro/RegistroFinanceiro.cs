@@ -9,11 +9,11 @@ namespace Urbamais.Domain.Entities.Financeiro;
 
 public class RegistroFinanceiro : BaseEntity, IAggregateRoot
 {
-    public int IdObra { get; private set; }
+    public int ObraId { get; private set; }
     public virtual Obra? Obra { get; private set; }
 
     // Ainda sem vinculo com o fornecedor registrado na base de dados
-    public int IdFornecedor { get; private set; }
+    public int FornecedorId { get; private set; }
 
     public string Fornecedor { get; private set; }
 
@@ -32,8 +32,10 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
     public ValorMonetario ValorLiquido { get; private set; }
     public ValorMonetario ValorBaixa { get; private set; }
     public string Complemento { get; private set; }
-    public CentroCusto CentroCusto { get; private set; }
-    public CentroCusto ClasseFinanceira { get; private set; }
+    public int CentroCustoId { get; private set; }
+    public virtual CentroCusto? CentroCusto { get; private set; }
+    public int ClasseFinanceiraId { get; private set; }
+    public virtual CentroCusto? ClasseFinanceira { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -43,13 +45,13 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public RegistroFinanceiro(string idUserCreation, int idObra, int idFornecedor, string fornecedor, DateTime dataEmissao,
+    public RegistroFinanceiro(string idUserCreation, int obraId, int fornecedorId, string fornecedor, DateTime dataEmissao,
         DateTime dataVencimento, DateTime dataEntrada, string tipoDoc, string numeroDoc, int parcela, int aprovacaoPagamento,
         ValorMonetario valor, ValorMonetario caucao, ValorMonetario total, ValorMonetario desconto, ValorMonetario acrescimo,
-        ValorMonetario valorLiquido, ValorMonetario valorBaixa, string complemento, CentroCusto centroCusto, CentroCusto classeFinanceira)
+        ValorMonetario valorLiquido, ValorMonetario valorBaixa, string complemento, int centroCustoId, int classeFinanceiraId)
     {
-        IdObra = idObra;
-        IdFornecedor = idFornecedor;
+        ObraId = obraId;
+        FornecedorId = fornecedorId;
         Fornecedor = fornecedor;
         DataEmissao = dataEmissao;
         DataVencimento = dataVencimento;
@@ -66,8 +68,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
         ValorLiquido = valorLiquido;
         ValorBaixa = valorBaixa;
         Complemento = complemento;
-        CentroCusto = centroCusto;
-        ClasseFinanceira = classeFinanceira;
+        CentroCustoId = centroCustoId;
+        ClasseFinanceiraId = classeFinanceiraId;
 
         Validate();
 
@@ -92,13 +94,11 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
         ValidationResult?.Errors.AddRange(Acrescimo.ValidationResult!.Errors);
         ValidationResult?.Errors.AddRange(ValorLiquido.ValidationResult!.Errors);
         ValidationResult?.Errors.AddRange(ValorBaixa.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(CentroCusto.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(ClasseFinanceira.ValidationResult!.Errors);
 
         _ = Validate(this, new RegistroFinanceiroValidator());
     }
 
-    public void Update(string idUserModification, int? idObra = null, int? idFornecedor = null, string? fornecedor = null,
+    public void Update(string idUserModification, int? obraId = null, int? fornecedorId = null, string? fornecedor = null,
         DateTime? dataEmissao = null, DateTime? dataVencimento = null, DateTime? dataEntrada = null, string? tipoDoc = null,
         string? numeroDoc = null, int? parcela = null, int? aprovacaoPagamento = null, ValorMonetario? valor = null,
         ValorMonetario? caucao = null, ValorMonetario? total = null, ValorMonetario? desconto = null, ValorMonetario? acrescimo = null,
@@ -107,8 +107,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
     {
         var memento = CreateMemento();
 
-        if (idObra is not null) IdObra = (int)idObra;
-        if (idFornecedor is not null) IdFornecedor = (int)idFornecedor;
+        if (obraId is not null) ObraId = (int)obraId;
+        if (fornecedorId is not null) FornecedorId = (int)fornecedorId;
         if (string.IsNullOrWhiteSpace(fornecedor)) Fornecedor = fornecedor!;
         if (dataEmissao is not null) DataEmissao = (DateTime)dataEmissao;
         if (dataVencimento is not null) DataVencimento = (DateTime)dataVencimento;
@@ -145,8 +145,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
     {
         return new
         {
-            IdObra,
-            IdFornecedor,
+            ObraId,
+            FornecedorId,
             Fornecedor,
             DataEmissao,
             DataVencimento,
@@ -163,8 +163,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
             ValorLiquido,
             ValorBaixa,
             Complemento,
-            CentroCusto,
-            ClasseFinanceira
+            CentroCustoId,
+            ClasseFinanceiraId
         };
     }
 
@@ -174,8 +174,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
 
         var state = (dynamic)memento;
 
-        IdObra = state.IdObra;
-        IdFornecedor = state.IdFornecedor;
+        ObraId = state.ObraId;
+        FornecedorId = state.IdFornecedor;
         Fornecedor = state.Fornecedor;
         DataEmissao = state.DataEmissao;
         DataVencimento = state.DataVencimento;
@@ -192,8 +192,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
         ValorLiquido = state.ValorLiquido;
         ValorBaixa = state.ValorBaixa;
         Complemento = state.Complemento;
-        CentroCusto = state.CentroCusto;
-        ClasseFinanceira = state.ClasseFinanceira;
+        CentroCustoId = state.CentroCustoId;
+        ClasseFinanceiraId = state.ClasseFinanceiraId;
     }
 
     #endregion Memento
@@ -201,18 +201,18 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
     #region Sobrescrita Object
 
     public override string ToString() =>
-        $"Registro Financeiro - Id: {Id}, Id Obra: {IdObra}, Id Fornecedor: {IdFornecedor}, Fornecedor: {Fornecedor}, " +
+        $"Registro Financeiro - Id: {Id}, Id Obra: {ObraId}, Id Fornecedor: {FornecedorId}, Fornecedor: {Fornecedor}, " +
         $"Data de emissão: {DataEmissao}, Data de vencimento: {DataVencimento}, Data de entrada: {DataEntrada}, Tipo de documento: {TipoDoc}, " +
         $"Número do documento: {NumeroDoc}, Parcela: {Parcela}, Aprovação de pagamento: {AprovacaoPagamento}, Valor: {Valor}, Caução: {Caucao} " +
         $"Total: {Total}, Desconto: {Desconto}, Acréscimo: {Acrescimo}, Valor líquido: {ValorLiquido}, Valor da baixa: {ValorBaixa}, " +
-        $"Complemento: {Complemento}, Centro de custo: {CentroCusto}, Classe financeira: {ClasseFinanceira}";
+        $"Complemento: {Complemento}, Id Centro de custo: {CentroCustoId}, Id Classe financeira: {ClasseFinanceiraId}";
 
     public override bool Equals(object? obj)
     {
         return obj is RegistroFinanceiro financeiro &&
             Id == financeiro.Id &&
-            IdObra == financeiro.IdObra &&
-            IdFornecedor == financeiro.IdFornecedor &&
+            ObraId == financeiro.ObraId &&
+            FornecedorId == financeiro.FornecedorId &&
             Fornecedor == financeiro.Fornecedor &&
             DataEmissao == financeiro.DataEmissao &&
             DataVencimento == financeiro.DataVencimento &&
@@ -229,16 +229,16 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
             EqualityComparer<ValorMonetario>.Default.Equals(ValorLiquido, financeiro.ValorLiquido) &&
             EqualityComparer<ValorMonetario>.Default.Equals(ValorBaixa, financeiro.ValorBaixa) &&
             Complemento == financeiro.Complemento &&
-            EqualityComparer<CentroCusto>.Default.Equals(CentroCusto, financeiro.CentroCusto) &&
-            EqualityComparer<CentroCusto>.Default.Equals(ClasseFinanceira, financeiro.ClasseFinanceira);
+            CentroCustoId == financeiro.CentroCustoId &&
+            ClasseFinanceiraId == financeiro.ClasseFinanceiraId;
     }
 
     public override int GetHashCode()
     {
         HashCode hash = new();
         hash.Add(Id);
-        hash.Add(IdObra);
-        hash.Add(IdFornecedor);
+        hash.Add(ObraId);
+        hash.Add(FornecedorId);
         hash.Add(Fornecedor);
         hash.Add(DataEmissao);
         hash.Add(DataVencimento);
@@ -255,8 +255,8 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
         hash.Add(ValorLiquido);
         hash.Add(ValorBaixa);
         hash.Add(Complemento);
-        hash.Add(CentroCusto);
-        hash.Add(ClasseFinanceira);
+        hash.Add(CentroCustoId);
+        hash.Add(ClasseFinanceiraId);
         return hash.ToHashCode();
     }
 
@@ -266,16 +266,49 @@ public class RegistroFinanceiro : BaseEntity, IAggregateRoot
     {
         public RegistroFinanceiroValidator()
         {
-            RuleFor(x => x.IdObra)
+            RuleFor(x => x.ObraId)
                 .NotNull()
                 .GreaterThan(0);
 
-            RuleFor(x => x.IdFornecedor)
+            RuleFor(x => x.FornecedorId)
                 .NotNull()
                 .GreaterThan(0);
 
             RuleFor(x => x.Fornecedor)
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(255);
+
+            RuleFor(x => x.DataEmissao)
+                .Must(obj => obj != default);
+
+            RuleFor(x => x.DataVencimento)
+               .Must(obj => obj != default);
+
+            RuleFor(x => x.DataEntrada)
+               .Must(obj => obj != default);
+
+            RuleFor(x => x.TipoDoc)
+                .NotEmpty()
+                .MaximumLength(25);
+
+            RuleFor(x => x.NumeroDoc)
+                .NotEmpty()
+                .MaximumLength(25);
+
+            RuleFor(x => x.Parcela)
+                .GreaterThan(0);
+
+            RuleFor(x => x.AprovacaoPagamento)
+                .GreaterThan(0);
+
+            RuleFor(x => x.Complemento)
+                .MaximumLength(1024);
+
+            RuleFor(x => x.CentroCustoId)
+                .GreaterThan(0);
+
+            RuleFor(x => x.ClasseFinanceiraId)
+                .GreaterThan(0);
         }
     }
 }
