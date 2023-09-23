@@ -1,5 +1,7 @@
-﻿using OfficeOpenXml;
+﻿using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Financeiro;
 using Urbamais.Application.Interfaces.Financeiro;
 using Urbamais.Application.Resources;
@@ -20,20 +22,15 @@ public class RegistroFinanceiroApp : IRegistroFinanceiroApp
 
     public Task<int> Commit() => _service.Commit();
 
-    public Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RegistroFinanceiro> Get(object id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<RegistroFinanceiro> Get(object id) => await _service.Get(id);
 
-    public Task<RegistroFinanceiro> Get(Expression<Func<RegistroFinanceiro, bool>> where, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<RegistroFinanceiro> Get(Expression<Func<RegistroFinanceiro, bool>> where, CancellationToken cancellationToken) =>
+        await _service.Get(where, cancellationToken);
 
     public async Task<RegistroFinanceiro> Insert(RegistroFinanceiro entity)
     {
@@ -67,29 +64,76 @@ public class RegistroFinanceiroApp : IRegistroFinanceiroApp
         throw new NotImplementedException();
     }
 
-    public Task<Tuple<bool, RegistroFinanceiro>> Update(object id, IDomainUpdate entity)
+    public Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<object> ReadExcelAsync(FileExcel fileExcel)
+    public async Task<object> ReadExcelAsync(FileExcel fileExcel, int lineHeader = 4)
     {
-        FileInfo fileInfo = new(fileExcel.FilePath);
+        List<string> header = new();
+        List<List<string>> data = new();
 
-        using var package = new ExcelPackage(fileInfo);
-        var worksheet = package.Workbook.Worksheets[0];
+        using (FileStream fs = new(fileExcel.FilePath, FileMode.Open, FileAccess.Read))
+        {
+            IWorkbook workbook = new XSSFWorkbook(fs); // Para arquivos .xlsx
+            ISheet worksheet = workbook.GetSheetAt(0); // Pode ser por nome: workbook.GetSheet("NomeDaPlanilha")
 
-        // Ler as células e processar os dados aqui
-        // Por exemplo, você pode retornar os dados lidos como JSON
-        // ou executar alguma lógica de negócios com eles
+            // Ler o cabeçalho da primeira linha da planilha
+            IRow headerRow = worksheet.GetRow(lineHeader);
+            for (int i = 0; i < headerRow.LastCellNum; i++)
+            {
+                ICell cell = headerRow.GetCell(i);
+                header.Add(cell.StringCellValue);
+            }
 
-        // Exemplo: ler as células e retornar como JSON
+            // Ler os dados a partir da segunda linha
+            for (int rowIndex = lineHeader + 1; rowIndex <= worksheet.LastRowNum; rowIndex++)
+            {
+                IRow currentRow = worksheet.GetRow(rowIndex);
+                if (currentRow is null) break;
+                List<string> rowData = new();
+
+                for (int colIndex = 0; colIndex < header.Count; colIndex++)
+                {
+                    ICell cell = currentRow.GetCell(colIndex);
+                    if (cell != null)
+                    {
+                        rowData.Add(cell.ToString()!);
+                    }
+                    else
+                    {
+                        rowData.Add(string.Empty);
+                    }
+                }
+
+                data.Add(rowData);
+            }
+        }
+
+        // Agora você tem o cabeçalho em 'header' e os dados em 'data'
+
+        // Exemplo de como imprimir o cabeçalho
+        Console.WriteLine("Cabeçalho:");
+        foreach (var column in header)
+        {
+            Console.Write(column + "\t");
+        }
+        Console.WriteLine();
+
+        // Exemplo de como imprimir os dados
+        foreach (var row in data)
+        {
+            foreach (var cell in row)
+            {
+                Console.Write(cell + "\t");
+            }
+            Console.WriteLine();
+        }
 
         return new
         {
-            worksheet.Dimension.Rows,
-            worksheet.Dimension.Columns,
-            Values = worksheet.Cells.Value
+            Ok = true
         };
     }
 }

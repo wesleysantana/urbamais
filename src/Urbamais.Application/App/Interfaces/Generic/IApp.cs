@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Response;
 
@@ -8,9 +9,9 @@ public interface IApp<T> where T : class
 {
     Task<T> Insert(T entity);
 
-    Task<Tuple<bool, T>> Update(object id, IDomainUpdate entity);
+    Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity);
 
-    Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion);
+    Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion);
 
     Task<int> Commit();
 

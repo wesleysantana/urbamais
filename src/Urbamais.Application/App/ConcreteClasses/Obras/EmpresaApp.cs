@@ -1,6 +1,7 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using Core.ValueObjects;
 using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Obras;
 using Urbamais.Application.Interfaces.Obras;
 using Urbamais.Application.Resources;
@@ -35,32 +36,39 @@ public class EmpresaApp : IEmpresaApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Empresa>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
-        var companie = await _service.Get(id);
+        var empresa = await _service.Get(id);
+        IValidateViewModel result = new EmpresaResponse();
 
-        if (companie is null)
-            return Tuple.Create(false, (Empresa)entity);
+        if (empresa is null)
+        {
+            result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
+        }
 
         var companieUpdate = entity as EmpresaUpdateRequest;
 
         var corporateName = new Nome(companieUpdate!.RazaoSocial!);
         var tradeName = new Nome(companieUpdate!.NomeFantasia!);
         var cnpj = new Cnpj(companieUpdate!.Cnpj!);
-        companie.Update(companieUpdate!.IdUserModification, corporateName, tradeName,
+        empresa.Update(companieUpdate!.IdUserModification, corporateName, tradeName,
             cnpj, companieUpdate.Enderecos, companieUpdate.Telefones, companieUpdate.Emails);
 
-        if (companie.IsValid)
+        if (!empresa.IsValid)
         {
-            _service.Update(companie);
-            if (await Commit() < 1)
-                throw new Exception(ConstantsApp.UPDATE_ERROR);
+            result.AddErrors(empresa.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            return Tuple.Create(HttpStatusCode.BadRequest, result);
         }
 
-        return Tuple.Create(true, companie);
+        _service.Update(empresa);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.UPDATE_ERROR);
+
+        return Tuple.Create(HttpStatusCode.OK, result);
     }
 
-    public async Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
         var Companie = await _service.Get(id);
         IValidateViewModel result = new EmpresaResponse();
@@ -70,15 +78,15 @@ public class EmpresaApp : IEmpresaApp
         if (Companie is null)
         {
             result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
-            return Tuple.Create(false, result);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
         }
 
         _service.Delete(id, IdUserDeletion);
 
-        if (await Commit() > 0)
-            return Tuple.Create(true, result);
+        if (await Commit() < 0)
+            throw new Exception(ConstantsApp.DELETE_ERROR);
 
-        throw new Exception(ConstantsApp.DELETE_ERROR);
+        return Tuple.Create(HttpStatusCode.NoContent, result);
     }
 
     #region Query

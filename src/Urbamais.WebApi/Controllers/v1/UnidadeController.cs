@@ -128,22 +128,21 @@ public class UnidadeController : ControllerBase
 
             unitRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var unit = await _unitApp.Update(id, unitRequest);
+            var unidadeUpdate = await _unitApp.Update(id, unitRequest);
 
-            if (!unit.Item1)
+            if (unidadeUpdate.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (!unit.Item2.IsValid)
+            var unidade = (UnidadeResponse)unidadeUpdate.Item2;
+            if (!unidade.Success)
             {
-                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                    errors: unit.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: unidade.Errors);
                 return BadRequest(problemDetail);
             }
 
-            return Ok(_mapper.Map<UnidadeResponse>(unit.Item2));
+            return Ok(_mapper.Map<UnidadeResponse>(unidade));
         }
         catch (Exception ex)
         {
@@ -166,20 +165,23 @@ public class UnidadeController : ControllerBase
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var unit = await _unitApp.Delete(id, IdUserDeletion!);
+            var unidadeDelete = await _unitApp.Delete(id, IdUserDeletion!);
 
-            if (!unit.Item1)
+           
+            if (unidadeDelete.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (((UnidadeResponse)unit.Item2).Success)
+            var unidade = (UnidadeResponse)unidadeDelete.Item2;
+
+            if (!unidade.Success)
             {
-                return NoContent();
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: unidade.Errors);
+                return StatusCode(400, problemDetail);                
             }
 
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: ((UnidadeResponse)unit.Item2).Errors);
-            return StatusCode(400, problemDetail);
+            return NoContent();
         }
         catch (Exception ex)
         {

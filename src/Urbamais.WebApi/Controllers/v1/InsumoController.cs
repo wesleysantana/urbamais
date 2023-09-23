@@ -116,31 +116,30 @@ public class InsumoController : ControllerBase
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPut("{id}")]
-    public async Task<ActionResult<InsumoResponse>> Update(int id, InsumoUpdateRequest InputRequest)
+    public async Task<ActionResult<InsumoResponse>> Update(int id, InsumoUpdateRequest insumoRequest)
     {
         try
         {
             if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
-            InputRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
+            insumoRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var Input = await _InputApp.Update(id, InputRequest);
+            var insumoUpdate = await _InputApp.Update(id, insumoRequest);
 
-            if (!Input.Item1)
+            if (insumoUpdate.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
-            
-            if (!Input.Item2.IsValid)
-            {
-                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                    errors: Input.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
 
+            var insumo = (InsumoResponse)insumoUpdate.Item2;
+            if (!insumo.Success)
+            {
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: insumo.Errors);
                 return BadRequest(problemDetail);
             }
 
-            return Ok(_mapper.Map<InsumoResponse>(Input.Item2));
+            return Ok(_mapper.Map<InsumoResponse>(insumo));
         }
         catch (Exception ex)
         {
@@ -163,20 +162,21 @@ public class InsumoController : ControllerBase
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var input = await _InputApp.Delete(id, IdUserDeletion!);
+            var insumoDelete = await _InputApp.Delete(id, IdUserDeletion!);
 
-            if (!input.Item1)
+            if (insumoDelete.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (((InsumoResponse)input.Item2).Success)
+            var insumo = (InsumoResponse)insumoDelete.Item2;
+            if (!insumo.Success)
             {
-                return NoContent();
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: insumo.Errors);
+                return BadRequest(problemDetail);
             }
 
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: ((UnidadeResponse)input.Item2).Errors);
-            return StatusCode(400, problemDetail);
+            return NoContent();
         }
         catch (Exception ex)
         {

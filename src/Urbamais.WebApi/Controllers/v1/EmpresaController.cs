@@ -6,6 +6,7 @@ using Urbamais.Application.App.Interfaces.Obras;
 using Urbamais.Application.ViewModels.Request.V1.Empresa;
 using Urbamais.Application.ViewModels.Response.V1.Empresa;
 using Urbamais.Application.ViewModels.Response.V1.Unidade;
+using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.Entities.Obras;
 using Urbamais.WebApi.Shared;
 
@@ -117,31 +118,30 @@ public class EmpresaController : ControllerBase
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
     [HttpPut("{id}")]
-    public async Task<ActionResult<EmpresaResponse>> Update(int id, EmpresaUpdateRequest CompanieRequest)
+    public async Task<ActionResult<EmpresaResponse>> Update(int id, EmpresaUpdateRequest empresaRequest)
     {
         try
         {
             if (!AuthorizeAccess.Valid(User, GetType().Name, Constants.UPDATE))
                 return Unauthorized();
 
-            CompanieRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
+            empresaRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var Companie = await _CompanieApp.Update(id, CompanieRequest);
+            var empresaUpdate = await _CompanieApp.Update(id, empresaRequest);
 
-            if (!Companie.Item1)
+            if (empresaUpdate.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (!Companie.Item2.IsValid)
+            var empresa = (EmpresaResponse)empresaUpdate.Item2;
+            if (!empresa.Success)
             {
-                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                    errors: Companie.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: empresa.Errors);
                 return BadRequest(problemDetail);
             }
 
-            return Ok(_mapper.Map<EmpresaResponse>(Companie.Item2));
+            return Ok(_mapper.Map<EmpresaResponse>(empresa));
         }
         catch (Exception ex)
         {
@@ -164,20 +164,21 @@ public class EmpresaController : ControllerBase
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var Companie = await _CompanieApp.Delete(id, IdUserDeletion!);
+            var empresaDelete = await _CompanieApp.Delete(id, IdUserDeletion!);
 
-            if (!Companie.Item1)
+            if (empresaDelete.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (((EmpresaResponse)Companie.Item2).Success)
+            var empresa = (EmpresaResponse)empresaDelete.Item2;
+            if (!empresa.Success)
             {
-                return NoContent();
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: empresa.Errors);
+                return StatusCode(400, problemDetail);                
             }
 
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: ((UnidadeResponse)Companie.Item2).Errors);
-            return StatusCode(400, problemDetail);
+            return NoContent();
         }
         catch (Exception ex)
         {

@@ -2,6 +2,7 @@
 using Core.Domain;
 using Core.ValueObjects;
 using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Core;
 using Urbamais.Application.Interfaces.Core;
 using Urbamais.Application.Resources;
@@ -36,48 +37,94 @@ public class CidadeApp : ICidadeApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Cidade>> Update(object id, IDomainUpdate entity)
+    //public async Task<Tuple<HttpStatusCode, Cidade>> Update(object id, IDomainUpdate entity)
+    //{
+    //    var cidade = await _service.Get(id);
+
+    //    if (cidade is null)
+    //        return Tuple.Create(HttpStatusCode.NotFound, (Cidade)entity);
+
+    //    var cityUpdate = entity as CidadeUpdateRequest;
+
+    //    var name = new Nome(cityUpdate!.Nome!);
+
+    //    if(!Enum.TryParse(cityUpdate!.Nome!, out Uf uf))
+    //    {
+    //        var cidadeError = (Cidade)entity;
+    //        cidadeError.ValidationResult?.Errors.Add(new FluentValidation.Results.ValidationFailure
+    //        {
+    //            ErrorMessage = "Uf não encontrada"
+    //        });
+    //        return Tuple.Create(HttpStatusCode.BadRequest, cidadeError);
+    //    }
+
+    //    cidade.Update(cityUpdate.IdUserModification, name, uf);
+
+    //    if (cidade.IsValid)
+    //    {
+    //        _service.Update(cidade);
+    //        if (await Commit() < 1)
+    //            throw new Exception(ConstantsApp.UPDATE_ERROR);
+    //    }
+
+    //    return Tuple.Create(HttpStatusCode.OK, cidade);
+    //}
+
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
-        var city = await _service.Get(id);
+        var cidade = await _service.Get(id);
+        IValidateViewModel result = new CidadeResponse();
 
-        if (city is null)
-            return Tuple.Create(false, (Cidade)entity);
-
-        var cityUpdate = entity as CidadeUpdateRequest;
-
-        var name = new Nome(cityUpdate!.Nome!);
-        _ = Enum.TryParse(cityUpdate!.Nome!, out Uf uf);
-        city.Update(cityUpdate.IdUserModification, name, uf);
-
-        if (city.IsValid)
+        if (cidade is null)
         {
-            _service.Update(city);
-            if (await Commit() < 1)
-                throw new Exception(ConstantsApp.UPDATE_ERROR);
+            result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
         }
 
-        return Tuple.Create(true, city);
+        var cityUpdate = entity as CidadeUpdateRequest;       
+
+        if (!Enum.TryParse(cityUpdate!.Nome!, out Uf uf))
+        {
+            result.AddError("Uf não encontrada");            
+            return Tuple.Create(HttpStatusCode.BadRequest, result);
+        }
+
+        var nome = new Nome(cityUpdate!.Nome!);
+
+        cidade.Update(cityUpdate.IdUserModification, nome, uf);
+
+        if (!cidade.IsValid)
+        {
+            result.AddErrors(cidade.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            return Tuple.Create(HttpStatusCode.BadRequest, result);           
+        }
+
+        _service.Update(cidade);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.UPDATE_ERROR);
+
+        return Tuple.Create(HttpStatusCode.OK, result);
     }
 
-    public async Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
-        var city = await _service.Get(id);
+        var cidade = await _service.Get(id);
         IValidateViewModel result = new CidadeResponse();
 
         _service.Delete(id, IdUserDeletion);
 
-        if (city is null)
+        if (cidade is null)
         {
             result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
-            return Tuple.Create(false, result);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
         }
 
         _service.Delete(id, IdUserDeletion);
 
-        if (await Commit() > 0)
-            return Tuple.Create(true, result);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.DELETE_ERROR);
 
-        throw new Exception(ConstantsApp.DELETE_ERROR);
+        return Tuple.Create(HttpStatusCode.NoContent, result);        
     }
 
     #region Query

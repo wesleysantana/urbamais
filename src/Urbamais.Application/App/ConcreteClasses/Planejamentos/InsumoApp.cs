@@ -1,5 +1,6 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Planejamentos;
 using Urbamais.Application.Interfaces.Planning;
 using Urbamais.Application.Resources;
@@ -34,28 +35,35 @@ public class InsumoApp : IInsumoApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Insumo>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
-        var input = await _service.Get(id);
+        var insumo = await _service.Get(id);
+        IValidateViewModel result = new InsumoResponse();
 
-        if (input is null)
-            return Tuple.Create(false, (Insumo)entity);
+        if (insumo is null)
+        {
+            result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
+        }
 
         var inputUpdate = entity as InsumoUpdateRequest;
 
-        input.Update(inputUpdate?.IdUserModification, inputUpdate?.Nome, inputUpdate?.Descricao, inputUpdate?.UnidadeId, inputUpdate?.Tipo);
+        insumo.Update(inputUpdate?.IdUserModification, inputUpdate?.Nome, inputUpdate?.Descricao, inputUpdate?.UnidadeId, inputUpdate?.Tipo);
 
-        if (input.IsValid)
+        if (!insumo.IsValid)
         {
-            _service.Update(input);
-            if (await Commit() < 1)
-                throw new Exception(ConstantsApp.UPDATE_ERROR);
+            result.AddErrors(insumo.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            return Tuple.Create(HttpStatusCode.BadRequest, result);
         }
 
-        return Tuple.Create(true, input);
+        _service.Update(insumo);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.UPDATE_ERROR);
+
+        return Tuple.Create(HttpStatusCode.OK, result);
     }
 
-    public async Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
         var input = await _service.Get(id);
         IValidateViewModel result = new InsumoResponse();
@@ -65,15 +73,15 @@ public class InsumoApp : IInsumoApp
         if (input is null)
         {
             result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
-            return Tuple.Create(false, result);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
         }
 
         _service.Delete(id, IdUserDeletion);
 
-        if (await Commit() > 0)
-            return Tuple.Create(true, result);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.DELETE_ERROR);
 
-        throw new Exception(ConstantsApp.DELETE_ERROR);
+        return Tuple.Create(HttpStatusCode.NoContent, result);
     }
 
     #region Query

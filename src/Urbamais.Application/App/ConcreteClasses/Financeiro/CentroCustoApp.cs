@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Financeiro;
 using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Response;
@@ -13,7 +14,7 @@ public class CentroCustoApp : ICentroCustoApp
         throw new NotImplementedException();
     }
 
-    public Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
         throw new NotImplementedException();
     }
@@ -53,7 +54,7 @@ public class CentroCustoApp : ICentroCustoApp
         throw new NotImplementedException();
     }
 
-    public Task<Tuple<bool, CentroCusto>> Update(object id, IDomainUpdate entity)
+    public Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
         throw new NotImplementedException();
     }

@@ -39,10 +39,10 @@ public class CidadeController : ControllerBase
 
             var response = await _cityApp.Query(filtro, cancellationToken);
 
-            if (response is not null && response.Any())
-                return Ok(_mapper.Map<List<CidadeResponse>>(response));
+            if (response is null || !response.Any())
+                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
 
-            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
+            return Ok(_mapper.Map<List<CidadeResponse>>(response));
         }
         catch (Exception ex)
         {
@@ -65,10 +65,11 @@ public class CidadeController : ControllerBase
                 return Unauthorized();
 
             var city = _mapper.Map<CidadeResponse>(await _cityApp.Get(id));
-            if (city is not null)
-                return Ok(city);
 
-            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
+            if (city is null)
+                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
+
+            return Ok(city);
         }
         catch (Exception ex)
         {
@@ -93,16 +94,16 @@ public class CidadeController : ControllerBase
             cityRequest.IdUserCreation = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
             var city = await _cityApp.Insert(_mapper.Map<Cidade>(cityRequest));
-            if (city.IsValid)
+
+            if (!city.IsValid)
             {
-                return StatusCode((int)HttpStatusCode.Created, _mapper.Map<CidadeResponse>(city));
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
+                    errors: city.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+
+                return BadRequest(problemDetail);
             }
 
-            var problemDetail =
-                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                errors: city.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
-            return BadRequest(problemDetail);
+            return StatusCode((int)HttpStatusCode.Created, _mapper.Map<CidadeResponse>(city));
         }
         catch (Exception ex)
         {
@@ -126,22 +127,22 @@ public class CidadeController : ControllerBase
 
             cityRequest.IdUserModification = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value)!;
 
-            var city = await _cityApp.Update(id, cityRequest);
+            var cidadeUpdate = await _cityApp.Update(id, cityRequest);
 
-            if (!city.Item1)
+            if (cidadeUpdate.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (!city.Item2.IsValid)
-            {
-                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                    errors: city.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            var cidade = (CidadeResponse)cidadeUpdate.Item2;
 
+            if (!cidade.Success)
+            {
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request, errors: cidade.Errors);
                 return BadRequest(problemDetail);
             }
 
-            return Ok(_mapper.Map<CidadeResponse>(city.Item2));
+            return Ok(_mapper.Map<CidadeResponse>(cidade));
         }
         catch (Exception ex)
         {
@@ -164,20 +165,21 @@ public class CidadeController : ControllerBase
                 return Unauthorized();
 
             var IdUserDeletion = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var city = await _cityApp.Delete(id, IdUserDeletion!);
+            var cidadeDelete = await _cityApp.Delete(id, IdUserDeletion!);
 
-            if (!city.Item1)
+            if (cidadeDelete.Item1 == HttpStatusCode.NotFound)
             {
                 return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
             }
 
-            if (((CidadeResponse)city.Item2).Success)
+            var cidade = (CidadeResponse)cidadeDelete.Item2;
+            if (!cidade.Success)
             {
-                return NoContent();
+                var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: cidade.Errors);
+                return StatusCode(400, problemDetail);                
             }
 
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.BadRequest, Request, errors: ((UnidadeResponse)city.Item2).Errors);
-            return StatusCode(400, problemDetail);
+            return NoContent();
         }
         catch (Exception ex)
         {

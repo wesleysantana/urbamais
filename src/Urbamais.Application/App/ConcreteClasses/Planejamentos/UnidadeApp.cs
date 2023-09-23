@@ -1,11 +1,13 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using System.Linq.Expressions;
+using System.Net;
 using Urbamais.Application.App.Interfaces.Planejamentos;
 using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.Resources;
 using Urbamais.Application.ViewModels.Request;
 using Urbamais.Application.ViewModels.Request.V1.Unidade;
 using Urbamais.Application.ViewModels.Response;
+using Urbamais.Application.ViewModels.Response.V1.Insumo;
 using Urbamais.Application.ViewModels.Response.V1.Unidade;
 using Urbamais.Domain.Entities.Planejamentos;
 
@@ -32,51 +34,57 @@ public class UnidadeApp : IUnidadeApp
         return entity;
     }
 
-    public async Task<Tuple<bool, Unidade>> Update(object id, IDomainUpdate entity)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Update(object id, IDomainUpdate entity)
     {
-        var unit = await _service.Get(id);
+        var unidade = await _service.Get(id);
+        IValidateViewModel result = new InsumoResponse();
 
-        if (unit is null)
-            return Tuple.Create(false, (Unidade)entity);
+        if (unidade is null)
+        {
+            result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
+        }
 
         var unitUpdate = entity as UnidadeUpdateRequest;
 
-        unit.Update(unitUpdate!.IdUserModification, unitUpdate?.Descricao, unitUpdate?.Sigla);
+        unidade.Update(unitUpdate!.IdUserModification, unitUpdate?.Descricao, unitUpdate?.Sigla);
 
-        if (unit.IsValid)
+        if (!unidade.IsValid)
         {
-            _service.Update(unit);
-            if (await Commit() < 1)
-                throw new Exception(ConstantsApp.UPDATE_ERROR);
+            result.AddErrors(unidade.ValidationResult!.Errors.Select(x => x.ErrorMessage));
+            return Tuple.Create(HttpStatusCode.BadRequest, result);           
         }
 
-        return Tuple.Create(true, unit);
+        _service.Update(unidade);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.UPDATE_ERROR);
+
+        return Tuple.Create(HttpStatusCode.OK, result);
     }
 
-    public async Task<Tuple<bool, IValidateViewModel>> Delete(object id, string IdUserDeletion)
+    public async Task<Tuple<HttpStatusCode, IValidateViewModel>> Delete(object id, string IdUserDeletion)
     {
-        var unit = await _service.Get(id);
+        var unidade = await _service.Get(id);
         IValidateViewModel result = new UnidadeResponse();
 
-        if (unit is null)
+        if (unidade is null)
         {
             result.AddError(ConstantsApp.REGISTER_NOT_FOUND);
-            return Tuple.Create(false, result);
+            return Tuple.Create(HttpStatusCode.NotFound, result);
         }
 
-        if (_service.GetInsumos(unit.Id).Result.Any())
+        if (_service.GetInsumos(unidade.Id).Result.Any())
         {
             result.AddError("Não é possível excluir a unidade pois ela está vinculada a insumo(s) ainda ativo(s).");
-            return Tuple.Create(true, result);
+            return Tuple.Create(HttpStatusCode.BadRequest, result);
         }
 
         _service.Delete(id, IdUserDeletion);
 
-        if (await Commit() > 0)
-            return Tuple.Create(true, result);
+        if (await Commit() < 1)
+            throw new Exception(ConstantsApp.DELETE_ERROR);
 
-        result.AddError(ConstantsApp.DELETE_ERROR);
-        return Tuple.Create(true, result);
+        return Tuple.Create(HttpStatusCode.NoContent, result);
     }
 
     public Task<int> Commit() => _service.Commit();

@@ -14,7 +14,7 @@ public class CentroCusto : BaseEntity, IAggregateRoot
     public Natureza Natureza { get; private set; }
     public long Extenso { get; private set; }
     public virtual ICollection<RegistroFinanceiro>? RegistrosFinanceirosCentroCusto { get; private set; }
-    public virtual ICollection<RegistroFinanceiro> RegistrosFinanceirosClasseFinanceira { get; set; }
+    public virtual ICollection<RegistroFinanceiro>? RegistrosFinanceirosClasseFinanceira { get; set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
