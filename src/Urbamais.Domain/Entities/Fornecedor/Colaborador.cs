@@ -85,37 +85,55 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Cpf.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
-        ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
-        ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
+        /*
+         ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
+         ValidationResult?.Errors.AddRange(Cpf.ValidationResult!.Errors);
+         ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
+         ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
+         ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
+
+         if (!IsValid && Id == default)
+         {
+             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+             foreach (var item in propriedades)
+             {
+                 if (item.Name.Equals(nameof(Enderecos)))
+                 {
+                     _listTelefones = default;
+                     continue;
+                 }
+
+                 if (item.Name.Equals(nameof(Telefones)))
+                 {
+                     _listTelefones = default;
+                     continue;
+                 }
+
+                 if (item.Name.Equals(nameof(Emails)))
+                 {
+                     _listEmails = default;
+                     continue;
+                 }
+
+                 item.SetValue(this, default);
+             }
+         }
+        */
+
+        Validate(this, new ColaboradorValidator());
+        AddErrorsFrom(Nome);
+        AddErrorsFrom(Cpf);
+        AddErrorsFrom(Enderecos);
+        AddErrorsFrom(Telefones);
+        AddErrorsFrom(Emails);
 
         if (!IsValid && Id == default)
         {
-            var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (var item in propriedades)
-            {
-                if (item.Name.Equals(nameof(Enderecos)))
-                {
-                    _listTelefones = default;
-                    continue;
-                }
+            var propriedades = GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-                if (item.Name.Equals(nameof(Telefones)))
-                {
-                    _listTelefones = default;
-                    continue;
-                }
-
-                if (item.Name.Equals(nameof(Emails)))
-                {
-                    _listEmails = default;
-                    continue;
-                }
-
-                item.SetValue(this, default);
-            }
+            foreach (var p in propriedades)
+                p.SetValue(this, default);
         }
     }
 
@@ -145,60 +163,6 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
         Validar();
     }
-
-    #region Sobrescrita Object
-
-    public override string ToString()
-    {
-        return $"Colaborador - Id: {Id}, Nome: {Nome}";
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Colaborador colaborador &&
-            EqualityComparer<NomeVO>.Default.Equals(Nome, colaborador.Nome) &&
-            EqualityComparer<CpfVO>.Default.Equals(Cpf, colaborador.Cpf) &&
-            NumeroCarteiraTrabalho == colaborador.NumeroCarteiraTrabalho &&
-            NumeroCNH == colaborador.NumeroCNH &&
-            TipoCNH == colaborador.TipoCNH &&
-            DataValidadeCNH == colaborador.DataValidadeCNH &&
-            EqualityComparer<string>.Default.Equals(CNH, colaborador.CNH) &&
-            EqualityComparer<string>.Default.Equals(FichaEPI, colaborador.FichaEPI) &&
-            EqualityComparer<string>.Default.Equals(CarteiraTrabalho, colaborador.CarteiraTrabalho) &&
-            NumeroExameAdmissional == colaborador.NumeroExameAdmissional &&
-            DataValidadeExameAdmissional == colaborador.DataValidadeExameAdmissional &&
-            EqualityComparer<string>.Default.Equals(ExameAdmissional, colaborador.ExameAdmissional) &&
-            EqualityComparer<string>.Default.Equals(FichaRegistro, colaborador.FichaRegistro) &&
-            EqualityComparer<string>.Default.Equals(OrdemServico, colaborador.OrdemServico) &&
-            Enumerable.SequenceEqual(_listEnderecos!.OrderBy(e => e.Id), colaborador._listEnderecos!.OrderBy(e => e.Id)) &&
-            Enumerable.SequenceEqual(_listTelefones!.OrderBy(e => e.Id), colaborador._listTelefones!.OrderBy(e => e.Id)) &&
-            Enumerable.SequenceEqual(_listEmails!.OrderBy(e => e.Id), colaborador._listEmails!.OrderBy(e => e.Id));
-    }
-
-    public override int GetHashCode()
-    {
-        HashCode hash = new();
-        hash.Add(_listTelefones);
-        hash.Add(_listEmails);
-        hash.Add(Nome);
-        hash.Add(Cpf);
-        hash.Add(Enderecos);
-        hash.Add(NumeroCarteiraTrabalho);
-        hash.Add(NumeroCNH);
-        hash.Add(TipoCNH);
-        hash.Add(DataValidadeCNH);
-        hash.Add(CNH);
-        hash.Add(FichaEPI);
-        hash.Add(CarteiraTrabalho);
-        hash.Add(NumeroExameAdmissional);
-        hash.Add(DataValidadeExameAdmissional);
-        hash.Add(ExameAdmissional);
-        hash.Add(FichaRegistro);
-        hash.Add(OrdemServico);
-        return hash.ToHashCode();
-    }
-
-    #endregion Sobrescrita Object
 
     private class ColaboradorValidator : AbstractValidator<Colaborador>
     {

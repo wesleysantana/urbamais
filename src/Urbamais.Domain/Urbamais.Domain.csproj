@@ -1,27 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Financeiro\**" />
+    <Compile Remove="Entities\Juridico\**" />
     <Compile Remove="Interfaces\**" />
     <Compile Remove="Repositories\**" />
+    <EmbeddedResource Remove="Entities\Financeiro\**" />
+    <EmbeddedResource Remove="Entities\Juridico\**" />
     <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="Repositories\**" />
+    <None Remove="Entities\Financeiro\**" />
+    <None Remove="Entities\Juridico\**" />
     <None Remove="Interfaces\**" />
     <None Remove="Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Financeiro\" />
-    <Folder Include="Entities\Juridico\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>

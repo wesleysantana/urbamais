@@ -15,7 +15,7 @@ public class AppServiceBase<T> : IDisposable, IAppServiceBase<T> where T : class
 
     public Task Insert(T entity) => _serviceBase.Insert(entity);
 
-    public Task<int> Commit() => _serviceBase.Commit();
+    public Task<int> SaveChangesAsync(CancellationToken ct) => _serviceBase.SaveChangesAsync(ct);
 
     public void Delete(object id) => _serviceBase.Delete(id);
 

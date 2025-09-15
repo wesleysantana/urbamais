@@ -1,31 +1,35 @@
 ﻿using Core.Domain.Interfaces;
 using Core.SeedWork;
 using FluentValidation;
+using System.Reflection;
 
 namespace Urbamais.Domain.Entities.Planejamento;
 
 public class Unidade : BaseEntity, IAggregateRoot
 {
-    public string? Descricao { get; private set; }
-    public string? Sigla { get; private set; }
+    public string Descricao { get; private set; }
+    public string Sigla { get; private set; }
     public virtual ICollection<Insumo>? Insumos { get; private set; }
 
-    public Unidade(string? descricao, string? sigla)
+    public Unidade(string descricao, string sigla)
     {
-        Descricao = descricao?.Trim();
-        Sigla = sigla?.Trim();
+        Descricao = descricao.Trim();
+        Sigla = sigla.Trim();
 
         Validar();
     }
 
     private void Validar()
     {
-        Validate(this, new UnidadeValidator());
+        Validate(this, new UnidadeValidator());       
 
-        if (!IsValid && Id == 0)
+        if (!IsValid && Id == default)
         {
-            Descricao = default;
-            Sigla = default;
+            var propriedades = GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+
+            foreach (var p in propriedades)
+                p.SetValue(this, default);
         }
     }
 
@@ -37,31 +41,7 @@ public class Unidade : BaseEntity, IAggregateRoot
         Validar();
 
         if(IsValid) DataAlteracao = DateTime.Now;
-    }
-
-    #region Sobrescrita Object
-
-    public override string ToString() =>
-        $"Unidade - Id: {Id}, Descricao: {Descricao}, Sigla: {Sigla}";
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Unidade unidade &&
-            Id == unidade.Id &&
-            Descricao == unidade.Descricao &&
-            Sigla == unidade.Sigla;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Descricao, Sigla);
-    }
-
-    public static bool operator ==(Unidade left, Unidade right) => left.Equals(right);
-
-    public static bool operator !=(Unidade left, Unidade right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
+    }   
 
     private class UnidadeValidator : AbstractValidator<Unidade>
     {

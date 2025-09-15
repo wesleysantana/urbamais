@@ -10,7 +10,7 @@ public interface IRepositoryBase<T> where T : class
 
     void Delete(object id);
 
-    Task<int> Commit();
+    Task<int> SaveChangesAsync(CancellationToken ct = default);
 
     void Dispose();
 
@@ -18,7 +18,7 @@ public interface IRepositoryBase<T> where T : class
 
     IQueryable<T> Query();
 
-    Task<T> Get(object id);
+    Task<T> GetByIdAsync(int id, CancellationToken ct = default);
 
     Task<T> Get(Expression<Func<T, bool>> @where, CancellationToken cancellationToken);
 

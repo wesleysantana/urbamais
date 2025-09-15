@@ -18,23 +18,7 @@ public class Pedido : BaseEntity, IAggregateRoot
         PlanejamentoId = planejamentoId;
 
         Validate(this, new PedidoValidator());
-    }
-
-    public override string ToString()
-    {
-        return $"Planejamento - Id: {PlanejamentoId}";
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Pedido pedido &&
-            PlanejamentoId == pedido.PlanejamentoId;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(PlanejamentoId);
-    }
+    }   
 
     private class PedidoValidator : AbstractValidator<Pedido>
     {

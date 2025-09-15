@@ -9,9 +9,9 @@ namespace Urbamais.Domain.Resources;
 
 public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 {
-    private List<Telefone>? _listTelefones = new();
-    private List<Email>? _listEmails = new();
-    private List<Endereco> _listEnderecos = new();
+    private List<Telefone>? _listTelefones = [];
+    private List<Email>? _listEmails = [];
+    private List<Endereco> _listEnderecos = [];
 
     public NomeVO NomeFantasia { get; private set; }
     public NomeVO RazaoSocial { get; private set; }
@@ -61,40 +61,58 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult?.Errors.AddRange(RazaoSocial.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(NomeFantasia.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Cnpj.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
-        ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
-        ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
+        //ValidationResult?.Errors.AddRange(RazaoSocial.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(NomeFantasia.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(Cnpj.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
+        //ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
+        //ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
+
+        //Validate(this, new PessoaJuridicaValidator());
+
+        //if (!IsValid && Id == default)
+        //{
+        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+        //    foreach (var item in propriedades)
+        //    {
+        //        if (item.Name.Equals(nameof(Enderecos)))
+        //        {
+        //            _listTelefones = default;
+        //            continue;
+        //        }
+
+        //        if (item.Name.Equals(nameof(Telefones)))
+        //        {
+        //            _listTelefones = default;
+        //            continue;
+        //        }
+
+        //        if (item.Name.Equals(nameof(Emails)))
+        //        {
+        //            _listEmails = default;
+        //            continue;
+        //        }
+
+        //        item.SetValue(this, default);
+        //    }
+        //}
 
         Validate(this, new PessoaJuridicaValidator());
 
+        AddErrorsFrom(RazaoSocial);
+        AddErrorsFrom(NomeFantasia);
+        AddErrorsFrom(Cnpj);
+        AddErrorsFrom(Enderecos);
+        AddErrorsFrom(Telefones);
+        AddErrorsFrom(Emails);
+
         if (!IsValid && Id == default)
         {
-            var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (var item in propriedades)
-            {
-                if (item.Name.Equals(nameof(Enderecos)))
-                {
-                    _listTelefones = default;
-                    continue;
-                }
+            var propriedades = GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-                if (item.Name.Equals(nameof(Telefones)))
-                {
-                    _listTelefones = default;
-                    continue;
-                }
-
-                if (item.Name.Equals(nameof(Emails)))
-                {
-                    _listEmails = default;
-                    continue;
-                }
-
-                item.SetValue(this, default);
-            }
+            foreach (var p in propriedades)
+                p.SetValue(this, default);
         }
     }
 
@@ -110,52 +128,7 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 
         Validar();
     }
-
-    #region Sobrescrita Object
-
-    public override string ToString() =>
-        $"Empresa - Id: {Id}, Nome: {NomeFantasia}, Razão Sociaol: {RazaoSocial}, Cnpj: {Cnpj}";
-
-    public override bool Equals(object? obj)
-    {
-        return obj is PessoaJuridica empresa &&
-            EqualityComparer<NomeVO>.Default.Equals(RazaoSocial, empresa.RazaoSocial) &&
-            EqualityComparer<NomeVO>.Default.Equals(NomeFantasia, empresa.NomeFantasia) &&
-            EqualityComparer<CnpjVO>.Default.Equals(Cnpj, empresa.Cnpj) &&
-            Enumerable.SequenceEqual(_listEnderecos!.OrderBy(e => e.Id), empresa._listEnderecos!.OrderBy(e => e.Id)) &&
-            Enumerable.SequenceEqual(_listTelefones!.OrderBy(e => e.Id), empresa._listTelefones!.OrderBy(e => e.Id)) &&
-            Enumerable.SequenceEqual(_listEmails!.OrderBy(e => e.Id), empresa._listEmails!.OrderBy(e => e.Id));
-    }
-
-    public override int GetHashCode()
-    {
-        int hashEndereco = 0;
-        foreach (var item in _listEnderecos!)
-        {
-            hashEndereco += item.GetHashCode();
-        }
-
-        int hashTel = 0;
-        foreach (var item in _listTelefones!)
-        {
-            hashTel += item.GetHashCode();
-        }
-
-        int hashEmail = 0;
-        foreach (var item in _listEmails!)
-        {
-            hashEmail += item.GetHashCode();
-        }
-
-        return HashCode.Combine(Id, RazaoSocial, NomeFantasia, Cnpj, Enderecos) + hashEndereco + hashTel + hashEmail;
-    }
-
-    public static bool operator ==(PessoaJuridica left, PessoaJuridica right) => left.Equals(right);
-
-    public static bool operator !=(PessoaJuridica left, PessoaJuridica right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
-
+    
     private class PessoaJuridicaValidator : AbstractValidator<PessoaJuridica>
     {
         public PessoaJuridicaValidator()

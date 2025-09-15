@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using Urbamais.Application.App.Interfaces.Planejamento;
+using Urbamais.Application.Interfaces.Planejamento;
 using Urbamais.Application.ViewModels.Request.v1.Unidade;
 using Urbamais.Application.ViewModels.Response.v1.Unidade;
-using Urbamais.Domain.Entities.Planejamento;
-using Urbamais.WebApi.Shared;
 
 namespace Urbamais.WebApi.Controllers.v1;
 
@@ -14,153 +11,61 @@ namespace Urbamais.WebApi.Controllers.v1;
 [ApiVersion("1.0")]
 public class UnidadeController : ControllerBase
 {
-    private readonly IUnidadeApp _unidadeApp;
+    private readonly IUnidadeAppService _app;
     private readonly IMapper _mapper;
 
-    public UnidadeController(IUnidadeApp unidadeApp, IMapper mapper)
+    public UnidadeController(IUnidadeAppService app, IMapper mapper)
     {
-        _unidadeApp = unidadeApp;
+        _app = app;
         _mapper = mapper;
     }
-   
-    [ProducesResponseType(typeof(List<UnidadeResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpGet]
-    public async Task<ActionResult<List<UnidadeResponse>>> Get([FromQuery] UnidadeFiltroRequest filtro, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var response = await _unidadeApp.Query(filtro, cancellationToken);
-            if (response is not null && response.Any())
-                return Ok(_mapper.Map<List<UnidadeResponse>>(response));
 
-            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
-    }
-   
+    [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpGet("{id}")]
-    public async Task<ActionResult<UnidadeResponse>> Get(int id)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(int id, CancellationToken ct)
     {
-        try
-        {
-            var unidade = _mapper.Map<UnidadeResponse>(await _unidadeApp.Get(id));
-            if (unidade is not null)
-                return Ok(unidade);
-
-            return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
+        var u = await _app.ObterPorIdAsync(id, ct);
+        return u is null ? NotFound() : Ok(_mapper.Map<UnidadeResponse>(u));
     }
-   
+
+    [HttpGet]
+    [ProducesResponseType(typeof(List<UnidadeResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromQuery] string? descricao, [FromQuery] int take = 50, CancellationToken ct = default)
+    {
+        var list = await _app.BuscarPorDescricaoAsync(descricao ?? "", take, ct);
+        return Ok(_mapper.Map<List<UnidadeResponse>>(list));
+    }
+
+    [HttpPost]
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPost]
-    public async Task<ActionResult<UnidadeResponse>> Insert(UnidadeRequest unidadeRequest)
+    public async Task<IActionResult> Post(UnidadeRequest req, CancellationToken ct)
     {
-        try
-        {
-            var unidade = await _unidadeApp.Insert(_mapper.Map<Unidade>(unidadeRequest));
-            if (unidade.IsValid)
-            {
-                return StatusCode((int)HttpStatusCode.Created, _mapper.Map<UnidadeResponse>(unidade));
-            }
-
-            var problemDetail =
-                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                errors: unidade.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
-            return BadRequest(problemDetail);
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
+        var r = await _app.CadastrarAsync(req, ct);
+        if (!r.IsSuccess) return Problem(statusCode: 400, detail: string.Join("; ", r.Errors));
+        var created = await _app.ObterPorIdAsync(r.Value, ct);
+        return CreatedAtAction(nameof(GetById), new { id = r.Value }, _mapper.Map<UnidadeResponse>(created));
     }
-    
+
+    [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPut("{id}")]
-    public async Task<ActionResult<UnidadeResponse>> Update(int id, UnidadeUpdateRequest unidadeRequest)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Put(int id, UnidadeUpdateRequest req, CancellationToken ct)
     {
-        try
-        {
-            var unidade = await _unidadeApp.Update(id, unidadeRequest);
-
-            if (!unidade.Item1)
-            {
-                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
-            }
-
-            if (unidade.Item2.IsValid)
-            {
-                return Ok(_mapper.Map<UnidadeResponse>(unidade.Item2));
-            }
-
-            var problemDetail =
-                new CustomProblemDetails(HttpStatusCode.BadRequest, request: Request,
-                errors: unidade.Item2.ValidationResult!.Errors.Select(x => x.ErrorMessage));
-
-            return BadRequest(problemDetail);
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
+        var r = await _app.AtualizarAsync(id, req, ct);
+        if (r.IsNotFound) return NotFound();
+        if (!r.IsSuccess) return Problem(statusCode: 400, detail: string.Join("; ", r.Errors));
+        var atual = await _app.ObterPorIdAsync(id, ct);
+        return Ok(_mapper.Map<UnidadeResponse>(atual));
     }
 
-    [ProducesResponseType(typeof(UnidadeResponse), StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(int id, CancellationToken ct)
     {
-        try
-        {
-            var unidade = await _unidadeApp.Delete(id);
-
-            if (!unidade.Item1)
-            {
-                return NotFound(new CustomProblemDetails(HttpStatusCode.NotFound));
-            }
-
-            if (unidade.Item2)
-            {
-                return NoContent();
-            }
-
-            return BadRequest();
-        }
-        catch (Exception ex)
-        {
-            var problemDetail = new CustomProblemDetails(HttpStatusCode.InternalServerError, Request, detail: ex.Message);
-            return StatusCode(500, problemDetail);
-        }
+        var r = await _app.ExcluirAsync(id, ct);
+        return r.IsNotFound ? NotFound() : NoContent();
     }
 }

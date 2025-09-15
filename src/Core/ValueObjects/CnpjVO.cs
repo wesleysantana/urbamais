@@ -14,26 +14,6 @@ public sealed class CnpjVO : BaseValidate
 
         if (!IsValid) Cnpj = default;
     }
-
-    #region Sobrescrita Object
-
-    public override bool Equals(object? obj)
-    {
-        return obj is CnpjVO vO &&
-               Cnpj == vO.Cnpj;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Cnpj);
-    }
-
-    public static bool operator ==(CnpjVO left, CnpjVO right) => left.Equals(right);
-
-    public static bool operator !=(CnpjVO left, CnpjVO right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
-
     private class CnpjValidator : AbstractValidator<CnpjVO>
     {
         public CnpjValidator()

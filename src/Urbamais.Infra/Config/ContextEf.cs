@@ -49,26 +49,25 @@ public class ContextEf : DbContext
         _ = new PlanejamentoInsumoConfig(modelBuilder);
         _ = new TelefoneConfig(modelBuilder);
         _ = new UnidadeConfig(modelBuilder);
-    }  
+    }
 
     public override int SaveChanges()
     {
-        SetData();
+        StampTimestampsUtc();
         return base.SaveChanges();
     }
-
-    private void SetData()
+    public override Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
-        foreach (var item in ChangeTracker.Entries())
+        StampTimestampsUtc();
+        return base.SaveChangesAsync(ct);
+    }
+    private void StampTimestampsUtc()
+    {
+        var now = DateTime.UtcNow; // prefira UTC
+        foreach (var e in ChangeTracker.Entries<BaseEntity>())
         {
-            if(item.Entity.GetType() == typeof(BaseEntity))
-            {
-                if (item.State == EntityState.Added)
-                    item.Property(((BaseEntity)item.Entity).DataCriacao.ToString()).CurrentValue = DateTime.Now;
-
-                if (item.State == EntityState.Modified)
-                    item.Property(((BaseEntity)item.Entity).DataAlteracao.ToString()!).CurrentValue = DateTime.Now;
-            }
+            if (e.State == EntityState.Added) e.Entity.DataCriacao = now;
+            if (e.State == EntityState.Modified) e.Entity.DataAlteracao = now;
         }
     }
 }

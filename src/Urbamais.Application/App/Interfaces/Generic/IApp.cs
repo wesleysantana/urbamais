@@ -12,7 +12,7 @@ public interface IApp<T> where T : class
 
     Task<Tuple<bool, bool>> Delete(object id);   
 
-    Task<int> Commit();
+    Task<int> SaveChangesAsync(CancellationToken ct = default);
 
     #region Querys
 

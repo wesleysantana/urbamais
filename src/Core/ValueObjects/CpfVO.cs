@@ -14,26 +14,6 @@ public sealed class CpfVO : BaseValidate
 
         if (!IsValid) Cpf = default;
     }
-
-    #region Sobrescrita Object
-
-    public override bool Equals(object? obj)
-    {
-        return obj is CpfVO vO &&
-               Cpf == vO.Cpf;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Cpf);
-    }
-
-    public static bool operator ==(CpfVO left, CpfVO right) => left.Equals(right);
-
-    public static bool operator !=(CpfVO left, CpfVO right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
-
     private class CpfValidator : AbstractValidator<CpfVO>
     {
         public CpfValidator()

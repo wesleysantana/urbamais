@@ -44,24 +44,38 @@ public class Diario : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        ValidationResult?.Errors.AddRange(Obra.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Fornecedor.ValidationResult!.Errors);
-        ValidationResult?.Errors.AddRange(Colaborador.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(Obra.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(Fornecedor.ValidationResult!.Errors);
+        //ValidationResult?.Errors.AddRange(Colaborador.ValidationResult!.Errors);
+
+        //Validate(this, new DiarioValidator());
+
+        //if (!IsValid && Id == default)
+        //{
+        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+        //    foreach (var item in propriedades)
+        //    {
+        //        if (item.Name.Equals(nameof(Fotos)))
+        //        {
+        //            _listFotos = default;
+        //            continue;
+        //        }
+        //        item.SetValue(this, default);
+        //    }
+        //}
 
         Validate(this, new DiarioValidator());
+        AddErrorsFrom(Obra);
+        AddErrorsFrom(Fornecedor);
+        AddErrorsFrom(Colaborador);
 
         if (!IsValid && Id == default)
         {
-            var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (var item in propriedades)
-            {
-                if (item.Name.Equals(nameof(Fotos)))
-                {
-                    _listFotos = default;
-                    continue;
-                }
-                item.SetValue(this, default);
-            }
+            var propriedades = GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+
+            foreach (var p in propriedades)
+                p.SetValue(this, default);
         }
     }
 
@@ -77,43 +91,6 @@ public class Diario : BaseEntity, IAggregateRoot
 
         Validar();
     }
-
-    #region Sobrescrita Object
-
-    public override string ToString() =>
-        $"Empresa - Id: {Id}, ObraId: {ObraId}, Data: {Data}, FornecedorId: {FornecedorId}, " +
-        $"Descrição das Atividades: {DescricaoAtividades}, ColaboradorId: {ColaboradorId}";
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Diario diario &&
-            Id == diario.Id &&
-            ObraId == diario.ObraId &&
-            EqualityComparer<Obra>.Default.Equals(Obra, diario.Obra) &&
-            Data == diario.Data &&
-            FornecedorId == diario.FornecedorId &&
-            EqualityComparer<Fornecedor.Fornecedor>.Default.Equals(Fornecedor, diario.Fornecedor) &&
-            DescricaoAtividades == diario.DescricaoAtividades &&
-            ColaboradorId == diario.ColaboradorId &&
-            EqualityComparer<Colaborador>.Default.Equals(Colaborador, diario.Colaborador);
-    }
-
-    public override int GetHashCode()
-    {
-        HashCode hash = new();
-        hash.Add(Id);
-        hash.Add(ObraId);
-        hash.Add(Obra);
-        hash.Add(Data);
-        hash.Add(FornecedorId);
-        hash.Add(Fornecedor);
-        hash.Add(DescricaoAtividades);
-        hash.Add(ColaboradorId);
-        hash.Add(Colaborador);
-        return hash.ToHashCode();
-    }
-
-    #endregion Sobrescrita Object
 
     private class DiarioValidator : AbstractValidator<Diario>
     {

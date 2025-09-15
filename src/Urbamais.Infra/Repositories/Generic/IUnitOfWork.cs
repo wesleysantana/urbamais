@@ -1,7 +1,7 @@
-﻿namespace Urbamais.Infra.Repositories.Generic;
+﻿//namespace Urbamais.Infra.Repositories.Generic;
 
-internal interface IUnitOfWork
-{
-    Task<int> Commit();
-    Task Rollback();
-}
+//public interface IUnitOfWork
+//{
+//    Task<int> SaveChangesAsync(CancellationToken ct = default);
+//    Task Rollback();
+//}

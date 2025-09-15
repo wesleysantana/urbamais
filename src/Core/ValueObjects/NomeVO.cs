@@ -5,33 +5,15 @@ namespace Core.ValueObjects;
 
 public sealed class NomeVO : BaseValidate
 {
-    public string? Nome { get; private set; }
+    public string Nome { get; private set; } = "";
 
     public NomeVO(string nome)
     {
         Nome = nome.Trim();
         Validate(this, new NomeValidator());
 
-        if (!IsValid) Nome = default;
-    }
-
-    #region Sobrescrita Object
-
-    public override bool Equals(object? obj)
-    {
-        return obj is NomeVO vO && Nome == vO.Nome;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Nome);
-    }
-
-    public static bool operator ==(NomeVO left, NomeVO right) => left.Equals(right);
-
-    public static bool operator !=(NomeVO left, NomeVO right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
+        if (!IsValid) Nome = "";
+    }       
 
     private class NomeValidator : AbstractValidator<NomeVO>
     {

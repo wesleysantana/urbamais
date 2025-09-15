@@ -22,7 +22,7 @@ public abstract class EnderecoCore : BaseEntity, IEntity
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public EnderecoCore(string logradouro, string numero, string complemento, string cep, string bairro, int cidadeId)
+    public EnderecoCore(string logradouro, string numero, string complemento, string bairro, string cep, int cidadeId)
     {
         Logradouro = logradouro.Trim();
         Numero = numero.Trim();
@@ -42,34 +42,6 @@ public abstract class EnderecoCore : BaseEntity, IEntity
             }
         }
     }
-
-    #region Sobrescrita Object
-
-    public override string ToString() => $"Cidade - Id: {Id}, Logradouro: {Logradouro}, Número: {Numero}, " +
-        $"Complemento: {Complemento}, Bairro: {Bairro}, Cep: {Cep}, Cidade: {Cidade?.Nome}, Estado: {Cidade?.Uf}";
-
-    public override bool Equals(object? obj)
-    {
-        return obj is EnderecoCore endereco &&
-            Id == endereco.Id &&
-            Logradouro == endereco.Logradouro &&
-            Numero == endereco.Numero &&
-            Complemento == endereco.Complemento &&
-            Cep == endereco.Cep &&
-            Bairro == endereco.Bairro &&
-            EqualityComparer<CidadeCore>.Default.Equals(Cidade, endereco.Cidade);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Logradouro, Numero, Complemento, Cep, Bairro, Cidade);
-    }
-
-    public static bool operator ==(EnderecoCore left, EnderecoCore right) => left.Equals(right);
-
-    public static bool operator !=(EnderecoCore left, EnderecoCore right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
 
     private class EnderecoValidator : AbstractValidator<EnderecoCore>
     {

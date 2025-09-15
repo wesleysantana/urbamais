@@ -1,11 +1,23 @@
-﻿namespace Core.SeedWork;
+﻿using Core.Domain.Interfaces;
 
-public abstract class BaseEntity : BaseValidate
+namespace Core.SeedWork;
+
+
+public abstract class BaseEntity : BaseValidate, IEntity
 {
     public int Id { get; protected set; }
-    public DateTime DataCriacao { get; protected set; } = DateTime.Now;
-    public DateTime? DataAlteracao { get; protected set; }
+
+    public DateTime DataCriacao { get; set; }
+    public DateTime? DataAlteracao { get; set; }
     public DateTime? DataExclusao { get; protected set; }
 
-    public void Delete() => DataExclusao = DateTime.Now;
+    public void Delete()
+    {
+        DataExclusao = DateTime.UtcNow;
+    }
+
+    public void Restore()
+    {
+        DataExclusao = null;
+    }
 }

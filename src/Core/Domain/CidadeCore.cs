@@ -22,24 +22,23 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
     {
         Nome = nome;
         Uf = uf;
-        DataCriacao = DateTime.Now;        
+        DataCriacao = DateTime.Now;
 
         Validar();
-    }
+    }  
 
     private void Validar()
-    {
-        ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
-
+    {       
         Validate(this, new CidadeValidator());
+        AddErrorsFrom(Nome);
 
         if (!IsValid && Id == default)
         {
-            var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (var item in propriedades)
-            {
-                item.SetValue(this, default);
-            }
+            var propriedades = GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+
+            foreach (var p in propriedades)
+                p.SetValue(this, default);
         }
     }
 
@@ -50,30 +49,7 @@ public abstract class CidadeCore : BaseEntity, IAggregateRoot
 
         DataAlteracao = DateTime.Now;
         Validar();
-    }
-
-    #region Sobrescrita Object
-
-    public override string ToString() => $"Cidade - Id: {Id}, Nome: {Nome}, Estado: {Uf}";
-
-    public override bool Equals(object? obj)
-    {
-        return obj is CidadeCore cidade &&
-            Id == cidade.Id &&
-            EqualityComparer<NomeVO>.Default.Equals(Nome, cidade.Nome) &&
-            EqualityComparer<Uf>.Default.Equals(Uf, cidade.Uf);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Nome, Uf);
-    }
-
-    public static bool operator ==(CidadeCore left, CidadeCore right) => left.Equals(right);
-
-    public static bool operator !=(CidadeCore left, CidadeCore right) => !left.Equals(right);
-
-    #endregion Sobrescrita Object
+    }   
 
     private class CidadeValidator : AbstractValidator<CidadeCore>
     {

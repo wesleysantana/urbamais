@@ -32,10 +32,7 @@ public class PlanejamentoInsumo : BaseValidate, IEntity
         Validar();
     }
 
-    private void Validar()
-    {
-        Validate(this, new PlanejamentoInsumoValidator());
-    }
+    private void Validar() => Validate(this, new PlanejamentoInsumoValidator());
 
     public void Update(int? planejamentoId = null, int? insumoId = null, decimal? valorUnitario = null,
         double? quantidade = null, DateTime? dataInicio = null, DateTime? dataFim = null)

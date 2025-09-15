@@ -10,7 +10,7 @@ public interface IServiceBase<T> where T : class
 
     void Delete(object id);
 
-    Task<int> Commit();
+    Task<int> SaveChangesAsync(CancellationToken ct = default);
 
     #region Querys
 
