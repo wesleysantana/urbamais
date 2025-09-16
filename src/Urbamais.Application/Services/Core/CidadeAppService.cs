@@ -5,8 +5,8 @@ using Urbamais.Domain.InterfacesRepositories.Core;
 
 namespace Urbamais.Application.Services.Core;
 
-//public class CidadeAppService : AppServiceBase<Cidade>, ICidadeAppService
-public class CidadeAppService : ICidadeAppService{
+public class CidadeAppService : ICidadeAppService
+{
     
     private readonly ICidadeRepository _repo;
     public CidadeAppService(ICidadeRepository repo) => _repo = repo;

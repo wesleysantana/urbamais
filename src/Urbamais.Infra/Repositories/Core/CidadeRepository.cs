@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Urbamais.Domain.Entities.EntitiesOfCore;
 using Urbamais.Domain.InterfacesRepositories.Core;
 using Urbamais.Infra.Config;
-//using Urbamais.Infra.Repositories.Generic;
 
 namespace Urbamais.Infra.Repositories.Core;
 
-public sealed class CidadeRepository : ICidadeRepository //RepositoryBaseEntity<Cidade>, ICidadeRepository
+public sealed class CidadeRepository : ICidadeRepository
 {
     private readonly ContextEf _ctx;
     private DbSet<Cidade> Set => _ctx.Set<Cidade>();

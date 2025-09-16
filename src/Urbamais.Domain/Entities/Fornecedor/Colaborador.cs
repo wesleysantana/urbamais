@@ -9,9 +9,9 @@ namespace Urbamais.Domain.Entities.Fornecedor;
 
 public class Colaborador : BaseEntity, IAggregateRoot
 {
-    private List<Telefone>? _listTelefones = new();
-    private List<Email>? _listEmails = new();
-    private List<Endereco> _listEnderecos = new();
+    private List<Telefone>? _listTelefones = [];
+    private List<Email>? _listEmails = [];
+    private List<Endereco> _listEnderecos = [];
 
     public NomeVO Nome { get; private set; }
     public CpfVO Cpf { get; private set; }
@@ -85,41 +85,6 @@ public class Colaborador : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        /*
-         ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
-         ValidationResult?.Errors.AddRange(Cpf.ValidationResult!.Errors);
-         ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
-         ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
-         ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
-
-         if (!IsValid && Id == default)
-         {
-             var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-             foreach (var item in propriedades)
-             {
-                 if (item.Name.Equals(nameof(Enderecos)))
-                 {
-                     _listTelefones = default;
-                     continue;
-                 }
-
-                 if (item.Name.Equals(nameof(Telefones)))
-                 {
-                     _listTelefones = default;
-                     continue;
-                 }
-
-                 if (item.Name.Equals(nameof(Emails)))
-                 {
-                     _listEmails = default;
-                     continue;
-                 }
-
-                 item.SetValue(this, default);
-             }
-         }
-        */
-
         Validate(this, new ColaboradorValidator());
         AddErrorsFrom(Nome);
         AddErrorsFrom(Cpf);

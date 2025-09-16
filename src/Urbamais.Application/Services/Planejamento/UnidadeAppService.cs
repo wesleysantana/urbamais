@@ -1,6 +1,6 @@
-﻿using Core.Domain.Interfaces; // IUnitOfWork
+﻿using Core.Domain.Interfaces;
 using Urbamais.Application.Interfaces.Planejamento;
-using Urbamais.Application.Shared; // Result / Result<T>
+using Urbamais.Application.Shared;
 using Urbamais.Application.ViewModels.Request.v1.Unidade;
 using Urbamais.Domain.Entities.Planejamento;
 using Urbamais.Domain.InterfacesRepositories.Planejamento;

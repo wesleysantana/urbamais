@@ -27,19 +27,7 @@ public class Insumo : BaseEntity, IAggregateRoot
         Nome = nome;
         Descricao = descricao.Trim();
         Unidade = unidade;
-        Tipo = tipo;
-
-        //ValidationResult?.Errors.AddRange(Nome.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(Unidade.ValidationResult!.Errors);
-
-        //Validate(this, new InsumoValidator());
-
-        //if (!IsValid && Id == default)
-        //{
-        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-        //    foreach (var item in propriedades)
-        //        item.SetValue(this, default);
-        //}
+        Tipo = tipo;        
 
         Validate(this, new InsumoValidator());
         AddErrorsFrom(Nome);

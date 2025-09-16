@@ -61,42 +61,6 @@ public abstract class PessoaJuridica : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        //ValidationResult?.Errors.AddRange(RazaoSocial.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(NomeFantasia.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(Cnpj.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(Enderecos.SelectMany(x => x.ValidationResult!.Errors));
-        //ValidationResult?.Errors.AddRange(Telefones.SelectMany(x => x.ValidationResult!.Errors));
-        //ValidationResult?.Errors.AddRange(Emails.SelectMany(x => x.ValidationResult!.Errors));
-
-        //Validate(this, new PessoaJuridicaValidator());
-
-        //if (!IsValid && Id == default)
-        //{
-        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-        //    foreach (var item in propriedades)
-        //    {
-        //        if (item.Name.Equals(nameof(Enderecos)))
-        //        {
-        //            _listTelefones = default;
-        //            continue;
-        //        }
-
-        //        if (item.Name.Equals(nameof(Telefones)))
-        //        {
-        //            _listTelefones = default;
-        //            continue;
-        //        }
-
-        //        if (item.Name.Equals(nameof(Emails)))
-        //        {
-        //            _listEmails = default;
-        //            continue;
-        //        }
-
-        //        item.SetValue(this, default);
-        //    }
-        //}
-
         Validate(this, new PessoaJuridicaValidator());
 
         AddErrorsFrom(RazaoSocial);

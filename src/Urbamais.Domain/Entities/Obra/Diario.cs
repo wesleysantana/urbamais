@@ -44,26 +44,6 @@ public class Diario : BaseEntity, IAggregateRoot
 
     private void Validar()
     {
-        //ValidationResult?.Errors.AddRange(Obra.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(Fornecedor.ValidationResult!.Errors);
-        //ValidationResult?.Errors.AddRange(Colaborador.ValidationResult!.Errors);
-
-        //Validate(this, new DiarioValidator());
-
-        //if (!IsValid && Id == default)
-        //{
-        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-        //    foreach (var item in propriedades)
-        //    {
-        //        if (item.Name.Equals(nameof(Fotos)))
-        //        {
-        //            _listFotos = default;
-        //            continue;
-        //        }
-        //        item.SetValue(this, default);
-        //    }
-        //}
-
         Validate(this, new DiarioValidator());
         AddErrorsFrom(Obra);
         AddErrorsFrom(Fornecedor);

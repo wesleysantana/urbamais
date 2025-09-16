@@ -28,18 +28,7 @@ public class Obra : BaseEntity, IAggregateRoot
     }
 
     private void Validar()
-    {
-        //ValidationResult?.Errors.AddRange(Empresa.ValidationResult!.Errors);
-
-        //if (!IsValid && Id == default)
-        //{
-        //    var propriedades = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-        //    foreach (var item in propriedades)
-        //    {
-        //        item.SetValue(this, default);
-        //    }
-        //}
-        
+    {        
         AddErrorsFrom(Empresa);
 
         if (!IsValid && Id == default)
