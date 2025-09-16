@@ -1,92 +1,212 @@
-# Urbamais
+# Urbamais (DDD Example · .NET)
 
+> **Heads-up:** This repository is a **demonstration** of how I structure projects using **Domain-Driven Design (DDD)**.  
+> It focuses on **architecture and patterns**, not delivering a fully finished product.  
+> Some features are **incomplete** or **stubbed**; parts of the app **may not work end-to-end**.
 
+## ✨ Overview
 
-## Getting started
+- **DDD architecture** with clear boundaries: **Domain**, **Application**, **Infrastructure**, **WebApi**, and **CrossCutting**.
+- **JWT** authentication (HMAC) with **ASP.NET Identity**.
+- **Entity Framework Core** with **PostgreSQL** (Npgsql).
+- **Swagger/OpenAPI** with API versioning.
+- Consistent error responses via **ProblemDetails**.
+- **AutoMapper** for DTO ↔ domain mappings.
+- Domain validations with **FluentValidation-style** results and helpers to compose errors from VOs/child entities.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+> Some subdomains (e.g., **City**) are intentionally **not 100% complete** to keep the repo focused on structure.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## 🧱 Solution Layout
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/WelSantana/urbamais.git
-git branch -M main
-git push -uf origin main
+src/
+  Core/
+    Constants/
+    Domain/
+      Interfaces/           # IAggregateRoot, IEntity, etc.
+    Enums/
+    SeedWork/               # BaseEntity, BaseValidate
+    ValueObjects/           # CpfVO, CnpjVO, NomeVO, DescricaoVO
+  Urbamais.Domain/
+    Entities/
+      EntitiesOfCore/       # City, Address, Phone, Email, ...
+      Planejamento/         # Unidade, Insumo, ...
+      Obra/ Suprimento/ Fornecedor/ ...
+    InterfacesRepositories/
+      Core/                 # ICidadeRepository, ...
+      Planejamento/         # IUnidadeRepository, ...
+      Generic/              # legacy interfaces (being phased out)
+    Services/               # domain services (when needed)
+  Urbamais.Application/
+    Interfaces/             # IUnidadeAppService, ICidadeAppService, ...
+    Services/               # UnidadeAppService, CidadeAppService, ...
+    ViewModels/             # Request/Response DTOs
+    App/                    # (optional) app-layer helpers
+  Urbamais.Infra/
+    Config/                 # ContextEf, EF configurations
+      ConfigModels/         # EntityTypeConfiguration per entity
+    Repositories/           # UnidadeRepository, CidadeRepository, ...
+  Urbamais.Identity/
+    Config/                 # ContextIdentity, Identity configs
+    Services/               # IdentityService, roles/permissions
+  Urbamais.CrossCutting/
+    AutoMapper/             # MappingProfile
+    IOC/                    # ModuloIOC (DI registrations)
+  Urbamais.WebApi/
+    Controllers/
+    Swagger/
+    Shared/                 # Custom ProblemDetails
+    Program.cs, Bootstrap.cs, AuthenticationSetup.cs, ...
 ```
 
-## Integrate with your tools
+---
 
-- [ ] [Set up project integrations](https://gitlab.com/WelSantana/urbamais/-/settings/integrations)
+## 🧭 Key Architectural Decisions
 
-## Collaborate with your team
+- **Domain stays clean**: domain project references **no** EF/Infra/Web packages. It exposes **interfaces** (e.g., `IUnidadeRepository`); implementations live in Infrastructure.
+- **Repositories per aggregate**: public contracts are **business-oriented** (`ObterPorSiglaAsync`, `BuscarPorDescricaoAsync`, etc.). Internal EF helpers may exist inside Infra, but do not leak to Domain.
+- **Unit of Work**: the Application layer coordinates persistence via `IUnitOfWork` (single commit per use case).
+- **Validation in Domain**: entities/VOs expose `ValidationResult`. Helpers in `BaseValidate` aggregate VO/child errors without repetitive boilerplate.
+- **Soft delete** where appropriate via domain methods (`Delete()`/`Restore()`), persisted by Infra; **hard delete** only for exceptional cases.
+- **JWT + Identity**: token issuance with issuer/audience/secret from configuration; refresh token flow available.
+- **API Versioning + Swagger**: grouped docs and consistent ProblemDetails for errors.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+---
 
-## Test and Deploy
+## 🛠️ Stack
 
-Use the built-in continuous integration in GitLab.
+- **.NET** (ASP.NET Core Web API)
+- **EF Core** + **Npgsql** (PostgreSQL)
+- **ASP.NET Identity**
+- **JWT** (HMAC)
+- **AutoMapper**
+- **Swashbuckle** (Swagger)
+- **Hellang ProblemDetails**
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+---
 
-***
+## ▶️ Run Locally
 
-# Editing this README
+> This is a **demo**. Some endpoints might be partial or not fully wired to the DB.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+1) **Prereqs**
+- .NET SDK (7/8)
+- PostgreSQL (or adjust provider/connection)
+- (Optional) EF Core CLI: `dotnet tool install --global dotnet-ef`
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+2) **Configure `appsettings.Development.json`** (example)
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=urbamais;Username=postgres;Password=postgres"
+  },
+  "JwtOptions": {
+    "Issuer": "Urbamais",
+    "Audience": "Urbamais.Api",
+    "SecurityKey": "YOUR_LONG_RANDOM_SECRET_KEY_HERE",
+    "AccessTokenExpiration": 60,
+    "RefreshTokenExpiration": 1440
+  }
+}
+```
 
-## Name
-Choose a self-explaining name for your project.
+3) **Restore & (optionally) apply migrations**
+```bash
+dotnet restore
+# dotnet ef database update -p src/Urbamais.Infra -s src/Urbamais.WebApi
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+4) **Run the API**
+```bash
+dotnet run --project src/Urbamais.WebApi
+```
+Swagger will be available (e.g., `https://localhost:xxxx/swagger`).
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+---
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 🔐 Quick JWT Check
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Typical auth endpoints (names may vary slightly in this demo):
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- `POST /api/usuario/login` → returns access/refresh tokens
+- `POST /api/usuario/refresh-login` → refresh flow (requires bearer token)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Use header:
+```
+Authorization: Bearer <your_access_token>
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+> You may need to seed a test user or tweak `IdentityService` for a quick demo login.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+---
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## 📚 Endpoints (current state)
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+- **Unidade** (`/api/unidade`): main CRUD/search endpoints are implemented (Application + Infra).
+- **Cidade** (`/api/cidade`): **in progress**; Domain/Infra are ahead of Application/Controller in some parts.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Some calls may return **404/500** until the full chain (Controller → App → Repo → EF mappings → DB) is finalized for every aggregate.
 
-## License
-For open source projects, say how it is licensed.
+---
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🧪 Tests
+
+- **Domain.Tests** — entities and value objects (e.g., `UnidadeTests`, `CpfVOTest`, etc.).
+- **Application.Tests** — app services with **fakes/mocks** for repositories/UoW.
+- **WebApi.Tests** — controller tests (light integration).
+
+> Some tests are scaffolds or not yet updated to the latest refactors (e.g., “single `Update` method” on `Unidade`). The intent is to showcase the **testing approach**.
+
+---
+
+## 🧩 Patterns You’ll Find
+
+- Business-oriented repository interfaces in **Domain**; EF implementations in **Infra**.
+- `IUnitOfWork.SaveChangesAsync` at the end of application use cases.
+- Domain **normalization** (trim/uppercase when relevant) and **error aggregation** helpers in `BaseValidate`.
+- **Soft delete** methods on aggregates, with global query filters at the DbContext (when used).
+- **Swagger** + **ProblemDetails** for consistent API docs and errors.
+- **API versioning** (header based, e.g., `v1`).
+
+---
+
+## 🗺️ Roadmap / Ideas
+
+- Finish **City** flow (Controller + App + tests).
+- Standardize **paging/take** across all list endpoints.
+- Add indices for frequent queries (e.g., `IX_Cidade(Uf, Nome)`).
+- Ensure **UTC** timestamps end-to-end.
+- Seed & migrations for a **one-click demo**.
+- **Docker Compose** for API + Postgres.
+- Publish a **Postman collection** with sample JWT calls.
+
+---
+
+## ⚠️ Disclaimer
+
+This is a **portfolio/demo** project.  
+It is **not production-ready**.  
+Some parts are **work-in-progress** or deliberately simplified to highlight architecture.
+
+---
+
+## 📄 License
+
+Suggested: **MIT License** (simple and friendly for portfolio use).
+
+---
+
+## 🤝 Contributing / Feedback
+
+PRs and suggestions are welcome — especially around:
+- Aggregate boundaries and DDD refinements
+- Integration tests and migration/seed setup
+- API documentation and examples
+- Docker/CI improvements
+
+---
+
+*Thanks for checking out this DDD example!*
+
